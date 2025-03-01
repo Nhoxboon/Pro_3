@@ -5,17 +5,36 @@ using UnityEngine;
 
 public class PlayerMovement : NhoxBehaviour
 {
+    [Header("Movement Settings")]
     [SerializeField] protected float moveSpeed = 10f;
+
+    [Header("Jump Settings")]
     [SerializeField] protected float jumpForce = 16f;
+    [SerializeField] protected int amountOfJumpsLeft;
+    [SerializeField] protected int amountOfJumps = 1;
+    [SerializeField] protected bool canJump;
+
+    [Header("Movement Variables")]
     [SerializeField] protected float movementInputDirection;
     [SerializeField] protected bool isFacingRight = true;
+    [SerializeField] protected bool isMoving;
+    public bool IsMoving => isMoving;
 
+    [Header("Components")]
     [SerializeField] protected Rigidbody2D rb;
+    public Rigidbody2D Rb => rb;
+
+    protected override void Start()
+    {
+        base.Start();
+        amountOfJumpsLeft = amountOfJumps;
+    }
 
     private void Update()
     {
         this.CheckInput();
         this.CheckFlip();
+        this.CheckCanJump();
     }
 
     private void FixedUpdate()
@@ -32,41 +51,72 @@ public class PlayerMovement : NhoxBehaviour
     protected void LoadRigidbody2d()
     {
         if (this.rb != null) return;
-        this.rb = this.GetComponentInParent<Rigidbody2D>();
+        this.rb = GetComponentInParent<Rigidbody2D>();
         Debug.Log(transform.name + " LoadRigidbody2d", gameObject);
     }
 
     protected void CheckInput()
     {
-        this.movementInputDirection = InputManager.Instance.HorizontalInput;
+        movementInputDirection = InputManager.Instance.HorizontalInput;
 
         if(InputManager.Instance.JumpPressed)
         {
-            this.Jump();
+            Jump();
         }
     }
 
     protected void CheckFlip()
     {
-        if (this.movementInputDirection > 0 && !this.isFacingRight || this.movementInputDirection < 0 && this.isFacingRight)
+        if (movementInputDirection > 0 && !isFacingRight || movementInputDirection < 0 && isFacingRight)
         {
-            this.Flip();
+            Flip();
+        }
+
+        if(rb.velocity.x != 0)
+        {
+            isMoving = true;
+        }
+        else
+        {
+            isMoving = false;
         }
     }
 
     protected void Flip()
     {
-        this.isFacingRight = !this.isFacingRight;
-        this.transform.parent.Rotate(0f, 180f, 0f);
+        isFacingRight = !isFacingRight;
+        transform.parent.Rotate(0f, 180f, 0f);
     }
+
+    protected void CheckCanJump()
+    {
+        if (PlayerCtrl.Instance.TouchingDirection.IsGrounded && rb.velocity.y <= 0)
+        {
+            amountOfJumpsLeft = amountOfJumps;
+        }
+        if (amountOfJumpsLeft <= 0)
+        {
+            canJump = false;
+        }
+        else
+        {
+            canJump = true;
+        }
+    }
+
 
     protected void ApplyMovement()
     {
-        this.rb.velocity = new Vector2(this.movementInputDirection * moveSpeed, this.rb.velocity.y);
+        rb.velocity = new Vector2(movementInputDirection * moveSpeed, rb.velocity.y);
     }
 
     protected void Jump()
     {
-        this.rb.velocity = new Vector2(this.rb.velocity.x, jumpForce);
+        if (canJump)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            amountOfJumpsLeft--;
+        }
     }
+
 }
