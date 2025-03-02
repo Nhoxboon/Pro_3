@@ -7,11 +7,15 @@ public class PlayerMovement : NhoxBehaviour
 {
     [Header("Movement Settings")]
     [SerializeField] protected float moveSpeed = 10f;
+    [SerializeField] protected float wallSlideSpeed = 2f;
+    [SerializeField] protected float movementForceInAir = 50f;
+    [SerializeField] protected float airDragMultiplier = 0.95f;
 
     [Header("Jump Settings")]
     [SerializeField] protected float jumpForce = 16f;
     [SerializeField] protected int amountOfJumpsLeft;
     [SerializeField] protected int amountOfJumps = 1;
+    [SerializeField] protected float variableJumpHeightMultiplier = 0.5f;
     [SerializeField] protected bool canJump;
 
     [Header("Movement Variables")]
@@ -19,6 +23,8 @@ public class PlayerMovement : NhoxBehaviour
     [SerializeField] protected bool isFacingRight = true;
     [SerializeField] protected bool isMoving;
     public bool IsMoving => isMoving;
+    [SerializeField] protected bool isWallSliding;
+    public bool IsWallSliding => isWallSliding;
 
     [Header("Components")]
     [SerializeField] protected Rigidbody2D rb;
@@ -32,20 +38,21 @@ public class PlayerMovement : NhoxBehaviour
 
     private void Update()
     {
-        this.CheckInput();
-        this.CheckFlip();
-        this.CheckCanJump();
+        CheckInput();
+        CheckFlip();
+        CheckCanJump();
+        CheckIfWallSliding();
     }
 
     private void FixedUpdate()
     {
-        this.ApplyMovement();
+        ApplyMovement();
     }
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadRigidbody2d();
+        LoadRigidbody2d();
     }
 
     protected void LoadRigidbody2d()
@@ -62,6 +69,11 @@ public class PlayerMovement : NhoxBehaviour
         if(InputManager.Instance.JumpPressed)
         {
             Jump();
+        }
+
+        if(InputManager.Instance.JumpReleased)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * variableJumpHeightMultiplier);
         }
     }
 
@@ -84,8 +96,13 @@ public class PlayerMovement : NhoxBehaviour
 
     protected void Flip()
     {
-        isFacingRight = !isFacingRight;
-        transform.parent.Rotate(0f, 180f, 0f);
+        if(!isWallSliding)
+        {
+            isFacingRight = !isFacingRight;
+            Vector3 scale = transform.parent.localScale;
+            scale.x *= -1;
+            transform.parent.localScale = scale;
+        }
     }
 
     protected void CheckCanJump()
@@ -104,10 +121,67 @@ public class PlayerMovement : NhoxBehaviour
         }
     }
 
+    protected void CheckIfWallSliding()
+    {
+        if(PlayerCtrl.Instance.TouchingDirection.IsTouchingWall && !PlayerCtrl.Instance.TouchingDirection.IsGrounded && rb.velocity.y < 0)
+        {
+            isWallSliding = true;
+        }
+        else
+        {
+            isWallSliding = false;
+        }
+    }
 
     protected void ApplyMovement()
     {
+        if (PlayerCtrl.Instance.TouchingDirection.IsGrounded)
+        {
+            ApplyGroundMovement();
+        }
+        else if (!PlayerCtrl.Instance.TouchingDirection.IsGrounded && !isWallSliding && movementInputDirection != 0)
+        {
+            ApplyAirMovementWithInput();
+        }
+        else if (!PlayerCtrl.Instance.TouchingDirection.IsGrounded && !isWallSliding && movementInputDirection == 0)
+        {
+            ApplyAirDrag();
+        }
+
+        WallSlide();
+    }
+
+    protected void ApplyGroundMovement()
+    {
         rb.velocity = new Vector2(movementInputDirection * moveSpeed, rb.velocity.y);
+    }
+
+    protected void ApplyAirMovementWithInput()
+    {
+        Vector2 forceToAdd = new Vector2(movementForceInAir * movementInputDirection, 0);
+        rb.AddForce(forceToAdd);
+
+        if (Mathf.Abs(rb.velocity.x) > moveSpeed)
+        {
+            rb.velocity = new Vector2(moveSpeed * movementInputDirection, rb.velocity.y);
+        }
+    }
+
+    protected void ApplyAirDrag()
+    {
+        rb.velocity = new Vector2(rb.velocity.x * airDragMultiplier, rb.velocity.y);
+    }
+
+
+    protected void WallSlide()
+    {
+        if (isWallSliding)
+        {
+            if (rb.velocity.y < -wallSlideSpeed)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, -wallSlideSpeed);
+            }
+        }
     }
 
     protected void Jump()
