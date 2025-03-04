@@ -15,7 +15,7 @@ public class TouchingDirection : NhoxBehaviour
     public bool IsTouchingWall => isTouchingWall;
 
     [SerializeField] protected Transform wallCheck;
-    [SerializeField] protected float wallCheckDistance = 0.4f;
+    [SerializeField] protected float wallCheckDistance = 0.65f;
 
     protected override void LoadComponents()
     {

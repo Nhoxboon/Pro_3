@@ -6,6 +6,7 @@ public class InputManager : NhoxBehaviour
     public static InputManager Instance => instance;
 
     public float HorizontalInput { get; private set; }
+    public bool HorizontalButtonPressed { get; private set; }
     public bool JumpPressed { get; private set; }
     public bool JumpHeld { get; private set; }
     public bool JumpReleased { get; private set; }
@@ -39,16 +40,14 @@ public class InputManager : NhoxBehaviour
 
     private void ProcessMovementInput()
     {
-        bool leftPressed = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
-        bool rightPressed = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
-        bool upPressed = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
-        bool downPressed = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
+        bool leftKeyHeld = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
+        bool rightKeyHeld = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
 
-        if (leftPressed && !rightPressed)
+        if (leftKeyHeld && !rightKeyHeld)
         {
             HorizontalInput = -1f;
         }
-        else if (rightPressed && !leftPressed)
+        else if (rightKeyHeld && !leftKeyHeld)
         {
             HorizontalInput = 1f;
         }
@@ -56,6 +55,9 @@ public class InputManager : NhoxBehaviour
         {
             HorizontalInput = 0f;
         }
+
+        HorizontalButtonPressed = Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow) ||
+                                  Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow);
     }
 
     private void ProcessJumpInput()
@@ -76,11 +78,13 @@ public class InputManager : NhoxBehaviour
     public void ResetInputs()
     {
         HorizontalInput = 0f;
+        HorizontalButtonPressed = false;
         JumpPressed = false;
         JumpHeld = false;
         JumpReleased = false;
         DashPressed = false;
         AttackPressed = false;
         InteractPressed = false;
+        PausePressed = false;
     }
 }

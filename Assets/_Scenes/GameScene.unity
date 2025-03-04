@@ -39624,7 +39624,7 @@ MonoBehaviour:
   isGrounded: 0
   isTouchingWall: 0
   wallCheck: {fileID: 1859651143}
-  wallCheckDistance: 0.4
+  wallCheckDistance: 0.65
 --- !u!4 &1389971698
 Transform:
   m_ObjectHideFlags: 0
@@ -39730,7 +39730,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 4
+  m_GravityScale: 6
   m_Material: {fileID: 6200000, guid: ee1ec4e28ed074e40bbff4e4ea8389a6, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -39740,7 +39740,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &1522995599
 MonoBehaviour:
@@ -39801,17 +39801,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8be8827b369eb2b4f9289ba96849b8d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
-  wallSlideSpeed: 2
-  movementForceInAir: 50
+  moveSpeed: 9
+  wallSlideSpeed: 1
   airDragMultiplier: 0.95
-  jumpForce: 16
+  facingDirection: 1
+  jumpForce: 20
   amountOfJumpsLeft: 0
-  amountOfJumps: 1
+  amountOfJumps: 2
   variableJumpHeightMultiplier: 0.5
-  canJump: 0
+  checkJumpMultiplier: 0
+  canNormalJump: 0
+  jumpTimer: 0
+  jumpTimerSet: 0.15
+  isAttemptingToJump: 0
+  turnTimer: 0
+  turnTimerSet: 0.1
+  canWallJump: 0
+  wallJumpDirection: {x: 1, y: 2}
+  wallJumpForce: 30
+  wallJumpTimer: 0
+  wallJumpTimerSet: 0.5
+  hasWallJumped: 0
+  lastWallJumpDirection: 0
   movementInputDirection: 0
   isFacingRight: 1
+  canFlip: 0
+  canMove: 0
   isMoving: 0
   isWallSliding: 0
   rb: {fileID: 1522995598}
