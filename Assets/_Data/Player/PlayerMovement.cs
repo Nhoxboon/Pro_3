@@ -24,7 +24,7 @@ public class PlayerMovement : NhoxBehaviour
     [SerializeField] protected float turnTimer;
     [SerializeField] protected float turnTimerSet = 0.1f;
 
-    [Header("Wall jump")]
+    [Header("Wall Jump")]
     [SerializeField] protected bool canWallJump;
     [SerializeField] protected Vector2 wallJumpDirection = new Vector2(1, 2);
     [SerializeField] protected float wallJumpForce = 30f;
@@ -33,11 +33,23 @@ public class PlayerMovement : NhoxBehaviour
     [SerializeField] protected bool hasWallJumped;
     [SerializeField] protected int lastWallJumpDirection;
 
+    [Header("Ledge Climb")]
+    [SerializeField] protected Vector2 ledgePos1;
+    [SerializeField] protected Vector2 ledgePos2;
+    [SerializeField] protected float ledgeClimbXOffset1 = 0.3f;
+    [SerializeField] protected float ledgeClimbYOffset1 = 0f;
+    [SerializeField] protected float ledgeClimbXOffset2 = 0.5f;
+    [SerializeField] protected float ledgeClimbYOffset2 = 2f;
+    protected Vector2 ledgePosBot => PlayerCtrl.Instance.TouchingDirection.LedgePosBot;
+
+
     [Header("Movement Variables")]
     [SerializeField] protected float movementInputDirection;
     [SerializeField] protected bool isFacingRight = true;
     [SerializeField] protected bool canFlip;
     [SerializeField] protected bool canMove;
+    [SerializeField] protected bool canClimbLedge = false;
+    public bool CanClimbLedge => canClimbLedge;
     [SerializeField] protected bool isMoving;
     public bool IsMoving => isMoving;
     [SerializeField] protected bool isWallSliding;
@@ -61,6 +73,7 @@ public class PlayerMovement : NhoxBehaviour
         CheckCanJump();
         CheckIfWallSliding();
         JumpState();
+        CheckLedgeClimb();
     }
 
     private void FixedUpdate()
@@ -109,7 +122,7 @@ public class PlayerMovement : NhoxBehaviour
             }
         }
 
-        if(!canMove)
+        if(turnTimer >= 0)
         {
             turnTimer -= Time.deltaTime;
             if(turnTimer <= 0)
@@ -180,7 +193,7 @@ public class PlayerMovement : NhoxBehaviour
 
     protected void CheckIfWallSliding()
     {
-        if(PlayerCtrl.Instance.TouchingDirection.IsTouchingWall && movementInputDirection == facingDirection && rb.velocity.y < 0)
+        if(PlayerCtrl.Instance.TouchingDirection.IsTouchingWall && movementInputDirection == facingDirection && rb.velocity.y < 0 && !canClimbLedge)
         {
             isWallSliding = true;
         }
@@ -295,5 +308,40 @@ public class PlayerMovement : NhoxBehaviour
             wallJumpTimer = wallJumpTimerSet;
             lastWallJumpDirection = -facingDirection;
         }
+    }
+
+    protected void CheckLedgeClimb()
+    {
+        if (PlayerCtrl.Instance.TouchingDirection.LedgeDetected && !canClimbLedge)
+        {
+            canClimbLedge = true;
+            if (isFacingRight)
+            {
+                ledgePos1 = new Vector2(Mathf.Floor(ledgePosBot.x + PlayerCtrl.Instance.TouchingDirection.WallCheckDistance) - ledgeClimbXOffset1, Mathf.Floor(ledgePosBot.y) + ledgeClimbYOffset1);
+                ledgePos2 = new Vector2(Mathf.Floor(ledgePosBot.x + PlayerCtrl.Instance.TouchingDirection.WallCheckDistance) + ledgeClimbXOffset2, Mathf.Floor(ledgePosBot.y) + ledgeClimbYOffset2);
+            }
+            else
+            {
+                ledgePos1 = new Vector2(Mathf.Ceil(ledgePosBot.x - PlayerCtrl.Instance.TouchingDirection.WallCheckDistance) + ledgeClimbXOffset1, Mathf.Floor(ledgePosBot.y) + ledgeClimbYOffset1);
+                ledgePos2 = new Vector2(Mathf.Ceil(ledgePosBot.x - PlayerCtrl.Instance.TouchingDirection.WallCheckDistance) - ledgeClimbXOffset2, Mathf.Floor(ledgePosBot.y) + ledgeClimbYOffset2);
+            }
+
+            canMove = false;
+            canFlip = false;
+        }
+        if (canClimbLedge)
+        {
+            transform.parent.position = ledgePos1;
+        }
+    }
+
+    public void FinishLedgeClimb()
+    {
+        canClimbLedge = false;
+        transform.parent.position = ledgePos2;
+        canMove = true;
+        canFlip = true;
+
+        PlayerCtrl.Instance.TouchingDirection.Reset();
     }
 }

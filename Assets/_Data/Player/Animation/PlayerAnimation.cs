@@ -30,5 +30,6 @@ public class PlayerAnimation : NhoxBehaviour
         anim.SetBool("isGrounded", PlayerCtrl.Instance.TouchingDirection.IsGrounded);
         anim.SetBool("isWallSliding", PlayerCtrl.Instance.PlayerMovement.IsWallSliding);
         anim.SetFloat("yVelocity", PlayerCtrl.Instance.PlayerMovement.Rb.velocity.y);
+        anim.SetBool("canClimbLedge", PlayerCtrl.Instance.PlayerMovement.CanClimbLedge);
     }
 }

@@ -16,12 +16,23 @@ public class TouchingDirection : NhoxBehaviour
 
     [SerializeField] protected Transform wallCheck;
     [SerializeField] protected float wallCheckDistance = 0.65f;
+    public float WallCheckDistance => wallCheckDistance;
+
+    [SerializeField] protected Transform ledgeCheck;
+    [SerializeField] protected bool isTouchingLedge;
+    public bool IsTouchingLedge => isTouchingLedge;
+    [SerializeField] protected bool ledgeDetected;
+    public bool LedgeDetected => ledgeDetected;
+    [SerializeField] protected Vector2 ledgePosBot;
+    public Vector2 LedgePosBot => ledgePosBot;
+
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
         LoadGroundCheck();
         LoadWallCheck();
+        LoadLedgeCheck();
     }
 
     protected void LoadGroundCheck()
@@ -38,6 +49,13 @@ public class TouchingDirection : NhoxBehaviour
         Debug.Log(transform.name + " LoadWallCheck", gameObject);
     }
 
+    protected void LoadLedgeCheck()
+    {
+        if (ledgeCheck != null) return;
+        this.ledgeCheck = transform.Find("LedgeCheck");
+        Debug.Log(transform.name + " LoadLedgeCheck", gameObject);
+    }
+
     private void FixedUpdate()
     {
         CheckSurroundings();
@@ -48,12 +66,29 @@ public class TouchingDirection : NhoxBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
         isTouchingWall = Physics2D.Raycast(wallCheck.position, transform.parent.right, wallCheckDistance, whatIsGround);
+
+        isTouchingLedge = Physics2D.Raycast(ledgeCheck.position, transform.parent.right, wallCheckDistance, whatIsGround);
+
+        if (isTouchingWall && !isGrounded && !isTouchingLedge)
+        {
+            ledgeDetected = true;
+            ledgePosBot = wallCheck.position;
+        }
     }
+
 
     protected void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
 
         Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y, wallCheck.position.z));
+
+        Gizmos.DrawLine(ledgeCheck.position, new Vector3(ledgeCheck.position.x + wallCheckDistance, ledgeCheck.position.y, ledgeCheck.position.z));
+    }
+
+    public override void Reset()
+    {
+        this.LoadComponents();
+        ledgeDetected = false;
     }
 }
