@@ -33,6 +33,14 @@ public class TouchingDirection : NhoxBehaviour
         LoadGroundCheck();
         LoadWallCheck();
         LoadLedgeCheck();
+        LoadLayer();
+    }
+
+    protected void LoadLayer()
+    {
+        if(whatIsGround != 0) return;
+        this.whatIsGround = LayerMask.GetMask("Ground");
+        Debug.Log(transform.name + " LoadLayer", gameObject);
     }
 
     protected void LoadGroundCheck()

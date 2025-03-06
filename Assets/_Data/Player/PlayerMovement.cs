@@ -245,6 +245,7 @@ public class PlayerMovement : NhoxBehaviour
 
     protected void ApplyMovement()
     {
+        if (isDashing) return;
         if (!canMove)
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
@@ -441,7 +442,7 @@ public class PlayerMovement : NhoxBehaviour
 
     protected void CheckAttackInput()
     {
-        if (InputManager.Instance.AttackPressed && Time.time >= (lastAttackTime + attackCooldown))
+        if (InputManager.Instance.AttackPressed && CanAttack())
         {
             Attack();
             lastAttackTime = Time.time;
@@ -455,6 +456,15 @@ public class PlayerMovement : NhoxBehaviour
         PlayerCtrl.Instance.PlayerAnimation.TriggerAttack();
         StartCoroutine(ResetAttack());
     }
+
+    protected bool CanAttack()
+    {
+        return Time.time >= (lastAttackTime + attackCooldown) &&
+               !isDashing &&
+               !isWallSliding &&
+               !canClimbLedge;
+    }
+
 
     private IEnumerator ResetAttack()
     {

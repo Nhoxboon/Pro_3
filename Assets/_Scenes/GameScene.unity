@@ -39932,7 +39932,7 @@ MonoBehaviour:
   lastImageXPos: 0
   lastDash: -100
   attackCooldown: 0
-  attackDuration: 0.8
+  attackDuration: 0.9
   lastAttackTime: -100
   movementInputDirection: 0
   isFacingRight: 1
