@@ -51,6 +51,11 @@ public class PlayerMovement : NhoxBehaviour
     [SerializeField] protected float lastImageXPos;
     [SerializeField] protected float lastDash = -100f;
 
+    [Header("Attack Settings")]
+    [SerializeField] protected float attackCooldown = 0f;
+    [SerializeField] protected float attackDuration = 0.8f;
+    [SerializeField]protected float lastAttackTime = -100f;
+
     [Header("Movement Variables")]
     [SerializeField] protected float movementInputDirection;
     [SerializeField] protected bool isFacingRight = true;
@@ -114,6 +119,7 @@ public class PlayerMovement : NhoxBehaviour
         UpdateTurnTimer();
         CheckJumpHeightMultiplier();
         CheckDash();
+        CheckAttackInput();
     }
 
     protected void CheckMovementInput()
@@ -239,6 +245,11 @@ public class PlayerMovement : NhoxBehaviour
 
     protected void ApplyMovement()
     {
+        if (!canMove)
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+            return;
+        }
         if (!PlayerCtrl.Instance.TouchingDirection.IsGrounded && !isWallSliding && movementInputDirection == 0)
         {
             ApplyAirDrag();
@@ -426,5 +437,29 @@ public class PlayerMovement : NhoxBehaviour
                 canFlip = true;
             }
         }
+    }
+
+    protected void CheckAttackInput()
+    {
+        if (InputManager.Instance.AttackPressed && Time.time >= (lastAttackTime + attackCooldown))
+        {
+            Attack();
+            lastAttackTime = Time.time;
+        }
+    }
+
+    protected void Attack()
+    {
+        canMove = false;
+        canFlip = false;
+        PlayerCtrl.Instance.PlayerAnimation.TriggerAttack();
+        StartCoroutine(ResetAttack());
+    }
+
+    private IEnumerator ResetAttack()
+    {
+        yield return new WaitForSeconds(attackDuration);
+        canMove = true;
+        canFlip = true;
     }
 }

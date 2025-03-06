@@ -32,4 +32,10 @@ public class PlayerAnimation : NhoxBehaviour
         anim.SetFloat("yVelocity", PlayerCtrl.Instance.PlayerMovement.Rb.velocity.y);
         anim.SetBool("canClimbLedge", PlayerCtrl.Instance.PlayerMovement.CanClimbLedge);
     }
+
+    public void TriggerAttack()
+    {
+        anim.SetTrigger("attack");
+    }
+
 }

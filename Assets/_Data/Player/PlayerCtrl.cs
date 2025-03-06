@@ -10,9 +10,6 @@ public class PlayerCtrl : NhoxBehaviour
     [SerializeField] protected PlayerMovement playerMovement;
     public PlayerMovement PlayerMovement => playerMovement;
 
-    [SerializeField] protected PlayerAttack playerAttack;
-    public PlayerAttack PlayerAttack => playerAttack;
-
     [SerializeField] protected PlayerAnimation playerAnimation;
     public PlayerAnimation PlayerAnimation => playerAnimation;
 
@@ -34,7 +31,6 @@ public class PlayerCtrl : NhoxBehaviour
     {
         base.LoadComponents();
         this.LoadPlayerMovement();
-        this.LoadPlayerAttack();
         this.LoadPlayerAnimation();
         this.LoadTouchingDirection();
     }
@@ -46,12 +42,6 @@ public class PlayerCtrl : NhoxBehaviour
         Debug.Log(transform.name + " LoadPlayerMovement", gameObject);
     }
 
-    protected void LoadPlayerAttack()
-    {
-        if (this.playerAttack != null) return;
-        this.playerAttack = this.GetComponentInChildren<PlayerAttack>();
-        Debug.Log(transform.name + " LoadPlayerAttack", gameObject);
-    }
 
     protected void LoadPlayerAnimation()
     {
