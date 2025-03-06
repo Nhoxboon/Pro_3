@@ -42,6 +42,14 @@ public class PlayerMovement : NhoxBehaviour
     [SerializeField] protected float ledgeClimbYOffset2 = 2f;
     protected Vector2 ledgePosBot => PlayerCtrl.Instance.TouchingDirection.LedgePosBot;
 
+    [Header("Dash Settings")]
+    [SerializeField] protected float dashTime = 0.2f;
+    [SerializeField] protected float dashSpeed = 50f;
+    [SerializeField] protected float distanceBetweenImages = 0.1f;
+    [SerializeField] protected float dashCoolDown = 2.5f;
+    [SerializeField] protected float dashTimeLeft;
+    [SerializeField] protected float lastImageXPos;
+    [SerializeField] protected float lastDash = -100f;
 
     [Header("Movement Variables")]
     [SerializeField] protected float movementInputDirection;
@@ -54,6 +62,9 @@ public class PlayerMovement : NhoxBehaviour
     public bool IsMoving => isMoving;
     [SerializeField] protected bool isWallSliding;
     public bool IsWallSliding => isWallSliding;
+
+    [SerializeField] protected bool isDashing = false;
+    public bool IsDashing => isDashing;
 
     [Header("Components")]
     [SerializeField] protected Rigidbody2D rb;
@@ -74,6 +85,7 @@ public class PlayerMovement : NhoxBehaviour
         CheckIfWallSliding();
         JumpState();
         CheckLedgeClimb();
+        Dash();
     }
 
     private void FixedUpdate()
@@ -96,11 +108,24 @@ public class PlayerMovement : NhoxBehaviour
 
     protected void CheckInput()
     {
-        movementInputDirection = InputManager.Instance.HorizontalInput;
+        CheckMovementInput();
+        CheckJumpInput();
+        CheckWallTurnAround();
+        UpdateTurnTimer();
+        CheckJumpHeightMultiplier();
+        CheckDash();
+    }
 
-        if(InputManager.Instance.JumpPressed)
+    protected void CheckMovementInput()
+    {
+        movementInputDirection = InputManager.Instance.HorizontalInput;
+    }
+
+    protected void CheckJumpInput()
+    {
+        if (InputManager.Instance.JumpPressed)
         {
-            if(PlayerCtrl.Instance.TouchingDirection.IsGrounded || (amountOfJumpsLeft > 0 && !PlayerCtrl.Instance.TouchingDirection.IsTouchingWall))
+            if (PlayerCtrl.Instance.TouchingDirection.IsGrounded || (amountOfJumpsLeft > 0 && !PlayerCtrl.Instance.TouchingDirection.IsTouchingWall))
             {
                 NormalJump();
             }
@@ -110,10 +135,13 @@ public class PlayerMovement : NhoxBehaviour
                 isAttemptingToJump = true;
             }
         }
+    }
 
-        if(InputManager.Instance.HorizontalButtonPressed && PlayerCtrl.Instance.TouchingDirection.IsTouchingWall)
+    protected void CheckWallTurnAround()
+    {
+        if (InputManager.Instance.HorizontalButtonPressed && PlayerCtrl.Instance.TouchingDirection.IsTouchingWall)
         {
-            if(!PlayerCtrl.Instance.TouchingDirection.IsGrounded && movementInputDirection != facingDirection)
+            if (!PlayerCtrl.Instance.TouchingDirection.IsGrounded && movementInputDirection != facingDirection)
             {
                 canMove = false;
                 canFlip = false;
@@ -121,18 +149,24 @@ public class PlayerMovement : NhoxBehaviour
                 turnTimer = turnTimerSet;
             }
         }
+    }
 
-        if(turnTimer >= 0)
+    protected void UpdateTurnTimer()
+    {
+        if (turnTimer >= 0)
         {
             turnTimer -= Time.deltaTime;
-            if(turnTimer <= 0)
+            if (turnTimer <= 0)
             {
                 canMove = true;
                 canFlip = true;
             }
         }
+    }
 
-        if(checkJumpMultiplier && !InputManager.Instance.JumpHeld)
+    protected void CheckJumpHeightMultiplier()
+    {
+        if (checkJumpMultiplier && !InputManager.Instance.JumpHeld)
         {
             checkJumpMultiplier = false;
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * variableJumpHeightMultiplier);
@@ -343,5 +377,54 @@ public class PlayerMovement : NhoxBehaviour
         canFlip = true;
 
         PlayerCtrl.Instance.TouchingDirection.Reset();
+    }
+
+    protected void CheckDash()
+    {
+        if (InputManager.Instance.DashPressed)
+        {
+            if(Time.time >= (lastDash + dashCoolDown))
+                AttempToDash();
+        }
+    }
+
+    protected void AttempToDash()
+    {
+        if (Time.time >= (lastDash + dashCoolDown))
+        {
+            isDashing = true;
+            dashTimeLeft = dashTime;
+            lastDash = Time.time;
+
+            PlayerAfterImagePool.Instance.GetFromPool();
+            lastImageXPos = transform.parent.position.x;
+        }
+    }
+
+    protected void Dash()
+    {
+        if (isDashing)
+        {
+            if (dashTimeLeft > 0)
+            {
+                canMove = false;
+                canFlip = false;
+                rb.velocity = new Vector2(dashSpeed * facingDirection, rb.velocity.y);
+                dashTimeLeft -= Time.deltaTime;
+
+                if (Mathf.Abs(transform.parent.position.x - lastImageXPos) > distanceBetweenImages)
+                {
+                    PlayerAfterImagePool.Instance.GetFromPool();
+                    lastImageXPos = transform.parent.position.x;
+                }
+            }
+
+            if (dashTimeLeft <= 0 || PlayerCtrl.Instance.TouchingDirection.IsTouchingWall)
+            {
+                isDashing = false;
+                canMove = true;
+                canFlip = true;
+            }
+        }
     }
 }

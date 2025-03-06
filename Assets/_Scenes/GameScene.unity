@@ -29927,8 +29927,8 @@ GameObject:
   - component: {fileID: 400835928}
   - component: {fileID: 400835929}
   - component: {fileID: 400835930}
-  - component: {fileID: 400835932}
   - component: {fileID: 400835931}
+  - component: {fileID: 400835932}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -39058,6 +39058,51 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &676148066
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 676148068}
+  - component: {fileID: 676148067}
+  m_Layer: 0
+  m_Name: PlayerAfterImagePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &676148067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 676148066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ce1298a5234224b9e0a8af19eaabf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  afterImagePrefab: {fileID: 8575280058104948121, guid: b21e86a36c53ad044816a010471c2a75, type: 3}
+--- !u!4 &676148068
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 676148066}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1112785651
 GameObject:
   m_ObjectHideFlags: 0
@@ -39740,7 +39785,7 @@ GameObject:
   - component: {fileID: 1522995599}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39878,6 +39923,13 @@ MonoBehaviour:
   ledgeClimbYOffset1: 0
   ledgeClimbXOffset2: 0.5
   ledgeClimbYOffset2: 2
+  dashTime: 0.2
+  dashSpeed: 50
+  distanceBetweenImages: 0.1
+  dashCoolDown: 2.5
+  dashTimeLeft: 0
+  lastImageXPos: 0
+  lastDash: -100
   movementInputDirection: 0
   isFacingRight: 1
   canFlip: 0
@@ -39885,6 +39937,7 @@ MonoBehaviour:
   canClimbLedge: 0
   isMoving: 0
   isWallSliding: 0
+  isDashing: 0
   rb: {fileID: 1522995598}
 --- !u!1 &1634698344
 GameObject:
@@ -40237,3 +40290,4 @@ SceneRoots:
   - {fileID: 373015941}
   - {fileID: 1843543550}
   - {fileID: 1522995596}
+  - {fileID: 676148068}

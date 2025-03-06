@@ -21,7 +21,7 @@ public class PlayerCtrl : NhoxBehaviour
         base.Awake();
         if(instance != null)
         {
-            Debug.LogError("InputManager already exists in the scene. Deleting duplicate...");
+            Debug.LogError("PlayerCtrl already exists in the scene. Deleting duplicate...");
             return;
         }
         instance = this;
