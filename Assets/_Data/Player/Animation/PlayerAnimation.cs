@@ -38,4 +38,9 @@ public class PlayerAnimation : NhoxBehaviour
         anim.SetTrigger("attack");
     }
 
+    public void AnimationState(string animBoolName, bool value)
+    {
+        anim.SetBool(animBoolName, value);
+    }
+
 }

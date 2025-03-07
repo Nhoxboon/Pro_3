@@ -39825,7 +39825,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 6
+  m_GravityScale: 5
   m_Material: {fileID: 6200000, guid: ee1ec4e28ed074e40bbff4e4ea8389a6, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -39862,6 +39862,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1613620125}
   - component: {fileID: 1613620127}
+  - component: {fileID: 1613620128}
   m_Layer: 0
   m_Name: Movement
   m_TagString: Untagged
@@ -39891,7 +39892,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1613620124}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8be8827b369eb2b4f9289ba96849b8d7, type: 3}
   m_Name: 
@@ -39943,6 +39944,19 @@ MonoBehaviour:
   isWallSliding: 0
   isDashing: 0
   rb: {fileID: 1522995598}
+--- !u!114 &1613620128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613620124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 815582fc9e8bc40059c1913be81188e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerDataSO: {fileID: 0}
 --- !u!1 &1634698344
 GameObject:
   m_ObjectHideFlags: 0
