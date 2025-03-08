@@ -9,6 +9,7 @@ public class PlayerState
     protected PlayerDataSO playerDataSO;
 
     protected bool isAnimationFinished;
+    protected bool isExitingState;
 
     protected float startTime;
     protected string animBoolName;
@@ -27,11 +28,13 @@ public class PlayerState
         PlayerCtrl.Instance.PlayerAnimation.AnimationState(animBoolName, true);
         startTime = Time.time;
         isAnimationFinished = false;
+        isExitingState = false;
     }
 
     public virtual void Exit()
     {
         PlayerCtrl.Instance.PlayerAnimation.AnimationState(animBoolName, false);
+        isExitingState = true;
     }
 
     public virtual void LogicUpdate()

@@ -22,7 +22,19 @@ public class PlayerMovement : NhoxBehaviour
 
     protected PlayerLandState playerLandState;
     public PlayerLandState PlayerLandState => playerLandState;
-    
+
+    protected PlayerWallSlideState playerWallSlideState;
+    public PlayerWallSlideState PlayerWallSlideState => playerWallSlideState;
+
+    protected PlayerWallGrabState playerWallGrabState;
+    public PlayerWallGrabState PlayerWallGrabState => playerWallGrabState;
+
+    protected PlayerWallClimbState playerWallClimbState;
+    public PlayerWallClimbState PlayerWallClimbState => playerWallClimbState;
+
+    protected PlayerWallJumpState playerWallJumpState;
+    public PlayerWallJumpState PlayerWallJumpState => playerWallJumpState;
+
     #endregion
 
     [Header("Component")]
@@ -35,6 +47,7 @@ public class PlayerMovement : NhoxBehaviour
     [SerializeField] protected Vector2 currentVelocity;
     public Vector2 CurrentVelocity => currentVelocity;
     [SerializeField] protected int facingDirection;
+    public int FacingDirection => facingDirection;
 
     protected override void Awake()
     {
@@ -45,6 +58,10 @@ public class PlayerMovement : NhoxBehaviour
         playerJumpState = new PlayerJumpState(this, stateMachine, playerDataSO, "inAir");
         playerInAirState = new PlayerInAirState(this, stateMachine, playerDataSO, "inAir");
         playerLandState = new PlayerLandState(this, stateMachine, playerDataSO, "land");
+        playerWallSlideState = new PlayerWallSlideState(this, stateMachine, playerDataSO, "wallSlide");
+        playerWallGrabState = new PlayerWallGrabState(this, stateMachine, playerDataSO, "wallGrab");
+        playerWallClimbState = new PlayerWallClimbState(this, stateMachine, playerDataSO, "wallClimb");
+        playerWallJumpState = new PlayerWallJumpState(this, stateMachine, playerDataSO, "inAir");
     }
 
     protected override void Start()
@@ -96,6 +113,14 @@ public class PlayerMovement : NhoxBehaviour
     public void SetVelocityY(float velocity)
     {
         wordSpace.Set(currentVelocity.x, velocity);
+        rb.velocity = wordSpace;
+        currentVelocity = wordSpace;
+    }
+
+    public void SetVelocity(float velocity, Vector2 angle, int direction)
+    {
+        angle.Normalize();
+        wordSpace.Set(angle.x * velocity * direction, angle.y * velocity);
         rb.velocity = wordSpace;
         currentVelocity = wordSpace;
     }

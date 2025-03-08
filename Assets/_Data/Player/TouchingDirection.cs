@@ -84,6 +84,11 @@ public class TouchingDirection : NhoxBehaviour
         }
     }
 
+    public bool CheckTouchingWallBack()
+    {
+        return Physics2D.Raycast(wallCheck.position, -transform.parent.right, wallCheckDistance, whatIsGround);
+    }
+
 
     protected void OnDrawGizmos()
     {
