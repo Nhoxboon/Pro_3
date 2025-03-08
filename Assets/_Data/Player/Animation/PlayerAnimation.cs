@@ -20,14 +20,19 @@ public class PlayerAnimation : NhoxBehaviour
         Debug.Log(transform.name + " LoadAnimator", gameObject);
     }
 
-    public void TriggerAttack()
-    {
-        anim.SetTrigger("attack");
-    }
-
     public void AnimationState(string animBoolName, bool value)
     {
         anim.SetBool(animBoolName, value);
+    }
+
+    public void YVelocityAnimation(float yVelocity)
+    {
+        anim.SetFloat("yVelocity", yVelocity);
+    }
+
+    public void XVelocityAnimation(float xVelocity)
+    {
+        anim.SetFloat("xVelocity", xVelocity);
     }
 
 }

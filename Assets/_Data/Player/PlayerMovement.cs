@@ -13,6 +13,16 @@ public class PlayerMovement : NhoxBehaviour
 
     protected PlayerMoveState playerMoveState;
     public PlayerMoveState PlayerMoveState => playerMoveState;
+
+    protected PlayerJumpState playerJumpState;
+    public PlayerJumpState PlayerJumpState => playerJumpState;
+
+    protected PlayerInAirState playerInAirState;
+    public PlayerInAirState PlayerInAirState => playerInAirState;
+
+    protected PlayerLandState playerLandState;
+    public PlayerLandState PlayerLandState => playerLandState;
+    
     #endregion
 
     [Header("Component")]
@@ -23,6 +33,7 @@ public class PlayerMovement : NhoxBehaviour
 
     [SerializeField] protected Vector2 wordSpace;
     [SerializeField] protected Vector2 currentVelocity;
+    public Vector2 CurrentVelocity => currentVelocity;
     [SerializeField] protected int facingDirection;
 
     protected override void Awake()
@@ -31,6 +42,9 @@ public class PlayerMovement : NhoxBehaviour
         stateMachine = new PlayerStateMachine();
         playerIdleState = new PlayerIdleState(this, stateMachine, playerDataSO, "idle");
         playerMoveState = new PlayerMoveState(this, stateMachine, playerDataSO, "move");
+        playerJumpState = new PlayerJumpState(this, stateMachine, playerDataSO, "inAir");
+        playerInAirState = new PlayerInAirState(this, stateMachine, playerDataSO, "inAir");
+        playerLandState = new PlayerLandState(this, stateMachine, playerDataSO, "land");
     }
 
     protected override void Start()
@@ -78,6 +92,17 @@ public class PlayerMovement : NhoxBehaviour
         rb.velocity = wordSpace;
         currentVelocity = wordSpace;
     }
+
+    public void SetVelocityY(float velocity)
+    {
+        wordSpace.Set(currentVelocity.x, velocity);
+        rb.velocity = wordSpace;
+        currentVelocity = wordSpace;
+    }
+
+    public void AnimationTrigger() => stateMachine.CurrentState.AnimationTrigger();
+
+    public void AnimationFinishTrigger() => stateMachine.CurrentState.AnimationFinishTrigger();
 
     public void CheckIfShouldFlip(int xInput)
     {
