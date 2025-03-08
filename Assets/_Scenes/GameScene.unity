@@ -29928,7 +29928,6 @@ GameObject:
   - component: {fileID: 400835929}
   - component: {fileID: 400835930}
   - component: {fileID: 400835931}
-  - component: {fileID: 400835932}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -29992,7 +29991,7 @@ SpriteRenderer:
   m_SortingLayerID: 91381681
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: -558906925, guid: 475cce925bdaef34d963dfda27dae2bd, type: 3}
+  m_Sprite: {fileID: -1649908178, guid: 886dd9f8efa4fa14dac76d520879e537, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -30013,7 +30012,7 @@ Animator:
   m_GameObject: {fileID: 400835927}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c4fe680d73adced43a9c29e41e706730, type: 2}
+  m_Controller: {fileID: 9100000, guid: a1a6ccad237524f32b7853c49fc630e1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -30059,18 +30058,6 @@ CapsuleCollider2D:
   m_Offset: {x: -0.018008232, y: -0.17265368}
   m_Size: {x: 0.7514255, y: 1.6609926}
   m_Direction: 0
---- !u!114 &400835932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 400835927}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50ce267ec05474d4ca338952208e379e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &431619953
 GameObject:
   m_ObjectHideFlags: 0
@@ -39849,7 +39836,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07f72d3182f44ba478d75d8ab984053e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovement: {fileID: 1613620127}
+  playerMovement: {fileID: 1613620128}
   playerAnimation: {fileID: 366224570}
   touchingDirection: {fileID: 1389971697}
 --- !u!1 &1613620124
@@ -39861,7 +39848,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1613620125}
-  - component: {fileID: 1613620127}
   - component: {fileID: 1613620128}
   m_Layer: 0
   m_Name: Movement
@@ -39885,65 +39871,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1522995596}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1613620127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1613620124}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8be8827b369eb2b4f9289ba96849b8d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 9
-  wallSlideSpeed: 1
-  airDragMultiplier: 0.95
-  facingDirection: 1
-  jumpForce: 20
-  amountOfJumpsLeft: 0
-  amountOfJumps: 1
-  variableJumpHeightMultiplier: 0.5
-  checkJumpMultiplier: 0
-  canNormalJump: 0
-  jumpTimer: 0
-  jumpTimerSet: 0.15
-  isAttemptingToJump: 0
-  turnTimer: 0
-  turnTimerSet: 0.1
-  canWallJump: 0
-  wallJumpDirection: {x: 1, y: 2}
-  wallJumpForce: 30
-  wallJumpTimer: 0
-  wallJumpTimerSet: 0.5
-  hasWallJumped: 0
-  lastWallJumpDirection: 0
-  ledgePos1: {x: 0, y: 0}
-  ledgePos2: {x: 0, y: 0}
-  ledgeClimbXOffset1: 0.3
-  ledgeClimbYOffset1: 0
-  ledgeClimbXOffset2: 0.5
-  ledgeClimbYOffset2: 2
-  dashTime: 0.2
-  dashSpeed: 50
-  distanceBetweenImages: 0.1
-  dashCoolDown: 2.5
-  dashTimeLeft: 0
-  lastImageXPos: 0
-  lastDash: -100
-  attackCooldown: 0
-  attackDuration: 0.9
-  lastAttackTime: -100
-  movementInputDirection: 0
-  isFacingRight: 1
-  canFlip: 0
-  canMove: 0
-  canClimbLedge: 0
-  isMoving: 0
-  isWallSliding: 0
-  isDashing: 0
-  rb: {fileID: 1522995598}
 --- !u!114 &1613620128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39956,7 +39883,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 815582fc9e8bc40059c1913be81188e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerDataSO: {fileID: 0}
+  rb: {fileID: 1522995598}
+  playerDataSO: {fileID: 11400000, guid: d2682658d8ce547b7a2cbe937ccf431e, type: 2}
+  wordSpace: {x: 0, y: 0}
+  currentVelocity: {x: 0, y: 0}
+  facingDirection: 0
 --- !u!1 &1634698344
 GameObject:
   m_ObjectHideFlags: 0
@@ -40001,10 +39932,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd7cc4c3ba40b64cbb16930d855ce12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpKey: 32
-  dashKey: 304
-  interactKey: 101
-  pauseKey: 27
+  inputHoldTime: 0.2
 --- !u!1 &1843543548
 GameObject:
   m_ObjectHideFlags: 0

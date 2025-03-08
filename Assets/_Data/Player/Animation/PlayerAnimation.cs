@@ -6,10 +6,6 @@ public class PlayerAnimation : NhoxBehaviour
 {
     [SerializeField] protected Animator anim;
 
-    void Update()
-    {
-        UpdateAnimations();
-    }
 
     protected override void LoadComponents()
     {
@@ -22,15 +18,6 @@ public class PlayerAnimation : NhoxBehaviour
         if (anim != null) return;
         anim = transform.parent.GetComponentInChildren<Animator>();
         Debug.Log(transform.name + " LoadAnimator", gameObject);
-    }
-
-    protected void UpdateAnimations()
-    {
-        anim.SetBool("isMoving", PlayerCtrl.Instance.PlayerMovement.IsMoving);
-        anim.SetBool("isGrounded", PlayerCtrl.Instance.TouchingDirection.IsGrounded);
-        anim.SetBool("isWallSliding", PlayerCtrl.Instance.PlayerMovement.IsWallSliding);
-        anim.SetFloat("yVelocity", PlayerCtrl.Instance.PlayerMovement.Rb.velocity.y);
-        anim.SetBool("canClimbLedge", PlayerCtrl.Instance.PlayerMovement.CanClimbLedge);
     }
 
     public void TriggerAttack()
