@@ -11,6 +11,7 @@ public class PlayerLedgeClimbState : PlayerState
 
     protected bool isHanging;
     protected bool isClimbing;
+    protected bool isTouchingCeiling;
 
     protected int xInput;
     protected int yInput;
@@ -64,9 +65,18 @@ public class PlayerLedgeClimbState : PlayerState
     {
         base.LogicUpdate();
 
-        if(isAnimationFinished)
+
+        if (isAnimationFinished)
         {
-            stateMachine.ChangeState(playerMovement.PlayerIdleState);
+            PlayerCtrl.Instance.TouchingDirection.SetIsTouchingCeiling(isTouchingCeiling);
+            if (isTouchingCeiling)
+            {
+                stateMachine.ChangeState(playerMovement.PlayerCrouchIdleState);
+            }
+            else
+            {
+                stateMachine.ChangeState(playerMovement.PlayerIdleState);
+            }
         }
         else
         {
@@ -79,9 +89,9 @@ public class PlayerLedgeClimbState : PlayerState
 
             if (xInput == playerMovement.FacingDirection && isHanging && !isClimbing)
             {
+                CheckForSpace();
                 isClimbing = true;
                 PlayerCtrl.Instance.PlayerAnimation.AnimationState("climbLedge", true);
-                playerMovement.transform.parent.position = stopPos;
             }
             else if (yInput == -1 && isHanging && !isClimbing)
             {
@@ -96,4 +106,11 @@ public class PlayerLedgeClimbState : PlayerState
     }
 
     public void SetDetectedPosition(Vector2 pos) => detectedPos = pos;
+
+    public void CheckForSpace()
+    {
+        isTouchingCeiling = Physics2D.Raycast(cornerPos + (Vector2.up * 0.015f) + (Vector2.right * playerMovement.FacingDirection * 0.015f), Vector2.up, playerDataSO.standColliderHeight, PlayerCtrl.Instance.TouchingDirection.WhatIsGround);
+
+        PlayerCtrl.Instance.PlayerAnimation.AnimationState("isTouchingCeiling", isTouchingCeiling);
+    }
 }

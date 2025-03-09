@@ -41,11 +41,20 @@ public class PlayerMovement : NhoxBehaviour
     protected PlayerDashState playerDashState;
     public PlayerDashState PlayerDashState => playerDashState;
 
+    protected PlayerCrouchIdleState playerCrouchIdleState;
+    public PlayerCrouchIdleState PlayerCrouchIdleState => playerCrouchIdleState;
+
+    protected PlayerCrouchMoveState playerCrouchMoveState;
+    public PlayerCrouchMoveState PlayerCrouchMoveState => playerCrouchMoveState;
+
     #endregion
 
     [Header("Component")]
     [SerializeField] protected Rigidbody2D rb;
     public Rigidbody2D Rb => rb;
+
+    [SerializeField] protected CapsuleCollider2D col;
+    public CapsuleCollider2D Col => col;
 
     [Header("Data")]
     [SerializeField] protected PlayerDataSO playerDataSO;
@@ -74,6 +83,8 @@ public class PlayerMovement : NhoxBehaviour
         playerWallJumpState = new PlayerWallJumpState(this, stateMachine, playerDataSO, "inAir");
         playerLedgeClimbState = new PlayerLedgeClimbState(this, stateMachine, playerDataSO, "ledgeClimbState");
         playerDashState = new PlayerDashState(this, stateMachine, playerDataSO, "inAir");
+        playerCrouchIdleState = new PlayerCrouchIdleState(this, stateMachine, playerDataSO, "crouchIdle");
+        playerCrouchMoveState = new PlayerCrouchMoveState(this, stateMachine, playerDataSO, "crouchMove");
     }
 
     protected override void Start()
@@ -94,10 +105,12 @@ public class PlayerMovement : NhoxBehaviour
         stateMachine.CurrentState.PhysicsUpdate();
     }
 
+    #region Load Components
     protected override void LoadComponents()
     {
         base.LoadComponents();
         LoadRigidbody2d();
+        LoadCollider2d();
         LoadPlayerDataSO();
         LoadDashDirectionIndicator();
     }
@@ -107,6 +120,13 @@ public class PlayerMovement : NhoxBehaviour
         if (this.rb != null) return;
         this.rb = GetComponentInParent<Rigidbody2D>();
         Debug.Log(transform.name + " LoadRigidbody2d", gameObject);
+    }
+
+    protected void LoadCollider2d()
+    {
+        if (this.col != null) return;
+        this.col = GetComponentInParent<CapsuleCollider2D>();
+        Debug.Log(transform.name + " LoadCollider2d", gameObject);
     }
 
     protected void LoadPlayerDataSO()
@@ -121,6 +141,18 @@ public class PlayerMovement : NhoxBehaviour
         if(this.dashDirectionIndicator != null) return;
         this.dashDirectionIndicator = transform.parent.Find("DashDirectionIndicator");
         Debug.Log(transform.name + " LoadDashDirectionIndicator", gameObject);
+    }
+    #endregion
+
+    public void SetColliderHeight(float height)
+    {
+        Vector2 center = col.offset;
+        wordSpace.Set(col.size.x, height);
+
+        center.y += (height - col.size.y) / 2;
+
+        col.size = wordSpace;
+        col.offset = center;
     }
 
     public void SetVelocityX(float velocity)

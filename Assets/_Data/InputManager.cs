@@ -30,6 +30,8 @@ public class InputManager : NhoxBehaviour
 
     [SerializeField] protected Camera cam;
 
+    [SerializeField] private Transform player;
+
     protected override void Awake()
     {
         base.Awake();
@@ -52,9 +54,9 @@ public class InputManager : NhoxBehaviour
         ProcessMovementInput();
         ProcessJumpInput();
         ProcessGrabInput();
+        ProcessDashDirectionInput();
         ProcessDashInput();
         ProcessAttackInput();
-        ProcessDashDirectionInput();
 
         CheckJumpInputHoldTime();
         CheckDashInputHoldTime();
@@ -64,6 +66,7 @@ public class InputManager : NhoxBehaviour
     {
         base.LoadComponents();
         LoadCamera();
+        LoadPlayer();
     }
 
     protected void LoadCamera()
@@ -71,6 +74,13 @@ public class InputManager : NhoxBehaviour
         if (this.cam != null) return;
         this.cam = Camera.main;
         Debug.Log(transform.name + " LoadCamera", gameObject);
+    }
+
+    protected void LoadPlayer()
+    {
+        if (this.player != null) return;
+        this.player = GameObject.FindGameObjectWithTag("Player").transform;
+        Debug.Log(transform.name + " LoadPlayer", gameObject);
     }
 
     protected void ProcessMovementInput()
@@ -137,8 +147,8 @@ public class InputManager : NhoxBehaviour
     protected void ProcessDashDirectionInput()
     {
         Vector3 mousePos = Input.mousePosition;
-        Vector3 worldPos = cam.ScreenToWorldPoint(mousePos);
-        Vector2 dashDirection = new Vector2(worldPos.x, worldPos.y) - new Vector2(transform.position.x, transform.position.y);
+        Vector3 worldPos = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, cam.nearClipPlane));
+        Vector2 dashDirection = (worldPos - player.position);
         RawDashDirectionInput = dashDirection;
         DashDirectionInput = Vector2Int.RoundToInt(dashDirection.normalized);
     }

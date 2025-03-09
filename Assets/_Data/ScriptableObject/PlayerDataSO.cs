@@ -9,6 +9,11 @@ public class PlayerDataSO : ScriptableObject
     [Header("Move State")]
     public float movementVelocity = 10f;
 
+    [Header("Crouch State")]
+    public float crouchMovementVelocity = 5f;
+    public float crouchColliderHeight = 0.8f;
+    public float standColliderHeight = 1.66f;
+
     [Header("Jump State")]
     public float jumpVelocity = 15f;
     public int amountOfJumps = 1;
