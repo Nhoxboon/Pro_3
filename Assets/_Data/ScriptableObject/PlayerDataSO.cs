@@ -28,4 +28,18 @@ public class PlayerDataSO : ScriptableObject
     [Header("Wall Climb State")]
     public float wallClimbVelocity = 3f;
 
+    [Header("Ledge Climb State")]
+    public Vector2 startOffset = new Vector2(0.45f, 0.9f);
+    public Vector2 stopOffset = new Vector2(0.4f, 0.75f);
+
+    [Header("Dash State")]
+    public float dashCooldown = 0.5f;
+    public float maxHoldTime = 1f;
+    public float holdTimeScale = 0.25f;
+    public float dashTime = 0.2f;
+    public float dashVelocity = 30f;
+    public float drag = 10f;
+    public float dashEndYMultiplier = 0.2f;
+    public float distanceBetweenImages = 0.5f;
+
 }

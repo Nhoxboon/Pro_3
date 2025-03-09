@@ -1,21 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerInAirState : PlayerState
 {
     protected int xInput;
+    protected bool jumpInput;
+    protected bool jumpInputStop;
+    protected bool grabInput;
+    protected bool dashInput;
+
     protected bool isGrounded;
     protected bool isTouchingWall;
     protected bool isTouchingWallBack;
     protected bool oldIsTouchingWall;
     protected bool oldIsTouchingWallBack;
-    protected bool jumpInput;
-    protected bool jumpInputStop;
+    protected bool isJumping;
+    protected bool isTouchingLedge;
+
     protected bool coyoteTime;
     protected bool wallJumpCoyoteTime;
-    protected bool isJumping;
-    protected bool grabInput;
+
 
     protected float startWallJumpCoyoteTime;
 
@@ -33,8 +39,14 @@ public class PlayerInAirState : PlayerState
         isGrounded = PlayerCtrl.Instance.TouchingDirection.IsGrounded;
         isTouchingWall = PlayerCtrl.Instance.TouchingDirection.IsTouchingWall;
         isTouchingWallBack = PlayerCtrl.Instance.TouchingDirection.CheckTouchingWallBack();
+        isTouchingLedge = PlayerCtrl.Instance.TouchingDirection.IsTouchingLedge;
 
-        if(!wallJumpCoyoteTime && !isTouchingWall && !isTouchingWallBack && (oldIsTouchingWall || oldIsTouchingWallBack))
+        if (isTouchingWall && !isGrounded && !isTouchingLedge)
+        {
+            playerMovement.PlayerLedgeClimbState.SetDetectedPosition(playerMovement.transform.parent.position);
+        }
+
+        if (!wallJumpCoyoteTime && !isTouchingWall && !isTouchingWallBack && (oldIsTouchingWall || oldIsTouchingWallBack))
         {
             StartWallJumpCoyoteTime();
         }
@@ -48,6 +60,11 @@ public class PlayerInAirState : PlayerState
     public override void Exit()
     {
         base.Exit();
+
+        oldIsTouchingWall = false;
+        oldIsTouchingWallBack = false;
+        isTouchingWall = false;
+        isTouchingWallBack = false;
     }
 
     public override void LogicUpdate()
@@ -61,12 +78,17 @@ public class PlayerInAirState : PlayerState
         jumpInput = InputManager.Instance.JumpInput;
         jumpInputStop = InputManager.Instance.JumpInputStop;
         grabInput = InputManager.Instance.GrabInput;
+        dashInput = InputManager.Instance.DashInput;
 
         CheckJumpMultiplier();
 
         if (isGrounded && playerMovement.CurrentVelocity.y < 0.01f)
         {
             stateMachine.ChangeState(playerMovement.PlayerLandState);
+        }
+        else if (!isTouchingLedge && isTouchingWall && !isGrounded)
+        {
+            stateMachine.ChangeState(playerMovement.PlayerLedgeClimbState);
         }
         else if(jumpInput && (isTouchingWall || isTouchingWallBack || wallJumpCoyoteTime))
         {
@@ -78,13 +100,17 @@ public class PlayerInAirState : PlayerState
         {
             stateMachine.ChangeState(playerMovement.PlayerJumpState);
         }
-        else if (isTouchingWall && grabInput)
+        else if (isTouchingWall && grabInput && isTouchingLedge)
         {
             stateMachine.ChangeState(playerMovement.PlayerWallGrabState);
         }
         else if(isTouchingWall && xInput == playerMovement.FacingDirection && playerMovement.CurrentVelocity.y <= 0f)
         {
             stateMachine.ChangeState(playerMovement.PlayerWallSlideState);
+        }
+        else if (dashInput && playerMovement.PlayerDashState.CheckIfCanDash())
+        {
+            stateMachine.ChangeState(playerMovement.PlayerDashState);
         }
         else
         {

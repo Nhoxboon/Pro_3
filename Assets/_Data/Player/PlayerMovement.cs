@@ -35,10 +35,17 @@ public class PlayerMovement : NhoxBehaviour
     protected PlayerWallJumpState playerWallJumpState;
     public PlayerWallJumpState PlayerWallJumpState => playerWallJumpState;
 
+    protected PlayerLedgeClimbState playerLedgeClimbState;
+    public PlayerLedgeClimbState PlayerLedgeClimbState => playerLedgeClimbState;
+
+    protected PlayerDashState playerDashState;
+    public PlayerDashState PlayerDashState => playerDashState;
+
     #endregion
 
     [Header("Component")]
     [SerializeField] protected Rigidbody2D rb;
+    public Rigidbody2D Rb => rb;
 
     [Header("Data")]
     [SerializeField] protected PlayerDataSO playerDataSO;
@@ -48,6 +55,9 @@ public class PlayerMovement : NhoxBehaviour
     public Vector2 CurrentVelocity => currentVelocity;
     [SerializeField] protected int facingDirection;
     public int FacingDirection => facingDirection;
+
+    [SerializeField] protected Transform dashDirectionIndicator;
+    public Transform DashDirectionIndicator => dashDirectionIndicator;
 
     protected override void Awake()
     {
@@ -62,6 +72,8 @@ public class PlayerMovement : NhoxBehaviour
         playerWallGrabState = new PlayerWallGrabState(this, stateMachine, playerDataSO, "wallGrab");
         playerWallClimbState = new PlayerWallClimbState(this, stateMachine, playerDataSO, "wallClimb");
         playerWallJumpState = new PlayerWallJumpState(this, stateMachine, playerDataSO, "inAir");
+        playerLedgeClimbState = new PlayerLedgeClimbState(this, stateMachine, playerDataSO, "ledgeClimbState");
+        playerDashState = new PlayerDashState(this, stateMachine, playerDataSO, "inAir");
     }
 
     protected override void Start()
@@ -87,6 +99,7 @@ public class PlayerMovement : NhoxBehaviour
         base.LoadComponents();
         LoadRigidbody2d();
         LoadPlayerDataSO();
+        LoadDashDirectionIndicator();
     }
 
     protected void LoadRigidbody2d()
@@ -101,6 +114,13 @@ public class PlayerMovement : NhoxBehaviour
         if (this.playerDataSO != null) return;
         this.playerDataSO = Resources.Load<PlayerDataSO>("Player");
         Debug.Log(transform.name + " LoadPlayerDataSO", gameObject);
+    }
+
+    protected void LoadDashDirectionIndicator()
+    {
+        if(this.dashDirectionIndicator != null) return;
+        this.dashDirectionIndicator = transform.parent.Find("DashDirectionIndicator");
+        Debug.Log(transform.name + " LoadDashDirectionIndicator", gameObject);
     }
 
     public void SetVelocityX(float velocity)
@@ -125,9 +145,27 @@ public class PlayerMovement : NhoxBehaviour
         currentVelocity = wordSpace;
     }
 
+    public void SetVelocity(float velocity, Vector2 direction)
+    {
+        wordSpace = direction * velocity;
+        rb.velocity = wordSpace;
+        currentVelocity = wordSpace;
+    }
+
+    public void SetVelocityZero()
+    {
+        rb.velocity = Vector2.zero;
+        currentVelocity = Vector2.zero;
+    }
+
     public void AnimationTrigger() => stateMachine.CurrentState.AnimationTrigger();
 
     public void AnimationFinishTrigger() => stateMachine.CurrentState.AnimationFinishTrigger();
+
+    public Vector2 DetermineCorner()
+    {
+        return PlayerCtrl.Instance.TouchingDirection.DetermineLedgePos(wordSpace, facingDirection);
+    }
 
     public void CheckIfShouldFlip(int xInput)
     {

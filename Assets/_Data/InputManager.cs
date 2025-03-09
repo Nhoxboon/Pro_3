@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputManager : MonoBehaviour
+public class InputManager : NhoxBehaviour
 {
     private static InputManager instance;
     public static InputManager Instance => instance;
@@ -13,26 +13,26 @@ public class InputManager : MonoBehaviour
 
     public bool JumpInput { get; private set; }
     public bool JumpInputStop { get; private set; }
-    private float jumpInputStartTime;
+    protected float jumpInputStartTime;
 
     public bool GrabInput { get; private set; }
 
     public bool DashInput { get; private set; }
     public bool DashInputStop { get; private set; }
-    private float dashInputStartTime;
+    protected float dashInputStartTime;
 
     public bool[] AttackInputs { get; private set; }
 
     public Vector2 RawDashDirectionInput { get; private set; }
     public Vector2Int DashDirectionInput { get; private set; }
 
-    [SerializeField]
-    private float inputHoldTime = 0.2f;
+    [SerializeField] protected float inputHoldTime = 0.2f;
 
-    private Camera cam;
+    [SerializeField] protected Camera cam;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         if (instance != null)
         {
             Debug.LogError("InputManager already exist...");
@@ -42,10 +42,9 @@ public class InputManager : MonoBehaviour
         instance = this;
     }
 
-    private void Start()
+    protected override void Start()
     {
         AttackInputs = new bool[2];
-        cam = Camera.main;
     }
 
     private void Update()
@@ -61,7 +60,20 @@ public class InputManager : MonoBehaviour
         CheckDashInputHoldTime();
     }
 
-    private void ProcessMovementInput()
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        LoadCamera();
+    }
+
+    protected void LoadCamera()
+    {
+        if (this.cam != null) return;
+        this.cam = Camera.main;
+        Debug.Log(transform.name + " LoadCamera", gameObject);
+    }
+
+    protected void ProcessMovementInput()
     {
         bool leftKey = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
         bool rightKey = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
@@ -86,7 +98,7 @@ public class InputManager : MonoBehaviour
         NormInputY = Mathf.RoundToInt(vertical);
     }
 
-    private void ProcessJumpInput()
+    protected void ProcessJumpInput()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -100,7 +112,7 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    private void ProcessGrabInput()
+    protected void ProcessGrabInput()
     {
         if (Input.GetKeyDown(KeyCode.E))
             GrabInput = true;
@@ -108,7 +120,7 @@ public class InputManager : MonoBehaviour
             GrabInput = false;
     }
 
-    private void ProcessDashInput()
+    protected void ProcessDashInput()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
@@ -122,7 +134,16 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    private void ProcessAttackInput()
+    protected void ProcessDashDirectionInput()
+    {
+        Vector3 mousePos = Input.mousePosition;
+        Vector3 worldPos = cam.ScreenToWorldPoint(mousePos);
+        Vector2 dashDirection = new Vector2(worldPos.x, worldPos.y) - new Vector2(transform.position.x, transform.position.y);
+        RawDashDirectionInput = dashDirection;
+        DashDirectionInput = Vector2Int.RoundToInt(dashDirection.normalized);
+    }
+
+    protected void ProcessAttackInput()
     {
         if (Input.GetMouseButtonDown(0))
             AttackInputs[(int)CombatInputs.primary] = true;
@@ -135,16 +156,7 @@ public class InputManager : MonoBehaviour
             AttackInputs[(int)CombatInputs.secondary] = false;
     }
 
-    private void ProcessDashDirectionInput()
-    {
-        Vector3 mousePos = Input.mousePosition;
-        Vector3 worldPos = cam.ScreenToWorldPoint(mousePos);
-        Vector2 dashDirection = new Vector2(worldPos.x, worldPos.y) - new Vector2(transform.position.x, transform.position.y);
-        RawDashDirectionInput = dashDirection;
-        DashDirectionInput = Vector2Int.RoundToInt(dashDirection.normalized);
-    }
-
-    private void CheckJumpInputHoldTime()
+    protected void CheckJumpInputHoldTime()
     {
         if (Time.time >= jumpInputStartTime + inputHoldTime)
         {
@@ -152,7 +164,7 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    private void CheckDashInputHoldTime()
+    protected void CheckDashInputHoldTime()
     {
         if (Time.time >= dashInputStartTime + inputHoldTime)
         {

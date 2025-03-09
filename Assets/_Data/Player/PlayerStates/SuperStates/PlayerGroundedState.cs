@@ -7,8 +7,10 @@ public class PlayerGroundedState : PlayerState
     protected int xInput;
     protected bool jumpInput;
     protected bool grabInput;
+    protected bool dashInput;
     protected bool isGrounded;
     protected bool isTouchingWall;
+    protected bool isTouchingLedge;
 
     public PlayerGroundedState(PlayerMovement playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
     {
@@ -20,6 +22,7 @@ public class PlayerGroundedState : PlayerState
 
         isGrounded = PlayerCtrl.Instance.TouchingDirection.IsGrounded;
         isTouchingWall = PlayerCtrl.Instance.TouchingDirection.IsTouchingWall;
+        isTouchingLedge = PlayerCtrl.Instance.TouchingDirection.IsTouchingLedge;
     }
 
     public override void Enter()
@@ -27,6 +30,7 @@ public class PlayerGroundedState : PlayerState
         base.Enter();
 
         playerMovement.PlayerJumpState.ResetAmountOfJumpsLeft();
+        playerMovement.PlayerDashState.ResetCanDash();
     }
 
     public override void Exit()
@@ -41,6 +45,7 @@ public class PlayerGroundedState : PlayerState
         xInput = InputManager.Instance.NormInputX;
         jumpInput = InputManager.Instance.JumpInput;
         grabInput = InputManager.Instance.GrabInput;
+        dashInput = InputManager.Instance.DashInput;
 
         if (jumpInput && playerMovement.PlayerJumpState.CanJump())
         {
@@ -51,9 +56,13 @@ public class PlayerGroundedState : PlayerState
             playerMovement.PlayerInAirState.StartCoyoteTime();
             stateMachine.ChangeState(playerMovement.PlayerInAirState);
         }
-        else if (isTouchingWall && grabInput)
+        else if (isTouchingWall && grabInput && isTouchingLedge)
         {
             stateMachine.ChangeState(playerMovement.PlayerWallGrabState);
+        }
+        else if (dashInput && playerMovement.PlayerDashState.CheckIfCanDash())
+        {
+            stateMachine.ChangeState(playerMovement.PlayerDashState);
         }
     }
 
