@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCtrl : NhoxBehaviour
+public class EnemyCtrl : NhoxBehaviour
 {
-    private static PlayerCtrl instance;
-    public static PlayerCtrl Instance => instance;
+    private static EnemyCtrl instance;
+    public static EnemyCtrl Instance => instance;
 
-    [SerializeField] protected PlayerMovement playerMovement;
-    public PlayerMovement PlayerMovement => playerMovement;
+    [SerializeField] protected Enemy enemy;
+    public Enemy Enemy => enemy;
 
-    [SerializeField] protected PlayAnimation playerAnimation;
-    public PlayAnimation PlayerAnimation => playerAnimation;
+    [SerializeField] protected PlayAnimation enemyAnimation;
+    public PlayAnimation EnemyAnimation => enemyAnimation;
 
     [SerializeField] protected TouchingDirection touchingDirection;
     public TouchingDirection TouchingDirection => touchingDirection;
@@ -19,9 +19,9 @@ public class PlayerCtrl : NhoxBehaviour
     protected override void Awake()
     {
         base.Awake();
-        if(instance != null)
+        if (instance != null)
         {
-            Debug.LogError("PlayerCtrl already exists in the scene. Deleting duplicate...");
+            Debug.LogError("EnemyCtrl already exists in the scene. Deleting duplicate...");
             return;
         }
         instance = this;
@@ -30,23 +30,22 @@ public class PlayerCtrl : NhoxBehaviour
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadPlayerMovement();
+        this.LoadEnemy();
         this.LoadPlayAnimation();
         this.LoadTouchingDirection();
     }
 
-    protected void LoadPlayerMovement()
+    protected void LoadEnemy()
     {
-        if (this.playerMovement != null) return;
-        this.playerMovement = this.GetComponentInChildren<PlayerMovement>();
-        Debug.Log(transform.name + " LoadPlayerMovement", gameObject);
+        if (this.enemy != null) return;
+        this.enemy = this.GetComponentInChildren<Enemy>();
+        Debug.Log(transform.name + " LoadEnemy", gameObject);
     }
-
 
     protected void LoadPlayAnimation()
     {
-        if (this.playerAnimation != null) return;
-        this.playerAnimation = this.GetComponentInChildren<PlayAnimation>();
+        if (this.enemyAnimation != null) return;
+        this.enemyAnimation = this.GetComponentInChildren<PlayAnimation>();
         Debug.Log(transform.name + " LoadPlayAnimation", gameObject);
     }
 

@@ -21,7 +21,7 @@ public class PlayerTouchingWallState : PlayerState
         base.DoChecks();
 
         isGrounded = PlayerCtrl.Instance.TouchingDirection.IsGrounded;
-        isTouchingWall = PlayerCtrl.Instance.TouchingDirection.IsTouchingWall;
+        isTouchingWall = PlayerCtrl.Instance.TouchingDirection.CheckTouchingWall();
         isTouchingLedge = PlayerCtrl.Instance.TouchingDirection.IsTouchingLedge;
 
         if (isTouchingWall && !isTouchingLedge)

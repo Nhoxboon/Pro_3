@@ -6,19 +6,17 @@ public class TouchingDirection : NhoxBehaviour
 {
     [SerializeField] protected float groundCheckRadius = 0.3f;
     [SerializeField] protected float wallCheckDistance = 0.65f;
+    [SerializeField] protected float cliffCheckDistance = 0.4f;
     [SerializeField] protected LayerMask whatIsGround;
     public LayerMask WhatIsGround => whatIsGround;
     [SerializeField] protected Transform groundCheck;
     [SerializeField] protected Transform wallCheck;
     [SerializeField] protected Transform ledgeCheck;
     [SerializeField] protected Transform ceilingCheck;
-
+    [SerializeField] protected Transform cliffCheck;
 
     [SerializeField] protected bool isGrounded;
     public bool IsGrounded => isGrounded;
-
-    [SerializeField] protected bool isTouchingWall;
-    public bool IsTouchingWall => isTouchingWall;
 
     [SerializeField] protected bool isTouchingLedge;
     public bool IsTouchingLedge => isTouchingLedge;
@@ -33,6 +31,7 @@ public class TouchingDirection : NhoxBehaviour
         LoadWallCheck();
         LoadLedgeCheck();
         LoadCeilingCheck();
+        LoadCliffCheck();
         LoadLayer();
     }
 
@@ -71,6 +70,13 @@ public class TouchingDirection : NhoxBehaviour
         Debug.Log(transform.name + " LoadCeilingCheck", gameObject);
     }
 
+    protected void LoadCliffCheck()
+    {
+        if (cliffCheck != null) return;
+        this.cliffCheck = transform.Find("CliffCheck");
+        Debug.Log(transform.name + " LoadCliffCheck", gameObject);
+    }
+
     private void FixedUpdate()
     {
         CheckSurroundings();
@@ -80,16 +86,24 @@ public class TouchingDirection : NhoxBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
-        isTouchingWall = Physics2D.Raycast(wallCheck.position, transform.parent.right, wallCheckDistance, whatIsGround);
-
         isTouchingLedge = Physics2D.Raycast(ledgeCheck.position, transform.parent.right, wallCheckDistance, whatIsGround);
 
         isTouchingCeiling = Physics2D.OverlapCircle(ceilingCheck.position, groundCheckRadius, whatIsGround);
     }
 
+    public bool CheckTouchingWall()
+    {
+        return Physics2D.Raycast(wallCheck.position, transform.parent.right, wallCheckDistance, whatIsGround);
+    }
+
     public bool CheckTouchingWallBack()
     {
         return Physics2D.Raycast(wallCheck.position, -transform.parent.right, wallCheckDistance, whatIsGround);
+    }
+
+    public bool CheckTouchingCliff()
+    {
+        return Physics2D.Raycast(cliffCheck.position, Vector2.down, cliffCheckDistance, whatIsGround);
     }
 
     public Vector2 DetermineLedgePos(Vector2 workSpace, int facingDirection)
@@ -119,5 +133,7 @@ public class TouchingDirection : NhoxBehaviour
         Gizmos.DrawLine(ledgeCheck.position, new Vector3(ledgeCheck.position.x + wallCheckDistance, ledgeCheck.position.y, ledgeCheck.position.z));
 
         Gizmos.DrawWireSphere(ceilingCheck.position, groundCheckRadius);
+
+        Gizmos.DrawLine(cliffCheck.position, ledgeCheck.position + (Vector3)(Vector2.down * cliffCheckDistance));
     }
 }

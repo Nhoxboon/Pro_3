@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimation : NhoxBehaviour
+public class PlayAnimation : NhoxBehaviour
 {
     [SerializeField] protected Animator anim;
 

@@ -37,7 +37,7 @@ public class PlayerInAirState : PlayerState
         oldIsTouchingWallBack = isTouchingWallBack;
 
         isGrounded = PlayerCtrl.Instance.TouchingDirection.IsGrounded;
-        isTouchingWall = PlayerCtrl.Instance.TouchingDirection.IsTouchingWall;
+        isTouchingWall = PlayerCtrl.Instance.TouchingDirection.CheckTouchingWall();
         isTouchingWallBack = PlayerCtrl.Instance.TouchingDirection.CheckTouchingWallBack();
         isTouchingLedge = PlayerCtrl.Instance.TouchingDirection.IsTouchingLedge;
 
