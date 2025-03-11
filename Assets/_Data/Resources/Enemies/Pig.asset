@@ -15,7 +15,7 @@ MonoBehaviour:
   minIdleTime: 1
   maxIdleTime: 2
   movementSpeed: 3
-  longRangeActionTime: 0.5
+  longRangeActionTime: 1.5
   minAgroDistance: 3
   maxAgroDistance: 4
   whatIsPlayer:
@@ -25,3 +25,6 @@ MonoBehaviour:
   chargeTime: 2
   amountOfTurns: 2
   timeBetweenTurns: 0.75
+  closeRangeActionDistance: 1.75
+  attackRadius: 0.75
+  attackDamage: 10

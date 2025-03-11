@@ -19,6 +19,11 @@ public class Pig : Enemy
     protected PigLookForPlayerState pigLookForPlayerState;
     public PigLookForPlayerState PigLookForPlayerState => pigLookForPlayerState;
 
+    protected PigMeleeAttackState pigMeleeAttackState;
+    public PigMeleeAttackState PigMeleeAttackState => pigMeleeAttackState;
+
+    [SerializeField] Transform meleeAttackPosition;
+
     protected override void Start()
     {
         base.Start();
@@ -28,8 +33,29 @@ public class Pig : Enemy
         pigDetectedPlayerState = new PigDetectedPlayerState(this, stateMachine, "detectedPlayer", enemyDataSO, this);
         pigChargeState = new PigChargeState(this, stateMachine, "charge", enemyDataSO, this);
         pigLookForPlayerState = new PigLookForPlayerState(this, stateMachine, "lookForPlayer", enemyDataSO, this);
+        pigMeleeAttackState = new PigMeleeAttackState(this, stateMachine, "meleeAttack", enemyDataSO, meleeAttackPosition, this);
 
         stateMachine.Initialize(pigMoveState);
     }
-    
+
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        LoadMeleeAttackPosition();
+    }
+
+    protected void LoadMeleeAttackPosition()
+    {
+        if (meleeAttackPosition != null) return;
+        meleeAttackPosition = transform.parent.Find("Attack/MeleeAttack");
+        Debug.Log(transform.name + " LoadMeleeAttackPosition", gameObject);
+    }
+
+    public override void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+
+        Gizmos.DrawWireSphere(meleeAttackPosition.position, enemyDataSO.attackRadius);
+    }
+
 }

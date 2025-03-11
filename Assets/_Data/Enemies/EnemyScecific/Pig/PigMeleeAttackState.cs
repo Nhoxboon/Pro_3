@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PigChargeState : ChargeState
+public class PigMeleeAttackState : MeleeAttackState
 {
     private Pig pig;
 
-    public PigChargeState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Pig pig) : base(enemy, stateMachine, animBoolName, enemyDataSO)
+    public PigMeleeAttackState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Transform attackPosition, Pig pig) : base(enemy, stateMachine, animBoolName, enemyDataSO, attackPosition)
     {
         this.pig = pig;
     }
@@ -26,21 +26,17 @@ public class PigChargeState : ChargeState
         base.Exit();
     }
 
+    public override void FinishAttack()
+    {
+        base.FinishAttack();
+    }
+
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        if (performCloseRangeAction)
+        if(isAnimationFinished)
         {
-            stateMachine.ChangeState(pig.PigMeleeAttackState);
-        }
-        else if (!isDetectingCliff || isDetectingWall)
-        {
-            stateMachine.ChangeState(pig.PigLookForPlayerState);
-        }
-        else if (isChargeTimeOver)
-        {
-            
             if(isPlayerInMinAgroRange)
             {
                 stateMachine.ChangeState(pig.PigDetectedPlayerState);
@@ -50,11 +46,15 @@ public class PigChargeState : ChargeState
                 stateMachine.ChangeState(pig.PigLookForPlayerState);
             }
         }
-
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+    }
+
+    public override void TriggerAttack()
+    {
+        base.TriggerAttack();
     }
 }

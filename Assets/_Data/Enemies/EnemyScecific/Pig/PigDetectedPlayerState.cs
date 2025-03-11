@@ -30,7 +30,11 @@ public class PigDetectedPlayerState : DetectedPlayerState
     {
         base.LogicUpdate();
 
-        if(performLongRangeAction)
+        if(performCloseRangeAction)
+        {
+            stateMachine.ChangeState(pig.PigMeleeAttackState);
+        }
+        else if(performLongRangeAction)
         {
             stateMachine.ChangeState(pig.PigChargeState);
         }
@@ -43,6 +47,7 @@ public class PigDetectedPlayerState : DetectedPlayerState
             enemy.Flip();
             stateMachine.ChangeState(pig.PigMoveState);
         }
+
     }
 
     public override void PhysicsUpdate()

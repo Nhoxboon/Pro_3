@@ -8,6 +8,7 @@ public class ChargeState : State
     protected bool isDetectingCliff;
     protected bool isDetectingWall;
     protected bool isChargeTimeOver;
+    protected bool performCloseRangeAction;
 
     public ChargeState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO) : base(enemy, stateMachine, animBoolName, enemyDataSO)
     {
@@ -20,6 +21,7 @@ public class ChargeState : State
         isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
         isDetectingCliff = EnemyCtrl.Instance.TouchingDirection.CheckTouchingCliff();
         isDetectingWall = EnemyCtrl.Instance.TouchingDirection.CheckTouchingWall();
+        performCloseRangeAction = enemy.CheckPlayerInCloseRangeAction();
     }
 
     public override void Enter()

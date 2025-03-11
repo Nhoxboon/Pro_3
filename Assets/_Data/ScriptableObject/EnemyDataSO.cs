@@ -25,4 +25,9 @@ public class EnemyDataSO : ScriptableObject
     [Header("Look For Player State")]
     public int amountOfTurns = 2;
     public float timeBetweenTurns = 0.75f;
+
+    [Header("Attack State")]
+    public float closeRangeActionDistance = 1f;
+    public float attackRadius = 0.75f;
+    public float attackDamage = 10f;
 }

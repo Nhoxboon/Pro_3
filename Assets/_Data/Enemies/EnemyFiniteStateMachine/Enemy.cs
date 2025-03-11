@@ -21,6 +21,9 @@ public class Enemy : NhoxBehaviour
 
     [SerializeField] protected Transform detectedZone;
 
+    [SerializeField] protected EnemyGetAnimationEvent getAnimEvent;
+    public EnemyGetAnimationEvent GetAnimEvent => getAnimEvent;
+
     protected override void Start()
     {
         base.Start();
@@ -44,6 +47,7 @@ public class Enemy : NhoxBehaviour
         LoadRigidbody2D();
         LoadDetectedZone();
         LoadEnemyDataSO();
+        LoadAnimationEvent();
     }
 
     protected void LoadRigidbody2D()
@@ -67,6 +71,13 @@ public class Enemy : NhoxBehaviour
         Debug.Log(transform.name + " LoadEnemyDataSO", gameObject);
     }
 
+    protected void LoadAnimationEvent()
+    {
+        if (getAnimEvent != null) return;
+        getAnimEvent = GetComponent<EnemyGetAnimationEvent>();
+        Debug.Log(transform.name + " LoadAnimationEvent", gameObject);
+    }
+
     public virtual void SetVelocityX(float velocity)
     {
         workSpace.Set(facingDirection * velocity, rb.velocity.y);
@@ -81,6 +92,11 @@ public class Enemy : NhoxBehaviour
     public virtual bool CheckPlayerInMaxAgroRange()
     {
         return Physics2D.Raycast(detectedZone.position, transform.parent.right, enemyDataSO.maxAgroDistance, enemyDataSO.whatIsPlayer);
+    }
+
+    public virtual bool CheckPlayerInCloseRangeAction()
+    {
+        return Physics2D.Raycast(detectedZone.position, transform.parent.right, enemyDataSO.closeRangeActionDistance, enemyDataSO.whatIsPlayer);
     }
 
     public virtual void Flip()
