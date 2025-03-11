@@ -24,16 +24,32 @@ public class Enemy : NhoxBehaviour
     [SerializeField] protected EnemyGetAnimationEvent getAnimEvent;
     public EnemyGetAnimationEvent GetAnimEvent => getAnimEvent;
 
+    [Header("DamageReceiver")]
+    [SerializeField] protected float currentHealth;
+    [SerializeField] protected float currentStunResistance;
+    [SerializeField] protected float lastDamageTime;
+    [SerializeField] protected int lastDamageDirection;
+    public int LastDamageDirection;
+    [SerializeField] protected bool isStunned;
+
     protected override void Start()
     {
         base.Start();
         facingDirection = 1;
+        currentHealth = enemyDataSO.maxHealth;
+        currentStunResistance = enemyDataSO.stunResistance;
+
         stateMachine = new FiniteStateMachine();
     }
 
     protected virtual void Update()
     {
         stateMachine.CurrentState.LogicUpdate();
+
+        if(Time.time >= lastDamageTime + enemyDataSO.stunRecoveryTime)
+        {
+            ResetStunResistance();
+        }
     }
 
     protected virtual void FixedUpdate()
@@ -84,6 +100,13 @@ public class Enemy : NhoxBehaviour
         rb.velocity = workSpace;
     }
 
+    public virtual void SetVelocity(float velocity, Vector2 angle, int direction)
+    {
+        angle.Normalize();
+        workSpace.Set(angle.x * velocity * direction, angle.y * velocity);
+        rb.velocity = workSpace;
+    }
+
     public virtual bool CheckPlayerInMinAgroRange()
     {
         return Physics2D.Raycast(detectedZone.position, transform.parent.right, enemyDataSO.minAgroDistance, enemyDataSO.whatIsPlayer);
@@ -99,6 +122,41 @@ public class Enemy : NhoxBehaviour
         return Physics2D.Raycast(detectedZone.position, transform.parent.right, enemyDataSO.closeRangeActionDistance, enemyDataSO.whatIsPlayer);
     }
 
+    public virtual void DamageHop(float velocity)
+    {
+        workSpace.Set(rb.velocity.x, velocity);
+        rb.velocity = workSpace;
+    }
+
+    public virtual void Damage(AttackDetails attackDetails)
+    {
+        lastDamageTime = Time.time;
+
+        currentHealth -= attackDetails.damageAmount;
+        currentStunResistance -= attackDetails.stunDamageAmount;
+
+        DamageHop(enemyDataSO.damageHopSpeed);
+        if(attackDetails.position.x > transform.parent.position.x)
+        {
+            lastDamageDirection = -1;
+        }
+        else
+        {
+            lastDamageDirection = 1;
+        }
+
+        if(currentStunResistance <= 0)
+        {
+            isStunned = true;
+        }
+    }
+
+    public virtual void ResetStunResistance()
+    {
+        isStunned = false;
+        currentStunResistance = enemyDataSO.stunResistance;
+    }
+
     public virtual void Flip()
     {
         facingDirection *= -1;
@@ -109,5 +167,8 @@ public class Enemy : NhoxBehaviour
     {
         Gizmos.DrawWireSphere(detectedZone.position + (Vector3)(Vector2.right * enemyDataSO.minAgroDistance), 0.2f);
         Gizmos.DrawWireSphere(detectedZone.position + (Vector3)(Vector2.right * enemyDataSO.maxAgroDistance), 0.2f);
+
+        Gizmos.DrawWireSphere(detectedZone.position + (Vector3)(Vector2.right * enemyDataSO.closeRangeActionDistance), 0.2f);
+
     }
 }

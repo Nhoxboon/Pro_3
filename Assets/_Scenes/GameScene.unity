@@ -29884,7 +29884,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &247170909
 Transform:
   m_ObjectHideFlags: 0
@@ -39807,7 +39807,7 @@ SpriteRenderer:
   m_SortingLayerID: -1776934741
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 791581256, guid: 3c6ce8fe5cc7e3c48ab9614d0e7c811b, type: 3}
+  m_Sprite: {fileID: -545062657, guid: 7e1ea902c0e674a40b96c692e0d5e3e0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -39851,6 +39851,12 @@ MonoBehaviour:
   enemyDataSO: {fileID: 11400000, guid: d415e48a03152ec44ab5675061391129, type: 2}
   detectedZone: {fileID: 1567068164}
   getAnimEvent: {fileID: 555530533}
+  currentHealth: 0
+  currentStunResistance: 0
+  lastDamageTime: 0
+  lastDamageDirection: 0
+  LastDamageDirection: 0
+  isStunned: 0
   meleeAttackPosition: {fileID: 2012583876}
 --- !u!114 &555530533
 MonoBehaviour:
@@ -41053,7 +41059,7 @@ Transform:
   m_GameObject: {fileID: 1567068163}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.08, y: -0.38, z: 0}
+  m_LocalPosition: {x: 0, y: -0.38, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

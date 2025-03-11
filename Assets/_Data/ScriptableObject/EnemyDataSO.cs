@@ -5,6 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyDataSO", menuName = "ScriptableObject/Enemy Data/Base Data")]
 public class EnemyDataSO : ScriptableObject
 {
+    [Header("Status")]
+    public float maxHealth = 30f;
+    public float damageHopSpeed = 3f;
+
     [Header("Idle State")]
     public float minIdleTime = 1f;
     public float maxIdleTime = 2f;
@@ -30,4 +34,12 @@ public class EnemyDataSO : ScriptableObject
     public float closeRangeActionDistance = 1f;
     public float attackRadius = 0.75f;
     public float attackDamage = 10f;
+
+    [Header("Stun State")]
+    public float stunTime = 3f;
+    public float stunKnockBackTime = 0.2f;
+    public float stunKnockBackSpeed = 20f;
+    public Vector2 stunKnockBackAngle;
+    public float stunResistance = 3f;
+    public float stunRecoveryTime = 2f;
 }

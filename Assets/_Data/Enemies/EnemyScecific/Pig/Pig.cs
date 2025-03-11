@@ -22,6 +22,9 @@ public class Pig : Enemy
     protected PigMeleeAttackState pigMeleeAttackState;
     public PigMeleeAttackState PigMeleeAttackState => pigMeleeAttackState;
 
+    protected PigStunState pigStunState;
+    public PigStunState PigStunState => pigStunState;
+
     [SerializeField] Transform meleeAttackPosition;
 
     protected override void Start()
@@ -34,6 +37,7 @@ public class Pig : Enemy
         pigChargeState = new PigChargeState(this, stateMachine, "charge", enemyDataSO, this);
         pigLookForPlayerState = new PigLookForPlayerState(this, stateMachine, "lookForPlayer", enemyDataSO, this);
         pigMeleeAttackState = new PigMeleeAttackState(this, stateMachine, "meleeAttack", enemyDataSO, meleeAttackPosition, this);
+        pigStunState = new PigStunState(this, stateMachine, "stun", enemyDataSO, this);
 
         stateMachine.Initialize(pigMoveState);
     }
@@ -58,4 +62,13 @@ public class Pig : Enemy
         Gizmos.DrawWireSphere(meleeAttackPosition.position, enemyDataSO.attackRadius);
     }
 
+    public override void Damage(AttackDetails attackDetails)
+    {
+        base.Damage(attackDetails);
+
+        if(isStunned && stateMachine.CurrentState != pigStunState)
+        {
+            stateMachine.ChangeState(pigStunState);
+        }
+    }
 }
