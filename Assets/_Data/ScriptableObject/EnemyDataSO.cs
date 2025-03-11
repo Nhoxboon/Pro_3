@@ -21,4 +21,8 @@ public class EnemyDataSO : ScriptableObject
     [Header("Charge State")]
     public float chargeSpeed = 6f;
     public float chargeTime = 2f;
+
+    [Header("Look For Player State")]
+    public int amountOfTurns = 2;
+    public float timeBetweenTurns = 0.75f;
 }

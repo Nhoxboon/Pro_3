@@ -30,11 +30,20 @@ public class PigChargeState : ChargeState
     {
         base.LogicUpdate();
 
-        if(isChargeTimeOver)
+        if(!isDetectingCliff || isDetectingWall)
+        {
+            stateMachine.ChangeState(pig.PigLookForPlayerState);
+        }
+
+        else if (isChargeTimeOver)
         {
             if(isPlayerInMinAgroRange)
             {
                 stateMachine.ChangeState(pig.PigDetectedPlayerState);
+            }
+            else
+            {
+                stateMachine.ChangeState(pig.PigLookForPlayerState);
             }
         }
     }

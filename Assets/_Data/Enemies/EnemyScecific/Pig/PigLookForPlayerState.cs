@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PigDetectedPlayerState : DetectedPlayerState
+public class PigLookForPlayerState : LookForPlayerState
 {
     private Pig pig;
 
-    public PigDetectedPlayerState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Pig pig) : base(enemy, stateMachine, animBoolName, enemyDataSO)
+    public PigLookForPlayerState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Pig pig) : base(enemy, stateMachine, animBoolName, enemyDataSO)
     {
         this.pig = pig;
     }
@@ -30,17 +30,12 @@ public class PigDetectedPlayerState : DetectedPlayerState
     {
         base.LogicUpdate();
 
-        if(performLongRangeAction)
+        if(isPlayerInMinAgroRange)
         {
-            stateMachine.ChangeState(pig.PigChargeState);
+            stateMachine.ChangeState(pig.PigDetectedPlayerState);
         }
-        else if (!isPlayerInMaxAgroRange)
+        else if (isAllTurnsTimeDone)
         {
-            stateMachine.ChangeState(pig.PigLookForPlayerState);
-        }
-        else if (!isDetectingCliff)
-        {
-            enemy.Flip();
             stateMachine.ChangeState(pig.PigMoveState);
         }
     }

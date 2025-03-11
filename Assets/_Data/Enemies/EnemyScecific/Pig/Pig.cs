@@ -16,6 +16,9 @@ public class Pig : Enemy
     protected PigChargeState pigChargeState;
     public PigChargeState PigChargeState => pigChargeState;
 
+    protected PigLookForPlayerState pigLookForPlayerState;
+    public PigLookForPlayerState PigLookForPlayerState => pigLookForPlayerState;
+
     protected override void Start()
     {
         base.Start();
@@ -24,6 +27,7 @@ public class Pig : Enemy
         pigMoveState = new PigMoveState(this, stateMachine, "move", enemyDataSO, this);
         pigDetectedPlayerState = new PigDetectedPlayerState(this, stateMachine, "detectedPlayer", enemyDataSO, this);
         pigChargeState = new PigChargeState(this, stateMachine, "charge", enemyDataSO, this);
+        pigLookForPlayerState = new PigLookForPlayerState(this, stateMachine, "lookForPlayer", enemyDataSO, this);
 
         stateMachine.Initialize(pigMoveState);
     }

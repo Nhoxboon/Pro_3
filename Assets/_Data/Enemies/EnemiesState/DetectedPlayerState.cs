@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DetectedpPlayerState : State
+public class DetectedPlayerState : State
 {
     protected bool isPlayerInMinAgroRange;
     protected bool isPlayerInMaxAgroRange;
     protected bool performLongRangeAction;
+    protected bool isDetectingCliff;
 
-    public DetectedpPlayerState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO) : base(enemy, stateMachine, animBoolName, enemyDataSO)
+    public DetectedPlayerState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO) : base(enemy, stateMachine, animBoolName, enemyDataSO)
     {
     }
 
@@ -18,6 +19,7 @@ public class DetectedpPlayerState : State
 
         isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
         isPlayerInMaxAgroRange = enemy.CheckPlayerInMaxAgroRange();
+        isDetectingCliff = EnemyCtrl.Instance.TouchingDirection.CheckTouchingCliff();
     }
 
     public override void Enter()

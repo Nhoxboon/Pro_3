@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Enemy : NhoxBehaviour
 {
@@ -85,5 +87,11 @@ public class Enemy : NhoxBehaviour
     {
         facingDirection *= -1;
         transform.parent.Rotate(0.0f, 180.0f, 0.0f);
+    }
+
+    public virtual void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(detectedZone.position + (Vector3)(Vector2.right * enemyDataSO.minAgroDistance), 0.2f);
+        Gizmos.DrawWireSphere(detectedZone.position + (Vector3)(Vector2.right * enemyDataSO.maxAgroDistance), 0.2f);
     }
 }

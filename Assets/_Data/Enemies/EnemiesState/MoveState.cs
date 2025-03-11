@@ -26,6 +26,7 @@ public class MoveState : State
         isDetectingWall = EnemyCtrl.Instance.TouchingDirection.CheckTouchingWall();
         isDetectingCliff = EnemyCtrl.Instance.TouchingDirection.CheckTouchingCliff();
         isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
+
         enemy.SetVelocityX(enemyDataSO.movementSpeed);
     }
 

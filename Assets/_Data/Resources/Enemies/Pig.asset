@@ -15,7 +15,7 @@ MonoBehaviour:
   minIdleTime: 1
   maxIdleTime: 2
   movementSpeed: 3
-  longRangeActionTime: 1.5
+  longRangeActionTime: 0.5
   minAgroDistance: 3
   maxAgroDistance: 4
   whatIsPlayer:
@@ -23,3 +23,5 @@ MonoBehaviour:
     m_Bits: 256
   chargeSpeed: 6
   chargeTime: 2
+  amountOfTurns: 2
+  timeBetweenTurns: 0.75
