@@ -20,6 +20,10 @@ public class State
         this.enemyDataSO = enemyDataSO;
     }
 
+    public virtual void DoChecks()
+    {
+    }
+
     public virtual void Enter()
     {
         startTime = Time.time;
@@ -38,9 +42,5 @@ public class State
     public virtual void PhysicsUpdate()
     {
         DoChecks();
-    }
-
-    public virtual void DoChecks()
-    {
     }
 }

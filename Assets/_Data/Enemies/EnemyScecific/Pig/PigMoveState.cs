@@ -25,7 +25,11 @@ public class PigMoveState : MoveState
     {
         base.LogicUpdate();
 
-        if (isDetectingWall || !isDetectingCliff)
+        if(isPlayerInMinAgroRange)
+        {
+            stateMachine.ChangeState(pig.PigDetectedPlayerState);
+        }
+        else if (isDetectingWall || !isDetectingCliff)
         {
             pig.PigIdleState.SetFlipAfterIdle(true);
             stateMachine.ChangeState(pig.PigIdleState);

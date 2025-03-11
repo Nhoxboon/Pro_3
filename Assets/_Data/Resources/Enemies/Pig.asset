@@ -12,4 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817a8ab1a91e48342af0a2bc95011c7b, type: 3}
   m_Name: Pig
   m_EditorClassIdentifier: 
+  minIdleTime: 1
+  maxIdleTime: 2
   movementSpeed: 3
+  longRangeActionTime: 1.5
+  minAgroDistance: 3
+  maxAgroDistance: 4
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 256
+  chargeSpeed: 6
+  chargeTime: 2

@@ -29910,7 +29910,7 @@ GameObject:
   m_Component:
   - component: {fileID: 366224571}
   - component: {fileID: 366224570}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Animation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29990,7 +29990,7 @@ GameObject:
   - component: {fileID: 400835929}
   - component: {fileID: 400835930}
   - component: {fileID: 400835932}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30137,7 +30137,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 431619954}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LedgeCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39847,7 +39847,8 @@ MonoBehaviour:
   rb: {fileID: 1438226296}
   facingDirection: 0
   workSpace: {x: 0, y: 0}
-  pigDataSO: {fileID: 11400000, guid: d415e48a03152ec44ab5675061391129, type: 2}
+  enemyDataSO: {fileID: 11400000, guid: d415e48a03152ec44ab5675061391129, type: 2}
+  detectedZone: {fileID: 1567068164}
 --- !u!1 &573153839
 GameObject:
   m_ObjectHideFlags: 0
@@ -39888,7 +39889,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 607687077}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CeilingCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40009,7 +40010,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1112785652}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40041,7 +40042,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1132115251}
   - component: {fileID: 1132115252}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DashDirectionIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40684,7 +40685,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1389971698}
   - component: {fileID: 1389971697}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TouchingDirection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40746,9 +40747,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1438226298}
-  - component: {fileID: 1438226297}
   - component: {fileID: 1438226296}
   - component: {fileID: 1438226295}
+  - component: {fileID: 1438226297}
   m_Layer: 7
   m_Name: Pig
   m_TagString: Enemy
@@ -40859,6 +40860,7 @@ Transform:
   - {fileID: 555530531}
   - {fileID: 638455870}
   - {fileID: 1634493568}
+  - {fileID: 1567068164}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1522995592
@@ -40873,7 +40875,7 @@ GameObject:
   - component: {fileID: 1522995598}
   - component: {fileID: 1522995600}
   - component: {fileID: 1522995599}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -40978,6 +40980,37 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.17}
   m_Size: {x: 0.75, y: 1.66}
   m_Direction: 0
+--- !u!1 &1567068163
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1567068164}
+  m_Layer: 7
+  m_Name: DetectedZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1567068164
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567068163}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.08, y: -0.38, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1438226298}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1613620124
 GameObject:
   m_ObjectHideFlags: 0
@@ -40988,7 +41021,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1613620125}
   - component: {fileID: 1613620128}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Movement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41196,7 +41229,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1859651143}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41227,7 +41260,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1911014814}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DamageSender
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41474,7 +41507,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2051819855}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: CliffCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}

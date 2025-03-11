@@ -15,6 +15,10 @@ public class Enemy : NhoxBehaviour
 
     [SerializeField] protected Vector2 workSpace;
 
+    [SerializeField] protected EnemyDataSO enemyDataSO;
+
+    [SerializeField] protected Transform detectedZone;
+
     protected override void Start()
     {
         base.Start();
@@ -35,7 +39,9 @@ public class Enemy : NhoxBehaviour
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadRigidbody2D();
+        LoadRigidbody2D();
+        LoadDetectedZone();
+        LoadEnemyDataSO();
     }
 
     protected void LoadRigidbody2D()
@@ -45,10 +51,34 @@ public class Enemy : NhoxBehaviour
         Debug.Log(transform.name + " LoadRigidbody2D", gameObject);
     }
 
+    protected void LoadDetectedZone()
+    {
+        if (this.detectedZone != null) return;
+        this.detectedZone = transform.parent.Find("DetectedZone");
+        Debug.Log(transform.name + " LoadDetectedZone", gameObject);
+    }
+
+    protected void LoadEnemyDataSO()
+    {
+        if (enemyDataSO != null) return;
+        enemyDataSO = Resources.Load<EnemyDataSO>("Enemies/Pig");
+        Debug.Log(transform.name + " LoadEnemyDataSO", gameObject);
+    }
+
     public virtual void SetVelocityX(float velocity)
     {
         workSpace.Set(facingDirection * velocity, rb.velocity.y);
         rb.velocity = workSpace;
+    }
+
+    public virtual bool CheckPlayerInMinAgroRange()
+    {
+        return Physics2D.Raycast(detectedZone.position, transform.parent.right, enemyDataSO.minAgroDistance, enemyDataSO.whatIsPlayer);
+    }
+
+    public virtual bool CheckPlayerInMaxAgroRange()
+    {
+        return Physics2D.Raycast(detectedZone.position, transform.parent.right, enemyDataSO.maxAgroDistance, enemyDataSO.whatIsPlayer);
     }
 
     public virtual void Flip()

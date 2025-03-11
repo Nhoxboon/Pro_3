@@ -10,28 +10,22 @@ public class Pig : Enemy
     protected PigMoveState pigMoveState;
     public PigMoveState PigMoveState => pigMoveState;
 
-    [SerializeField] private EnemyDataSO pigDataSO;
+    protected PigDetectedPlayerState pigDetectedPlayerState;
+    public PigDetectedPlayerState PigDetectedPlayerState => pigDetectedPlayerState;
+
+    protected PigChargeState pigChargeState;
+    public PigChargeState PigChargeState => pigChargeState;
 
     protected override void Start()
     {
         base.Start();
 
-        pigIdleState = new PigIdleState(this, stateMachine, "idle", pigDataSO, this);
-        pigMoveState = new PigMoveState(this, stateMachine, "move", pigDataSO, this);
+        pigIdleState = new PigIdleState(this, stateMachine, "idle", enemyDataSO, this);
+        pigMoveState = new PigMoveState(this, stateMachine, "move", enemyDataSO, this);
+        pigDetectedPlayerState = new PigDetectedPlayerState(this, stateMachine, "detectedPlayer", enemyDataSO, this);
+        pigChargeState = new PigChargeState(this, stateMachine, "charge", enemyDataSO, this);
 
         stateMachine.Initialize(pigMoveState);
     }
-
-    protected override void LoadComponents()
-    {
-        base.LoadComponents();
-        LoadEnemyDataSO();
-    }
-
-    protected void LoadEnemyDataSO()
-    {
-        if (pigDataSO != null) return;
-        pigDataSO = Resources.Load<EnemyDataSO>("Enemies/Pig");
-        Debug.Log(transform.name + " LoadEnemyDataSO", gameObject);
-    }
+    
 }

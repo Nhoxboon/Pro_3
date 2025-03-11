@@ -6,10 +6,18 @@ public class IdleState : State
 {
     protected bool flipAfterIdle;
     protected bool isIdleTimeOver;
+    protected bool isPlayerInMinAgroRange;
+
     protected float idleTime;
 
     public IdleState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO) : base(enemy, stateMachine, animBoolName, enemyDataSO)
     {
+    }
+
+    public override void DoChecks()
+    {
+        base.DoChecks();
+        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
     }
 
     public override void Enter()
