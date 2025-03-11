@@ -39857,6 +39857,7 @@ MonoBehaviour:
   lastDamageDirection: 0
   LastDamageDirection: 0
   isStunned: 0
+  isDead: 0
   meleeAttackPosition: {fileID: 2012583876}
 --- !u!114 &555530533
 MonoBehaviour:
@@ -41147,7 +41148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundCheckRadius: 0.3
   wallCheckDistance: 0.4
-  cliffCheckDistance: 0.4
+  cliffCheckDistance: 1
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64

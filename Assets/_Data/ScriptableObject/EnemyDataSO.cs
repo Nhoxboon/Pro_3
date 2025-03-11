@@ -42,4 +42,11 @@ public class EnemyDataSO : ScriptableObject
     public Vector2 stunKnockBackAngle;
     public float stunResistance = 3f;
     public float stunRecoveryTime = 2f;
+
+    [Header("Dead State")]
+    public GameObject deathChunkParticle;
+    public GameObject deathBloodParticle;
+
+    [Header("Hit Particle")]
+    public GameObject hitParticle;
 }

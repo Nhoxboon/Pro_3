@@ -12,19 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817a8ab1a91e48342af0a2bc95011c7b, type: 3}
   m_Name: Pig
   m_EditorClassIdentifier: 
+  maxHealth: 30
+  damageHopSpeed: 3
   minIdleTime: 1
   maxIdleTime: 2
   movementSpeed: 3
-  longRangeActionTime: 1.5
-  minAgroDistance: 3
-  maxAgroDistance: 4
+  longRangeActionTime: 3
+  minAgroDistance: 4
+  maxAgroDistance: 6
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 256
   chargeSpeed: 6
-  chargeTime: 2
+  chargeTime: 1
   amountOfTurns: 2
   timeBetweenTurns: 0.75
-  closeRangeActionDistance: 1.75
+  closeRangeActionDistance: 1
   attackRadius: 0.75
   attackDamage: 10
+  stunTime: 3
+  stunKnockBackTime: 0.2
+  stunKnockBackSpeed: 20
+  stunKnockBackAngle: {x: 0, y: 0}
+  stunResistance: 3
+  stunRecoveryTime: 2
+  deathChunkParticle: {fileID: 5261940239201411777, guid: 8ffaff1b9444c6e4c8e9b4e686dbd5d0, type: 3}
+  deathBloodParticle: {fileID: 131344853240816375, guid: b0678770df7c3e147a659a86ed21e202, type: 3}
+  hitParticle: {fileID: 6341541642488607537, guid: d1038592a5c8b3e42a760ef9a7be0ca7, type: 3}

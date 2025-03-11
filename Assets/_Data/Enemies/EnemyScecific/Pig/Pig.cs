@@ -25,6 +25,9 @@ public class Pig : Enemy
     protected PigStunState pigStunState;
     public PigStunState PigStunState => pigStunState;
 
+    protected PigDeadState pigDeadState;
+    public PigDeadState PigDeadState => pigDeadState;
+
     [SerializeField] Transform meleeAttackPosition;
 
     protected override void Start()
@@ -38,6 +41,7 @@ public class Pig : Enemy
         pigLookForPlayerState = new PigLookForPlayerState(this, stateMachine, "lookForPlayer", enemyDataSO, this);
         pigMeleeAttackState = new PigMeleeAttackState(this, stateMachine, "meleeAttack", enemyDataSO, meleeAttackPosition, this);
         pigStunState = new PigStunState(this, stateMachine, "stun", enemyDataSO, this);
+        pigDeadState = new PigDeadState(this, stateMachine, "dead", enemyDataSO, this);
 
         stateMachine.Initialize(pigMoveState);
     }
@@ -66,9 +70,15 @@ public class Pig : Enemy
     {
         base.Damage(attackDetails);
 
-        if(isStunned && stateMachine.CurrentState != pigStunState)
+        if (isDead)
+        {
+            stateMachine.ChangeState(pigDeadState);
+        }
+        else if (isStunned && stateMachine.CurrentState != pigStunState)
         {
             stateMachine.ChangeState(pigStunState);
         }
+
+        
     }
 }
