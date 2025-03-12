@@ -27,12 +27,12 @@ public class State
     public virtual void Enter()
     {
         startTime = Time.time;
-        EnemyCtrl.Instance.EnemyAnimation.AnimationState(animBoolName, true);
+        enemy.EnemyCtrl.EnemyAnimation.AnimationState(animBoolName, true);
     }
 
     public virtual void Exit()
     {
-        EnemyCtrl.Instance.EnemyAnimation.AnimationState(animBoolName, false);
+        enemy.EnemyCtrl.EnemyAnimation.AnimationState(animBoolName, false);
     }
 
     public virtual void LogicUpdate()

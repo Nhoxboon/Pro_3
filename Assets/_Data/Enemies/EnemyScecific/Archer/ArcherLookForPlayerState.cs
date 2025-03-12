@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArcherIdleState : IdleState
+public class ArcherLookForPlayerState : LookForPlayerState
 {
     private Archer archer;
 
-    public ArcherIdleState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Archer archer) : base(enemy, stateMachine, animBoolName, enemyDataSO)
+    public ArcherLookForPlayerState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Archer archer) : base(enemy, stateMachine, animBoolName, enemyDataSO)
     {
         this.archer = archer;
     }
@@ -34,7 +34,7 @@ public class ArcherIdleState : IdleState
         {
             stateMachine.ChangeState(archer.ArcherDetectedPlayerState);
         }
-        else if (isIdleTimeOver)
+        else if (isAllTurnsDone)
         {
             stateMachine.ChangeState(archer.ArcherMoveState);
         }

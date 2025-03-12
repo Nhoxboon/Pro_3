@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArcherIdleState : IdleState
+public class ArcherDeadState : DeadState
 {
     private Archer archer;
 
-    public ArcherIdleState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Archer archer) : base(enemy, stateMachine, animBoolName, enemyDataSO)
+    public ArcherDeadState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Archer archer) : base(enemy, stateMachine, animBoolName, enemyDataSO)
     {
         this.archer = archer;
     }
@@ -29,15 +29,6 @@ public class ArcherIdleState : IdleState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
-        if (isPlayerInMinAgroRange)
-        {
-            stateMachine.ChangeState(archer.ArcherDetectedPlayerState);
-        }
-        else if (isIdleTimeOver)
-        {
-            stateMachine.ChangeState(archer.ArcherMoveState);
-        }
     }
 
     public override void PhysicsUpdate()

@@ -24,6 +24,9 @@ public class Enemy : NhoxBehaviour
     [SerializeField] protected EnemyGetAnimationEvent getAnimEvent;
     public EnemyGetAnimationEvent GetAnimEvent => getAnimEvent;
 
+    [SerializeField] protected EnemyCtrl enemyCtrl;
+    public EnemyCtrl EnemyCtrl => enemyCtrl;
+
     [Header("DamageReceiver")]
     [SerializeField] protected float currentHealth;
     [SerializeField] protected float currentStunResistance;
@@ -64,6 +67,7 @@ public class Enemy : NhoxBehaviour
         base.LoadComponents();
         LoadRigidbody2D();
         LoadDetectedZone();
+        LoadEnemyCtrl();
         LoadEnemyDataSO();
         LoadAnimationEvent();
     }
@@ -72,6 +76,9 @@ public class Enemy : NhoxBehaviour
     {
         if (this.rb != null) return;
         this.rb = this.GetComponentInParent<Rigidbody2D>();
+        rb.gravityScale = 5f;
+        rb.freezeRotation = true;
+        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         Debug.Log(transform.name + " LoadRigidbody2D", gameObject);
     }
 
@@ -87,6 +94,13 @@ public class Enemy : NhoxBehaviour
         if (enemyDataSO != null) return;
         enemyDataSO = Resources.Load<EnemyDataSO>("Enemies/" + transform.parent.name);
         Debug.Log(transform.name + " LoadEnemyDataSO", gameObject);
+    }
+
+    protected void LoadEnemyCtrl()
+    {
+        if (enemyCtrl != null) return;
+        enemyCtrl = GetComponentInParent<EnemyCtrl>();
+        Debug.Log(transform.name + " LoadEnemyCtrl", gameObject);
     }
 
     protected void LoadAnimationEvent()

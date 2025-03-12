@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Pig
   m_EditorClassIdentifier: 
   maxHealth: 30
-  damageHopSpeed: 3
+  damageHopSpeed: 10
   minIdleTime: 1
   maxIdleTime: 2
   movementSpeed: 3
-  longRangeActionTime: 3
+  longRangeActionTime: 4
   minAgroDistance: 4
   maxAgroDistance: 6
   whatIsPlayer:
@@ -32,8 +32,8 @@ MonoBehaviour:
   attackDamage: 10
   stunTime: 3
   stunKnockBackTime: 0.2
-  stunKnockBackSpeed: 20
-  stunKnockBackAngle: {x: 0, y: 0}
+  stunKnockBackSpeed: 8
+  stunKnockBackAngle: {x: 1, y: 1}
   stunResistance: 3
   stunRecoveryTime: 2
   deathChunkParticle: {fileID: 5261940239201411777, guid: 8ffaff1b9444c6e4c8e9b4e686dbd5d0, type: 3}

@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class EnemyCtrl : NhoxBehaviour
 {
-    private static EnemyCtrl instance;
-    public static EnemyCtrl Instance => instance;
-
     [SerializeField] protected Enemy enemy;
     public Enemy Enemy => enemy;
 
@@ -15,17 +12,6 @@ public class EnemyCtrl : NhoxBehaviour
 
     [SerializeField] protected TouchingDirection touchingDirection;
     public TouchingDirection TouchingDirection => touchingDirection;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        if (instance != null)
-        {
-            Debug.LogError("EnemyCtrl already exists in the scene. Deleting duplicate...");
-            return;
-        }
-        instance = this;
-    }
 
     protected override void LoadComponents()
     {

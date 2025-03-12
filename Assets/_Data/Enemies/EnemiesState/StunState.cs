@@ -18,7 +18,7 @@ public class StunState : State
     {
         base.DoChecks();
 
-        isGrounded = EnemyCtrl.Instance.TouchingDirection.IsGrounded;
+        isGrounded = enemy.EnemyCtrl.TouchingDirection.IsGrounded;
         performCloseRangeAction = enemy.CheckPlayerInCloseRangeAction();
         isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
     }

@@ -20,7 +20,7 @@ public class DetectedPlayerState : State
 
         isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
         isPlayerInMaxAgroRange = enemy.CheckPlayerInMaxAgroRange();
-        isDetectingCliff = EnemyCtrl.Instance.TouchingDirection.CheckTouchingCliff();
+        isDetectingCliff = enemy.EnemyCtrl.TouchingDirection.CheckTouchingCliff();
 
         performCloseRangeAction = enemy.CheckPlayerInCloseRangeAction();
     }
