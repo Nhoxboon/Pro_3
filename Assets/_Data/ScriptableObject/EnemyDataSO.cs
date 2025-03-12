@@ -17,7 +17,7 @@ public class EnemyDataSO : ScriptableObject
     public float movementSpeed = 3f;
 
     [Header("Detected Player State")]
-    public float longRangeActionTime = 1.5f;
+    public float longRangeActionTime = 3f;
     public float minAgroDistance = 3f;
     public float maxAgroDistance = 4f;
     public LayerMask whatIsPlayer;
