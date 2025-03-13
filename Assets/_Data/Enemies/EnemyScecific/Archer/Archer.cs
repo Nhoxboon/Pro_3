@@ -28,7 +28,11 @@ public class Archer : Enemy
     protected ArcherDodgeState archerDodgeState;
     public ArcherDodgeState ArcherDodgeState => archerDodgeState;
 
+    protected ArcherRangedAttackState archerRangedAttackState;
+    public ArcherRangedAttackState ArcherRangedAttackState => archerRangedAttackState;
+
     [SerializeField] Transform meleeAttackPosition;
+    [SerializeField] Transform rangedAttackPosition;
 
     protected override void Start()
     {
@@ -42,6 +46,7 @@ public class Archer : Enemy
         archerStunState = new ArcherStunState(this, stateMachine, "stun", enemyDataSO, this);
         archerDeadState = new ArcherDeadState(this, stateMachine, "dead", enemyDataSO, this);
         archerDodgeState = new ArcherDodgeState(this, stateMachine, "dodge", enemyDataSO, this);
+        archerRangedAttackState = new ArcherRangedAttackState(this, stateMachine, "rangedAttack", enemyDataSO, rangedAttackPosition, this);
 
         stateMachine.Initialize(archerMoveState);
     }
@@ -50,6 +55,7 @@ public class Archer : Enemy
     {
         base.LoadComponents();
         LoadMeleeAttackPosition();
+        LoadRangedAttackPosition();
     }
 
     protected void LoadMeleeAttackPosition()
@@ -57,6 +63,13 @@ public class Archer : Enemy
         if (meleeAttackPosition != null) return;
         meleeAttackPosition = transform.parent.Find("Attack/MeleeAttack");
         Debug.Log(transform.name + " LoadMeleeAttackPosition", gameObject);
+    }
+
+    protected void LoadRangedAttackPosition()
+    {
+        if (rangedAttackPosition != null) return;
+        rangedAttackPosition = transform.parent.Find("Attack/RangedAttack");
+        Debug.Log(transform.name + " LoadRangedAttackPosition", gameObject);
     }
 
     public override void Damage(AttackDetails attackDetails)
@@ -70,6 +83,10 @@ public class Archer : Enemy
         else if (isStunned && stateMachine.CurrentState != archerStunState)
         {
             stateMachine.ChangeState(archerStunState);
+        }
+        else if (CheckPlayerInMinAgroRange())
+        {
+            stateMachine.ChangeState(archerRangedAttackState);
         }
         else if (!CheckPlayerInMinAgroRange())
         {

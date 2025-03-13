@@ -32,7 +32,6 @@ public class ArcherDetectedPlayerState : DetectedPlayerState
 
         if (performCloseRangeAction)
         {
-            Debug.Log(performCloseRangeAction);
             if (Time.time >= archer.ArcherDodgeState.StartTime + archer.EnemyDataSO.dodgeCooldown)
             {
                 stateMachine.ChangeState(archer.ArcherDodgeState);
@@ -41,6 +40,10 @@ public class ArcherDetectedPlayerState : DetectedPlayerState
             {
                 stateMachine.ChangeState(archer.ArcherMeleeAttackState);
             }
+        }
+        else if(performLongRangeAction)
+        {
+            stateMachine.ChangeState(archer.ArcherRangedAttackState);
         }
         else if (!isPlayerInMaxAgroRange)
         {

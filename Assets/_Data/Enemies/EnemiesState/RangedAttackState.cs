@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class RangedAttackState : AttackState
 {
+    protected GameObject arrow;
+    protected Projectile projectile;
+
     public RangedAttackState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Transform attackPosition) : base(enemy, stateMachine, animBoolName, enemyDataSO, attackPosition)
     {
     }
@@ -41,5 +44,9 @@ public class RangedAttackState : AttackState
     public override void TriggerAttack()
     {
         base.TriggerAttack();
+
+        arrow = GameObject.Instantiate(enemyDataSO.projectile, attackPosition.position, attackPosition.rotation);
+        projectile = arrow.GetComponent<Projectile>();
+        projectile.FireProjectile(enemyDataSO.projectileSpeed, enemyDataSO.projectileTravelDistance, enemyDataSO.projectileDamage);
     }
 }

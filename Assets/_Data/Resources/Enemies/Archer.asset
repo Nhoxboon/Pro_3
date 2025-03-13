@@ -17,19 +17,19 @@ MonoBehaviour:
   minIdleTime: 1
   maxIdleTime: 2
   movementSpeed: 3
-  longRangeActionTime: 2
-  minAgroDistance: 3
-  maxAgroDistance: 4
+  longRangeActionTime: 1
+  minAgroDistance: 7
+  maxAgroDistance: 8
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 256
   closeRangeActionDistance: 1
   attackRadius: 0.75
   attackDamage: 10
-  projectile: {fileID: 0}
+  projectile: {fileID: 3175319096386237951, guid: 41a3c77d82a7c41d0aab10f38f21abeb, type: 3}
   projectileDamage: 10
   projectileSpeed: 12
-  projectileTravelDistance: 5
+  projectileTravelDistance: 8
   chargeSpeed: 6
   chargeTime: 2
   amountOfTurns: 2

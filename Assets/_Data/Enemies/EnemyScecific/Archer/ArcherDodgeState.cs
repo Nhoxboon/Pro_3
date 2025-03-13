@@ -19,6 +19,7 @@ public class ArcherDodgeState : DodgeState
     public override void Enter()
     {
         base.Enter();
+
     }
 
     public override void Exit()
@@ -36,12 +37,14 @@ public class ArcherDodgeState : DodgeState
             {
                 stateMachine.ChangeState(archer.ArcherMeleeAttackState);
             }
+            else if (isPlayerInMaxAgroRange && !performCloseRangeAction)
+            {
+                stateMachine.ChangeState(archer.ArcherRangedAttackState);
+            }
             else if(!isPlayerInMaxAgroRange)
             {
                 stateMachine.ChangeState(archer.ArcherLookForPlayerState);
             }
-
-            //TODO: ranged attack
         }
     }
 

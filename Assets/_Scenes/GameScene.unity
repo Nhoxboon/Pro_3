@@ -40055,6 +40055,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2014513764}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &722171642
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 722171643}
+  m_Layer: 7
+  m_Name: RangedAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &722171643
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722171642}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.042, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1350911515}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &840026660
 GameObject:
   m_ObjectHideFlags: 0
@@ -40262,6 +40293,7 @@ MonoBehaviour:
   isStunned: 0
   isDead: 0
   meleeAttackPosition: {fileID: 840026661}
+  rangedAttackPosition: {fileID: 722171643}
 --- !u!212 &1053543239
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -40602,7 +40634,7 @@ Transform:
   m_GameObject: {fileID: 1146429976}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.73, y: 15.26, z: 0.027460046}
+  m_LocalPosition: {x: -2.29, y: -0.82, z: 0.027460046}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -41233,6 +41265,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 840026661}
+  - {fileID: 722171643}
   m_Father: {fileID: 1146429980}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1387365918

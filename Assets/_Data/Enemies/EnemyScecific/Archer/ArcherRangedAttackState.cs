@@ -2,17 +2,59 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArcherRangedAttackState : MonoBehaviour
+public class ArcherRangedAttackState : RangedAttackState
 {
-    // Start is called before the first frame update
-    void Start()
+    private Archer archer;
+
+    public ArcherRangedAttackState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Transform attackPosition, Archer archer) : base(enemy, stateMachine, animBoolName, enemyDataSO, attackPosition)
     {
-        
+        this.archer = archer;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void DoChecks()
     {
-        
+        base.DoChecks();
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+    }
+
+    public override void FinishAttack()
+    {
+        base.FinishAttack();
+    }
+
+    public override void LogicUpdate()
+    {
+        base.LogicUpdate();
+
+        if(isAnimationFinished)
+        {
+            if(isPlayerInMinAgroRange)
+            {
+                stateMachine.ChangeState(archer.ArcherDetectedPlayerState);
+            }
+            else
+            {
+                stateMachine.ChangeState(archer.ArcherLookForPlayerState);
+            }
+        }
+    }
+
+    public override void PhysicsUpdate()
+    {
+        base.PhysicsUpdate();
+    }
+
+    public override void TriggerAttack()
+    {
+        base.TriggerAttack();
     }
 }
