@@ -19,6 +19,7 @@ public class Projectile : NhoxBehaviour
 
     [SerializeField] protected Transform damagePosition;
 
+
     protected override void Start()
     {
         base.Start();
@@ -60,19 +61,19 @@ public class Projectile : NhoxBehaviour
         Debug.Log(transform.name + " :LoadRigidbody2d", gameObject);
     }
 
-    protected void Status()
+    private void Status()
     {
-        if(!hasHitGround)
+        if (!hasHitGround)
         {
             Collider2D damageHit = Physics2D.OverlapCircle(damagePosition.position, damageRadius, whatIsPlayer);
             Collider2D groundHit = Physics2D.OverlapCircle(damagePosition.position, damageRadius, whatIsGround);
 
-            if(damageHit)
+            if (damageHit)
             {
                 damageHit.transform.SendMessage("Damage", attackDetails);
-                Destroy(gameObject);
+                ProjectileSpawner.Instance.ReturnToPool(gameObject);
             }
-            if(groundHit)
+            if (groundHit)
             {
                 hasHitGround = true;
                 rb.gravityScale = 0f;
@@ -85,6 +86,20 @@ public class Projectile : NhoxBehaviour
                 rb.gravityScale = gravity;
             }
         }
+    }
+
+    private void OnEnable()
+    {
+        ResetProjectile();
+    }
+
+    public void ResetProjectile()
+    {
+        hasHitGround = false;
+        isGravityOn = false;
+        rb.gravityScale = 0f;
+        rb.velocity = transform.right * speed;
+        xStartPos = transform.position.x;
     }
 
     public void FireProjectile(float speed, float travelDistance, float damage)
