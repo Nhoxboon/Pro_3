@@ -17,25 +17,33 @@ MonoBehaviour:
   minIdleTime: 1
   maxIdleTime: 2
   movementSpeed: 3
-  longRangeActionTime: 4
+  longRangeActionTime: 1
   minAgroDistance: 4
   maxAgroDistance: 6
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 256
+  closeRangeActionDistance: 1
+  attackRadius: 0.75
+  attackDamage: 10
+  projectile: {fileID: 0}
+  projectileDamage: 10
+  projectileSpeed: 12
+  projectileTravelDistance: 5
   chargeSpeed: 6
   chargeTime: 1
   amountOfTurns: 2
   timeBetweenTurns: 0.75
-  closeRangeActionDistance: 1
-  attackRadius: 0.75
-  attackDamage: 10
   stunTime: 3
   stunKnockBackTime: 0.2
   stunKnockBackSpeed: 8
   stunKnockBackAngle: {x: 1, y: 1}
   stunResistance: 3
   stunRecoveryTime: 2
+  dodgeSpeed: 0
+  dodgeTime: 0
+  dodgeCooldown: 0
+  dodgeAngle: {x: 0, y: 0}
   deathChunkParticle: {fileID: 5261940239201411777, guid: 8ffaff1b9444c6e4c8e9b4e686dbd5d0, type: 3}
   deathBloodParticle: {fileID: 131344853240816375, guid: b0678770df7c3e147a659a86ed21e202, type: 3}
   hitParticle: {fileID: 6341541642488607537, guid: d1038592a5c8b3e42a760ef9a7be0ca7, type: 3}

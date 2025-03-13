@@ -18,6 +18,7 @@ public class Enemy : NhoxBehaviour
     [SerializeField] protected Vector2 workSpace;
 
     [SerializeField] protected EnemyDataSO enemyDataSO;
+    public EnemyDataSO EnemyDataSO => enemyDataSO;
 
     [SerializeField] protected Transform detectedZone;
 
@@ -51,7 +52,9 @@ public class Enemy : NhoxBehaviour
     {
         stateMachine.CurrentState.LogicUpdate();
 
-        if(Time.time >= lastDamageTime + enemyDataSO.stunRecoveryTime)
+        enemyCtrl.EnemyAnimation.YVelocityAnimation(rb.velocity.y);
+
+        if (Time.time >= lastDamageTime + enemyDataSO.stunRecoveryTime)
         {
             ResetStunResistance();
         }
@@ -135,6 +138,7 @@ public class Enemy : NhoxBehaviour
 
     public virtual bool CheckPlayerInCloseRangeAction()
     {
+        Debug.DrawRay(detectedZone.position, transform.parent.right * enemyDataSO.closeRangeActionDistance, Color.red);
         return Physics2D.Raycast(detectedZone.position, transform.parent.right, enemyDataSO.closeRangeActionDistance, enemyDataSO.whatIsPlayer);
     }
 

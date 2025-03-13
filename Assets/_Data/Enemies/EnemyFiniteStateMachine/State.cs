@@ -9,6 +9,7 @@ public class State
     protected EnemyDataSO enemyDataSO;
 
     protected float startTime;
+    public float StartTime => startTime;
 
     protected string animBoolName;
 

@@ -29910,7 +29910,7 @@ GameObject:
   m_Component:
   - component: {fileID: 366224571}
   - component: {fileID: 366224570}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Animation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29990,7 +29990,7 @@ GameObject:
   - component: {fileID: 400835929}
   - component: {fileID: 400835930}
   - component: {fileID: 400835932}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30137,7 +30137,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 431619954}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: LedgeCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39912,7 +39912,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 607687077}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: CeilingCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40350,7 +40350,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1112785652}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40413,7 +40413,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1132115251}
   - component: {fileID: 1132115252}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: DashDirectionIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40601,7 +40601,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1146429976}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -18.73, y: 15.26, z: 0.027460046}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -41260,7 +41260,7 @@ Transform:
   m_GameObject: {fileID: 1387365918}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.248, y: -0.26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -41276,7 +41276,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1389971698}
   - component: {fileID: 1389971697}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: TouchingDirection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41646,7 +41646,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1613620125}
   - component: {fileID: 1613620128}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Movement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41885,7 +41885,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1859651143}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41916,7 +41916,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1911014814}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: DamageSender
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42257,7 +42257,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2051819855}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: CliffCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}

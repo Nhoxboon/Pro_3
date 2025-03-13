@@ -22,6 +22,17 @@ public class EnemyDataSO : ScriptableObject
     public float maxAgroDistance = 4f;
     public LayerMask whatIsPlayer;
 
+    [Header("Attack State")]
+    public float closeRangeActionDistance = 1f;
+    public float attackRadius = 0.75f;
+    public float attackDamage = 10f;
+
+    [Header("Ranged Attack State")]
+    public GameObject projectile;
+    public float projectileDamage = 10f;
+    public float projectileSpeed = 12f;
+    public float projectileTravelDistance = 5f;
+
     [Header("Charge State")]
     public float chargeSpeed = 6f;
     public float chargeTime = 2f;
@@ -30,11 +41,6 @@ public class EnemyDataSO : ScriptableObject
     public int amountOfTurns = 2;
     public float timeBetweenTurns = 0.75f;
 
-    [Header("Attack State")]
-    public float closeRangeActionDistance = 1f;
-    public float attackRadius = 0.75f;
-    public float attackDamage = 10f;
-
     [Header("Stun State")]
     public float stunTime = 3f;
     public float stunKnockBackTime = 0.2f;
@@ -42,6 +48,12 @@ public class EnemyDataSO : ScriptableObject
     public Vector2 stunKnockBackAngle;
     public float stunResistance = 3f;
     public float stunRecoveryTime = 2f;
+
+    [Header("Dodge State")]
+    public float dodgeSpeed = 15f;
+    public float dodgeTime = 0.2f;
+    public float dodgeCooldown = 2f;
+    public Vector2 dodgeAngle;
 
     [Header("Dead State")]
     public GameObject deathChunkParticle;

@@ -5,6 +5,7 @@ using UnityEngine;
 public class ArcherDetectedPlayerState : DetectedPlayerState
 {
     private Archer archer;
+
     public ArcherDetectedPlayerState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Archer archer) : base(enemy, stateMachine, animBoolName, enemyDataSO)
     {
         this.archer = archer;
@@ -31,7 +32,15 @@ public class ArcherDetectedPlayerState : DetectedPlayerState
 
         if (performCloseRangeAction)
         {
-            stateMachine.ChangeState(archer.ArcherMeleeAttackState);
+            Debug.Log(performCloseRangeAction);
+            if (Time.time >= archer.ArcherDodgeState.StartTime + archer.EnemyDataSO.dodgeCooldown)
+            {
+                stateMachine.ChangeState(archer.ArcherDodgeState);
+            }
+            else
+            {
+                stateMachine.ChangeState(archer.ArcherMeleeAttackState);
+            }
         }
         else if (!isPlayerInMaxAgroRange)
         {

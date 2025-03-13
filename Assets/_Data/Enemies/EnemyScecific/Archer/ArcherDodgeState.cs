@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArcherMeleeAttackState : MeleeAttackState
+public class ArcherDodgeState : DodgeState
 {
     private Archer archer;
 
-    public ArcherMeleeAttackState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Transform attackPosition, Archer archer) : base(enemy, stateMachine, animBoolName, enemyDataSO, attackPosition)
+    public ArcherDodgeState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Archer archer) : base(enemy, stateMachine, animBoolName, enemyDataSO)
     {
         this.archer = archer;
     }
@@ -26,35 +26,27 @@ public class ArcherMeleeAttackState : MeleeAttackState
         base.Exit();
     }
 
-    public override void FinishAttack()
-    {
-        base.FinishAttack();
-    }
-
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        if(isAnimationFinished)
+        if (isDodgeOver)
         {
-            if (isPlayerInMinAgroRange)
+            if (isPlayerInMaxAgroRange && performCloseRangeAction)
             {
-                stateMachine.ChangeState(archer.ArcherDetectedPlayerState);
+                stateMachine.ChangeState(archer.ArcherMeleeAttackState);
             }
-            else if (!isPlayerInMinAgroRange)
+            else if(!isPlayerInMaxAgroRange)
             {
                 stateMachine.ChangeState(archer.ArcherLookForPlayerState);
             }
+
+            //TODO: ranged attack
         }
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-    }
-
-    public override void TriggerAttack()
-    {
-        base.TriggerAttack();
     }
 }

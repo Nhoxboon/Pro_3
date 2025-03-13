@@ -25,6 +25,9 @@ public class Archer : Enemy
     protected ArcherDeadState archerDeadState;
     public ArcherDeadState ArcherDeadState => archerDeadState;
 
+    protected ArcherDodgeState archerDodgeState;
+    public ArcherDodgeState ArcherDodgeState => archerDodgeState;
+
     [SerializeField] Transform meleeAttackPosition;
 
     protected override void Start()
@@ -38,6 +41,7 @@ public class Archer : Enemy
         archerLookForPlayerState = new ArcherLookForPlayerState(this, stateMachine, "lookForPlayer", enemyDataSO, this);
         archerStunState = new ArcherStunState(this, stateMachine, "stun", enemyDataSO, this);
         archerDeadState = new ArcherDeadState(this, stateMachine, "dead", enemyDataSO, this);
+        archerDodgeState = new ArcherDodgeState(this, stateMachine, "dodge", enemyDataSO, this);
 
         stateMachine.Initialize(archerMoveState);
     }
