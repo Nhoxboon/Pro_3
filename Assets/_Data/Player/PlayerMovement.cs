@@ -100,6 +100,9 @@ public class PlayerMovement : NhoxBehaviour
     {
         base.Start();
         facingDirection = 1;
+
+        primaryAttackState.SetWeapon(PlayerCtrl.Instance.PlayerInventory.weapons[(int)CombatInputs.primary]);
+
         stateMachine.Initialize(playerIdleState);
     }
 

@@ -16,6 +16,9 @@ public class PlayerCtrl : NhoxBehaviour
     [SerializeField] protected TouchingDirection touchingDirection;
     public TouchingDirection TouchingDirection => touchingDirection;
 
+    [SerializeField] protected PlayerInventory playerInventory;
+    public PlayerInventory PlayerInventory => playerInventory;
+
     protected override void Awake()
     {
         base.Awake();
@@ -33,6 +36,7 @@ public class PlayerCtrl : NhoxBehaviour
         this.LoadPlayerMovement();
         this.LoadPlayAnimation();
         this.LoadTouchingDirection();
+        this.LoadPlayerInventory();
     }
 
     protected void LoadPlayerMovement()
@@ -55,5 +59,12 @@ public class PlayerCtrl : NhoxBehaviour
         if (this.touchingDirection != null) return;
         this.touchingDirection = this.GetComponentInChildren<TouchingDirection>();
         Debug.Log(transform.name + " LoadTouchingDirection", gameObject);
+    }
+
+    protected void LoadPlayerInventory()
+    {
+        if (this.playerInventory != null) return;
+        this.playerInventory = this.GetComponentInChildren<PlayerInventory>();
+        Debug.Log(transform.name + " LoadPlayerInventory", gameObject);
     }
 }
