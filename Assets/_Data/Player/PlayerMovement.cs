@@ -47,6 +47,13 @@ public class PlayerMovement : NhoxBehaviour
     protected PlayerCrouchMoveState playerCrouchMoveState;
     public PlayerCrouchMoveState PlayerCrouchMoveState => playerCrouchMoveState;
 
+    protected PlayerAttackState primaryAttackState;
+    public PlayerAttackState PrimaryAttackState => primaryAttackState;
+
+    protected PlayerAttackState secondaryAttackState;
+    public PlayerAttackState SecondaryAttackState => secondaryAttackState;
+
+
     #endregion
 
     [Header("Component")]
@@ -85,6 +92,8 @@ public class PlayerMovement : NhoxBehaviour
         playerDashState = new PlayerDashState(this, stateMachine, playerDataSO, "inAir");
         playerCrouchIdleState = new PlayerCrouchIdleState(this, stateMachine, playerDataSO, "crouchIdle");
         playerCrouchMoveState = new PlayerCrouchMoveState(this, stateMachine, playerDataSO, "crouchMove");
+        primaryAttackState = new PlayerAttackState(this, stateMachine, playerDataSO, "attack");
+        secondaryAttackState = new PlayerAttackState(this, stateMachine, playerDataSO, "attack");
     }
 
     protected override void Start()
