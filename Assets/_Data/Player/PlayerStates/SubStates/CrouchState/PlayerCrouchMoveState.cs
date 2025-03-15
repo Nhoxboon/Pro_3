@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerCrouchMoveState : PlayerGroundedState
 {
-    public PlayerCrouchMoveState(PlayerMovement playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
+    public PlayerCrouchMoveState(Player playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
     {
     }
 
@@ -12,14 +12,14 @@ public class PlayerCrouchMoveState : PlayerGroundedState
     {
         base.Enter();
 
-        playerMovement.SetColliderHeight(playerDataSO.crouchColliderHeight);
+        player.SetColliderHeight(playerDataSO.crouchColliderHeight);
     }
 
     public override void Exit()
     {
         base.Exit();
 
-        playerMovement.SetColliderHeight(playerDataSO.standColliderHeight);
+        player.SetColliderHeight(playerDataSO.standColliderHeight);
     }
 
     public override void LogicUpdate()
@@ -28,16 +28,16 @@ public class PlayerCrouchMoveState : PlayerGroundedState
 
         if(!isExitingState)
         {
-            playerMovement.SetVelocityX(playerDataSO.crouchMovementVelocity * playerMovement.FacingDirection);
-            playerMovement.CheckIfShouldFlip(xInput);
+            core.Movement.SetVelocityX(playerDataSO.crouchMovementVelocity * core.Movement.FacingDirection);
+            core.Movement.CheckIfShouldFlip(xInput);
 
             if (xInput == 0)
             {
-                stateMachine.ChangeState(playerMovement.PlayerCrouchIdleState);
+                stateMachine.ChangeState(player.PlayerCrouchIdleState);
             }
             else if(yInput != -1 && !isTouchingCeiling)
             {
-                stateMachine.ChangeState(playerMovement.PlayerMoveState);
+                stateMachine.ChangeState(player.PlayerMoveState);
             }
         }
     }

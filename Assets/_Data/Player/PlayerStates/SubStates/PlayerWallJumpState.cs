@@ -6,7 +6,7 @@ public class PlayerWallJumpState : PlayerAbilityState
 {
     protected int wallJumpDirection;
 
-    public PlayerWallJumpState(PlayerMovement playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
+    public PlayerWallJumpState(Player playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
     {
     }
 
@@ -15,18 +15,18 @@ public class PlayerWallJumpState : PlayerAbilityState
         base.Enter();
 
         InputManager.Instance.UseJumpInput();
-        playerMovement.PlayerJumpState.ResetAmountOfJumpsLeft();
-        playerMovement.SetVelocity(playerDataSO.wallJumpVelocity, playerDataSO.wallJumpAngle, wallJumpDirection);
-        playerMovement.CheckIfShouldFlip(wallJumpDirection);
-        playerMovement.PlayerJumpState.DecreaseAmountOfJumpsLeft();
+        player.PlayerJumpState.ResetAmountOfJumpsLeft();
+        core.Movement.SetVelocity(playerDataSO.wallJumpVelocity, playerDataSO.wallJumpAngle, wallJumpDirection);
+        core.Movement.CheckIfShouldFlip(wallJumpDirection);
+        player.PlayerJumpState.DecreaseAmountOfJumpsLeft();
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        PlayerCtrl.Instance.PlayerAnimation.YVelocityAnimation(playerMovement.CurrentVelocity.y);
-        PlayerCtrl.Instance.PlayerAnimation.XVelocityAnimation(Mathf.Abs(playerMovement.CurrentVelocity.x));
+        PlayerCtrl.Instance.PlayerAnimation.YVelocityAnimation(core.Movement.CurrentVelocity.y);
+        PlayerCtrl.Instance.PlayerAnimation.XVelocityAnimation(Mathf.Abs(core.Movement.CurrentVelocity.x));
 
         if (Time.time >= startTime + playerDataSO.wallJumpTime)
         {
@@ -38,11 +38,11 @@ public class PlayerWallJumpState : PlayerAbilityState
     {
         if (isTouchingWall)
         {
-            wallJumpDirection = -playerMovement.FacingDirection;
+            wallJumpDirection = -core.Movement.FacingDirection;
         }
         else
         {
-            wallJumpDirection = playerMovement.FacingDirection;
+            wallJumpDirection = core.Movement.FacingDirection;
         }
     }
 }

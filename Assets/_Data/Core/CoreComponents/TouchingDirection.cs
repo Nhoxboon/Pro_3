@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TouchingDirection : NhoxBehaviour
+public class TouchingDirection : CoreComponent
 {
+    [Header("Touching Direction")]
+
     [SerializeField] protected float groundCheckRadius = 0.3f;
     [SerializeField] protected float wallCheckDistance = 0.65f;
     [SerializeField] protected float cliffCheckDistance = 0.4f;
@@ -15,14 +17,18 @@ public class TouchingDirection : NhoxBehaviour
     [SerializeField] protected Transform ceilingCheck;
     [SerializeField] protected Transform cliffCheck;
 
-    [SerializeField] protected bool isGrounded;
-    public bool IsGrounded => isGrounded;
+    public bool IsGrounded => Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
-    [SerializeField] protected bool isTouchingLedge;
-    public bool IsTouchingLedge => isTouchingLedge;
+    public bool IsTouchingLedge => Physics2D.Raycast(ledgeCheck.position, transform.parent.right, wallCheckDistance, whatIsGround);
 
-    [SerializeField] protected bool isTouchingCeiling;
-    public bool IsTouchingCeiling => isTouchingCeiling;
+    public bool IsTouchingWall => Physics2D.Raycast(wallCheck.position, transform.parent.right, wallCheckDistance, whatIsGround);
+
+    public bool IsTouchingWallBack => Physics2D.Raycast(wallCheck.position, -transform.parent.right, wallCheckDistance, whatIsGround);
+
+    public bool IsTouchingCliff => Physics2D.Raycast(cliffCheck.position, Vector2.down, cliffCheckDistance, whatIsGround);
+
+    public bool IsTouchingCeiling => Physics2D.OverlapCircle(ceilingCheck.position, groundCheckRadius, whatIsGround);
+
 
     protected override void LoadComponents()
     {
@@ -77,52 +83,18 @@ public class TouchingDirection : NhoxBehaviour
         Debug.Log(transform.name + " LoadCliffCheck", gameObject);
     }
 
-    private void FixedUpdate()
-    {
-        CheckSurroundings();
-    }
-
-    protected void CheckSurroundings()
-    {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
-
-        isTouchingLedge = Physics2D.Raycast(ledgeCheck.position, transform.parent.right, wallCheckDistance, whatIsGround);
-
-        isTouchingCeiling = Physics2D.OverlapCircle(ceilingCheck.position, groundCheckRadius, whatIsGround);
-    }
-
-    public bool CheckTouchingWall()
-    {
-        return Physics2D.Raycast(wallCheck.position, transform.parent.right, wallCheckDistance, whatIsGround);
-    }
-
-    public bool CheckTouchingWallBack()
-    {
-        return Physics2D.Raycast(wallCheck.position, -transform.parent.right, wallCheckDistance, whatIsGround);
-    }
-
-    public bool CheckTouchingCliff()
-    {
-        return Physics2D.Raycast(cliffCheck.position, Vector2.down, cliffCheckDistance, whatIsGround);
-    }
 
     public Vector2 DetermineLedgePos(Vector2 workSpace, int facingDirection)
     {
         RaycastHit2D xHit = Physics2D.Raycast(wallCheck.position, Vector2.right * facingDirection, wallCheckDistance, whatIsGround);
         float xDist = xHit.distance;
-        workSpace.Set((xDist + 0.015f) * PlayerCtrl.Instance.PlayerMovement.FacingDirection, 0f);
+        workSpace.Set((xDist + 0.015f) * facingDirection, 0f);
         RaycastHit2D yHit = Physics2D.Raycast(ledgeCheck.position + (Vector3)(workSpace), Vector2.down, ledgeCheck.position.y - wallCheck.position.y + 0.015f, whatIsGround);
         float yDist = yHit.distance;
 
         workSpace.Set(wallCheck.position.x + (xDist * facingDirection), ledgeCheck.position.y - yDist);
         return workSpace;
     }
-
-    public void SetIsTouchingCeiling(bool value)
-    {
-        isTouchingCeiling = value;
-    }
-
 
     protected void OnDrawGizmos()
     {

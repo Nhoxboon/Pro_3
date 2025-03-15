@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : NhoxBehaviour
+public class Player : NhoxBehaviour
 {
     #region State Variable
     protected PlayerStateMachine stateMachine;
@@ -57,6 +57,10 @@ public class PlayerMovement : NhoxBehaviour
     #endregion
 
     [Header("Component")]
+
+    [SerializeField] protected Core core;
+    public Core Core => core;
+
     [SerializeField] protected Rigidbody2D rb;
     public Rigidbody2D Rb => rb;
 
@@ -66,11 +70,7 @@ public class PlayerMovement : NhoxBehaviour
     [Header("Data")]
     [SerializeField] protected PlayerDataSO playerDataSO;
 
-    [SerializeField] protected Vector2 wordSpace;
-    [SerializeField] protected Vector2 currentVelocity;
-    public Vector2 CurrentVelocity => currentVelocity;
-    [SerializeField] protected int facingDirection;
-    public int FacingDirection => facingDirection;
+    [SerializeField] protected Vector2 workpace;
 
     [SerializeField] protected Transform dashDirectionIndicator;
     public Transform DashDirectionIndicator => dashDirectionIndicator;
@@ -99,7 +99,6 @@ public class PlayerMovement : NhoxBehaviour
     protected override void Start()
     {
         base.Start();
-        facingDirection = 1;
 
         primaryAttackState.SetWeapon(PlayerCtrl.Instance.PlayerInventory.weapons[(int)CombatInputs.primary]);
 
@@ -108,7 +107,7 @@ public class PlayerMovement : NhoxBehaviour
 
     private void Update()
     {
-        currentVelocity = rb.velocity;
+        core.LogicUpdate();
         stateMachine.CurrentState.LogicUpdate();
     }
 
@@ -121,10 +120,18 @@ public class PlayerMovement : NhoxBehaviour
     protected override void LoadComponents()
     {
         base.LoadComponents();
+        LoadCore();
         LoadRigidbody2d();
         LoadCollider2d();
         LoadPlayerDataSO();
         LoadDashDirectionIndicator();
+    }
+
+    protected void LoadCore()
+    {
+        if(this.core != null) return;
+        this.core = transform.parent.GetComponentInChildren<Core>();
+        Debug.Log(transform.name + " LoadCore", gameObject);
     }
 
     protected void LoadRigidbody2d()
@@ -159,69 +166,20 @@ public class PlayerMovement : NhoxBehaviour
     public void SetColliderHeight(float height)
     {
         Vector2 center = col.offset;
-        wordSpace.Set(col.size.x, height);
+        workpace.Set(col.size.x, height);
 
         center.y += (height - col.size.y) / 2;
 
-        col.size = wordSpace;
+        col.size = workpace;
         col.offset = center;
     }
 
-    public void SetVelocityX(float velocity)
-    {
-        wordSpace.Set(velocity, currentVelocity.y);
-        rb.velocity = wordSpace;
-        currentVelocity = wordSpace;
-    }
-
-    public void SetVelocityY(float velocity)
-    {
-        wordSpace.Set(currentVelocity.x, velocity);
-        rb.velocity = wordSpace;
-        currentVelocity = wordSpace;
-    }
-
-    public void SetVelocity(float velocity, Vector2 angle, int direction)
-    {
-        angle.Normalize();
-        wordSpace.Set(angle.x * velocity * direction, angle.y * velocity);
-        rb.velocity = wordSpace;
-        currentVelocity = wordSpace;
-    }
-
-    public void SetVelocity(float velocity, Vector2 direction)
-    {
-        wordSpace = direction * velocity;
-        rb.velocity = wordSpace;
-        currentVelocity = wordSpace;
-    }
-
-    public void SetVelocityZero()
-    {
-        rb.velocity = Vector2.zero;
-        currentVelocity = Vector2.zero;
-    }
+    
 
     public void AnimationTrigger() => stateMachine.CurrentState.AnimationTrigger();
 
     public void AnimationFinishTrigger() => stateMachine.CurrentState.AnimationFinishTrigger();
 
-    public Vector2 DetermineCorner()
-    {
-        return PlayerCtrl.Instance.TouchingDirection.DetermineLedgePos(wordSpace, facingDirection);
-    }
-
-    public void CheckIfShouldFlip(int xInput)
-    {
-        if(xInput !=0 && xInput != facingDirection)
-        {
-            Flip();
-        }
-    }
-
-    protected void Flip()
-    {
-        facingDirection *= -1;
-        transform.parent.Rotate(0, 180, 0);
-    }
+    
+    
 }

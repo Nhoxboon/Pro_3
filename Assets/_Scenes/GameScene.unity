@@ -30040,6 +30040,7 @@ GameObject:
   - component: {fileID: 400835929}
   - component: {fileID: 400835930}
   - component: {fileID: 400835932}
+  - component: {fileID: 400835933}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -30147,6 +30148,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50ce267ec05474d4ca338952208e379e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &400835933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400835927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 815582fc9e8bc40059c1913be81188e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  core: {fileID: 1086326392}
+  rb: {fileID: 1522995598}
+  col: {fileID: 1522995600}
+  playerDataSO: {fileID: 11400000, guid: d2682658d8ce547b7a2cbe937ccf431e, type: 2}
+  workpace: {x: 0, y: 0}
+  dashDirectionIndicator: {fileID: 1132115251}
 --- !u!1 &416540890
 GameObject:
   m_ObjectHideFlags: 0
@@ -40529,6 +40548,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78b8cb167489d4af9b5a71b96486d6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1086326390
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1086326391}
+  - component: {fileID: 1086326392}
+  m_Layer: 8
+  m_Name: Core
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1086326391
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086326390}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1394825212}
+  - {fileID: 1389971698}
+  m_Father: {fileID: 1522995596}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1086326392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086326390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b8f55b0a9241ec41983159511df9934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movement: {fileID: 1394825213}
+  touchingDirection: {fileID: 1389971697}
 --- !u!1 &1094879074
 GameObject:
   m_ObjectHideFlags: 0
@@ -41604,6 +41671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d10281955491f664fbebdcdadebc1929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  core: {fileID: 1086326392}
   groundCheckRadius: 0.3
   wallCheckDistance: 0.65
   cliffCheckDistance: 0.4
@@ -41615,9 +41683,6 @@ MonoBehaviour:
   ledgeCheck: {fileID: 431619954}
   ceilingCheck: {fileID: 607687077}
   cliffCheck: {fileID: 2051819855}
-  isGrounded: 0
-  isTouchingLedge: 0
-  isTouchingCeiling: 0
 --- !u!4 &1389971698
 Transform:
   m_ObjectHideFlags: 0
@@ -41626,7 +41691,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1389971696}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -41636,8 +41701,57 @@ Transform:
   - {fileID: 431619954}
   - {fileID: 607687077}
   - {fileID: 2051819855}
-  m_Father: {fileID: 1522995596}
+  m_Father: {fileID: 1086326391}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1394825211
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1394825212}
+  - component: {fileID: 1394825213}
+  m_Layer: 8
+  m_Name: Movement
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1394825212
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394825211}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1086326391}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1394825213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394825211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f208509fdbadcc4ea2b4d29d991b27f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  core: {fileID: 1086326392}
+  rb: {fileID: 1522995598}
+  facingDirection: 0
+  workSpace: {x: 0, y: 0}
+  currentVelocity: {x: 0, y: 0}
 --- !u!1 &1438226294
 GameObject:
   m_ObjectHideFlags: 0
@@ -41829,10 +41943,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1086326391}
   - {fileID: 400835928}
-  - {fileID: 1613620125}
   - {fileID: 366224571}
-  - {fileID: 1389971698}
   - {fileID: 1911014814}
   - {fileID: 1132115251}
   - {fileID: 1734599394}
@@ -41878,10 +41991,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07f72d3182f44ba478d75d8ab984053e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovement: {fileID: 1613620128}
+  player: {fileID: 400835933}
   playerAnimation: {fileID: 366224570}
-  touchingDirection: {fileID: 1389971697}
-  playerInventory: {fileID: 1772050399}
+  playerInventory: {fileID: 0}
 --- !u!70 &1522995600
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -41948,57 +42060,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1438226298}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1613620124
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1613620125}
-  - component: {fileID: 1613620128}
-  m_Layer: 0
-  m_Name: Movement
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1613620125
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1613620124}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1522995596}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1613620128
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1613620124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 815582fc9e8bc40059c1913be81188e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 1522995598}
-  col: {fileID: 1522995600}
-  playerDataSO: {fileID: 11400000, guid: d2682658d8ce547b7a2cbe937ccf431e, type: 2}
-  wordSpace: {x: 0, y: 0}
-  currentVelocity: {x: 0, y: 0}
-  facingDirection: 0
-  dashDirectionIndicator: {fileID: 1132115251}
 --- !u!1 &1634493566
 GameObject:
   m_ObjectHideFlags: 0
@@ -42028,6 +42089,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d10281955491f664fbebdcdadebc1929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  core: {fileID: 0}
   groundCheckRadius: 0.3
   wallCheckDistance: 0.4
   cliffCheckDistance: 1
@@ -42039,9 +42101,6 @@ MonoBehaviour:
   ledgeCheck: {fileID: 21552547}
   ceilingCheck: {fileID: 573153840}
   cliffCheck: {fileID: 1164599951}
-  isGrounded: 0
-  isTouchingLedge: 0
-  isTouchingCeiling: 0
 --- !u!4 &1634493568
 Transform:
   m_ObjectHideFlags: 0
@@ -42717,6 +42776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d10281955491f664fbebdcdadebc1929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  core: {fileID: 0}
   groundCheckRadius: 0.3
   wallCheckDistance: 0.4
   cliffCheckDistance: 1
@@ -42728,9 +42788,6 @@ MonoBehaviour:
   ledgeCheck: {fileID: 689827957}
   ceilingCheck: {fileID: 996161470}
   cliffCheck: {fileID: 1689017705}
-  isGrounded: 0
-  isTouchingLedge: 0
-  isTouchingCeiling: 0
 --- !u!4 &2014513764
 Transform:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ public class PlayerTouchingWallState : PlayerState
     protected bool grabInput;
     protected bool isTouchingLedge;
 
-    public PlayerTouchingWallState(PlayerMovement playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
+    public PlayerTouchingWallState(Player playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
     {
     }
 
@@ -20,13 +20,13 @@ public class PlayerTouchingWallState : PlayerState
     {
         base.DoChecks();
 
-        isGrounded = PlayerCtrl.Instance.TouchingDirection.IsGrounded;
-        isTouchingWall = PlayerCtrl.Instance.TouchingDirection.CheckTouchingWall();
-        isTouchingLedge = PlayerCtrl.Instance.TouchingDirection.IsTouchingLedge;
+        isGrounded = core.TouchingDirection.IsGrounded;
+        isTouchingWall = core.TouchingDirection.IsTouchingWall;
+        isTouchingLedge = core.TouchingDirection.IsTouchingLedge;
 
         if (isTouchingWall && !isTouchingLedge)
         {
-            playerMovement.PlayerLedgeClimbState.SetDetectedPosition(playerMovement.transform.parent.position);
+            player.PlayerLedgeClimbState.SetDetectedPosition(player.transform.parent.position);
         }
     }
 
@@ -51,20 +51,20 @@ public class PlayerTouchingWallState : PlayerState
 
         if (jumpInput)
         {
-            playerMovement.PlayerWallJumpState.DetermineWallJumpDirection(isTouchingWall);
-            stateMachine.ChangeState(playerMovement.PlayerWallJumpState);
+            player.PlayerWallJumpState.DetermineWallJumpDirection(isTouchingWall);
+            stateMachine.ChangeState(player.PlayerWallJumpState);
         }
         else if (isGrounded && !grabInput)
         {
-            stateMachine.ChangeState(playerMovement.PlayerIdleState);
+            stateMachine.ChangeState(player.PlayerIdleState);
         }
-        else if (!isTouchingWall || (xInput != playerMovement.FacingDirection && !grabInput))
+        else if (!isTouchingWall || (xInput != core.Movement.FacingDirection && !grabInput))
         {
-            stateMachine.ChangeState(playerMovement.PlayerInAirState);
+            stateMachine.ChangeState(player.PlayerInAirState);
         }
         else if(isTouchingWall && !isTouchingLedge && !isGrounded)
         {
-            stateMachine.ChangeState(playerMovement.PlayerLedgeClimbState);
+            stateMachine.ChangeState(player.PlayerLedgeClimbState);
         }
     }
 

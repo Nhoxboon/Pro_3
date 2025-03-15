@@ -19,8 +19,8 @@ public class ChargeState : State
         base.DoChecks();
 
         isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
-        isDetectingCliff = enemy.EnemyCtrl.TouchingDirection.CheckTouchingCliff();
-        isDetectingWall = enemy.EnemyCtrl.TouchingDirection.CheckTouchingWall();
+        isDetectingCliff = enemy.EnemyCtrl.TouchingDirection.IsTouchingCliff;
+        isDetectingWall = enemy.EnemyCtrl.TouchingDirection.IsTouchingWall;
         performCloseRangeAction = enemy.CheckPlayerInCloseRangeAction();
     }
 

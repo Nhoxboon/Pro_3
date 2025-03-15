@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMoveState : PlayerGroundedState
 {
-    public PlayerMoveState(PlayerMovement playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
+    public PlayerMoveState(Player playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
     {
     }
 
@@ -27,18 +27,18 @@ public class PlayerMoveState : PlayerGroundedState
     {
         base.LogicUpdate();
 
-        playerMovement.CheckIfShouldFlip(xInput);
+        core.Movement.CheckIfShouldFlip(xInput);
 
-        playerMovement.SetVelocityX(playerDataSO.movementVelocity * xInput);
+        core.Movement.SetVelocityX(playerDataSO.movementVelocity * xInput);
         if (!isExitingState)
         {
             if (xInput == 0)
             {
-                stateMachine.ChangeState(playerMovement.PlayerIdleState);
+                stateMachine.ChangeState(player.PlayerIdleState);
             }
             else if (yInput == -1)
             {
-                stateMachine.ChangeState(playerMovement.PlayerCrouchMoveState);
+                stateMachine.ChangeState(player.PlayerCrouchMoveState);
             }
         }
     }

@@ -14,7 +14,7 @@ public class PlayerGroundedState : PlayerState
     protected bool isTouchingLedge;
     protected bool isTouchingCeiling;
 
-    public PlayerGroundedState(PlayerMovement playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
+    public PlayerGroundedState(Player playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
     {
     }
 
@@ -22,18 +22,18 @@ public class PlayerGroundedState : PlayerState
     {
         base.DoChecks();
 
-        isGrounded = PlayerCtrl.Instance.TouchingDirection.IsGrounded;
-        isTouchingWall = PlayerCtrl.Instance.TouchingDirection.CheckTouchingWall();
-        isTouchingLedge = PlayerCtrl.Instance.TouchingDirection.IsTouchingLedge;
-        isTouchingCeiling = PlayerCtrl.Instance.TouchingDirection.IsTouchingCeiling;
+        isGrounded = core.TouchingDirection.IsGrounded;
+        isTouchingWall = core.TouchingDirection.IsTouchingWall;
+        isTouchingLedge = core.TouchingDirection.IsTouchingLedge;
+        isTouchingCeiling = core.TouchingDirection.IsTouchingCeiling;
     }
 
     public override void Enter()
     {
         base.Enter();
 
-        playerMovement.PlayerJumpState.ResetAmountOfJumpsLeft();
-        playerMovement.PlayerDashState.ResetCanDash();
+        player.PlayerJumpState.ResetAmountOfJumpsLeft();
+        player.PlayerDashState.ResetCanDash();
     }
 
     public override void Exit()
@@ -54,30 +54,30 @@ public class PlayerGroundedState : PlayerState
 
         if (InputManager.Instance.AttackInputs[(int)CombatInputs.primary] && !isTouchingCeiling)
         {
-            stateMachine.ChangeState(playerMovement.PrimaryAttackState);
+            stateMachine.ChangeState(player.PrimaryAttackState);
         }
         else if(InputManager.Instance.AttackInputs[(int)CombatInputs.secondary] && !isTouchingCeiling)
         {
-            stateMachine.ChangeState(playerMovement.SecondaryAttackState);
+            stateMachine.ChangeState(player.SecondaryAttackState);
         }
 
 
-        else if (jumpInput && playerMovement.PlayerJumpState.CanJump() && !isTouchingCeiling)
+        else if (jumpInput && player.PlayerJumpState.CanJump() && !isTouchingCeiling)
         {
-            stateMachine.ChangeState(playerMovement.PlayerJumpState);
+            stateMachine.ChangeState(player.PlayerJumpState);
         }
         else if (!isGrounded && isTouchingCeiling && !isTouchingCeiling)
         {
-            playerMovement.PlayerInAirState.StartCoyoteTime();
-            stateMachine.ChangeState(playerMovement.PlayerInAirState);
+            player.PlayerInAirState.StartCoyoteTime();
+            stateMachine.ChangeState(player.PlayerInAirState);
         }
         else if (isTouchingWall && grabInput && isTouchingLedge)
         {
-            stateMachine.ChangeState(playerMovement.PlayerWallGrabState);
+            stateMachine.ChangeState(player.PlayerWallGrabState);
         }
-        else if (dashInput && playerMovement.PlayerDashState.CheckIfCanDash() && !isTouchingCeiling)
+        else if (dashInput && player.PlayerDashState.CheckIfCanDash() && !isTouchingCeiling)
         {
-            stateMachine.ChangeState(playerMovement.PlayerDashState);
+            stateMachine.ChangeState(player.PlayerDashState);
         }
     }
 

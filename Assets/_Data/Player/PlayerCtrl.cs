@@ -7,14 +7,11 @@ public class PlayerCtrl : NhoxBehaviour
     private static PlayerCtrl instance;
     public static PlayerCtrl Instance => instance;
 
-    [SerializeField] protected PlayerMovement playerMovement;
-    public PlayerMovement PlayerMovement => playerMovement;
+    [SerializeField] protected Player player;
+    public Player Player => player;
 
     [SerializeField] protected PlayAnimation playerAnimation;
     public PlayAnimation PlayerAnimation => playerAnimation;
-
-    [SerializeField] protected TouchingDirection touchingDirection;
-    public TouchingDirection TouchingDirection => touchingDirection;
 
     [SerializeField] protected PlayerInventory playerInventory;
     public PlayerInventory PlayerInventory => playerInventory;
@@ -35,14 +32,13 @@ public class PlayerCtrl : NhoxBehaviour
         base.LoadComponents();
         this.LoadPlayerMovement();
         this.LoadPlayAnimation();
-        this.LoadTouchingDirection();
         this.LoadPlayerInventory();
     }
 
     protected void LoadPlayerMovement()
     {
-        if (this.playerMovement != null) return;
-        this.playerMovement = this.GetComponentInChildren<PlayerMovement>();
+        if (this.player != null) return;
+        this.player = this.GetComponentInChildren<Player>();
         Debug.Log(transform.name + " LoadPlayerMovement", gameObject);
     }
 
@@ -52,13 +48,6 @@ public class PlayerCtrl : NhoxBehaviour
         if (this.playerAnimation != null) return;
         this.playerAnimation = this.GetComponentInChildren<PlayAnimation>();
         Debug.Log(transform.name + " LoadPlayAnimation", gameObject);
-    }
-
-    protected void LoadTouchingDirection()
-    {
-        if (this.touchingDirection != null) return;
-        this.touchingDirection = this.GetComponentInChildren<TouchingDirection>();
-        Debug.Log(transform.name + " LoadTouchingDirection", gameObject);
     }
 
     protected void LoadPlayerInventory()

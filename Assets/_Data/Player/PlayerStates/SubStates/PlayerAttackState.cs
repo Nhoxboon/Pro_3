@@ -11,7 +11,7 @@ public class PlayerAttackState : PlayerAbilityState
     protected bool setVelocity;
     protected bool shouldFlip;
 
-    public PlayerAttackState(PlayerMovement playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
+    public PlayerAttackState(Player playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
     {
     }
 
@@ -56,12 +56,12 @@ public class PlayerAttackState : PlayerAbilityState
 
         if (shouldFlip)
         {
-            playerMovement.CheckIfShouldFlip(xInput);
+            core.Movement.CheckIfShouldFlip(xInput);
         }
 
         if (setVelocity)
         {
-            playerMovement.SetVelocityX(velocityToSet * playerMovement.FacingDirection);
+            core.Movement.SetVelocityX(velocityToSet * core.Movement.FacingDirection);
         }
     }
 
@@ -78,7 +78,7 @@ public class PlayerAttackState : PlayerAbilityState
 
     public void SetPlayerVelocity(float velocity)
     {
-        playerMovement.SetVelocityX(velocity * playerMovement.FacingDirection);
+        core.Movement.SetVelocityX(velocity * core.Movement.FacingDirection);
 
         velocityToSet = velocity;
         setVelocity = true;

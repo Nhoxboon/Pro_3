@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PlayerState
 {
-    protected PlayerMovement playerMovement;
+    protected Core core;
+
+    protected Player player;
     protected PlayerStateMachine stateMachine;
     protected PlayerDataSO playerDataSO;
 
@@ -14,12 +16,13 @@ public class PlayerState
     protected float startTime;
     protected string animBoolName;
 
-    public PlayerState(PlayerMovement playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName)
+    public PlayerState(Player player, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName)
     {
-        this.playerMovement = playerMovement;
+        this.player = player;
         this.stateMachine = stateMachine;
         this.playerDataSO = playerDataSO;
         this.animBoolName = animBoolName;
+        core = player.Core;
     }
 
     public virtual void Enter()

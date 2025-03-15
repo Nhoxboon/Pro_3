@@ -7,7 +7,7 @@ public class PlayerAbilityState : PlayerState
     protected bool isAbilityDone;
     protected bool isGrounded;
 
-    public PlayerAbilityState(PlayerMovement playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
+    public PlayerAbilityState(Player playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
     {
 
     }
@@ -16,7 +16,7 @@ public class PlayerAbilityState : PlayerState
     {
         base.DoChecks();
 
-        isGrounded = PlayerCtrl.Instance.TouchingDirection.IsGrounded;
+        isGrounded = core.TouchingDirection.IsGrounded;
     }
 
     public override void Enter()
@@ -37,13 +37,13 @@ public class PlayerAbilityState : PlayerState
 
         if (isAbilityDone)
         {
-            if (isGrounded && playerMovement.CurrentVelocity.y < 0.01f)
+            if (isGrounded && core.Movement.CurrentVelocity.y < 0.01f)
             {
-                stateMachine.ChangeState(playerMovement.PlayerIdleState);
+                stateMachine.ChangeState(player.PlayerIdleState);
             }
             else
             {
-                stateMachine.ChangeState(playerMovement.PlayerInAirState);
+                stateMachine.ChangeState(player.PlayerInAirState);
             }
         }
     }

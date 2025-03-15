@@ -25,7 +25,7 @@ public class PlayerInAirState : PlayerState
 
     protected float startWallJumpCoyoteTime;
 
-    public PlayerInAirState(PlayerMovement playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
+    public PlayerInAirState(Player playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
     {
     }
 
@@ -36,14 +36,14 @@ public class PlayerInAirState : PlayerState
         oldIsTouchingWall = isTouchingWall;
         oldIsTouchingWallBack = isTouchingWallBack;
 
-        isGrounded = PlayerCtrl.Instance.TouchingDirection.IsGrounded;
-        isTouchingWall = PlayerCtrl.Instance.TouchingDirection.CheckTouchingWall();
-        isTouchingWallBack = PlayerCtrl.Instance.TouchingDirection.CheckTouchingWallBack();
-        isTouchingLedge = PlayerCtrl.Instance.TouchingDirection.IsTouchingLedge;
+        isGrounded = core.TouchingDirection.IsGrounded;
+        isTouchingWall = core.TouchingDirection.IsTouchingWall;
+        isTouchingWallBack = core.TouchingDirection.IsTouchingWallBack;
+        isTouchingLedge = core.TouchingDirection.IsTouchingLedge;
 
         if (isTouchingWall && !isGrounded && !isTouchingLedge)
         {
-            playerMovement.PlayerLedgeClimbState.SetDetectedPosition(playerMovement.transform.parent.position);
+            player.PlayerLedgeClimbState.SetDetectedPosition(player.transform.parent.position);
         }
 
         if (!wallJumpCoyoteTime && !isTouchingWall && !isTouchingWallBack && (oldIsTouchingWall || oldIsTouchingWallBack))
@@ -84,50 +84,50 @@ public class PlayerInAirState : PlayerState
 
         if (InputManager.Instance.AttackInputs[(int)CombatInputs.primary])
         {
-            stateMachine.ChangeState(playerMovement.PrimaryAttackState);
+            stateMachine.ChangeState(player.PrimaryAttackState);
         }
         else if (InputManager.Instance.AttackInputs[(int)CombatInputs.secondary])
         {
-            stateMachine.ChangeState(playerMovement.SecondaryAttackState);
+            stateMachine.ChangeState(player.SecondaryAttackState);
         }
 
-        else if (isGrounded && playerMovement.CurrentVelocity.y < 0.01f)
+        else if (isGrounded && core.Movement.CurrentVelocity.y < 0.01f)
         {
-            stateMachine.ChangeState(playerMovement.PlayerLandState);
+            stateMachine.ChangeState(player.PlayerLandState);
         }
         else if (!isTouchingLedge && isTouchingWall && !isGrounded)
         {
-            stateMachine.ChangeState(playerMovement.PlayerLedgeClimbState);
+            stateMachine.ChangeState(player.PlayerLedgeClimbState);
         }
         else if(jumpInput && (isTouchingWall || isTouchingWallBack || wallJumpCoyoteTime))
         {
             StopWallJumpCoyoteTime();
-            playerMovement.PlayerWallJumpState.DetermineWallJumpDirection(isTouchingWall);
-            stateMachine.ChangeState(playerMovement.PlayerWallJumpState);
+            player.PlayerWallJumpState.DetermineWallJumpDirection(isTouchingWall);
+            stateMachine.ChangeState(player.PlayerWallJumpState);
         }
-        else if (jumpInput && playerMovement.PlayerJumpState.CanJump())
+        else if (jumpInput && player.PlayerJumpState.CanJump())
         {
-            stateMachine.ChangeState(playerMovement.PlayerJumpState);
+            stateMachine.ChangeState(player.PlayerJumpState);
         }
         else if (isTouchingWall && grabInput && isTouchingLedge)
         {
-            stateMachine.ChangeState(playerMovement.PlayerWallGrabState);
+            stateMachine.ChangeState(player.PlayerWallGrabState);
         }
-        else if(isTouchingWall && xInput == playerMovement.FacingDirection && playerMovement.CurrentVelocity.y <= 0f)
+        else if(isTouchingWall && xInput == core.Movement.FacingDirection && core.Movement.CurrentVelocity.y <= 0f)
         {
-            stateMachine.ChangeState(playerMovement.PlayerWallSlideState);
+            stateMachine.ChangeState(player.PlayerWallSlideState);
         }
-        else if (dashInput && playerMovement.PlayerDashState.CheckIfCanDash())
+        else if (dashInput && player.PlayerDashState.CheckIfCanDash())
         {
-            stateMachine.ChangeState(playerMovement.PlayerDashState);
+            stateMachine.ChangeState(player.PlayerDashState);
         }
         else
         {
-            playerMovement.CheckIfShouldFlip(xInput);
-            playerMovement.SetVelocityX(playerDataSO.movementVelocity * xInput);
+            core.Movement.CheckIfShouldFlip(xInput);
+            core.Movement.SetVelocityX(playerDataSO.movementVelocity * xInput);
 
-            PlayerCtrl.Instance.PlayerAnimation.YVelocityAnimation(playerMovement.CurrentVelocity.y);
-            PlayerCtrl.Instance.PlayerAnimation.XVelocityAnimation(Mathf.Abs(playerMovement.CurrentVelocity.x));
+            PlayerCtrl.Instance.PlayerAnimation.YVelocityAnimation(core.Movement.CurrentVelocity.y);
+            PlayerCtrl.Instance.PlayerAnimation.XVelocityAnimation(Mathf.Abs(core.Movement.CurrentVelocity.x));
         }
     }
 
@@ -142,10 +142,10 @@ public class PlayerInAirState : PlayerState
         {
             if (jumpInputStop)
             {
-                playerMovement.SetVelocityY(playerMovement.CurrentVelocity.y * playerDataSO.variableJumpHeightMultiplier);
+                core.Movement.SetVelocityY(core.Movement.CurrentVelocity.y * playerDataSO.variableJumpHeightMultiplier);
                 isJumping = false;
             }
-            else if (playerMovement.CurrentVelocity.y <= 0f)
+            else if (core.Movement.CurrentVelocity.y <= 0f)
             {
                 isJumping = false;
             }
@@ -157,7 +157,7 @@ public class PlayerInAirState : PlayerState
         if(coyoteTime && Time.time > startTime + playerDataSO.coyoteTime)
         {
             coyoteTime = false;
-            playerMovement.PlayerJumpState.DecreaseAmountOfJumpsLeft();
+            player.PlayerJumpState.DecreaseAmountOfJumpsLeft();
         }
     }
 
