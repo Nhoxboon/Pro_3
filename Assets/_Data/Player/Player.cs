@@ -151,7 +151,7 @@ public class Player : NhoxBehaviour
     protected void LoadPlayerDataSO()
     {
         if (this.playerDataSO != null) return;
-        this.playerDataSO = Resources.Load<PlayerDataSO>("Player");
+        this.playerDataSO = Resources.Load<PlayerDataSO>("Player/Player");
         Debug.Log(transform.name + " LoadPlayerDataSO", gameObject);
     }
 

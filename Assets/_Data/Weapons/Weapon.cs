@@ -13,9 +13,9 @@ public class Weapon : NhoxBehaviour
 
     [SerializeField] protected WeaponDataSO weaponDataSO;
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
         HideWeapon();
     }
 
@@ -53,7 +53,7 @@ public class Weapon : NhoxBehaviour
     {
         gameObject.SetActive(true);
 
-        if (attackCounter >= weaponDataSO.movementSpeed.Length)
+        if (attackCounter >= weaponDataSO.amountOfAttacks)
         {
             attackCounter = 0;
         }
@@ -104,6 +104,11 @@ public class Weapon : NhoxBehaviour
     public virtual void AnimationTurnOnFlip()
     {
         state.SetFlipCheck(true);
+    }
+
+    public virtual void AnimationActionTrigger()
+    {
+        //For override
     }
     #endregion
 

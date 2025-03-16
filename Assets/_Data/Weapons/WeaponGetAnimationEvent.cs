@@ -43,4 +43,9 @@ public class WeaponGetAnimationEvent : NhoxBehaviour
     {
         weapon.AnimationTurnOnFlip();
     }
+
+    protected void AnimationActionTrigger()
+    {
+        weapon.AnimationActionTrigger();
+    }
 }
