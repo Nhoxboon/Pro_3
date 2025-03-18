@@ -43,7 +43,7 @@ public class StunState : State
     {
         base.LogicUpdate();
 
-        if(Time.time > startTime + enemyDataSO.stunTime)
+        if (Time.time > startTime + enemyDataSO.stunTime)
         {
             isStunTimeOver = true;
         }

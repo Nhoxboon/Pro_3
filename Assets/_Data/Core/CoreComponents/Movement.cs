@@ -10,6 +10,8 @@ public class Movement : CoreComponent
     [SerializeField] protected int facingDirection;
     public int FacingDirection => facingDirection;
 
+    public bool canSetVelocity;
+
     [SerializeField] protected Vector2 workSpace;
     public Vector2 WorkSpace => workSpace;
     [SerializeField] protected Vector2 currentVelocity;
@@ -19,6 +21,7 @@ public class Movement : CoreComponent
     {
         base.Awake();
         facingDirection = 1;
+        canSetVelocity = true;
     }
 
     protected override void LoadComponents()
@@ -42,36 +45,41 @@ public class Movement : CoreComponent
     public void SetVelocityX(float velocity)
     {
         workSpace.Set(velocity, currentVelocity.y);
-        rb.velocity = workSpace;
-        currentVelocity = workSpace;
+        SetFinalVelocity();
     } 
 
     public void SetVelocityY(float velocity) 
     {
         workSpace.Set(currentVelocity.x, velocity);
-        rb.velocity = workSpace;
-        currentVelocity = workSpace;
+        SetFinalVelocity();
     }
 
     public void SetVelocity(float velocity, Vector2 angle, int direction)
     {
         angle.Normalize();
         workSpace.Set(angle.x * velocity * direction, angle.y * velocity);
-        rb.velocity = workSpace;
-        currentVelocity = workSpace;
+        SetFinalVelocity();
     }
 
     public void SetVelocity(float velocity, Vector2 direction)
     {
         workSpace = direction * velocity;
-        rb.velocity = workSpace;
-        currentVelocity = workSpace;
+        SetFinalVelocity();
     }
 
     public void SetVelocityZero()
     {
-        rb.velocity = Vector2.zero;
-        currentVelocity = Vector2.zero;
+        workSpace = Vector2.zero;
+        SetFinalVelocity();
+    }
+
+    protected void SetFinalVelocity()
+    {
+        if(canSetVelocity)
+        {
+            rb.velocity = workSpace;
+            currentVelocity = workSpace;
+        }
     }
 
     public void CheckIfShouldFlip(int xInput)

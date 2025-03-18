@@ -26,6 +26,8 @@ public class EnemyDataSO : ScriptableObject
     public float closeRangeActionDistance = 1f;
     public float attackRadius = 0.75f;
     public float attackDamage = 10f;
+    public Vector2 knockbackAngle = Vector2.one;
+    public float knockbackStrength = 10f;
 
     [Header("Ranged Attack State")]
     public GameObject projectile;

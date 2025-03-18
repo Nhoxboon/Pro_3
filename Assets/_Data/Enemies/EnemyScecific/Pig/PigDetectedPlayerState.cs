@@ -30,11 +30,11 @@ public class PigDetectedPlayerState : DetectedPlayerState
     {
         base.LogicUpdate();
 
-        if(performCloseRangeAction)
+        if (performCloseRangeAction)
         {
             stateMachine.ChangeState(pig.PigMeleeAttackState);
         }
-        else if(performLongRangeAction)
+        else if (performLongRangeAction)
         {
             stateMachine.ChangeState(pig.PigChargeState);
         }

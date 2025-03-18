@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Projectile : NhoxBehaviour
 {
-    [SerializeField] protected AttackDetails attackDetails;
+    //[SerializeField] protected AttackDetails attackDetails;
     [SerializeField] protected float speed = 3f;
     [SerializeField] protected float travelDistance;
     [SerializeField] protected float xStartPos;
@@ -33,7 +33,7 @@ public class Projectile : NhoxBehaviour
     {
         if(!hasHitGround)
         {
-            attackDetails.position = transform.position;
+            //attackDetails.position = transform.position;
 
             if(isGravityOn)
             {
@@ -70,7 +70,7 @@ public class Projectile : NhoxBehaviour
 
             if (damageHit)
             {
-                damageHit.transform.SendMessage("Damage", attackDetails);
+                //damageHit.transform.SendMessage("Damage", attackDetails);
                 ProjectileSpawner.Instance.ReturnToPool(gameObject);
             }
             if (groundHit)
@@ -106,7 +106,7 @@ public class Projectile : NhoxBehaviour
     {
         this.speed = speed;
         this.travelDistance = travelDistance;
-        attackDetails.damageAmount = damage;
+        //attackDetails.damageAmount = damage;
     }
 
     protected void OnDrawGizmos()

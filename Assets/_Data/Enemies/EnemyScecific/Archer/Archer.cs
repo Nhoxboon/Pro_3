@@ -77,29 +77,6 @@ public class Archer : Enemy
         Debug.Log(transform.name + " LoadRangedAttackPosition", gameObject);
     }
 
-    public override void Damage(AttackDetails attackDetails)
-    {
-        base.Damage(attackDetails);
-
-        if (isDead)
-        {
-            stateMachine.ChangeState(archerDeadState);
-        }
-        else if (isStunned && stateMachine.CurrentState != archerStunState)
-        {
-            stateMachine.ChangeState(archerStunState);
-        }
-        else if (CheckPlayerInMinAgroRange())
-        {
-            stateMachine.ChangeState(archerRangedAttackState);
-        }
-        else if (!CheckPlayerInMinAgroRange())
-        {
-            archerLookForPlayerState.SetTurnImmediately(true);
-            stateMachine.ChangeState(archerLookForPlayerState);
-        }
-    }
-
     public override void OnDrawGizmos()
     {
         base.OnDrawGizmos();

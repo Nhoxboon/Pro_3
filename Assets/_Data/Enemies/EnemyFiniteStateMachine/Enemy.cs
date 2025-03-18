@@ -120,6 +120,7 @@ public class Enemy : NhoxBehaviour
 
     public virtual bool CheckPlayerInCloseRangeAction()
     {
+        Debug.Log("Find player");
         return Physics2D.Raycast(detectedZone.position, transform.parent.right, enemyDataSO.closeRangeActionDistance, enemyDataSO.whatIsPlayer);
     }
 
@@ -127,36 +128,6 @@ public class Enemy : NhoxBehaviour
     {
         workSpace.Set(core.Movement.Rb.velocity.x, velocity);
         core.Movement.Rb.velocity = workSpace;
-    }
-
-    public virtual void Damage(AttackDetails attackDetails)
-    {
-        lastDamageTime = Time.time;
-
-        currentHealth -= attackDetails.damageAmount;
-        currentStunResistance -= attackDetails.stunDamageAmount;
-
-        DamageHop(enemyDataSO.damageHopSpeed);
-
-        Instantiate(enemyDataSO.hitParticle, transform.parent.position, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)));
-        if (attackDetails.position.x > transform.parent.position.x)
-        {
-            lastDamageDirection = -1;
-        }
-        else
-        {
-            lastDamageDirection = 1;
-        }
-
-        if(currentStunResistance <= 0)
-        {
-            isStunned = true;
-        }
-
-        if (currentHealth <= 0)
-        {
-            isDead = true;
-        }
     }
 
     public virtual void ResetStunResistance()

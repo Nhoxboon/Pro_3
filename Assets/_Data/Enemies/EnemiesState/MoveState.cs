@@ -38,6 +38,8 @@ public class MoveState : State
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+        core.Movement.SetVelocityX(enemyDataSO.movementSpeed * core.Movement.FacingDirection);
     }
 
     public override void PhysicsUpdate()

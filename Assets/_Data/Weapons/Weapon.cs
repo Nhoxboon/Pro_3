@@ -7,6 +7,8 @@ public class Weapon : NhoxBehaviour
     [SerializeField] protected Animator baseAnimator;
     [SerializeField] protected Animator weaponAnimator;
 
+    [SerializeField] protected Core core;
+
     [SerializeField] protected PlayerAttackState state;
 
     [SerializeField] protected int attackCounter;
@@ -112,9 +114,10 @@ public class Weapon : NhoxBehaviour
     }
     #endregion
 
-    public void InitializeWeapon(PlayerAttackState state)
+    public void InitializeWeapon(PlayerAttackState state, Core core)
     {
         this.state = state;
+        this.core = core;
     }
 
 

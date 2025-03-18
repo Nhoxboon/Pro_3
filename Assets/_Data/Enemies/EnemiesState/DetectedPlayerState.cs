@@ -44,6 +44,8 @@ public class DetectedPlayerState : State
     {
         base.LogicUpdate();
 
+        core.Movement.SetVelocityX(0f);
+
         if (Time.time >= startTime + enemyDataSO.longRangeActionTime)
         {
             performLongRangeAction = true;

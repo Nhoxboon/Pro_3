@@ -26,6 +26,8 @@ MonoBehaviour:
   closeRangeActionDistance: 1
   attackRadius: 0.75
   attackDamage: 10
+  knockbackAngle: {x: 1, y: 1}
+  knockbackStrength: 10
   projectile: {fileID: 0}
   projectileDamage: 10
   projectileSpeed: 12

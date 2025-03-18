@@ -70,20 +70,4 @@ public class Pig : Enemy
 
         Gizmos.DrawWireSphere(meleeAttackPosition.position, enemyDataSO.attackRadius);
     }
-
-    public override void Damage(AttackDetails attackDetails)
-    {
-        base.Damage(attackDetails);
-
-        if (isDead)
-        {
-            stateMachine.ChangeState(pigDeadState);
-        }
-        else if (isStunned && stateMachine.CurrentState != pigStunState)
-        {
-            stateMachine.ChangeState(pigStunState);
-        }
-
-        
-    }
 }
