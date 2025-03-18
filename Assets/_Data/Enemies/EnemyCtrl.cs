@@ -10,15 +10,11 @@ public class EnemyCtrl : NhoxBehaviour
     [SerializeField] protected PlayAnimation enemyAnimation;
     public PlayAnimation EnemyAnimation => enemyAnimation;
 
-    [SerializeField] protected TouchingDirection touchingDirection;
-    public TouchingDirection TouchingDirection => touchingDirection;
-
     protected override void LoadComponents()
     {
         base.LoadComponents();
         this.LoadEnemy();
         this.LoadPlayAnimation();
-        this.LoadTouchingDirection();
     }
 
     protected void LoadEnemy()
@@ -33,12 +29,5 @@ public class EnemyCtrl : NhoxBehaviour
         if (this.enemyAnimation != null) return;
         this.enemyAnimation = this.GetComponentInChildren<PlayAnimation>();
         Debug.Log(transform.name + " LoadPlayAnimation", gameObject);
-    }
-
-    protected void LoadTouchingDirection()
-    {
-        if (this.touchingDirection != null) return;
-        this.touchingDirection = this.GetComponentInChildren<TouchingDirection>();
-        Debug.Log(transform.name + " LoadTouchingDirection", gameObject);
     }
 }

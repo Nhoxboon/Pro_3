@@ -44,7 +44,7 @@ public class PigDetectedPlayerState : DetectedPlayerState
         }
         else if (!isDetectingCliff)
         {
-            enemy.Flip();
+            core.Movement.Flip();
             stateMachine.ChangeState(pig.PigMoveState);
         }
 

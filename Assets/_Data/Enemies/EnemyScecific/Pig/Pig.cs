@@ -30,9 +30,9 @@ public class Pig : Enemy
 
     [SerializeField] Transform meleeAttackPosition;
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
 
         pigIdleState = new PigIdleState(this, stateMachine, "idle", enemyDataSO, this);
         pigMoveState = new PigMoveState(this, stateMachine, "move", enemyDataSO, this);
@@ -43,6 +43,11 @@ public class Pig : Enemy
         pigStunState = new PigStunState(this, stateMachine, "stun", enemyDataSO, this);
         pigDeadState = new PigDeadState(this, stateMachine, "dead", enemyDataSO, this);
 
+    }
+
+    protected override void Start()
+    {
+        base.Start();
         stateMachine.Initialize(pigMoveState);
     }
 

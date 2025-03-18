@@ -9,12 +9,6 @@ public class Enemy : NhoxBehaviour
     protected FiniteStateMachine stateMachine;
     public FiniteStateMachine StateMachine => stateMachine;
 
-    [SerializeField] protected Rigidbody2D rb;
-    public Rigidbody2D Rb => rb;
-
-    [SerializeField] protected int facingDirection;
-    public int FacingDirection => facingDirection;
-
     [SerializeField] protected Vector2 workSpace;
 
     [SerializeField] protected EnemyDataSO enemyDataSO;
@@ -28,6 +22,9 @@ public class Enemy : NhoxBehaviour
     [SerializeField] protected EnemyCtrl enemyCtrl;
     public EnemyCtrl EnemyCtrl => enemyCtrl;
 
+    [SerializeField] protected Core core;
+    public Core Core => core;
+
     [Header("DamageReceiver")]
     [SerializeField] protected float currentHealth;
     [SerializeField] protected float currentStunResistance;
@@ -38,10 +35,9 @@ public class Enemy : NhoxBehaviour
     [SerializeField] protected bool isStunned;
     [SerializeField] protected bool isDead;
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
-        facingDirection = 1;
+        base.Awake();
         currentHealth = enemyDataSO.maxHealth;
         currentStunResistance = enemyDataSO.stunResistance;
 
@@ -50,9 +46,11 @@ public class Enemy : NhoxBehaviour
 
     protected virtual void Update()
     {
+        core.LogicUpdate();
+
         stateMachine.CurrentState.LogicUpdate();
 
-        enemyCtrl.EnemyAnimation.YVelocityAnimation(rb.velocity.y);
+        enemyCtrl.EnemyAnimation.YVelocityAnimation(core.Movement.Rb.velocity.y);
 
         if (Time.time >= lastDamageTime + enemyDataSO.stunRecoveryTime)
         {
@@ -68,21 +66,11 @@ public class Enemy : NhoxBehaviour
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        LoadRigidbody2D();
         LoadDetectedZone();
         LoadEnemyCtrl();
         LoadEnemyDataSO();
         LoadAnimationEvent();
-    }
-
-    protected void LoadRigidbody2D()
-    {
-        if (this.rb != null) return;
-        this.rb = this.GetComponentInParent<Rigidbody2D>();
-        rb.gravityScale = 5f;
-        rb.freezeRotation = true;
-        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-        Debug.Log(transform.name + " LoadRigidbody2D", gameObject);
+        LoadCore();
     }
 
     protected void LoadDetectedZone()
@@ -106,24 +94,18 @@ public class Enemy : NhoxBehaviour
         Debug.Log(transform.name + " LoadEnemyCtrl", gameObject);
     }
 
+    protected void LoadCore()
+    {
+        if (core != null) return;
+        core = transform.parent.GetComponentInChildren<Core>();
+        Debug.Log(transform.name + " LoadCore", gameObject);
+    }
+
     protected void LoadAnimationEvent()
     {
         if (getAnimEvent != null) return;
         getAnimEvent = GetComponent<EnemyGetAnimationEvent>();
         Debug.Log(transform.name + " LoadAnimationEvent", gameObject);
-    }
-
-    public virtual void SetVelocityX(float velocity)
-    {
-        workSpace.Set(facingDirection * velocity, rb.velocity.y);
-        rb.velocity = workSpace;
-    }
-
-    public virtual void SetVelocity(float velocity, Vector2 angle, int direction)
-    {
-        angle.Normalize();
-        workSpace.Set(angle.x * velocity * direction, angle.y * velocity);
-        rb.velocity = workSpace;
     }
 
     public virtual bool CheckPlayerInMinAgroRange()
@@ -143,8 +125,8 @@ public class Enemy : NhoxBehaviour
 
     public virtual void DamageHop(float velocity)
     {
-        workSpace.Set(rb.velocity.x, velocity);
-        rb.velocity = workSpace;
+        workSpace.Set(core.Movement.Rb.velocity.x, velocity);
+        core.Movement.Rb.velocity = workSpace;
     }
 
     public virtual void Damage(AttackDetails attackDetails)
@@ -181,12 +163,6 @@ public class Enemy : NhoxBehaviour
     {
         isStunned = false;
         currentStunResistance = enemyDataSO.stunResistance;
-    }
-
-    public virtual void Flip()
-    {
-        facingDirection *= -1;
-        transform.parent.Rotate(0.0f, 180.0f, 0.0f);
     }
 
     public virtual void OnDrawGizmos()

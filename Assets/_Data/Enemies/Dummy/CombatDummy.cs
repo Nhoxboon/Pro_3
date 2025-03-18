@@ -31,10 +31,9 @@ public class CombatDummy : NhoxBehaviour, IDamageable
 
     public void Damage(float amount)
     {
-        Debug.Log(amount + " Damage taken");
-
         Instantiate(hitParticles, transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360)));
         anim.SetTrigger("damage");
+        Destroy(gameObject);
     }
 
 }

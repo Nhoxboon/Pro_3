@@ -19,8 +19,8 @@ public class ChargeState : State
         base.DoChecks();
 
         isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
-        isDetectingCliff = enemy.EnemyCtrl.TouchingDirection.IsTouchingCliff;
-        isDetectingWall = enemy.EnemyCtrl.TouchingDirection.IsTouchingWall;
+        isDetectingCliff = core.TouchingDirection.IsTouchingCliff;
+        isDetectingWall = core.TouchingDirection.IsTouchingWall;
         performCloseRangeAction = enemy.CheckPlayerInCloseRangeAction();
     }
 
@@ -29,7 +29,7 @@ public class ChargeState : State
         base.Enter();
 
         isChargeTimeOver = false;
-        enemy.SetVelocityX(enemyDataSO.chargeSpeed);
+        core.Movement.SetVelocityX(enemyDataSO.chargeSpeed * core.Movement.FacingDirection);
     }
 
     public override void Exit()

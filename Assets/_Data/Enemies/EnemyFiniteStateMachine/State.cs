@@ -7,6 +7,7 @@ public class State
     protected FiniteStateMachine stateMachine;
     protected Enemy enemy;
     protected EnemyDataSO enemyDataSO;
+    protected Core core;
 
     protected float startTime;
     public float StartTime => startTime;
@@ -19,6 +20,7 @@ public class State
         this.stateMachine = stateMachine;
         this.animBoolName = animBoolName;
         this.enemyDataSO = enemyDataSO;
+        this.core = enemy.Core;
     }
 
     public virtual void DoChecks()

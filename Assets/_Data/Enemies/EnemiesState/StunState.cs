@@ -18,7 +18,7 @@ public class StunState : State
     {
         base.DoChecks();
 
-        isGrounded = enemy.EnemyCtrl.TouchingDirection.IsGrounded;
+        isGrounded = core.TouchingDirection.IsGrounded;
         performCloseRangeAction = enemy.CheckPlayerInCloseRangeAction();
         isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
     }
@@ -29,7 +29,7 @@ public class StunState : State
 
         isStunTimeOver = false;
         isMovementStop = false;
-        enemy.SetVelocity(enemyDataSO.stunKnockBackSpeed, enemyDataSO.stunKnockBackAngle, enemy.LastDamageDirection);
+        core.Movement.SetVelocity(enemyDataSO.stunKnockBackSpeed, enemyDataSO.stunKnockBackAngle, enemy.LastDamageDirection);
     }
 
     public override void Exit()
@@ -51,7 +51,7 @@ public class StunState : State
         if(isGrounded && Time.time >= startTime + enemyDataSO.stunKnockBackTime && !isMovementStop)
         {
             isMovementStop = true;
-            enemy.SetVelocityX(0f);
+            core.Movement.SetVelocityX(0f);
         }
     }
 

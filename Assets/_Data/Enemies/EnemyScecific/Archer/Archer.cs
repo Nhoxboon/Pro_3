@@ -34,9 +34,9 @@ public class Archer : Enemy
     [SerializeField] Transform meleeAttackPosition;
     [SerializeField] Transform rangedAttackPosition;
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
 
         archerIdleState = new ArcherIdleState(this, stateMachine, "idle", enemyDataSO, this);
         archerMoveState = new ArcherMoveState(this, stateMachine, "move", enemyDataSO, this);
@@ -48,6 +48,11 @@ public class Archer : Enemy
         archerDodgeState = new ArcherDodgeState(this, stateMachine, "dodge", enemyDataSO, this);
         archerRangedAttackState = new ArcherRangedAttackState(this, stateMachine, "rangedAttack", enemyDataSO, rangedAttackPosition, this);
 
+    }
+
+    protected override void Start()
+    {
+        base.Start();
         stateMachine.Initialize(archerMoveState);
     }
 

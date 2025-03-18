@@ -15,19 +15,19 @@ public class MoveState : State
     public override void DoChecks()
     {
         base.DoChecks();
-        isDetectingWall = enemy.EnemyCtrl.TouchingDirection.IsTouchingWall;
-        isDetectingCliff = enemy.EnemyCtrl.TouchingDirection.IsTouchingCliff;
+        isDetectingWall = core.TouchingDirection.IsTouchingWall;
+        isDetectingCliff = core.TouchingDirection.IsTouchingCliff;
         isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
     }
 
     public override void Enter()
     {
         base.Enter();
-        isDetectingWall = enemy.EnemyCtrl.TouchingDirection.IsTouchingWall;
-        isDetectingCliff = enemy.EnemyCtrl.TouchingDirection.IsTouchingCliff;
+        isDetectingWall = core.TouchingDirection.IsTouchingWall;
+        isDetectingCliff = core.TouchingDirection.IsTouchingCliff;
         isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
 
-        enemy.SetVelocityX(enemyDataSO.movementSpeed);
+        core.Movement.SetVelocityX(enemyDataSO.movementSpeed * core.Movement.FacingDirection);
     }
 
     public override void Exit()

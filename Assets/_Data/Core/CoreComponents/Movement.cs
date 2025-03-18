@@ -15,7 +15,7 @@ public class Movement : CoreComponent
     [SerializeField] protected Vector2 currentVelocity;
     public Vector2 CurrentVelocity => currentVelocity;
 
-    protected override void Start()
+    protected override void Awake()
     {
         base.Awake();
         facingDirection = 1;
@@ -82,7 +82,7 @@ public class Movement : CoreComponent
         }
     }
 
-    protected void Flip()
+    public void Flip()
     {
         facingDirection *= -1;
         transform.parent.parent.Rotate(0, 180, 0);
