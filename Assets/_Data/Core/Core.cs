@@ -10,15 +10,26 @@ public class Core : NhoxBehaviour
     [SerializeField] protected TouchingDirection touchingDirection;
     public TouchingDirection TouchingDirection => touchingDirection;
 
-    [SerializeField] protected Combat combat;
-    public Combat Combat => combat;
+    [SerializeField] protected Stats stats;
+    public Stats Stats => stats;
+
+    [SerializeField] protected DamageReceiver damageReceiver;
+    public DamageReceiver DamageReceiver => damageReceiver;
+
+    [SerializeField] protected Knockbackable knockbackable;
+    public Knockbackable Knockbackable => knockbackable;
+
+    [SerializeField] protected List<CoreComponent> components = new List<CoreComponent>();
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
         LoadMovement();
         LoadTouchingDirection();
-        LoadCombat();
+        LoadStats();
+
+        LoadDamageReceiver();
+        LoadKnockbackable();
     }
 
     protected void LoadMovement()
@@ -35,16 +46,40 @@ public class Core : NhoxBehaviour
         Debug.Log(transform.name + " LoadTouchingDirection", gameObject);
     }
 
-    protected void LoadCombat()
+    protected void LoadStats()
     {
-        if (combat != null) return;
-        combat = GetComponentInChildren<Combat>();
-        Debug.Log(transform.name + " LoadCombat", gameObject);
+        if (stats != null) return;
+        stats = GetComponentInChildren<Stats>();
+        Debug.Log(transform.name + " LoadStats", gameObject);
+    }
+
+    protected void LoadDamageReceiver()
+    {
+        if (damageReceiver != null) return;
+        damageReceiver = GetComponentInChildren<DamageReceiver>();
+        Debug.Log(transform.name + " LoadDamageReceiver", gameObject);
+    }
+
+    protected void LoadKnockbackable()
+    {
+        if (knockbackable != null) return;
+        knockbackable = GetComponentInChildren<Knockbackable>();
+        Debug.Log(transform.name + " LoadKnockbackable", gameObject);
     }
 
     public void LogicUpdate()
     {
-        movement.LogicUpdate();
-        combat.LogicUpdate();
+        foreach (CoreComponent component in components)
+        {
+            component.LogicUpdate();
+        }
+    }
+
+    public void AddComponent(CoreComponent component)
+    {
+        if (!components.Contains(component))
+        {
+            components.Add(component);
+        }
     }
 }

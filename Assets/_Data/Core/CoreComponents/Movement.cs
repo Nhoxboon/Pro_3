@@ -37,7 +37,7 @@ public class Movement : CoreComponent
         Debug.Log(transform.name + " LoadRigidbody2D", gameObject);
     }
 
-    public void LogicUpdate()
+    public override void LogicUpdate()
     {
         currentVelocity = rb.velocity;
     }

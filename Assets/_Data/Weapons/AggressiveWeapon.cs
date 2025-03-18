@@ -7,8 +7,9 @@ public class AggressiveWeapon : Weapon
 {
     [SerializeField] protected AggressiveWeaponDataSO aggressiveWeaponDataSO;
 
-    [SerializeField] protected List<IDamageable> detectedDamageables = new List<IDamageable>();
-    [SerializeField] protected List<IKnockbackable> detectedKnockbackables = new List<IKnockbackable>();
+    [SerializeField] protected List<DamageReceiver> detectedDamageables = new List<DamageReceiver>();
+    [SerializeField] protected List<Knockbackable> detectedKnockbackables = new List<Knockbackable>();
+    [SerializeField] protected List<CombatDummy> detectedDummyDamageables = new List<CombatDummy>();
 
     protected override void Awake()
     {
@@ -35,48 +36,67 @@ public class AggressiveWeapon : Weapon
     {
         WeaponAttackDetails details = aggressiveWeaponDataSO.AttackDetails[attackCounter];
 
-        foreach(IDamageable item in detectedDamageables.ToList())
+        foreach(DamageReceiver item in detectedDamageables.ToList())
         {
             item.Damage(details.damageAmount);
         }
 
-        foreach(IKnockbackable item in detectedKnockbackables.ToList())
+        foreach(Knockbackable item in detectedKnockbackables.ToList())
         {
             item.Knockback(details.knockbackAngle, details.knockbackStrength, core.Movement.FacingDirection);
+        }
+
+        foreach (CombatDummy item in detectedDummyDamageables.ToList())
+        {
+            item.Damage(details.damageAmount);
         }
     }
 
     public void AddToDetected(Collider2D collision)
     {
-        IDamageable damageable = collision.GetComponent<IDamageable>();
+        DamageReceiver damageable = collision.GetComponent<DamageReceiver>();
 
-        if(damageable != null)
+        if (damageable != null)
         {
             detectedDamageables.Add(damageable);
         }
 
-        IKnockbackable knockbackable = collision.GetComponent<IKnockbackable>();
+        Knockbackable knockbackable = collision.GetComponent<Knockbackable>();
 
-        if(knockbackable != null)
+        if (knockbackable != null)
         {
             detectedKnockbackables.Add(knockbackable);
+        }
+
+        CombatDummy combatDummy = collision.GetComponent<CombatDummy>();
+
+        if (combatDummy != null)
+        {
+            detectedDummyDamageables.Add(combatDummy);
         }
     }
 
     public void RemoveFromDetected(Collider2D collision)
     {
-        IDamageable damageable = collision.GetComponent<IDamageable>();
+        DamageReceiver damageable = collision.GetComponent<DamageReceiver>();
 
         if (damageable != null)
         {
             detectedDamageables.Remove(damageable);
         }
 
-        IKnockbackable knockbackable = collision.GetComponent<IKnockbackable>();
+        Knockbackable knockbackable = collision.GetComponent<Knockbackable>();
 
         if (knockbackable != null)
         {
             detectedKnockbackables.Remove(knockbackable);
+        }
+
+        CombatDummy combatDummy = collision.GetComponent<CombatDummy>();
+
+        if (combatDummy != null)
+        {
+            detectedDummyDamageables.Remove(combatDummy);
         }
     }
 }

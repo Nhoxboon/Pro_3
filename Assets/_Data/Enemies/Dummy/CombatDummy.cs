@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CombatDummy : NhoxBehaviour, IDamageable
+public class CombatDummy : NhoxBehaviour
 {
     [SerializeField] protected GameObject hitParticles;
 

@@ -120,7 +120,6 @@ public class Enemy : NhoxBehaviour
 
     public virtual bool CheckPlayerInCloseRangeAction()
     {
-        Debug.Log("Find player");
         return Physics2D.Raycast(detectedZone.position, transform.parent.right, enemyDataSO.closeRangeActionDistance, enemyDataSO.whatIsPlayer);
     }
 

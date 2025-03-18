@@ -31,6 +31,7 @@ public class State
     {
         startTime = Time.time;
         enemy.EnemyCtrl.EnemyAnimation.AnimationState(animBoolName, true);
+        DoChecks();
     }
 
     public virtual void Exit()

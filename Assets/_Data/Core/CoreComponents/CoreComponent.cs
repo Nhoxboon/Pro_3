@@ -2,10 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoreComponent : NhoxBehaviour
+public abstract class CoreComponent : NhoxBehaviour
 {
     [Header("Core Component")]
     [SerializeField] protected Core core;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        core.AddComponent(this);
+    }
 
     protected override void LoadComponents()
     {
@@ -18,5 +24,10 @@ public class CoreComponent : NhoxBehaviour
         if (core != null) return;
         core = GetComponentInParent<Core>();
         //Debug.Log(transform.name + " LoadCore", gameObject);
+    }
+
+    public virtual void LogicUpdate()
+    {
+        //For override
     }
 }

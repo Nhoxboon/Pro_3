@@ -29,8 +29,6 @@ public class DetectedPlayerState : State
     {
         base.Enter();
 
-        performCloseRangeAction = enemy.CheckPlayerInCloseRangeAction();
-
         performLongRangeAction = false;
         core.Movement.SetVelocityX(0f);
     }

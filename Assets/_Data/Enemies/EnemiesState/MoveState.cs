@@ -23,9 +23,6 @@ public class MoveState : State
     public override void Enter()
     {
         base.Enter();
-        isDetectingWall = core.TouchingDirection.IsTouchingWall;
-        isDetectingCliff = core.TouchingDirection.IsTouchingCliff;
-        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
 
         core.Movement.SetVelocityX(enemyDataSO.movementSpeed * core.Movement.FacingDirection);
     }
