@@ -66,7 +66,7 @@ public class PlayerGroundedState : PlayerState
         {
             stateMachine.ChangeState(player.PlayerJumpState);
         }
-        else if (!isGrounded && isTouchingCeiling && !isTouchingCeiling)
+        else if (!isGrounded)
         {
             player.PlayerInAirState.StartCoyoteTime();
             stateMachine.ChangeState(player.PlayerInAirState);
