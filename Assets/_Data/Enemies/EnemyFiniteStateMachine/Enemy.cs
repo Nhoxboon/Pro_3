@@ -25,8 +25,7 @@ public class Enemy : NhoxBehaviour
     [SerializeField] protected Core core;
     public Core Core => core;
 
-    [Header("DamageReceiver")]
-    [SerializeField] protected float currentHealth;
+    [Header("Status")]
     [SerializeField] protected float currentStunResistance;
     [SerializeField] protected float lastDamageTime;
     [SerializeField] protected int lastDamageDirection;
@@ -38,7 +37,6 @@ public class Enemy : NhoxBehaviour
     protected override void Awake()
     {
         base.Awake();
-        currentHealth = enemyDataSO.maxHealth;
         currentStunResistance = enemyDataSO.stunResistance;
 
         stateMachine = new FiniteStateMachine();

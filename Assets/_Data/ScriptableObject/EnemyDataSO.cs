@@ -5,8 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyDataSO", menuName = "ScriptableObject/Enemy Data/Base Data")]
 public class EnemyDataSO : ScriptableObject
 {
-    [Header("Status")]
-    public float maxHealth = 30f;
+    [Header("General")]
     public float damageHopSpeed = 10f;
 
     [Header("Idle State")]

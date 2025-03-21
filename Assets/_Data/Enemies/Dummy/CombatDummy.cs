@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class CombatDummy : NhoxBehaviour
 {
-    [SerializeField] protected GameObject hitParticles;
-
     [SerializeField] protected Animator anim;
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
         LoadAnimator();
-        LoadHitParticles();
     }
 
     protected void LoadAnimator()
@@ -22,18 +19,10 @@ public class CombatDummy : NhoxBehaviour
         Debug.Log(transform.name + " :LoadAnimator", gameObject);
     }
 
-    protected virtual void LoadHitParticles()
-    {
-        if (hitParticles != null) return;
-        hitParticles = Resources.Load<GameObject>("Particles/HitParticles");
-        Debug.Log(transform.name + " :LoadHitParticles", gameObject);
-    }
-
     public void Damage(float amount)
     {
-        Instantiate(hitParticles, transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360)));
+        ParticleSpawner.Instance.SpawnParticle("HitParticles", transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360)));
         anim.SetTrigger("damage");
-        Destroy(gameObject);
     }
 
 }

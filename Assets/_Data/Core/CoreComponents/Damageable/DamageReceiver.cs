@@ -5,9 +5,11 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class DamageReceiver : CoreComponent
 {
+    protected string damageParticle = "HitParticles";
+
     public virtual void Damage(float amount)
     {
-        Debug.Log(core.transform.parent.name + " Damaged");
         core.Stats.DecreaseHealth(amount);
+        core.ParticleManager.StartParticlesWithRandomRotation(damageParticle);
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Core : NhoxBehaviour
 {
+    #region Core Components
     [SerializeField]protected Movement movement;
     public Movement Movement => movement;
 
@@ -19,6 +20,13 @@ public class Core : NhoxBehaviour
     [SerializeField] protected Knockbackable knockbackable;
     public Knockbackable Knockbackable => knockbackable;
 
+    [SerializeField] protected ParticleManager particleManager;
+    public ParticleManager ParticleManager => particleManager;
+
+    [SerializeField] protected Death death;
+    public Death Death => death;
+    #endregion
+
     [SerializeField] protected List<CoreComponent> components = new List<CoreComponent>();
 
     protected override void LoadComponents()
@@ -30,6 +38,8 @@ public class Core : NhoxBehaviour
 
         LoadDamageReceiver();
         LoadKnockbackable();
+        LoadParticleManager();
+        LoadDeath();
     }
 
     protected void LoadMovement()
@@ -65,6 +75,20 @@ public class Core : NhoxBehaviour
         if (knockbackable != null) return;
         knockbackable = GetComponentInChildren<Knockbackable>();
         Debug.Log(transform.name + " LoadKnockbackable", gameObject);
+    }
+
+    protected void LoadParticleManager()
+    {
+        if (particleManager != null) return;
+        particleManager = GetComponentInChildren<ParticleManager>();
+        Debug.Log(transform.name + " LoadParticleManager", gameObject);
+    }
+
+    protected void LoadDeath()
+    {
+        if (death != null) return;
+        death = GetComponentInChildren<Death>();
+        Debug.Log(transform.name + " LoadDeath", gameObject);
     }
 
     public void LogicUpdate()
