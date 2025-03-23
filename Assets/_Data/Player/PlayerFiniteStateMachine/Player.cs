@@ -75,6 +75,12 @@ public class Player : NhoxBehaviour
     [SerializeField] protected Transform dashDirectionIndicator;
     public Transform DashDirectionIndicator => dashDirectionIndicator;
 
+    [SerializeField] protected Weapon primaryWeapon;
+    public Weapon PrimaryWeapon => primaryWeapon;
+
+    [SerializeField] protected Weapon secondaryWeapon;
+    public Weapon SecondaryWeapon => secondaryWeapon;
+
     protected override void Awake()
     {
         base.Awake();
@@ -92,15 +98,13 @@ public class Player : NhoxBehaviour
         playerDashState = new PlayerDashState(this, stateMachine, playerDataSO, "inAir");
         playerCrouchIdleState = new PlayerCrouchIdleState(this, stateMachine, playerDataSO, "crouchIdle");
         playerCrouchMoveState = new PlayerCrouchMoveState(this, stateMachine, playerDataSO, "crouchMove");
-        primaryAttackState = new PlayerAttackState(this, stateMachine, playerDataSO, "attack");
-        secondaryAttackState = new PlayerAttackState(this, stateMachine, playerDataSO, "attack");
+        primaryAttackState = new PlayerAttackState(this, stateMachine, playerDataSO, "attack", primaryWeapon);
+        secondaryAttackState = new PlayerAttackState(this, stateMachine, playerDataSO, "attack", secondaryWeapon);
     }
 
     protected override void Start()
     {
         base.Start();
-
-        primaryAttackState.SetWeapon(PlayerCtrl.Instance.PlayerInventory.weapons[(int)CombatInputs.primary]);
 
         stateMachine.Initialize(playerIdleState);
     }
@@ -125,6 +129,8 @@ public class Player : NhoxBehaviour
         LoadCollider2d();
         LoadPlayerDataSO();
         LoadDashDirectionIndicator();
+        LoadPrimaryWeapon();
+        LoadSecondaryWeapon();
     }
 
     protected void LoadCore()
@@ -160,6 +166,20 @@ public class Player : NhoxBehaviour
         if(this.dashDirectionIndicator != null) return;
         this.dashDirectionIndicator = transform.parent.Find("DashDirectionIndicator");
         Debug.Log(transform.name + " LoadDashDirectionIndicator", gameObject);
+    }
+
+    protected void LoadPrimaryWeapon()
+    {
+        if (this.primaryWeapon != null) return;
+        this.primaryWeapon = transform.parent.Find("Weapons/PrimaryWeapon").GetComponent<Weapon>();
+        Debug.Log(transform.name + " LoadPrimaryWeapon", gameObject);
+    }
+
+    protected void LoadSecondaryWeapon()
+    {
+        if (this.secondaryWeapon != null) return;
+        this.secondaryWeapon = transform.parent.Find("Weapons/SecondaryWeapon").GetComponent<Weapon>();
+        Debug.Log(transform.name + " LoadSecondaryWeapon", gameObject);
     }
     #endregion
 

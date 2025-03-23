@@ -6,86 +6,23 @@ public class PlayerAttackState : PlayerAbilityState
 {
     protected Weapon weapon;
 
-    protected int xInput;
-    protected float velocityToSet;
-    protected bool setVelocity;
-    protected bool shouldFlip;
-
-    public PlayerAttackState(Player playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
+    public PlayerAttackState(Player playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName, Weapon weapon) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
     {
-    }
+        this.weapon = weapon;
 
-    public override void AnimationFinishTrigger()
-    {
-        base.AnimationFinishTrigger();
-
-        isAbilityDone = true;
-    }
-
-    public override void AnimationTrigger()
-    {
-        base.AnimationTrigger();
-    }
-
-    public override void DoChecks()
-    {
-        base.DoChecks();
+        weapon.OnExit += ExitHandler;
     }
 
     public override void Enter()
     {
         base.Enter();
 
-        setVelocity = false;
-
-        weapon.EnterWeapon();
+        weapon.Enter();
     }
 
-    public override void Exit()
+    protected void ExitHandler()
     {
-        base.Exit();
-
-        weapon.ExitWeapon();
-    }
-
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-
-        xInput = InputManager.Instance.NormInputX;
-
-        if (shouldFlip)
-        {
-            core.Movement.CheckIfShouldFlip(xInput);
-        }
-
-        if (setVelocity)
-        {
-            core.Movement.SetVelocityX(velocityToSet * core.Movement.FacingDirection);
-        }
-    }
-
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
-    }
-
-    public void SetWeapon(Weapon weapon)
-    {
-        this.weapon = weapon;
-        weapon.InitializeWeapon(this, core);
-    }
-
-    public void SetPlayerVelocity(float velocity)
-    {
-        core.Movement.SetVelocityX(velocity * core.Movement.FacingDirection);
-
-        velocityToSet = velocity;
-        setVelocity = true;
-    }
-
-    public void SetFlipCheck(bool value)
-    {
-        shouldFlip = value;
+        AnimationFinishTrigger();
+        isAbilityDone = true;
     }
 }

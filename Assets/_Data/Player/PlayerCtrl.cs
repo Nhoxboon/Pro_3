@@ -13,9 +13,6 @@ public class PlayerCtrl : NhoxBehaviour
     [SerializeField] protected PlayAnimation playerAnimation;
     public PlayAnimation PlayerAnimation => playerAnimation;
 
-    [SerializeField] protected PlayerInventory playerInventory;
-    public PlayerInventory PlayerInventory => playerInventory;
-
     protected override void Awake()
     {
         base.Awake();
@@ -32,7 +29,6 @@ public class PlayerCtrl : NhoxBehaviour
         base.LoadComponents();
         this.LoadPlayerMovement();
         this.LoadPlayAnimation();
-        this.LoadPlayerInventory();
     }
 
     protected void LoadPlayerMovement()
@@ -48,12 +44,5 @@ public class PlayerCtrl : NhoxBehaviour
         if (this.playerAnimation != null) return;
         this.playerAnimation = this.GetComponentInChildren<PlayAnimation>();
         Debug.Log(transform.name + " LoadPlayAnimation", gameObject);
-    }
-
-    protected void LoadPlayerInventory()
-    {
-        if (this.playerInventory != null) return;
-        this.playerInventory = this.GetComponentInChildren<PlayerInventory>();
-        Debug.Log(transform.name + " LoadPlayerInventory", gameObject);
     }
 }

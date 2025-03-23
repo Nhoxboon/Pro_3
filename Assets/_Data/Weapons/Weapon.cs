@@ -1,124 +1,114 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Weapon : NhoxBehaviour
 {
-    [SerializeField] protected Animator baseAnimator;
-    [SerializeField] protected Animator weaponAnimator;
+    [SerializeField] protected int numberOfAttacks = 3;
+    [SerializeField] protected float attackResetCooldown = 3;
 
-    [SerializeField] protected Core core;
+    public event Action OnEnter;
+    public event Action OnExit;
 
-    [SerializeField] protected PlayerAttackState state;
+    [SerializeField] protected Animator anim;
+    [SerializeField] protected GameObject baseGameObj;
+    public GameObject BaseGameObj => baseGameObj;
 
-    [SerializeField] protected int attackCounter;
+    [SerializeField] protected GameObject weaponSpriteGameObj;
+    public GameObject WeaponSpriteGameObj => weaponSpriteGameObj;
 
-    [SerializeField] protected WeaponDataSO weaponDataSO;
+    [SerializeField] protected WeaponGetAnimationEvent getAnimationEvent;
+
+    [SerializeField] protected int currentAttack;
+    public int CurrentAttack => currentAttack;
+
+    protected Timer attackResetTimer;
 
     protected override void Awake()
     {
         base.Awake();
-        HideWeapon();
+        attackResetTimer = new Timer(attackResetCooldown);
     }
 
+    private void Update()
+    {
+        attackResetTimer.Tick();
+    }
+
+    private void OnEnable()
+    {
+        getAnimationEvent.OnFinish += Exit;
+        attackResetTimer.OnTimerEnd += ResetAttack;
+    }
+
+    private void OnDisable()
+    {
+        getAnimationEvent.OnFinish -= Exit;
+        attackResetTimer.OnTimerEnd -= ResetAttack;
+    }
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        LoadBaseAnimator();
-        LoadWeaponAnimator();
-        LoadWeaponDataSO();
+        LoadBaseGameObj();
+        LoadWeaponSpriteGameObj();
+        LoadAnim();
+        LoadWpGetAnimationEvent();
     }
 
-    protected virtual void LoadBaseAnimator()
+    protected void LoadBaseGameObj()
     {
-        if (baseAnimator != null) return;
-        baseAnimator = transform.Find("Base").GetComponentInChildren<Animator>();
-        Debug.Log(transform.name + " :LoadBaseAnimator", gameObject);
+        if (this.baseGameObj != null) return;
+        this.baseGameObj = transform.Find("Base").gameObject;
+        Debug.Log(transform.name + " LoadBaseGameObj", gameObject);
     }
 
-    protected virtual void LoadWeaponAnimator()
+    protected void LoadWeaponSpriteGameObj()
     {
-        if (weaponAnimator != null) return;
-        weaponAnimator = transform.Find("Weapon").GetComponentInChildren<Animator>();
-        Debug.Log(transform.name + " :LoadWeaponAnimator", gameObject);
+        if (this.weaponSpriteGameObj != null) return;
+        this.weaponSpriteGameObj = transform.Find("WeaponSprite").gameObject;
+        Debug.Log(transform.name + " LoadWeaponSpriteGameObj", gameObject);
     }
 
-    protected virtual void LoadWeaponDataSO()
+    protected void LoadAnim()
     {
-        if (weaponDataSO != null) return;
-        weaponDataSO = Resources.Load<WeaponDataSO>("Weapons/" + transform.name);
-        Debug.Log(transform.name + " :LoadWeaponDataSO", gameObject);
+        if (this.anim != null) return;
+        this.anim = baseGameObj.GetComponent<Animator>();
+        Debug.Log(transform.name + " LoadAnim", gameObject);
     }
 
-    public virtual void EnterWeapon()
+    protected void LoadWpGetAnimationEvent()
     {
-        gameObject.SetActive(true);
+        if(this.getAnimationEvent != null) return;
+        this.getAnimationEvent = baseGameObj.GetComponent<WeaponGetAnimationEvent>();
+        Debug.Log(transform.name + " LoadWpGetAnimationEvent", gameObject);
+    }
 
-        if (attackCounter >= weaponDataSO.amountOfAttacks)
+    public void Enter()
+    {
+        if (currentAttack >= numberOfAttacks)
         {
-            attackCounter = 0;
+            currentAttack = 0;
         }
 
-        baseAnimator.SetBool("attack", true);
-        weaponAnimator.SetBool("attack", true);
+        attackResetTimer.StopTimer();
 
-        baseAnimator.SetInteger("attackCounter", attackCounter);
-        weaponAnimator.SetInteger("attackCounter", attackCounter);
+        anim.SetBool("attack", true);
+        anim.SetInteger("counter", currentAttack);
+
+        OnEnter?.Invoke();
     }
 
-    public virtual void ExitWeapon()
+    protected void Exit()
     {
-        baseAnimator.SetBool("attack", false);
-        weaponAnimator.SetBool("attack", false);
+        anim.SetBool("attack", false);
 
-        attackCounter++;
+        currentAttack++;
+        attackResetTimer.StartTimer();
 
-        gameObject.SetActive(false);
+        OnExit?.Invoke();
     }
 
-    protected virtual void HideWeapon()
-    {
-        gameObject.SetActive(false);
-    }
-
-    #region Animation Triggers Events
-    public virtual void AnimationFinishTrigger()
-    {
-        state.AnimationFinishTrigger();
-    }
-
-    public virtual void AnimationStartMovementTrigger()
-    {
-        state.SetPlayerVelocity(weaponDataSO.movementSpeed[attackCounter]);
-    }
-
-    public virtual void AnimationStopMovementTrigger()
-    {
-        state.SetPlayerVelocity(0f);
-    }
-
-    public virtual void AnimationTurnOffFlip()
-    {
-        state.SetFlipCheck(false);
-    }
-
-    public virtual void AnimationTurnOnFlip()
-    {
-        state.SetFlipCheck(true);
-    }
-
-    public virtual void AnimationActionTrigger()
-    {
-        //For override
-    }
-    #endregion
-
-    public void InitializeWeapon(PlayerAttackState state, Core core)
-    {
-        this.state = state;
-        this.core = core;
-    }
-
-
+    protected void ResetAttack() => currentAttack = 0;
 }
