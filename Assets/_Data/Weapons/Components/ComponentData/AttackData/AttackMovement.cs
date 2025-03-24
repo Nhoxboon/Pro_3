@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class WeaponSpriteData : ComponentData<AttackSprites>
+public class AttackMovement : AttackData
 {
-
+    public Vector2 direction;
+    public float velocity;
 }

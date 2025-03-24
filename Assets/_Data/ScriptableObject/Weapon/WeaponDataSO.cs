@@ -11,11 +11,14 @@ public class WeaponDataSO : ScriptableObject
 
     [field: SerializeReference] public List<ComponentData> componentData;
 
-    [ContextMenu("Add Sprite Data")]
-    protected void AddSpriteData() => componentData.Add(new WeaponSpriteData());
-
     public T GetData<T>()
     {
         return componentData.OfType<T>().FirstOrDefault();
     }
+
+    [ContextMenu("Add Sprite Data")]
+    protected void AddSpriteData() => componentData.Add(new WeaponSpriteData());
+
+    [ContextMenu("Add Attack Movement Data")]
+    protected void AddAttackMovementData() => componentData.Add(new AttackMovementData());
 }

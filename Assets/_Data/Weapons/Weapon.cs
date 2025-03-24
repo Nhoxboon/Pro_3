@@ -21,9 +21,13 @@ public class Weapon : NhoxBehaviour
     public GameObject WeaponSpriteGameObj => weaponSpriteGameObj;
 
     [SerializeField] protected WeaponGetAnimationEvent getAnimationEvent;
+    public WeaponGetAnimationEvent GetAnimationEvent => getAnimationEvent;
 
     [SerializeField] protected int currentAttack;
     public int CurrentAttack => currentAttack;
+
+    [SerializeField] protected Core core;
+    public Core Core => core;
 
     protected Timer attackResetTimer;
 
@@ -57,6 +61,7 @@ public class Weapon : NhoxBehaviour
         LoadWeaponSpriteGameObj();
         LoadAnim();
         LoadWpGetAnimationEvent();
+        LoadCore();
     }
 
     protected void LoadBaseGameObj()
@@ -87,11 +92,11 @@ public class Weapon : NhoxBehaviour
         Debug.Log(transform.name + " LoadWpGetAnimationEvent", gameObject);
     }
 
-    protected void LoadWeaponDataSO()
+    protected void LoadCore()
     {
-        if (this.weaponDataSO != null) return;
-        this.weaponDataSO = Resources.Load<WeaponDataSO>("Weapon");
-        Debug.Log(transform.name + " LoadWeaponDataSO", gameObject);
+        if (this.core != null) return;
+        this.core = transform.parent.parent.GetComponentInChildren<Core>();
+        Debug.Log(transform.name + " LoadCore", gameObject);
     }
 
     public void Enter()

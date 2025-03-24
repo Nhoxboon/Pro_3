@@ -15,6 +15,7 @@ MonoBehaviour:
   numberOfAttacks: 3
   componentData:
   - rid: 2535277552246456321
+  - rid: 2535277559028383744
   references:
     version: 2
     RefIds:
@@ -40,3 +41,13 @@ MonoBehaviour:
           - {fileID: -7025760825990288548, guid: cc443ce9a5b3114438dd371077c39949, type: 3}
           - {fileID: 1008453939145656331, guid: cc443ce9a5b3114438dd371077c39949, type: 3}
           - {fileID: 1121910671679707029, guid: cc443ce9a5b3114438dd371077c39949, type: 3}
+    - rid: 2535277559028383744
+      type: {class: AttackMovementData, ns: , asm: Assembly-CSharp}
+      data:
+        <AttackData>k__BackingField:
+        - direction: {x: 1, y: 0}
+          velocity: 3
+        - direction: {x: 1, y: 0}
+          velocity: 4
+        - direction: {x: 1, y: 5}
+          velocity: 5

@@ -6,6 +6,9 @@ public abstract class WeaponComponent : NhoxBehaviour
 {
     [SerializeField] protected Weapon weapon;
 
+    protected WeaponGetAnimationEvent EventHandler => weapon.GetAnimationEvent;
+    protected Core Core => weapon.Core;
+
     protected bool isAttacking;
 
     protected virtual void OnEnable()
@@ -43,3 +46,27 @@ public abstract class WeaponComponent : NhoxBehaviour
         isAttacking = false;
     }
 }
+
+public abstract class WeaponComponent<T1, T2> : WeaponComponent where T1 : ComponentData<T2> where T2 : AttackData
+{
+    protected T1 data;
+    protected T2 currentAttackData;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        GetData();
+    }
+
+    protected override void HandleEnter()
+    {
+        base.HandleEnter();
+        currentAttackData = data.AttackData[weapon.CurrentAttack];
+    }
+
+    protected void GetData()
+    {
+        data = weapon.WeaponDataSO.GetData<T1>();
+    }
+}
+

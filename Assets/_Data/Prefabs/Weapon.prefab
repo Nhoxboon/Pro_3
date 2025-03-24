@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 8658195065428444}
   - component: {fileID: 3911354748022348048}
   - component: {fileID: 8256064008550636761}
+  - component: {fileID: 2501197325870847971}
   m_Layer: 8
   m_Name: Weapon
   m_TagString: Untagged
@@ -131,13 +132,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28a9c5051d41101468dd41201073f74d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfAttacks: 3
+  weaponDataSO: {fileID: 0}
   attackResetCooldown: 3
   anim: {fileID: 7475308349179960004}
   baseGameObj: {fileID: 6929759519129462860}
   weaponSpriteGameObj: {fileID: 96528031195121234}
   getAnimationEvent: {fileID: 485642926523809729}
   currentAttack: 0
+  core: {fileID: 0}
 --- !u!114 &8256064008550636761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,6 +156,22 @@ MonoBehaviour:
   baseSR: {fileID: 8243823030988026582}
   weaponSR: {fileID: 2689844621298769856}
   currentWeaponSpriteIndex: 0
+  data:
+    <AttackData>k__BackingField: []
+--- !u!114 &2501197325870847971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4945130393068197687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc270b0c4d82db44abe4206404def2ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 3911354748022348048}
+  coreMovement: {fileID: 0}
 --- !u!1 &6929759519129462860
 GameObject:
   m_ObjectHideFlags: 0
