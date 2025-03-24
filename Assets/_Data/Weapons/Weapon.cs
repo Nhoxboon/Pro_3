@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class Weapon : NhoxBehaviour
 {
-    [SerializeField] protected int numberOfAttacks = 3;
+    [SerializeField] protected WeaponDataSO weaponDataSO;
+    public WeaponDataSO WeaponDataSO => weaponDataSO;
+
     [SerializeField] protected float attackResetCooldown = 3;
 
     public event Action OnEnter;
@@ -85,9 +87,16 @@ public class Weapon : NhoxBehaviour
         Debug.Log(transform.name + " LoadWpGetAnimationEvent", gameObject);
     }
 
+    protected void LoadWeaponDataSO()
+    {
+        if (this.weaponDataSO != null) return;
+        this.weaponDataSO = Resources.Load<WeaponDataSO>("Weapon");
+        Debug.Log(transform.name + " LoadWeaponDataSO", gameObject);
+    }
+
     public void Enter()
     {
-        if (currentAttack >= numberOfAttacks)
+        if (currentAttack >= weaponDataSO.numberOfAttacks)
         {
             currentAttack = 0;
         }

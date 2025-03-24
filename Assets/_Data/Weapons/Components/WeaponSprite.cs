@@ -7,9 +7,9 @@ public class WeaponSprite : WeaponComponent
     [SerializeField] protected SpriteRenderer baseSR;
     [SerializeField] protected SpriteRenderer weaponSR;
 
-    [SerializeField] protected WeaponSprites[] weaponSprites;
-
     [SerializeField] protected int currentWeaponSpriteIndex;
+
+    [SerializeField] protected WeaponSpriteData data;
 
     protected override void OnEnable()
     {
@@ -35,7 +35,16 @@ public class WeaponSprite : WeaponComponent
             return;
         }
 
-        var currentAttackSprite = weaponSprites[weapon.CurrentAttack].Sprites;
+        if (weapon.CurrentAttack >= data.AttackData.Length)
+        {
+            Debug.LogError("CurrentAttack index out of range: " + weapon.CurrentAttack);
+            return;
+        }
+
+        Debug.Log($"weapon.CurrentAttack: {weapon.CurrentAttack}, AttackData Length: {data.AttackData.Length}", gameObject);
+
+
+        var currentAttackSprite = data.AttackData[weapon.CurrentAttack].Sprites;
         if (currentWeaponSpriteIndex >= currentAttackSprite.Length)
         {
             Debug.LogWarning(weapon.name + " weapon sprite length mismatch");
@@ -47,10 +56,15 @@ public class WeaponSprite : WeaponComponent
         currentWeaponSpriteIndex++;
     }
 
+    protected override void Awake()
+    {
+        base.Awake();
+        data = weapon.WeaponDataSO.GetData<WeaponSpriteData>();
+    }
+
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        //TODO: Comeback when have Weapon Data
         LoadBaseSR();
         LoadWeaponSR();
     }

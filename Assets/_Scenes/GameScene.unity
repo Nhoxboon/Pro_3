@@ -44011,6 +44011,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3911354748022348048, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
+      propertyPath: weaponDataSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 944751a371fe7cd4f8d8f241e6e58154, type: 2}
     - target: {fileID: 4945130393068197687, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
       propertyPath: m_Name
       value: SecondaryWeapon
@@ -44389,6 +44393,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3911354748022348048, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
+      propertyPath: weaponDataSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 37ecec62c056d2e48950b0b11354eeed, type: 2}
     - target: {fileID: 4945130393068197687, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
       propertyPath: m_Name
       value: PrimaryWeapon

@@ -1,10 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "WeaponDataSO", menuName = "ScriptableObject/Weapon Data/Weapon")]
+
+[CreateAssetMenu(fileName = "WeaponDataSO", menuName = "ScriptableObject/Weapon/Basic Weapon Data")]
 public class WeaponDataSO : ScriptableObject
 {
-    public int amountOfAttacks { get; protected set; }
-    public float[] movementSpeed { get; protected set; }
+    public int numberOfAttacks;
+
+    [field: SerializeReference] public List<ComponentData> componentData;
+
+    [ContextMenu("Add Sprite Data")]
+    protected void AddSpriteData() => componentData.Add(new WeaponSpriteData());
+
+    public T GetData<T>()
+    {
+        return componentData.OfType<T>().FirstOrDefault();
+    }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class WeaponSprites
+public class ComponentData
 {
-    [field: SerializeField] public Sprite[] Sprites { get; private set; }
+    
 }
