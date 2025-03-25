@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class WeaponMovement : WeaponComponent<AttackMovementData, AttackMovement>
 {
-    [SerializeField] protected Movement coreMovement;
-
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -18,19 +16,6 @@ public class WeaponMovement : WeaponComponent<AttackMovementData, AttackMovement
         base.OnDisable();
         EventHandler.OnStartMovement -= HandleStartMovement;
         EventHandler.OnStopMovement -= HandleStopMovement;
-    }
-
-    protected override void LoadComponents()
-    {
-        base.LoadComponents();
-        LoadCoreMovement();
-    }
-
-    protected void LoadCoreMovement()
-    {
-        if (coreMovement != null) return;
-        coreMovement = Core.GetComponentInChildren<Movement>();
-        Debug.Log(transform.name + " LoadCoreMovement", gameObject);
     }
 
     protected void HandleStartMovement()

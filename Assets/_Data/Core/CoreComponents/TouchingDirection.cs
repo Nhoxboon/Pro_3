@@ -96,16 +96,16 @@ public class TouchingDirection : CoreComponent
         return workSpace;
     }
 
-    protected void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+    //protected void OnDrawGizmos()
+    //{
+    //    Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
 
-        Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y, wallCheck.position.z));
+    //    Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y, wallCheck.position.z));
 
-        Gizmos.DrawLine(ledgeCheck.position, new Vector3(ledgeCheck.position.x + wallCheckDistance, ledgeCheck.position.y, ledgeCheck.position.z));
+    //    Gizmos.DrawLine(ledgeCheck.position, new Vector3(ledgeCheck.position.x + wallCheckDistance, ledgeCheck.position.y, ledgeCheck.position.z));
 
-        Gizmos.DrawWireSphere(ceilingCheck.position, groundCheckRadius);
+    //    Gizmos.DrawWireSphere(ceilingCheck.position, groundCheckRadius);
 
-        Gizmos.DrawLine(cliffCheck.position, ledgeCheck.position + (Vector3)(Vector2.down * cliffCheckDistance));
-    }
+    //    Gizmos.DrawLine(cliffCheck.position, ledgeCheck.position + (Vector3)(Vector2.down * cliffCheckDistance));
+    //}
 }

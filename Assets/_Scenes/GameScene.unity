@@ -44015,6 +44015,10 @@ PrefabInstance:
       propertyPath: coreMovement
       value: 
       objectReference: {fileID: 1394825213}
+    - target: {fileID: 3261095302167450269, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
+      propertyPath: coreMovement
+      value: 
+      objectReference: {fileID: 1394825213}
     - target: {fileID: 3911354748022348048, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
       propertyPath: core
       value: 
@@ -44027,6 +44031,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SecondaryWeapon
       objectReference: {fileID: 0}
+    - target: {fileID: 8024135088874977378, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
+      propertyPath: coreMovement
+      value: 
+      objectReference: {fileID: 1394825213}
+    - target: {fileID: 8256064008550636761, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
+      propertyPath: coreMovement
+      value: 
+      objectReference: {fileID: 1394825213}
     - target: {fileID: 8256064008550636761, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
       propertyPath: weaponSprites.Array.size
       value: 3
@@ -44107,7 +44119,8 @@ PrefabInstance:
       propertyPath: weaponSprites.Array.data[2].<Sprites>k__BackingField.Array.data[4]
       value: 
       objectReference: {fileID: -1962190227, guid: 5fdfcacfdf8e37743b35592bd6036f11, type: 3}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8024135088874977378, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -44405,6 +44418,10 @@ PrefabInstance:
       propertyPath: coreMovement
       value: 
       objectReference: {fileID: 1394825213}
+    - target: {fileID: 3261095302167450269, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
+      propertyPath: coreMovement
+      value: 
+      objectReference: {fileID: 1394825213}
     - target: {fileID: 3911354748022348048, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
       propertyPath: core
       value: 
@@ -44417,6 +44434,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PrimaryWeapon
       objectReference: {fileID: 0}
+    - target: {fileID: 8024135088874977378, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
+      propertyPath: coreMovement
+      value: 
+      objectReference: {fileID: 1394825213}
+    - target: {fileID: 8256064008550636761, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
+      propertyPath: coreMovement
+      value: 
+      objectReference: {fileID: 1394825213}
     - target: {fileID: 8256064008550636761, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
       propertyPath: weaponSprites.Array.size
       value: 3

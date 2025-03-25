@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class ActionHitboxData : ComponentData<AttackActionHitbox>
 {
-    
+    public LayerMask detectedLayers;
 }

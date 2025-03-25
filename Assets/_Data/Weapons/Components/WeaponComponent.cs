@@ -9,6 +9,8 @@ public abstract class WeaponComponent : NhoxBehaviour
     protected WeaponGetAnimationEvent EventHandler => weapon.GetAnimationEvent;
     protected Core Core => weapon.Core;
 
+    [SerializeField] protected Movement coreMovement;
+
     protected bool isAttacking;
 
     protected virtual void OnEnable()
@@ -27,6 +29,7 @@ public abstract class WeaponComponent : NhoxBehaviour
     {
         base.LoadComponents();
         LoadWeapon();
+        LoadCoreMovement();
     }
 
     protected void LoadWeapon()
@@ -34,6 +37,13 @@ public abstract class WeaponComponent : NhoxBehaviour
         if (this.weapon != null) return;
         this.weapon = GetComponent<Weapon>();
         Debug.Log(transform.name + " LoadWeapon", gameObject);
+    }
+
+    protected void LoadCoreMovement()
+    {
+        if (coreMovement != null) return;
+        coreMovement = Core.GetComponentInChildren<Movement>();
+        Debug.Log(transform.name + " LoadCoreMovement", gameObject);
     }
 
     protected virtual void HandleEnter()
