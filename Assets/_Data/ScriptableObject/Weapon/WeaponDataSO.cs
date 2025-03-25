@@ -16,9 +16,10 @@ public class WeaponDataSO : ScriptableObject
         return componentData.OfType<T>().FirstOrDefault();
     }
 
-    [ContextMenu("Add Sprite Data")]
-    protected void AddSpriteData() => componentData.Add(new WeaponSpriteData());
+    public void AddData(ComponentData data)
+    {
+        if (componentData.FirstOrDefault(t => t.GetType() == data.GetType()) != null) return;
 
-    [ContextMenu("Add Attack Movement Data")]
-    protected void AddAttackMovementData() => componentData.Add(new AttackMovementData());
+        componentData.Add(data);
+    }
 }
