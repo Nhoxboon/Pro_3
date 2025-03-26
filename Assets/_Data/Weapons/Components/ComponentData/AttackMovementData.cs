@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class AttackMovementData : ComponentData<AttackMovement>
 {
-
+    public AttackMovementData()
+    {
+        componentDependency = typeof(WeaponMovement);
+    }
 }

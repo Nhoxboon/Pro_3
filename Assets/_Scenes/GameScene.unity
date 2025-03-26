@@ -44011,6 +44011,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 435932498145521174, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
+      propertyPath: hitBox
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 435932498145521174, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
+      propertyPath: coreMovement
+      value: 
+      objectReference: {fileID: 1394825213}
     - target: {fileID: 2501197325870847971, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
       propertyPath: coreMovement
       value: 
@@ -44023,7 +44031,7 @@ PrefabInstance:
       propertyPath: core
       value: 
       objectReference: {fileID: 1086326392}
-    - target: {fileID: 3911354748022348048, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
+    - target: {fileID: 4575427714179502923, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
       propertyPath: weaponDataSO
       value: 
       objectReference: {fileID: 11400000, guid: 944751a371fe7cd4f8d8f241e6e58154, type: 2}
@@ -44121,6 +44129,10 @@ PrefabInstance:
       objectReference: {fileID: -1962190227, guid: 5fdfcacfdf8e37743b35592bd6036f11, type: 3}
     m_RemovedComponents:
     - {fileID: 8024135088874977378, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
+    - {fileID: 8256064008550636761, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
+    - {fileID: 2501197325870847971, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
+    - {fileID: 3261095302167450269, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
+    - {fileID: 435932498145521174, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -44414,6 +44426,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 435932498145521174, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
+      propertyPath: hitBox
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 435932498145521174, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
+      propertyPath: coreMovement
+      value: 
+      objectReference: {fileID: 1394825213}
     - target: {fileID: 2501197325870847971, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
       propertyPath: coreMovement
       value: 
@@ -44426,7 +44446,7 @@ PrefabInstance:
       propertyPath: core
       value: 
       objectReference: {fileID: 1086326392}
-    - target: {fileID: 3911354748022348048, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
+    - target: {fileID: 4575427714179502923, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
       propertyPath: weaponDataSO
       value: 
       objectReference: {fileID: 11400000, guid: 37ecec62c056d2e48950b0b11354eeed, type: 2}

@@ -6,5 +6,8 @@ using UnityEngine;
 [Serializable]
 public class WeaponSpriteData : ComponentData<AttackSprites>
 {
-
+    public WeaponSpriteData()
+    {
+        componentDependency = typeof(WeaponSprite);
+    }
 }

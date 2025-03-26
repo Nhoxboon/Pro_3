@@ -8,6 +8,8 @@ public class ComponentData
 {
     [SerializeField, HideInInspector] protected string name;
 
+    public Type componentDependency;
+
     public ComponentData()
     {
         SetComponentName();

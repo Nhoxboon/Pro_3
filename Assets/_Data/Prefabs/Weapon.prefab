@@ -94,9 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8658195065428444}
   - component: {fileID: 3911354748022348048}
-  - component: {fileID: 8256064008550636761}
-  - component: {fileID: 2501197325870847971}
-  - component: {fileID: 3261095302167450269}
+  - component: {fileID: 4575427714179502923}
   m_Layer: 8
   m_Name: Weapon
   m_TagString: Untagged
@@ -133,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28a9c5051d41101468dd41201073f74d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponDataSO: {fileID: 0}
+  weaponDataSO: {fileID: 11400000, guid: 37ecec62c056d2e48950b0b11354eeed, type: 2}
   attackResetCooldown: 3
   anim: {fileID: 7475308349179960004}
   baseGameObj: {fileID: 6929759519129462860}
@@ -141,7 +139,7 @@ MonoBehaviour:
   getAnimationEvent: {fileID: 485642926523809729}
   currentAttack: 0
   core: {fileID: 0}
---- !u!114 &8256064008550636761
+--- !u!114 &4575427714179502923
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,42 +148,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4945130393068197687}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a09ba4c52927db741938cf39e421a97d, type: 3}
+  m_Script: {fileID: 11500000, guid: feba818c4b55edc49971fdf120135f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 3911354748022348048}
-  coreMovement: {fileID: 0}
-  baseSR: {fileID: 8243823030988026582}
-  weaponSR: {fileID: 2689844621298769856}
-  currentWeaponSpriteIndex: 0
---- !u!114 &2501197325870847971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4945130393068197687}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc270b0c4d82db44abe4206404def2ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapon: {fileID: 3911354748022348048}
-  coreMovement: {fileID: 0}
---- !u!114 &3261095302167450269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4945130393068197687}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00185959224ce441d881007662b696db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapon: {fileID: 3911354748022348048}
-  coreMovement: {fileID: 0}
+  weaponDataSO: {fileID: 0}
 --- !u!1 &6929759519129462860
 GameObject:
   m_ObjectHideFlags: 0

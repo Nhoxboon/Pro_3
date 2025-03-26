@@ -17,6 +17,7 @@ MonoBehaviour:
   - rid: 2535277552246456322
   - rid: 2535277559028383746
   - rid: 2535277596274851841
+  - rid: 2535277604444307457
   references:
     version: 2
     RefIds:
@@ -92,3 +93,14 @@ MonoBehaviour:
         detectedLayers:
           serializedVersion: 2
           m_Bits: 128
+    - rid: 2535277604444307457
+      type: {class: DamageData, ns: , asm: Assembly-CSharp}
+      data:
+        name: DamageData
+        attackData:
+        - name: Attack 1
+          <Amount>k__BackingField: 5
+        - name: Attack 2
+          <Amount>k__BackingField: 10
+        - name: Attack 3
+          <Amount>k__BackingField: 15

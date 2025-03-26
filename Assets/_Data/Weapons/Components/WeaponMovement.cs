@@ -4,18 +4,33 @@ using UnityEngine;
 
 public class WeaponMovement : WeaponComponent<AttackMovementData, AttackMovement>
 {
-    protected override void OnEnable()
+    [SerializeField] protected Movement coreMovement;
+
+    protected override void Start()
     {
-        base.OnEnable();
+        base.Start();
         EventHandler.OnStartMovement += HandleStartMovement;
         EventHandler.OnStopMovement += HandleStopMovement;
     }
 
-    protected override void OnDisable()
+    protected override void OnDestroy()
     {
-        base.OnDisable();
+        base.OnDestroy();
         EventHandler.OnStartMovement -= HandleStartMovement;
         EventHandler.OnStopMovement -= HandleStopMovement;
+    }
+
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        LoadCoreMovement();
+    }
+
+    protected void LoadCoreMovement()
+    {
+        if (coreMovement != null) return;
+        coreMovement = Core.GetComponentInChildren<Movement>();
+        //Debug.Log(transform.name + " LoadCoreMovement", gameObject);
     }
 
     protected void HandleStartMovement()

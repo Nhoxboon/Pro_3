@@ -5,24 +5,39 @@ using UnityEngine;
 
 public class ActionHitbox : WeaponComponent<ActionHitboxData, AttackActionHitbox>
 {
-    protected event Action<Collider2D[]> OnDetectedCol2D;
+    public event Action<Collider2D[]> OnDetectedCol2D;
 
     protected Vector2 offset;
 
     protected Collider2D[] detectedObjects;
 
-    protected override void OnEnable()
+    [SerializeField] protected Movement coreMovement;
+
+    protected override void Start()
     {
-        base.OnEnable();
+        base.Start();
 
         EventHandler.OnAttackAction += HandleAttackAction;
     }
 
-    protected override void OnDisable()
+    protected override void OnDestroy()
     {
-        base.OnDisable();
+        base.OnDestroy();
 
         EventHandler.OnAttackAction -= HandleAttackAction;
+    }
+
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        LoadCoreMovement();
+    }
+
+    protected void LoadCoreMovement()
+    {
+        if (coreMovement != null) return;
+        coreMovement = Core.GetComponentInChildren<Movement>();
+        //Debug.Log(transform.name + " LoadCoreMovement", gameObject);
     }
 
     protected void HandleAttackAction()
@@ -34,11 +49,6 @@ public class ActionHitbox : WeaponComponent<ActionHitboxData, AttackActionHitbox
         if (detectedObjects.Length == 0) return;
 
         OnDetectedCol2D?.Invoke(detectedObjects);
-
-        foreach (var item in detectedObjects)
-        {
-            Debug.Log(item.name);
-        }
     }
 
     protected void OnDrawGizmosSelected()

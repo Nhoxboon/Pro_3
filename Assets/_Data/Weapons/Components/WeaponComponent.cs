@@ -9,17 +9,16 @@ public abstract class WeaponComponent : NhoxBehaviour
     protected WeaponGetAnimationEvent EventHandler => weapon.GetAnimationEvent;
     protected Core Core => weapon.Core;
 
-    [SerializeField] protected Movement coreMovement;
-
     protected bool isAttacking;
 
-    protected virtual void OnEnable()
+    protected override void Start()
     {
+        base.Start();
         weapon.OnEnter += HandleEnter;
         weapon.OnExit += HandleExit;
     }
 
-    protected virtual void OnDisable()
+    protected virtual void OnDestroy()
     {
         weapon.OnEnter -= HandleEnter;
         weapon.OnExit -= HandleExit;
@@ -29,21 +28,18 @@ public abstract class WeaponComponent : NhoxBehaviour
     {
         base.LoadComponents();
         LoadWeapon();
-        LoadCoreMovement();
     }
 
     protected void LoadWeapon()
     {
         if (this.weapon != null) return;
         this.weapon = GetComponent<Weapon>();
-        Debug.Log(transform.name + " LoadWeapon", gameObject);
+        //Debug.Log(transform.name + " LoadWeapon", gameObject);
     }
 
-    protected void LoadCoreMovement()
+    public virtual void Init()
     {
-        if (coreMovement != null) return;
-        coreMovement = Core.GetComponentInChildren<Movement>();
-        Debug.Log(transform.name + " LoadCoreMovement", gameObject);
+        //For override
     }
 
     protected virtual void HandleEnter()
@@ -65,6 +61,12 @@ public abstract class WeaponComponent<T1, T2> : WeaponComponent where T1 : Compo
     protected override void Awake()
     {
         base.Awake();
+        GetData();
+    }
+
+    public override void Init()
+    {
+        base.Init();
         GetData();
     }
 

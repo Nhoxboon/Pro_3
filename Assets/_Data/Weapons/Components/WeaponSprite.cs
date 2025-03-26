@@ -9,20 +9,16 @@ public class WeaponSprite : WeaponComponent<WeaponSpriteData, AttackSprites>
 
     [SerializeField] protected int currentWeaponSpriteIndex;
 
-    protected override void OnEnable()
+    protected override void Start()
     {
-        base.OnEnable();
+        base.Start();
         baseSR.RegisterSpriteChangeCallback(HandleBaseSpriteChange);
-
-        weapon.OnEnter += HandleEnter;
     }
 
-    protected override void OnDisable()
+    protected override void OnDestroy()
     {
-        base.OnDisable();
+        base.OnDestroy();
         baseSR.UnregisterSpriteChangeCallback(HandleBaseSpriteChange);
-
-        weapon.OnEnter -= HandleEnter;
     }
 
     protected void HandleBaseSpriteChange(SpriteRenderer sr)
@@ -56,14 +52,14 @@ public class WeaponSprite : WeaponComponent<WeaponSpriteData, AttackSprites>
     {
         if (this.baseSR != null) return;
         this.baseSR = weapon.BaseGameObj.GetComponent<SpriteRenderer>();
-        Debug.Log(transform.name + " LoadBaseSR", gameObject);
+        //Debug.Log(transform.name + " LoadBaseSR", gameObject);
     }
 
     protected void LoadWeaponSR()
     {
         if (this.weaponSR != null) return;
         this.weaponSR = weapon.WeaponSpriteGameObj.GetComponent<SpriteRenderer>();
-        Debug.Log(transform.name + " LoadWeaponSR", gameObject);
+        //Debug.Log(transform.name + " LoadWeaponSR", gameObject);
     }
 
     protected override void HandleEnter()

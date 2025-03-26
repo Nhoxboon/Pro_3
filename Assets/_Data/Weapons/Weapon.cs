@@ -54,6 +54,11 @@ public class Weapon : NhoxBehaviour
         attackResetTimer.OnTimerEnd -= ResetAttack;
     }
 
+    public void SetData(WeaponDataSO data)
+    {
+        this.weaponDataSO = data;
+    }
+
     protected override void LoadComponents()
     {
         base.LoadComponents();
