@@ -4,18 +4,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class ComponentData
+public abstract class ComponentDataAbstract
 {
     [SerializeField, HideInInspector] protected string name;
 
     public Type componentDependency;
 
-    public ComponentData()
+    public ComponentDataAbstract()
     {
         SetComponentName();
+        SetComponentDependency();
     }
 
     public void SetComponentName() => name = GetType().Name;
+
+    protected abstract void SetComponentDependency();
 
     public virtual void SetAttackDataName()
     {
@@ -30,7 +33,7 @@ public class ComponentData
 
 
 [Serializable]
-public class ComponentData<T> : ComponentData where T : AttackData
+public abstract class ComponentDataAbstract<T> : ComponentDataAbstract where T : AttackData
 {
     [SerializeField] protected T[] attackData;
     public T[] AttackData => attackData;

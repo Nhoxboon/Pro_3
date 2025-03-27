@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackMovementData : ComponentData<AttackMovement>
+public class AttackMovementData : ComponentDataAbstract<AttackMovement>
 {
-    public AttackMovementData()
+    protected override void SetComponentDependency()
     {
         componentDependency = typeof(WeaponMovement);
     }

@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionHitboxData : ComponentData<AttackActionHitbox>
+public class ActionHitboxData : ComponentDataAbstract<AttackActionHitbox>
 {
     public LayerMask detectedLayers;
 
-    public ActionHitboxData()
+    protected override void SetComponentDependency()
     {
         componentDependency = typeof(ActionHitbox);
     }

@@ -35,7 +35,7 @@ public class WeaponDataSOEditor : Editor
         var assemblies = AppDomain.CurrentDomain.GetAssemblies();
         var types = assemblies.SelectMany(assemblies => assemblies.GetTypes());
         var filteredTypes = types.Where(
-            type => type.IsSubclassOf(typeof(ComponentData)) && !type.ContainsGenericParameters && type.IsClass
+            type => type.IsSubclassOf(typeof(ComponentDataAbstract)) && !type.ContainsGenericParameters && type.IsClass
             );
 
         dataCompTypes = filteredTypes.ToList();
@@ -62,7 +62,7 @@ public class WeaponDataSOEditor : Editor
             {
                 if (GUILayout.Button(dataCompType.Name))
                 {
-                    var comp = Activator.CreateInstance(dataCompType) as ComponentData;
+                    var comp = Activator.CreateInstance(dataCompType) as ComponentDataAbstract;
                     if (comp == null) return;
 
                     comp.InitializeAttackData(dataSO.numberOfAttacks);

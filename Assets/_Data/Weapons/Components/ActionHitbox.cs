@@ -11,8 +11,6 @@ public class ActionHitbox : WeaponComponent<ActionHitboxData, AttackActionHitbox
 
     protected Collider2D[] detectedObjects;
 
-    [SerializeField] protected Movement coreMovement;
-
     protected override void Start()
     {
         base.Start();
@@ -27,22 +25,9 @@ public class ActionHitbox : WeaponComponent<ActionHitboxData, AttackActionHitbox
         EventHandler.OnAttackAction -= HandleAttackAction;
     }
 
-    protected override void LoadComponents()
-    {
-        base.LoadComponents();
-        LoadCoreMovement();
-    }
-
-    protected void LoadCoreMovement()
-    {
-        if (coreMovement != null) return;
-        coreMovement = Core.GetComponentInChildren<Movement>();
-        //Debug.Log(transform.name + " LoadCoreMovement", gameObject);
-    }
-
     protected void HandleAttackAction()
     {
-        offset.Set(transform.position.x + (currentAttackData.Hitbox.center.x * coreMovement.FacingDirection), transform.position.y + currentAttackData.Hitbox.center.y);
+        offset.Set(transform.position.x + (currentAttackData.Hitbox.center.x * Core.Movement.FacingDirection), transform.position.y + currentAttackData.Hitbox.center.y);
 
         detectedObjects =  Physics2D.OverlapBoxAll(offset, currentAttackData.Hitbox.size, 0f, data.detectedLayers);
 

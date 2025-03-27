@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageData : ComponentDataAbstract<AttackDamage>
+public class KnockbackData : ComponentDataAbstract<AttackKnockback>
 {
     protected override void SetComponentDependency()
     {
-        componentDependency = typeof(Damage);
+        componentDependency = typeof(Knockback);
+
     }
 }

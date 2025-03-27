@@ -10,7 +10,7 @@ public class WeaponDataSO : ScriptableObject
 {
     public int numberOfAttacks;
 
-    [field: SerializeReference] public List<ComponentData> componentData;
+    [field: SerializeReference] public List<ComponentDataAbstract> componentData;
 
     public T GetData<T>()
     {
@@ -22,7 +22,7 @@ public class WeaponDataSO : ScriptableObject
         return componentData.Select(component => component.componentDependency).ToList();
     }
 
-    public void AddData(ComponentData data)
+    public void AddData(ComponentDataAbstract data)
     {
         if (componentData.FirstOrDefault(t => t.GetType() == data.GetType()) != null) return;
 

@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class WeaponSpriteData : ComponentData<AttackSprites>
+public class WeaponSpriteData : ComponentDataAbstract<AttackSprites>
 {
-    public WeaponSpriteData()
+    protected override void SetComponentDependency()
     {
         componentDependency = typeof(WeaponSprite);
     }
