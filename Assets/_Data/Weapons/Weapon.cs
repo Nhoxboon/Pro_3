@@ -13,7 +13,10 @@ public class Weapon : NhoxBehaviour
     public event Action OnEnter;
     public event Action OnExit;
 
+    public event Action<bool> OnCurrentInputChange;
+
     [SerializeField] protected Animator anim;
+    public Animator Anim => anim;
     [SerializeField] protected GameObject baseGameObj;
     public GameObject BaseGameObj => baseGameObj;
 
@@ -25,6 +28,20 @@ public class Weapon : NhoxBehaviour
 
     [SerializeField] protected int currentAttack;
     public int CurrentAttack => currentAttack;
+
+    [SerializeField] protected bool currentInput;
+    public bool CurrentInput
+    {
+        get => currentInput;
+        set
+        {
+            if(currentInput != value)
+            {
+                currentInput = value;
+                OnCurrentInputChange?.Invoke(currentInput);
+            }
+        }
+    }
 
     [SerializeField] protected Core core;
     public Core Core => core;

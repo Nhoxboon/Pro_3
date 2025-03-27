@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WeaponSprite : WeaponComponent<WeaponSpriteData, AttackSprites>
@@ -8,17 +9,29 @@ public class WeaponSprite : WeaponComponent<WeaponSpriteData, AttackSprites>
     [SerializeField] protected SpriteRenderer weaponSR;
 
     [SerializeField] protected int currentWeaponSpriteIndex;
+    [SerializeField] protected Sprite[] currentPhaseSprites;
 
     protected override void Start()
     {
         base.Start();
         baseSR.RegisterSpriteChangeCallback(HandleBaseSpriteChange);
+
+        EventHandler.OnEnterAttackPhase += HandleEnterAttackPhase;
     }
 
     protected override void OnDestroy()
     {
         base.OnDestroy();
         baseSR.UnregisterSpriteChangeCallback(HandleBaseSpriteChange);
+
+        EventHandler.OnEnterAttackPhase -= HandleEnterAttackPhase;
+    }
+
+    protected void HandleEnterAttackPhase(AttackPhases phase)
+    {
+        currentWeaponSpriteIndex = 0;
+
+        currentPhaseSprites = currentAttackData.PhaseSprites.FirstOrDefault(data => data.Phase == phase).Sprites;
     }
 
     protected void HandleBaseSpriteChange(SpriteRenderer sr)
@@ -29,14 +42,13 @@ public class WeaponSprite : WeaponComponent<WeaponSpriteData, AttackSprites>
             return;
         }
 
-        var currentAttackSprite = currentAttackData.Sprites;
-        if (currentWeaponSpriteIndex >= currentAttackSprite.Length)
+        if (currentWeaponSpriteIndex >= currentPhaseSprites.Length)
         {
             Debug.LogWarning(weapon.name + " weapon sprite length mismatch");
             return;
         }
 
-        weaponSR.sprite = currentAttackSprite[currentWeaponSpriteIndex];
+        weaponSR.sprite = currentPhaseSprites[currentWeaponSpriteIndex];
 
         currentWeaponSpriteIndex++;
     }

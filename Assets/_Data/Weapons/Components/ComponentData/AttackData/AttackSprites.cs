@@ -6,5 +6,5 @@ using UnityEngine;
 [Serializable]
 public class AttackSprites : AttackData
 {
-    [field: SerializeField] public Sprite[] Sprites { get; protected set; }
+    [field: SerializeField] public PhaseSprites[] PhaseSprites { get; protected set; }
 }

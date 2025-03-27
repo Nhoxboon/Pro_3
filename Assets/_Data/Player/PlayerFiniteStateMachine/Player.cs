@@ -101,8 +101,8 @@ public class Player : NhoxBehaviour
         playerDashState = new PlayerDashState(this, stateMachine, playerDataSO, "inAir");
         playerCrouchIdleState = new PlayerCrouchIdleState(this, stateMachine, playerDataSO, "crouchIdle");
         playerCrouchMoveState = new PlayerCrouchMoveState(this, stateMachine, playerDataSO, "crouchMove");
-        primaryAttackState = new PlayerAttackState(this, stateMachine, playerDataSO, "attack", primaryWeapon);
-        secondaryAttackState = new PlayerAttackState(this, stateMachine, playerDataSO, "attack", secondaryWeapon);
+        primaryAttackState = new PlayerAttackState(this, stateMachine, playerDataSO, "attack", primaryWeapon, CombatInputs.primary);
+        secondaryAttackState = new PlayerAttackState(this, stateMachine, playerDataSO, "attack", secondaryWeapon, CombatInputs.secondary);
     }
 
     protected override void Start()

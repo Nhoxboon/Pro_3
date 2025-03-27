@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class Stats : CoreComponent
 {
-    [SerializeField] protected Stat health;
-    public Stat Health => health;
+    [SerializeField] protected Attribute health;
+    public Attribute Health => health;
 
-    [SerializeField] protected Stat poise;
-    public Stat Poise => poise;
+    [SerializeField] protected Attribute poise;
+    public Attribute Poise => poise;
 
     [SerializeField] protected EntityStatsDataSO entityStatsDataSO;
 

@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public class Stat
+public class Attribute
 {
     public event Action OnCurrentValueZero;
 

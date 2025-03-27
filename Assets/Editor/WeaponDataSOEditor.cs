@@ -67,6 +67,8 @@ public class WeaponDataSOEditor : Editor
 
                     comp.InitializeAttackData(dataSO.numberOfAttacks);
                     dataSO.AddData(comp);
+
+                    EditorUtility.SetDirty(dataSO);
                 }
             }
         }

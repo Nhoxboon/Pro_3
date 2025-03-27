@@ -15,6 +15,8 @@ public class WeaponGenerator : NhoxBehaviour
 
     protected List<Type> componentDependencies = new List<Type>();
 
+    [SerializeField] protected Animator anim;
+
     protected override void Start()
     {
         base.Start();
@@ -24,6 +26,7 @@ public class WeaponGenerator : NhoxBehaviour
     {
         base.LoadComponents();
         LoadWeapon();
+        LoadAnim();
     }
 
     protected void LoadWeapon()
@@ -31,6 +34,13 @@ public class WeaponGenerator : NhoxBehaviour
         if (weapon != null) return;
         weapon = GetComponent<Weapon>();
         Debug.Log(transform.name + " :LoadWeapon", gameObject);
+    }
+
+    protected void LoadAnim()
+    {
+        if (anim != null) return;
+        anim = GetComponentInChildren<Animator>();
+        Debug.Log(transform.name + " :LoadAnim", gameObject);
     }
 
     [ContextMenu("Test Generate")]
@@ -73,5 +83,7 @@ public class WeaponGenerator : NhoxBehaviour
         {
             Destroy(component);
         }
+
+        anim.runtimeAnimatorController = data.animatorController;
     }
 }

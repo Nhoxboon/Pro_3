@@ -152,7 +152,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 3911354748022348048}
-  weaponDataSO: {fileID: 0}
+  weaponDataSO: {fileID: 11400000, guid: 37ecec62c056d2e48950b0b11354eeed, type: 2}
+  anim: {fileID: 7475308349179960004}
 --- !u!1 &6929759519129462860
 GameObject:
   m_ObjectHideFlags: 0

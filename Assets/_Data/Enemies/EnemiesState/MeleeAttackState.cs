@@ -47,18 +47,20 @@ public class MeleeAttackState : AttackState
 
         foreach(Collider2D col in detectedObjs)
         {
-            DamageReceiver damageable = col.GetComponent<DamageReceiver>();
-
-            if(damageable != null)
+            
+            if(col.TryGetComponent<DamageReceiver>(out var damageable))
             {
                 damageable.Damage(enemyDataSO.attackDamage);
             }
-
-            Knockbackable knockbackable = col.GetComponent<Knockbackable>();
-
-            if(knockbackable != null)
+            
+            if(col.TryGetComponent<Knockbackable>(out var knockbackable))
             {
                 knockbackable.Knockback(enemyDataSO.knockbackAngle, enemyDataSO.knockbackStrength, core.Movement.FacingDirection);
+            }
+
+            if(col.TryGetComponent<PoiseReceiver>(out var stunnable))
+            {
+                stunnable.Poise(enemyDataSO.attackDamage);
             }
         }
     }

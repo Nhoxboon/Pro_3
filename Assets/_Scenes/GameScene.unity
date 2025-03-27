@@ -30120,7 +30120,7 @@ Transform:
   m_GameObject: {fileID: 370630151}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.5149717, y: 5.842369, z: 0.013278547}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -30332,7 +30332,7 @@ MonoBehaviour:
   dashDirectionIndicator: {fileID: 1132115251}
   primaryWeapon: {fileID: 728468968}
   secondaryWeapon: {fileID: 1882316397}
-  stats: {fileID: 0}
+  stats: {fileID: 626746182}
 --- !u!1 &416540890
 GameObject:
   m_ObjectHideFlags: 0
@@ -41105,7 +41105,7 @@ Transform:
   m_GameObject: {fileID: 1073993813}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.33, y: 15.285814, z: 0.027460046}
+  m_LocalPosition: {x: 5.79, y: 9.04, z: 0.027460046}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -41587,7 +41587,7 @@ Transform:
   m_GameObject: {fileID: 1146429976}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.29, y: -0.82, z: 0.027460046}
+  m_LocalPosition: {x: -1.31, y: -6.92, z: 0.027460046}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -42872,7 +42872,7 @@ Transform:
   m_GameObject: {fileID: 1438226294}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.276276, y: 15.345814, z: 0.027460046}
+  m_LocalPosition: {x: 14.56, y: 9.1, z: 0.027460046}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -42953,7 +42953,7 @@ Transform:
   m_GameObject: {fileID: 1478441407}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.7737236, y: -6.275814, z: -0.027460046}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -44499,11 +44499,15 @@ PrefabInstance:
     - target: {fileID: 4575427714179502923, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
       propertyPath: weaponDataSO
       value: 
-      objectReference: {fileID: 11400000, guid: 37ecec62c056d2e48950b0b11354eeed, type: 2}
+      objectReference: {fileID: 11400000, guid: a38f1fbd38d98694f906133cc9f69aa6, type: 2}
     - target: {fileID: 4945130393068197687, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
       propertyPath: m_Name
       value: PrimaryWeapon
       objectReference: {fileID: 0}
+    - target: {fileID: 7475308349179960004, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 07e81c3a272f1dc48941fa31d89ba18e, type: 2}
     - target: {fileID: 8024135088874977378, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
       propertyPath: coreMovement
       value: 

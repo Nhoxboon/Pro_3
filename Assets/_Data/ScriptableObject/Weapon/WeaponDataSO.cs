@@ -8,6 +8,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "WeaponDataSO", menuName = "ScriptableObject/Weapon/Basic Weapon Data")]
 public class WeaponDataSO : ScriptableObject
 {
+    public RuntimeAnimatorController animatorController;
     public int numberOfAttacks;
 
     [field: SerializeReference] public List<ComponentDataAbstract> componentData;
