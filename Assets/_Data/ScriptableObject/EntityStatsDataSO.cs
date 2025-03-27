@@ -7,4 +7,6 @@ using UnityEngine;
 public class EntityStatsDataSO : ScriptableObject
 {
     public float health = 100;
+    public float stagger = 50;
+    public float poiseRecoveryRate = 3;
 }

@@ -48,12 +48,18 @@ public class Archer : Enemy
         archerDodgeState = new ArcherDodgeState(this, stateMachine, "dodge", enemyDataSO, this);
         archerRangedAttackState = new ArcherRangedAttackState(this, stateMachine, "rangedAttack", enemyDataSO, rangedAttackPosition, this);
 
+        stats.Poise.OnCurrentValueZero += HandlePoiseZero;
     }
 
     protected override void Start()
     {
         base.Start();
         stateMachine.Initialize(archerMoveState);
+    }
+
+    protected void OnDestroy()
+    {
+        stats.Poise.OnCurrentValueZero -= HandlePoiseZero;
     }
 
     protected override void LoadComponents()
@@ -75,6 +81,11 @@ public class Archer : Enemy
         if (rangedAttackPosition != null) return;
         rangedAttackPosition = transform.parent.Find("Attack/RangedAttack");
         Debug.Log(transform.name + " LoadRangedAttackPosition", gameObject);
+    }
+
+    protected void HandlePoiseZero()
+    {
+        stateMachine.ChangeState(archerStunState);
     }
 
     public override void OnDrawGizmos()

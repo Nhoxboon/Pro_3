@@ -9,7 +9,7 @@ public class DamageReceiver : CoreComponent
 
     public virtual void Damage(float amount)
     {
-        core.Stats.DecreaseHealth(amount);
+        core.Stats.Health.Decrease(amount);
         core.ParticleManager.StartParticlesWithRandomRotation(damageParticle);
     }
 }

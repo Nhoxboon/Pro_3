@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: ArcherStats
   m_EditorClassIdentifier: 
   health: 60
+  stagger: 50
+  poiseRecoveryRate: 3

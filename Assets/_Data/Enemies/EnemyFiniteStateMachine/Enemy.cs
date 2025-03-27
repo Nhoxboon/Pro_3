@@ -26,18 +26,13 @@ public class Enemy : NhoxBehaviour
     public Core Core => core;
 
     [Header("Status")]
-    [SerializeField] protected float currentStunResistance;
-    [SerializeField] protected float lastDamageTime;
-    [SerializeField] protected int lastDamageDirection;
-    public int LastDamageDirection;
+    [SerializeField] protected Stats stats;
 
-    [SerializeField] protected bool isStunned;
     [SerializeField] protected bool isDead;
 
     protected override void Awake()
     {
         base.Awake();
-        currentStunResistance = enemyDataSO.stunResistance;
 
         stateMachine = new FiniteStateMachine();
     }
@@ -50,10 +45,7 @@ public class Enemy : NhoxBehaviour
 
         enemyCtrl.EnemyAnimation.YVelocityAnimation(core.Movement.Rb.velocity.y);
 
-        if (Time.time >= lastDamageTime + enemyDataSO.stunRecoveryTime)
-        {
-            ResetStunResistance();
-        }
+        
     }
 
     protected virtual void FixedUpdate()
@@ -69,6 +61,7 @@ public class Enemy : NhoxBehaviour
         LoadEnemyDataSO();
         LoadAnimationEvent();
         LoadCore();
+        LoadStats();
     }
 
     protected void LoadDetectedZone()
@@ -99,6 +92,13 @@ public class Enemy : NhoxBehaviour
         Debug.Log(transform.name + " LoadCore", gameObject);
     }
 
+    protected void LoadStats()
+    {
+        if (stats != null) return;
+        stats = transform.parent.GetComponentInChildren<Stats>();
+        Debug.Log(transform.name + " LoadStats", gameObject);
+    }
+
     protected void LoadAnimationEvent()
     {
         if (getAnimEvent != null) return;
@@ -125,12 +125,6 @@ public class Enemy : NhoxBehaviour
     {
         workSpace.Set(core.Movement.Rb.velocity.x, velocity);
         core.Movement.Rb.velocity = workSpace;
-    }
-
-    public virtual void ResetStunResistance()
-    {
-        isStunned = false;
-        currentStunResistance = enemyDataSO.stunResistance;
     }
 
     public virtual void OnDrawGizmos()

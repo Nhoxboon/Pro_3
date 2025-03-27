@@ -8,12 +8,12 @@ public class Death : CoreComponent
 
     private void OnEnable()
     {
-        core.Stats.OnHealthZero += Die;
+        core.Stats.Health.OnCurrentValueZero += Die;
     }
 
     private void OnDisable()
     {
-        core.Stats.OnHealthZero -= Die;
+        core.Stats.Health.OnCurrentValueZero -= Die;
     }
 
     public void Die()

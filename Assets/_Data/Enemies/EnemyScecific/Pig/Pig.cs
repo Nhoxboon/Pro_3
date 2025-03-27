@@ -43,12 +43,19 @@ public class Pig : Enemy
         pigStunState = new PigStunState(this, stateMachine, "stun", enemyDataSO, this);
         pigDeadState = new PigDeadState(this, stateMachine, "dead", enemyDataSO, this);
 
+        stats.Poise.OnCurrentValueZero += HandlePoiseZero;
+
     }
 
     protected override void Start()
     {
         base.Start();
         stateMachine.Initialize(pigMoveState);
+    }
+
+    protected void OnDestroy()
+    {
+        stats.Poise.OnCurrentValueZero -= HandlePoiseZero;
     }
 
     protected override void LoadComponents()
@@ -62,6 +69,11 @@ public class Pig : Enemy
         if (meleeAttackPosition != null) return;
         meleeAttackPosition = transform.parent.Find("Attack/MeleeAttack");
         Debug.Log(transform.name + " LoadMeleeAttackPosition", gameObject);
+    }
+
+    protected void HandlePoiseZero()
+    {
+        stateMachine.ChangeState(pigStunState);
     }
 
     public override void OnDrawGizmos()

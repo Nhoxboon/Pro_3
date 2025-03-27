@@ -5,16 +5,30 @@ using UnityEngine;
 
 public class Stats : CoreComponent
 {
-    public event Action OnHealthZero;
+    [SerializeField] protected Stat health;
+    public Stat Health => health;
+
+    [SerializeField] protected Stat poise;
+    public Stat Poise => poise;
+
     [SerializeField] protected EntityStatsDataSO entityStatsDataSO;
 
-    [SerializeField] protected float currentHealth;
 
     protected override void Awake()
     {
         base.Awake();
 
-        SetHealth();
+        health.SetMaxValue(entityStatsDataSO.health);
+        poise.SetMaxValue(entityStatsDataSO.stagger);
+        health.Init();
+        poise.Init();
+    }
+
+    private void Update()
+    {
+        if (poise.CurrentValue.Equals(poise.MaxValue)) return;
+
+        poise.Increase(entityStatsDataSO.poiseRecoveryRate * Time.deltaTime);
     }
 
     protected override void LoadComponents()
@@ -35,26 +49,5 @@ public class Stats : CoreComponent
             entityStatsDataSO = Resources.Load<EntityStatsDataSO>("Enemies/Stats/" + transform.parent.parent.name + "Stats");
         }
         Debug.Log(transform.name + " LoadEntityStatsDataSO", gameObject);
-    }
-
-    protected void SetHealth()
-    {
-        currentHealth = entityStatsDataSO.health;
-    }
-
-    public void DecreaseHealth(float amount)
-    {
-        currentHealth -= amount;
-
-        if (currentHealth <= 0)
-        {
-            currentHealth = 0;
-            OnHealthZero?.Invoke();
-        }
-    }
-
-    public void IncreaseHealth(float amount)
-    {
-        currentHealth = Mathf.Clamp(currentHealth + amount, 0, entityStatsDataSO.health);
     }
 }

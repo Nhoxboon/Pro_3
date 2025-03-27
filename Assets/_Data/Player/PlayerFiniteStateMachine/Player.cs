@@ -81,6 +81,9 @@ public class Player : NhoxBehaviour
     [SerializeField] protected Weapon secondaryWeapon;
     public Weapon SecondaryWeapon => secondaryWeapon;
 
+    [Header("Stats")]
+    [SerializeField] protected Stats stats;
+
     protected override void Awake()
     {
         base.Awake();
@@ -131,6 +134,7 @@ public class Player : NhoxBehaviour
         LoadDashDirectionIndicator();
         LoadPrimaryWeapon();
         LoadSecondaryWeapon();
+        LoadStats();
     }
 
     protected void LoadCore()
@@ -180,6 +184,13 @@ public class Player : NhoxBehaviour
         if (this.secondaryWeapon != null) return;
         this.secondaryWeapon = transform.parent.Find("Weapons/SecondaryWeapon").GetComponent<Weapon>();
         Debug.Log(transform.name + " LoadSecondaryWeapon", gameObject);
+    }
+
+    protected void LoadStats()
+    {
+        if (stats != null) return;
+        stats = transform.parent.GetComponentInChildren<Stats>();
+        Debug.Log(transform.name + " LoadStats", gameObject);
     }
     #endregion
 

@@ -45,10 +45,6 @@ public class EnemyDataSO : ScriptableObject
     [Header("Stun State")]
     public float stunTime = 3f;
     public float stunKnockBackTime = 0.2f;
-    public float stunKnockBackSpeed = 8f;
-    public Vector2 stunKnockBackAngle;
-    public float stunResistance = 3f;
-    public float stunRecoveryTime = 2f;
 
     [Header("Dodge State")]
     public float dodgeSpeed = 15f;

@@ -19,6 +19,7 @@ MonoBehaviour:
   - rid: 2535277580277514240
   - rid: 2535277604444307456
   - rid: 2535277619803062272
+  - rid: 7391817183939002368
   references:
     version: 2
     RefIds:
@@ -119,3 +120,14 @@ MonoBehaviour:
         - name: Attack 3
           angle: {x: 1, y: 3}
           strength: 20
+    - rid: 7391817183939002368
+      type: {class: PoiseData, ns: , asm: Assembly-CSharp}
+      data:
+        name: PoiseData
+        attackData:
+        - name: Attack 1
+          amount: 30
+        - name: Attack 2
+          amount: 30
+        - name: Attack 3
+          amount: 30

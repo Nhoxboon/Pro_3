@@ -29,14 +29,12 @@ public class StunState : State
 
         isStunTimeOver = false;
         isMovementStop = false;
-        core.Movement.SetVelocity(enemyDataSO.stunKnockBackSpeed, enemyDataSO.stunKnockBackAngle, enemy.LastDamageDirection);
     }
 
     public override void Exit()
     {
         base.Exit();
 
-        enemy.ResetStunResistance();
     }
 
     public override void LogicUpdate()

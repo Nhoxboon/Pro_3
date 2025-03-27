@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: PigStats
   m_EditorClassIdentifier: 
   health: 40
+  stagger: 30
+  poiseRecoveryRate: 3

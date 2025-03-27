@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
   health: 100
+  stagger: 60
+  poiseRecoveryRate: 3
