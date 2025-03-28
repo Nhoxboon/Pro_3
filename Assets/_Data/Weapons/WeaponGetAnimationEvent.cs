@@ -10,6 +10,10 @@ public class WeaponGetAnimationEvent : NhoxBehaviour
     public event Action OnStopMovement;
     public event Action OnAttackAction;
 
+    public event Action OnUseInput;
+    public event Action OnEnableInterrupt;
+    public event Action<bool> OnFlipSetActive;
+
     public event Action OnMinHoldPassed;
     public event Action<AttackPhases> OnEnterAttackPhase;
 
@@ -20,8 +24,12 @@ public class WeaponGetAnimationEvent : NhoxBehaviour
     protected void StopMovementTrigger() => OnStopMovement?.Invoke();
 
     protected void AttackActionTrigger() => OnAttackAction?.Invoke();
+    protected void EnableInterrupt() => OnEnableInterrupt?.Invoke();
+    protected void SetFlipActive() => OnFlipSetActive?.Invoke(true);
+    protected void SetFlipInactive() => OnFlipSetActive?.Invoke(false);
 
     //For weapon have multiple attack phase
+    protected void UseInputTrigger() => OnUseInput?.Invoke();
     protected void MinHoldPassedTrigger() => OnMinHoldPassed?.Invoke();
     protected void EnterAttackPhase(AttackPhases attackPhase) => OnEnterAttackPhase?.Invoke(attackPhase);
 

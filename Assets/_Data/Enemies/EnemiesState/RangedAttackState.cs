@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Nhoxboon.Projectile;
 using UnityEngine;
 
 public class RangedAttackState : AttackState

@@ -29,7 +29,6 @@ public class EnemyDataSO : ScriptableObject
     public float knockbackStrength = 10f;
 
     [Header("Ranged Attack State")]
-    public GameObject projectile;
     public float projectileDamage = 10f;
     public float projectileSpeed = 12f;
     public float projectileTravelDistance = 5f;
@@ -55,7 +54,4 @@ public class EnemyDataSO : ScriptableObject
     [Header("Dead State")]
     public GameObject deathChunkParticle;
     public GameObject deathBloodParticle;
-
-    [Header("Hit Particle")]
-    public GameObject hitParticle;
 }

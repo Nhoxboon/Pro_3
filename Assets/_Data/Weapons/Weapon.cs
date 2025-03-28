@@ -12,6 +12,7 @@ public class Weapon : NhoxBehaviour
 
     public event Action OnEnter;
     public event Action OnExit;
+    public event Action OnUseInput;
 
     public event Action<bool> OnCurrentInputChange;
 
@@ -61,13 +62,13 @@ public class Weapon : NhoxBehaviour
 
     private void OnEnable()
     {
-        getAnimationEvent.OnFinish += Exit;
+        getAnimationEvent.OnUseInput += HandleUseInput;
         attackResetTimer.OnTimerEnd += ResetAttack;
     }
 
     private void OnDisable()
     {
-        getAnimationEvent.OnFinish -= Exit;
+        getAnimationEvent.OnUseInput -= HandleUseInput;
         attackResetTimer.OnTimerEnd -= ResetAttack;
     }
 
@@ -136,7 +137,7 @@ public class Weapon : NhoxBehaviour
         OnEnter?.Invoke();
     }
 
-    protected void Exit()
+    public void Exit()
     {
         anim.SetBool("attack", false);
 
@@ -147,4 +148,5 @@ public class Weapon : NhoxBehaviour
     }
 
     protected void ResetAttack() => currentAttack = 0;
+    protected void HandleUseInput() => OnUseInput?.Invoke();
 }

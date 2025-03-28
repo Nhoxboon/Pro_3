@@ -35,8 +35,14 @@ public abstract class ComponentDataAbstract
 [Serializable]
 public abstract class ComponentDataAbstract<T> : ComponentDataAbstract where T : AttackData
 {
+    [SerializeField] protected bool repeatData;
+
     [SerializeField] protected T[] attackData;
     public T[] AttackData => attackData;
+
+    public T GetAttackData(int index) => attackData[repeatData ? 0 : index];
+
+    public T[] GetAllAttackData() => attackData;
 
     public override void SetAttackDataName()
     {

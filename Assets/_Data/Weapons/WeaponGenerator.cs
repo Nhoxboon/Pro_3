@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class WeaponGenerator : NhoxBehaviour
 {
+    public event Action OnWeaponGenerating;
+
     [SerializeField] protected Weapon weapon;
     [SerializeField] protected WeaponDataSO weaponDataSO;
 
@@ -51,6 +53,8 @@ public class WeaponGenerator : NhoxBehaviour
 
     public void GenerateWeapon(WeaponDataSO data)
     {
+        OnWeaponGenerating?.Invoke();
+
         weapon.SetData(data);
 
         componentsAlreadyOnWp.Clear();

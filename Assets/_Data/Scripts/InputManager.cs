@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,9 @@ public class InputManager : NhoxBehaviour
 {
     private static InputManager instance;
     public static InputManager Instance => instance;
+
+    public bool InteractInput { get; private set; }
+    public event System.Action<bool> OnInteractInputChanged;
 
     public Vector2 RawMovementInput { get; private set; }
     public int NormInputX { get; private set; }
@@ -46,7 +50,8 @@ public class InputManager : NhoxBehaviour
 
     protected override void Start()
     {
-        AttackInputs = new bool[2];
+        int count = Enum.GetValues(typeof(CombatInputs)).Length;
+        AttackInputs = new bool[count];
     }
 
     private void Update()
@@ -57,6 +62,7 @@ public class InputManager : NhoxBehaviour
         ProcessDashDirectionInput();
         ProcessDashInput();
         ProcessAttackInput();
+        ProcessInteractInput();
 
         CheckJumpInputHoldTime();
         CheckDashInputHoldTime();
@@ -182,6 +188,23 @@ public class InputManager : NhoxBehaviour
         }
     }
 
+    private void ProcessInteractInput()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            InteractInput = true;
+            OnInteractInputChanged?.Invoke(true);
+        }
+
+        if (Input.GetKeyUp(KeyCode.F))
+        {
+            InteractInput = false;
+            OnInteractInputChanged?.Invoke(false);
+        }
+    }
+
+    public void UseAttackInput(int attackIndex) => AttackInputs[attackIndex] = false;
+
     public void UseJumpInput() => JumpInput = false;
     public void UseDashInput() => DashInput = false;
 
@@ -199,6 +222,9 @@ public class InputManager : NhoxBehaviour
         AttackInputs[(int)CombatInputs.secondary] = false;
         RawDashDirectionInput = Vector2.zero;
         DashDirectionInput = Vector2Int.zero;
+
+        InteractInput = false;
+        OnInteractInputChanged?.Invoke(false);
     }
 }
 

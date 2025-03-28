@@ -17,6 +17,7 @@ MonoBehaviour:
   componentData:
   - rid: 2535277628317761541
   - rid: 2535277628317761543
+  - rid: 2535277654091235330
   references:
     version: 2
     RefIds:
@@ -24,6 +25,7 @@ MonoBehaviour:
       type: {class: WeaponSpriteData, ns: , asm: Assembly-CSharp}
       data:
         name: WeaponSpriteData
+        repeatData: 0
         attackData:
         - name: Attack 1
           <PhaseSprites>k__BackingField:
@@ -44,3 +46,11 @@ MonoBehaviour:
       type: {class: InputHoldData, ns: , asm: Assembly-CSharp}
       data:
         name: InputHoldData
+    - rid: 2535277654091235330
+      type: {class: ProjectileSpawnerData, ns: , asm: Assembly-CSharp}
+      data:
+        name: ProjectileSpawnerData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          <SpawnInfos>k__BackingField: []
