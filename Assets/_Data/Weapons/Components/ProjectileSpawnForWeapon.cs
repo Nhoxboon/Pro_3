@@ -22,6 +22,8 @@ public class ProjectileSpawnForWeapon : WeaponComponent<ProjectileSpawnerData, A
         projectileSpawnerStrategy = newStrategy;
     }
 
+
+    //TODO: Where can put my own projectile spawner!
     // Weapon Action Animation Event is used to trigger firing the projectiles
     private void HandleAttackAction()
     {

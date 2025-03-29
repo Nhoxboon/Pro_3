@@ -53,4 +53,16 @@ MonoBehaviour:
         repeatData: 0
         attackData:
         - name: Attack 1
-          <SpawnInfos>k__BackingField: []
+          <SpawnInfos>k__BackingField:
+          - <Offset>k__BackingField: {x: 0, y: 0}
+            <Direction>k__BackingField: {x: 0, y: 0}
+            <ProjectilePrefab>k__BackingField: {fileID: 0}
+            <DamageData>k__BackingField:
+              <Amount>k__BackingField: 0
+            <KnockBackData>k__BackingField:
+              Strength: 0
+              Angle: {x: 0, y: 0}
+            <PoiseDamageData>k__BackingField:
+              <Amount>k__BackingField: 0
+            <SpriteDataPackage>k__BackingField:
+              <Sprite>k__BackingField: {fileID: 0}
