@@ -15,19 +15,4 @@ public class ParticleSpawner : Spawner
         }
         instance = this;
     }
-
-    public Transform SpawnParticle(string particleName, Vector3 position, Quaternion rotation)
-    {
-        Transform prefab = GetPrefabByName(particleName);
-        if (prefab == null)
-        {
-            Debug.LogError($"Prefab {particleName} not found!");
-            return null;
-        }
-
-        Transform particle = GetObjectFromPool(prefab);
-        particle.SetPositionAndRotation(position, rotation);
-        particle.gameObject.SetActive(true);
-        return particle;
-    }
 }

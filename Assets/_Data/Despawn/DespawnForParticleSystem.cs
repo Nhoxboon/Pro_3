@@ -24,6 +24,6 @@ public class DespawnForParticleSystem : Despawn
 
     public override void DespawnObject()
     {
-        ParticleSpawner.Instance.ReturnToPool(transform.parent.gameObject);
+        ParticleSpawner.Instance.Despawn(transform.parent.gameObject);
     }
 }

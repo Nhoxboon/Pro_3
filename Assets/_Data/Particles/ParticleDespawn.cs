@@ -6,7 +6,7 @@ public class ParticleDespawn : DespawnByFinishAnimation
 {
     public override void DespawnObject()
     {
-        ParticleSpawner.Instance.ReturnToPool(transform.parent.gameObject);
+        ParticleSpawner.Instance.Despawn(transform.parent.gameObject);
         animationFinished = false;
     }
 }

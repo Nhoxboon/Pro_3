@@ -6,7 +6,8 @@ public class ParticleManager : CoreComponent
 {
     public GameObject StartParticles(string particleName, Vector3 position, Quaternion rotation)
     {
-        Transform particle = ParticleSpawner.Instance.SpawnParticle(particleName, position, rotation);
+        Transform particle = ParticleSpawner.Instance.Spawn(particleName, position, rotation);
+        particle.gameObject.SetActive(true);
         return particle != null ? particle.gameObject : null;
     }
 

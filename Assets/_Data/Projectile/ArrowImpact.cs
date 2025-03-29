@@ -42,7 +42,7 @@ public class ArrowImpact : NhoxBehaviour
         {
             Collider2D[] hits = { damageHit };
             projectile.DamageSender.HandleDetectCol2D(hits);
-            ProjectileSpawner.Instance.ReturnToPool(projectile.gameObject);
+            ProjectileSpawner.Instance.Despawn(projectile.gameObject);
         }
     }
 }

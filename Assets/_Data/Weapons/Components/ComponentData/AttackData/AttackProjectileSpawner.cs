@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using Nhoxboon.Projectile.Strategy;
+using Nhoxboon.Projectile;
 
 [Serializable]
 public class AttackProjectileSpawner : AttackData

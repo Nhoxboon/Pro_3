@@ -46,10 +46,11 @@ public class RangedAttackState : AttackState
     {
         base.TriggerAttack();
 
-        Transform arrowTransform = ProjectileSpawner.Instance.SpawnProjectile("Arrow", attackPosition.position, attackPosition.rotation);
+        Transform arrowTransform = ProjectileSpawner.Instance.Spawn("Arrow", attackPosition.position, attackPosition.rotation);
         arrow = arrowTransform.gameObject;
         arrow.transform.position = attackPosition.position;
         arrow.transform.rotation = attackPosition.rotation;
+        arrow.SetActive(true);
 
         projectile = arrow.GetComponent<Projectile>();
         projectile.FireProjectile(enemyDataSO.projectileSpeed, enemyDataSO.projectileTravelDistance, enemyDataSO.projectileDamage);

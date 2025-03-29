@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Nhoxboon.Projectile;
 
-public class Spawner : NhoxBehaviour
+public abstract class Spawner : NhoxBehaviour
 {
     [SerializeField] protected List<Transform> prefabs = new List<Transform>();
 
@@ -42,6 +44,28 @@ public class Spawner : NhoxBehaviour
             prefab.gameObject.SetActive(false);
         }
     }
+    
+    public virtual Transform Spawn(string prefabName, Vector3 spawnPos, Quaternion rotation)
+    {
+        Transform prefab = GetPrefabByName(prefabName);
+        if (prefab == null)
+        {
+            Debug.LogError($"Prefab {prefabName} not found!");
+            return null;
+        }
+
+        return this.Spawn(prefab, spawnPos, rotation);
+    }
+
+    public virtual Transform Spawn(Transform prefab, Vector3 spawnPos, Quaternion rotation)
+    {
+        Transform newPrefab = this.GetObjectFromPool(prefab);
+        newPrefab.SetPositionAndRotation(spawnPos, rotation);
+
+        newPrefab.SetParent(this.holder);
+
+        return newPrefab;
+    }
 
     protected Transform GetPrefabByName(string prefabName)
     {
@@ -68,7 +92,7 @@ public class Spawner : NhoxBehaviour
         return newObj;
     }
 
-    public virtual void ReturnToPool(GameObject obj)
+    public virtual void Despawn(GameObject obj)
     {
         if (poolObjs.Contains(obj.transform)) return;
 

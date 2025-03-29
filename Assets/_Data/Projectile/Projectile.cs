@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 namespace Nhoxboon.Projectile
 {
     public class Projectile : NhoxBehaviour
     {
+        // === Các thuộc tính từ hệ thống mới === //
         [SerializeField] protected float speed = 3f;
         [SerializeField] protected float travelDistance;
         [SerializeField] protected float xStartPos;
@@ -18,7 +18,6 @@ namespace Nhoxboon.Projectile
         public float DamageRadius => damageRadius;
 
         [SerializeField] protected Rigidbody2D rb;
-
         [SerializeField] protected Transform damagePosition;
         public Transform DamagePosition => damagePosition;
 
@@ -27,88 +26,96 @@ namespace Nhoxboon.Projectile
 
         [SerializeField] protected LayerMask whatIsGround;
 
+        // === Sự kiện từ hệ thống cũ === //
+        public event Action OnInit;
+        public event Action OnReset;
+        public event Action<ProjectileDataPackage> OnReceiveDataPackage;
 
         protected override void Start()
         {
             base.Start();
+            Init(); 
+        }
+
+        public void Init()
+        {
             rb.gravityScale = 0f;
             rb.velocity = transform.right * speed;
             isGravityOn = false;
             xStartPos = transform.position.x;
+            OnInit?.Invoke();
         }
 
+        // Phương thức Reset từ hệ thống cũ
+        public override void Reset()
+        {
+            base.Reset();
+            OnReset?.Invoke();
+        }
+        
+        public void SendData(ProjectileDataPackage spawnInfo)
+        {
+            OnReceiveDataPackage?.Invoke(spawnInfo);
+        }
+
+        // === Logic từ hệ thống mới === //
         private void Update()
         {
-            if (!hasHitGround)
+            if (!hasHitGround && isGravityOn)
             {
-                if (isGravityOn)
-                {
-                    float angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
-                    transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-                }
+                float angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             }
         }
 
-        private void FixedUpdate()
-        {
-            Status();
-        }
+        private void FixedUpdate() => Status();
 
         protected override void LoadComponents()
         {
             base.LoadComponents();
-            LoadRigidbody2d();
+            LoadRigidbody2D();
             LoadDamageSender();
-
             LoadGroundLayer();
         }
 
-        protected void LoadRigidbody2d()
+        private void LoadRigidbody2D()
         {
-            if (this.rb != null) return;
+            if (rb != null) return;
             rb = GetComponent<Rigidbody2D>();
-            Debug.Log(transform.name + " :LoadRigidbody2d", gameObject);
         }
 
-        protected void LoadDamageSender()
+        private void LoadDamageSender()
         {
-            if (this.damageSender != null) return;
-            this.damageSender = GetComponentInChildren<DamageSender>();
-            Debug.Log(transform.name + " :LoadDamageSender", gameObject);
+            if (damageSender != null) return;
+            damageSender = GetComponentInChildren<DamageSender>();
         }
 
-        protected void LoadGroundLayer()
+        private void LoadGroundLayer()
         {
             if (whatIsGround != 0) return;
             whatIsGround = LayerMask.GetMask("Ground");
-            Debug.Log(transform.name + " :LoadGroundLayer", gameObject);
         }
 
         private void Status()
         {
-            if (!hasHitGround)
+            if (hasHitGround) return;
+
+            Collider2D groundHit = Physics2D.OverlapCircle(damagePosition.position, damageRadius, whatIsGround);
+            if (groundHit)
             {
-                Collider2D groundHit = Physics2D.OverlapCircle(damagePosition.position, damageRadius, whatIsGround);
+                hasHitGround = true;
+                rb.gravityScale = 0f;
+                rb.velocity = Vector2.zero;
+            }
 
-                if (groundHit)
-                {
-                    hasHitGround = true;
-                    rb.gravityScale = 0f;
-                    rb.velocity = Vector2.zero;
-                }
-
-                if (Mathf.Abs(xStartPos - transform.position.x) >= travelDistance && !isGravityOn)
-                {
-                    isGravityOn = true;
-                    rb.gravityScale = gravity;
-                }
+            if (Mathf.Abs(xStartPos - transform.position.x) >= travelDistance && !isGravityOn)
+            {
+                isGravityOn = true;
+                rb.gravityScale = gravity;
             }
         }
 
-        private void OnEnable()
-        {
-            ResetProjectile();
-        }
+        private void OnEnable() => ResetProjectile();
 
         public void ResetProjectile()
         {
@@ -117,6 +124,7 @@ namespace Nhoxboon.Projectile
             rb.gravityScale = 0f;
             rb.velocity = transform.right * speed;
             xStartPos = transform.position.x;
+            Reset(); 
         }
 
         public void FireProjectile(float speed, float travelDistance, float damage)
