@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using Nhoxboon.Projectile;
 
 [Serializable]
 public class AttackProjectileSpawner : AttackData
@@ -19,7 +18,7 @@ public struct ProjectileSpawnInfo
     [field: SerializeField] public Vector2 Direction { get; private set; }
 
     // The projectile prefab, notice that the type is Projectile and not GameObject
-    [field: SerializeField] public Projectile ProjectilePrefab { get; private set; }
+    [field: SerializeField] public string ProjectilePrefabName { get; private set; }
 
     // The data to be passed to the projectile when it is spawned
     [field: SerializeField] public DamageDataPackage DamageData { get; private set; }

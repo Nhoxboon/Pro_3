@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using static CombatDamageUtilities; // (2)
 
 public class Damage : WeaponComponent<DamageData, AttackDamage>
 {
@@ -33,16 +32,16 @@ public class Damage : WeaponComponent<DamageData, AttackDamage>
 
     protected void HandleDetectCol2D(Collider2D[] detectedObjects)
     {
-        foreach (var item in detectedObjects)
-        {
-            if (item.TryGetComponent(out DamageReceiver damageable))
-            {
-                damageable.Damage(currentAttackData.Amount);
-            }
-            else if (item.TryGetComponent(out CombatDummy damage))
-            {
-                damage.Damage(currentAttackData.Amount);
-            }
-        }
+        // Notice that this is equal to (1), the logic has just been offloaded to a static helper class. Notice the using statement (2) is static, allowing as to call the Damage function directly instead of saying
+        TryDamage(detectedObjects, new CombatDamageData(currentAttackData.Amount, Core.Root), out _);
+
+        // (1)
+        // foreach (var item in detectedObjects)
+        // {
+        //     if (item.TryGetComponent(out DamageReceiver damageReceiver))
+        //     {
+        //         damageReceiver.Damage(new CombatDamageData(currentAttackData.Amount, Core.Root));
+        //     }
+        // }
     }
 }

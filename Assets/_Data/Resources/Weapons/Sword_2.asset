@@ -28,6 +28,7 @@ MonoBehaviour:
       type: {class: WeaponSpriteData, ns: , asm: Assembly-CSharp}
       data:
         name: WeaponSpriteData
+        repeatData: 0
         attackData:
         - name: Attack 1
           <PhaseSprites>k__BackingField:
@@ -60,6 +61,7 @@ MonoBehaviour:
       type: {class: AttackMovementData, ns: , asm: Assembly-CSharp}
       data:
         name: AttackMovementData
+        repeatData: 0
         attackData:
         - name: Attack 1
           direction: {x: 1, y: 0}
@@ -74,6 +76,7 @@ MonoBehaviour:
       type: {class: ActionHitboxData, ns: , asm: Assembly-CSharp}
       data:
         name: ActionHitboxData
+        repeatData: 0
         attackData:
         - name: Attack 1
           Debug: 0
@@ -106,6 +109,7 @@ MonoBehaviour:
       type: {class: DamageData, ns: , asm: Assembly-CSharp}
       data:
         name: DamageData
+        repeatData: 0
         attackData:
         - name: Attack 1
           <Amount>k__BackingField: 5
@@ -117,6 +121,7 @@ MonoBehaviour:
       type: {class: KnockbackData, ns: , asm: Assembly-CSharp}
       data:
         name: KnockbackData
+        repeatData: 0
         attackData:
         - name: Attack 1
           angle: {x: 1, y: 1}
@@ -131,6 +136,7 @@ MonoBehaviour:
       type: {class: PoiseData, ns: , asm: Assembly-CSharp}
       data:
         name: PoiseData
+        repeatData: 0
         attackData:
         - name: Attack 1
           amount: 30

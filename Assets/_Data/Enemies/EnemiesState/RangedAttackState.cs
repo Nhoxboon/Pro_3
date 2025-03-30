@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Nhoxboon.Projectile;
 using UnityEngine;
 
 public class RangedAttackState : AttackState
@@ -8,7 +5,8 @@ public class RangedAttackState : AttackState
     protected GameObject arrow;
     protected Projectile projectile;
 
-    public RangedAttackState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Transform attackPosition) : base(enemy, stateMachine, animBoolName, enemyDataSO, attackPosition)
+    public RangedAttackState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO,
+        Transform attackPosition) : base(enemy, stateMachine, animBoolName, enemyDataSO, attackPosition)
     {
     }
 
@@ -46,13 +44,16 @@ public class RangedAttackState : AttackState
     {
         base.TriggerAttack();
 
-        Transform arrowTransform = ProjectileSpawner.Instance.Spawn("Arrow", attackPosition.position, attackPosition.rotation);
+        var arrowTransform =
+            ProjectileSpawner.Instance.Spawn("Arrow", attackPosition.position, attackPosition.rotation);
         arrow = arrowTransform.gameObject;
         arrow.transform.position = attackPosition.position;
         arrow.transform.rotation = attackPosition.rotation;
         arrow.SetActive(true);
 
         projectile = arrow.GetComponent<Projectile>();
-        projectile.FireProjectile(enemyDataSO.projectileSpeed, enemyDataSO.projectileTravelDistance, enemyDataSO.projectileDamage);
+        //TODO: after fix
+        // projectile.FireProjectile(enemyDataSO.projectileSpeed, enemyDataSO.projectileTravelDistance,
+        //     enemyDataSO.projectileDamage);
     }
 }

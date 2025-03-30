@@ -17,7 +17,10 @@ MonoBehaviour:
   componentData:
   - rid: 2535277628317761541
   - rid: 2535277628317761543
+  - rid: 7391817252711170051
   - rid: 2535277654091235330
+  - rid: 7391817252711170049
+  - rid: 7391817252711170050
   references:
     version: 2
     RefIds:
@@ -56,7 +59,7 @@ MonoBehaviour:
           <SpawnInfos>k__BackingField:
           - <Offset>k__BackingField: {x: 1.24, y: 0.2}
             <Direction>k__BackingField: {x: 1, y: 0}
-            <ProjectilePrefab>k__BackingField: {fileID: 4142371051973478432, guid: 297e4f71960be447cb0eb927fe5b6a38, type: 3}
+            <ProjectilePrefabName>k__BackingField: Arrow
             <DamageData>k__BackingField:
               <Amount>k__BackingField: 0
             <KnockBackData>k__BackingField:
@@ -66,3 +69,48 @@ MonoBehaviour:
               <Amount>k__BackingField: 0
             <SpriteDataPackage>k__BackingField:
               <Sprite>k__BackingField: {fileID: 0}
+    - rid: 7391817252711170049
+      type: {class: DrawToProjectileData, ns: , asm: Assembly-CSharp}
+      data:
+        name: DrawToProjectileData
+    - rid: 7391817252711170050
+      type: {class: DrawData, ns: , asm: Assembly-CSharp}
+      data:
+        name: DrawData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          <DrawCurve>k__BackingField:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 2
+              outSlope: 2
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          <DrawTime>k__BackingField: 0.2666667
+    - rid: 7391817252711170051
+      type: {class: AttackMovementData, ns: , asm: Assembly-CSharp}
+      data:
+        name: AttackMovementData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          direction: {x: 0, y: 0}
+          velocity: 0

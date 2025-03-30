@@ -1,19 +1,15 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Nhoxboon.Projectile;
 
 public class ProjectileSpawnForWeapon : WeaponComponent<ProjectileSpawnerData, AttackProjectileSpawner>
 {
     // Event fired off for each projectile before we call the Init() function on that projectile to allow other components to also pass through some data
     public event Action<Projectile> OnSpawnProjectile;
-    
+
 
     private void HandleAttackAction()
     {
         foreach (var projectileSpawnInfo in currentAttackData.SpawnInfos)
-        {
             // Gọi trực tiếp ProjectileSpawner để spawn projectile
             ProjectileSpawner.Instance.SpawnProjectileStrategy(
                 projectileSpawnInfo,
@@ -21,9 +17,8 @@ public class ProjectileSpawnForWeapon : WeaponComponent<ProjectileSpawnerData, A
                 Core.Movement.FacingDirection,
                 OnSpawnProjectile
             );
-        }
     }
-    
+
 
     protected override void HandleExit()
     {
@@ -52,16 +47,14 @@ public class ProjectileSpawnForWeapon : WeaponComponent<ProjectileSpawnerData, A
             return;
 
         foreach (var item in data.GetAllAttackData())
+        foreach (var point in item.SpawnInfos)
         {
-            foreach (var point in item.SpawnInfos)
-            {
-                var pos = transform.position + (Vector3)point.Offset;
+            var pos = transform.position + (Vector3)point.Offset;
 
-                Gizmos.DrawWireSphere(pos, 0.2f);
-                Gizmos.color = Color.red;
-                Gizmos.DrawLine(pos, pos + (Vector3)point.Direction.normalized);
-                Gizmos.color = Color.white;
-            }
+            Gizmos.DrawWireSphere(pos, 0.2f);
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(pos, pos + (Vector3)point.Direction.normalized);
+            Gizmos.color = Color.white;
         }
     }
 

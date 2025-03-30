@@ -92,7 +92,7 @@ public class WeaponDataSOEditor : Editor
             {
                 foreach (var item in dataSO.componentData)
                 {
-                    item.SetAttackDataName();
+                    item.SetAttackDataNames();
                 }
             }
         }

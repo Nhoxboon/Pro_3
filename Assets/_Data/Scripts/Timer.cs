@@ -1,44 +1,50 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * TimeNotifier fires off an event after some duration once the timer has started. The timer can also be configured
+ * to automatically restart the timer once the duration has passed or to only trigger once.
+ */
 public class Timer
 {
-    public event Action OnTimerEnd;
+    private float duration;
 
-    protected float startTime;
-    protected float targetTime;
-    protected float duration;
+    private bool enabled;
 
-    protected bool isActive;
+    private float targetTime;
 
-    public Timer(float duration)
+    public event Action OnNotify;
+
+    public void Init(float dur, bool reset = false)
     {
-        this.duration = duration;
+        enabled = true;
+
+        duration = dur;
+        SetTargetTime();
+
+        if (reset)
+            OnNotify += SetTargetTime;
+        else
+            OnNotify += Disable;
     }
 
-    public void StartTimer()
+    private void SetTargetTime()
     {
-        startTime = Time.time;
-        targetTime = startTime + duration;
-        isActive = true;
+        targetTime = Time.time + duration;
     }
 
-    public void StopTimer()
+    public void Disable()
     {
-        isActive = false;
+        enabled = false;
+
+        OnNotify -= Disable;
     }
 
     public void Tick()
     {
-        if(!isActive) return;
+        if (!enabled)
+            return;
 
-        if (Time.time >= targetTime)
-        {
-            OnTimerEnd?.Invoke();
-            StopTimer();
-        }
+        if (Time.time >= targetTime) OnNotify?.Invoke();
     }
-
 }

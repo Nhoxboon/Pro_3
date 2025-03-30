@@ -40551,6 +40551,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b8f55b0a9241ec41983159511df9934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  components: []
+  root: {fileID: 0}
   movement: {fileID: 1619149641}
   touchingDirection: {fileID: 1634493567}
   stats: {fileID: 205591677}
@@ -40558,7 +40560,6 @@ MonoBehaviour:
   knockbackable: {fileID: 2040539313}
   particleManager: {fileID: 1226869523}
   death: {fileID: 637629043}
-  components: []
 --- !u!4 &792120567
 Transform:
   m_ObjectHideFlags: 0
@@ -40738,6 +40739,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b8f55b0a9241ec41983159511df9934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  components: []
+  root: {fileID: 0}
   movement: {fileID: 1352673058}
   touchingDirection: {fileID: 2014513763}
   stats: {fileID: 1675996391}
@@ -40745,7 +40748,6 @@ MonoBehaviour:
   knockbackable: {fileID: 1024838989}
   particleManager: {fileID: 523377719}
   death: {fileID: 172679771}
-  components: []
 --- !u!1 &996161469
 GameObject:
   m_ObjectHideFlags: 0
@@ -41075,6 +41077,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78b8cb167489d4af9b5a71b96486d6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1064882280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1064882281}
+  - component: {fileID: 1064882282}
+  m_Layer: 0
+  m_Name: Movement
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1064882281
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064882280}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5111033118667697770}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1064882282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064882280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0175df6385f242de889109b49a2a29d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  applyContinuously: 0
+  <Speed>k__BackingField: 25
 --- !u!1 &1073993813
 GameObject:
   m_ObjectHideFlags: 0
@@ -41319,6 +41367,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b8f55b0a9241ec41983159511df9934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  components: []
+  root: {fileID: 0}
   movement: {fileID: 1394825213}
   touchingDirection: {fileID: 1389971697}
   stats: {fileID: 626746182}
@@ -41326,7 +41376,6 @@ MonoBehaviour:
   knockbackable: {fileID: 1376114871}
   particleManager: {fileID: 1450939758}
   death: {fileID: 1299799780}
-  components: []
 --- !u!1 &1112785651
 GameObject:
   m_ObjectHideFlags: 0
@@ -44624,10 +44673,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab0dba07c220da64d97fc8a242626973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whatIsPlayer:
+  OnRaycastHit2D:
+    m_PersistentCalls:
+      m_Calls: []
+  <HitBoxRect>k__BackingField:
     serializedVersion: 2
-    m_Bits: 384
-  projectile: {fileID: 7302229997314826405}
+    x: -0.69
+    y: -0.21
+    width: 1.35
+    height: 0.35
+  <LayerMask>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 192
 --- !u!212 &4870064904931076400
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -44708,6 +44765,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1064882281}
   - {fileID: 7390406976509241212}
   - {fileID: 389096757560601754}
   - {fileID: 6807508124447885043}
@@ -54354,19 +54412,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f114f91eb1d9e45edadcc9bd5a10a806, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  travelDistance: 0
-  xStartPos: 0
-  hasHitGround: 0
-  isGravityOn: 0
-  gravity: 5
-  damageRadius: 0.15
   rb: {fileID: 8398065274201876135}
-  damagePosition: {fileID: 7390406976509241212}
   damageSender: {fileID: 9075577842605821502}
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 64
+  projectileImpact: {fileID: 0}
 --- !u!4 &7390406976509241212
 Transform:
   m_ObjectHideFlags: 0
@@ -54602,7 +54650,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04c2275d3be7fe44f9e4b2c2d3a689d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
+  <LayerMask>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 128
+  <SetInactiveAfterDamage>k__BackingField: 0
+  <Cooldown>k__BackingField: 3
+  OnDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRaycastHit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

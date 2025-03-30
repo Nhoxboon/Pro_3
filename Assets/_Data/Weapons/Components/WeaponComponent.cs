@@ -8,6 +8,8 @@ public abstract class WeaponComponent : NhoxBehaviour
 
     protected WeaponGetAnimationEvent EventHandler => weapon.GetAnimationEvent;
     protected Core Core => weapon.Core;
+    
+    protected float attackStartTime => weapon.AttackStartTime;
 
     protected bool isAttacking;
 

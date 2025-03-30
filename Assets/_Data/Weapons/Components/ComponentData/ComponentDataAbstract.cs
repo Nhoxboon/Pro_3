@@ -20,7 +20,7 @@ public abstract class ComponentDataAbstract
 
     protected abstract void SetComponentDependency();
 
-    public virtual void SetAttackDataName()
+    public virtual void SetAttackDataNames()
     {
         //For override
     }
@@ -44,9 +44,9 @@ public abstract class ComponentDataAbstract<T> : ComponentDataAbstract where T :
 
     public T[] GetAllAttackData() => attackData;
 
-    public override void SetAttackDataName()
+    public override void SetAttackDataNames()
     {
-        base.SetAttackDataName();
+        base.SetAttackDataNames();
         for (int i = 0; i < attackData.Length; i++)
         {
             attackData[i].SetAttackDataName(i + 1);
@@ -56,22 +56,24 @@ public abstract class ComponentDataAbstract<T> : ComponentDataAbstract where T :
     public override void InitializeAttackData(int numberOfAttacks)
     {
         base.InitializeAttackData(numberOfAttacks);
+        
+        int newLen = repeatData ? 1 : numberOfAttacks;
 
         int oldLength = attackData != null ? attackData.Length : 0;
 
-        if (oldLength == numberOfAttacks) return;
+        if (oldLength == newLen) return;
 
-        Array.Resize(ref attackData, numberOfAttacks);
+        Array.Resize(ref attackData, newLen);
 
-        if(oldLength < numberOfAttacks)
+        if(oldLength < newLen)
         {
-            for (int i = oldLength; i < numberOfAttacks; i++)
+            for (int i = oldLength; i < attackData.Length; i++)
             {
-                var newObj = Activator.CreateInstance(typeof(T)) as T;
+                var newObj = Activator.CreateInstance(typeof(T)) as T; 
                 attackData[i] = newObj;
             }
         }
 
-        SetAttackDataName();
+        SetAttackDataNames();
     }
 }

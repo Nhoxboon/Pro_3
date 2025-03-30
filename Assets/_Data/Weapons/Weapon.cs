@@ -1,42 +1,42 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Weapon : NhoxBehaviour
 {
     [SerializeField] protected WeaponDataSO weaponDataSO;
-    public WeaponDataSO WeaponDataSO => weaponDataSO;
 
     [SerializeField] protected float attackResetCooldown = 3;
 
-    public event Action OnEnter;
-    public event Action OnExit;
-    public event Action OnUseInput;
-
-    public event Action<bool> OnCurrentInputChange;
-
     [SerializeField] protected Animator anim;
-    public Animator Anim => anim;
     [SerializeField] protected GameObject baseGameObj;
-    public GameObject BaseGameObj => baseGameObj;
 
     [SerializeField] protected GameObject weaponSpriteGameObj;
-    public GameObject WeaponSpriteGameObj => weaponSpriteGameObj;
 
     [SerializeField] protected WeaponGetAnimationEvent getAnimationEvent;
-    public WeaponGetAnimationEvent GetAnimationEvent => getAnimationEvent;
+
+    [SerializeField] protected float attackStartTime;
 
     [SerializeField] protected int currentAttack;
-    public int CurrentAttack => currentAttack;
 
     [SerializeField] protected bool currentInput;
+
+    [SerializeField] protected Core core;
+
+    protected Timer attackCounterResetTimeNotifier;
+    public WeaponDataSO WeaponDataSO => weaponDataSO;
+    public Animator Anim => anim;
+    public GameObject BaseGameObj => baseGameObj;
+    public GameObject WeaponSpriteGameObj => weaponSpriteGameObj;
+    public WeaponGetAnimationEvent GetAnimationEvent => getAnimationEvent;
+    public float AttackStartTime => attackStartTime;
+    public int CurrentAttack => currentAttack;
+
     public bool CurrentInput
     {
         get => currentInput;
         set
         {
-            if(currentInput != value)
+            if (currentInput != value)
             {
                 currentInput = value;
                 OnCurrentInputChange?.Invoke(currentInput);
@@ -44,37 +44,40 @@ public class Weapon : NhoxBehaviour
         }
     }
 
-    [SerializeField] protected Core core;
     public Core Core => core;
-
-    protected Timer attackResetTimer;
 
     protected override void Awake()
     {
         base.Awake();
-        attackResetTimer = new Timer(attackResetCooldown);
+        attackCounterResetTimeNotifier = new Timer();
     }
 
     private void Update()
     {
-        attackResetTimer.Tick();
+        attackCounterResetTimeNotifier.Tick();
     }
 
     private void OnEnable()
     {
         getAnimationEvent.OnUseInput += HandleUseInput;
-        attackResetTimer.OnTimerEnd += ResetAttack;
+        attackCounterResetTimeNotifier.OnNotify += ResetAttack;
     }
 
     private void OnDisable()
     {
         getAnimationEvent.OnUseInput -= HandleUseInput;
-        attackResetTimer.OnTimerEnd -= ResetAttack;
+        attackCounterResetTimeNotifier.OnNotify -= ResetAttack;
     }
+
+    public event Action OnEnter;
+    public event Action OnExit;
+    public event Action OnUseInput;
+
+    public event Action<bool> OnCurrentInputChange;
 
     public void SetData(WeaponDataSO data)
     {
-        this.weaponDataSO = data;
+        weaponDataSO = data;
     }
 
     protected override void LoadComponents()
@@ -89,47 +92,46 @@ public class Weapon : NhoxBehaviour
 
     protected void LoadBaseGameObj()
     {
-        if (this.baseGameObj != null) return;
-        this.baseGameObj = transform.Find("Base").gameObject;
+        if (baseGameObj != null) return;
+        baseGameObj = transform.Find("Base").gameObject;
         Debug.Log(transform.name + " LoadBaseGameObj", gameObject);
     }
 
     protected void LoadWeaponSpriteGameObj()
     {
-        if (this.weaponSpriteGameObj != null) return;
-        this.weaponSpriteGameObj = transform.Find("WeaponSprite").gameObject;
+        if (weaponSpriteGameObj != null) return;
+        weaponSpriteGameObj = transform.Find("WeaponSprite").gameObject;
         Debug.Log(transform.name + " LoadWeaponSpriteGameObj", gameObject);
     }
 
     protected void LoadAnim()
     {
-        if (this.anim != null) return;
-        this.anim = baseGameObj.GetComponent<Animator>();
+        if (anim != null) return;
+        anim = baseGameObj.GetComponent<Animator>();
         Debug.Log(transform.name + " LoadAnim", gameObject);
     }
 
     protected void LoadWpGetAnimationEvent()
     {
-        if(this.getAnimationEvent != null) return;
-        this.getAnimationEvent = baseGameObj.GetComponent<WeaponGetAnimationEvent>();
+        if (getAnimationEvent != null) return;
+        getAnimationEvent = baseGameObj.GetComponent<WeaponGetAnimationEvent>();
         Debug.Log(transform.name + " LoadWpGetAnimationEvent", gameObject);
     }
 
     protected void LoadCore()
     {
-        if (this.core != null) return;
-        this.core = transform.parent.parent.GetComponentInChildren<Core>();
+        if (core != null) return;
+        core = transform.parent.parent.GetComponentInChildren<Core>();
         Debug.Log(transform.name + " LoadCore", gameObject);
     }
 
     public void Enter()
     {
-        if (currentAttack >= weaponDataSO.numberOfAttacks)
-        {
-            currentAttack = 0;
-        }
+        if (currentAttack >= weaponDataSO.numberOfAttacks) currentAttack = 0;
 
-        attackResetTimer.StopTimer();
+        attackStartTime = Time.time;
+
+        attackCounterResetTimeNotifier.Disable();
 
         anim.SetBool("attack", true);
         anim.SetInteger("counter", currentAttack);
@@ -142,11 +144,18 @@ public class Weapon : NhoxBehaviour
         anim.SetBool("attack", false);
 
         currentAttack++;
-        attackResetTimer.StartTimer();
+        attackCounterResetTimeNotifier.Init(attackResetCooldown);
 
         OnExit?.Invoke();
     }
 
-    protected void ResetAttack() => currentAttack = 0;
-    protected void HandleUseInput() => OnUseInput?.Invoke();
+    protected void ResetAttack()
+    {
+        currentAttack = 0;
+    }
+
+    protected void HandleUseInput()
+    {
+        OnUseInput?.Invoke();
+    }
 }

@@ -1,13 +1,15 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-
 [CreateAssetMenu(fileName = "WeaponDataSO", menuName = "ScriptableObject/Weapon/Basic Weapon Data")]
 public class WeaponDataSO : ScriptableObject
 {
+    // public Sprite icon;
+    // public string name;
+    // public string description;
+
     public RuntimeAnimatorController animatorController;
     public int numberOfAttacks;
 

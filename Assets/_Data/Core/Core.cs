@@ -1,33 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Core : NhoxBehaviour
 {
-    #region Core Components
-    [SerializeField]protected Movement movement;
-    public Movement Movement => movement;
-
-    [SerializeField] protected TouchingDirection touchingDirection;
-    public TouchingDirection TouchingDirection => touchingDirection;
-
-    [SerializeField] protected Stats stats;
-    public Stats Stats => stats;
-
-    [SerializeField] protected DamageReceiver damageReceiver;
-    public DamageReceiver DamageReceiver => damageReceiver;
-
-    [SerializeField] protected Knockbackable knockbackable;
-    public Knockbackable Knockbackable => knockbackable;
-
-    [SerializeField] protected ParticleManager particleManager;
-    public ParticleManager ParticleManager => particleManager;
-
-    [SerializeField] protected Death death;
-    public Death Death => death;
-    #endregion
-
-    [SerializeField] protected List<CoreComponent> components = new List<CoreComponent>();
+    [SerializeField] protected List<CoreComponent> components = new();
 
     protected override void LoadComponents()
     {
@@ -40,6 +16,13 @@ public class Core : NhoxBehaviour
         LoadKnockbackable();
         LoadParticleManager();
         LoadDeath();
+    }
+
+    protected void LoadRoot()
+    {
+        if (root != null) return;
+        root = transform.parent.gameObject;
+        Debug.Log(transform.name + " LoadRoot", gameObject);
     }
 
     protected void LoadMovement()
@@ -93,17 +76,39 @@ public class Core : NhoxBehaviour
 
     public void LogicUpdate()
     {
-        foreach (CoreComponent component in components)
-        {
-            component.LogicUpdate();
-        }
+        foreach (var component in components) component.LogicUpdate();
     }
 
     public void AddComponent(CoreComponent component)
     {
-        if (!components.Contains(component))
-        {
-            components.Add(component);
-        }
+        if (!components.Contains(component)) components.Add(component);
     }
+
+    #region Core Components
+
+    [SerializeField] protected GameObject root;
+    public GameObject Root => root;
+
+    [SerializeField] protected Movement movement;
+    public Movement Movement => movement;
+
+    [SerializeField] protected TouchingDirection touchingDirection;
+    public TouchingDirection TouchingDirection => touchingDirection;
+
+    [SerializeField] protected Stats stats;
+    public Stats Stats => stats;
+
+    [SerializeField] protected DamageReceiver damageReceiver;
+    public DamageReceiver DamageReceiver => damageReceiver;
+
+    [SerializeField] protected Knockbackable knockbackable;
+    public Knockbackable Knockbackable => knockbackable;
+
+    [SerializeField] protected ParticleManager particleManager;
+    public ParticleManager ParticleManager => particleManager;
+
+    [SerializeField] protected Death death;
+    public Death Death => death;
+
+    #endregion
 }
