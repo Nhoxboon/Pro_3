@@ -15,7 +15,7 @@ public class ProjectileImpact : ProjectileComponent
 
     private void CheckHitBox()
     {
-        hits = Physics2D.BoxCastAll(transform.TransformPoint(HitBoxRect.center), HitBoxRect.size,
+        hits = Physics2D.BoxCastAll(transform.parent.TransformPoint(HitBoxRect.center), HitBoxRect.size,
             _transform.rotation.eulerAngles.z, _transform.right, checkDistance, LayerMask);
 
         if (hits.Length <= 0) return;
@@ -30,7 +30,7 @@ public class ProjectileImpact : ProjectileComponent
         base.Awake();
 
         // Just caching the transform based on repeated use (Recommendation from Rider IDE)
-        _transform = transform;
+        _transform = transform.parent;
     }
 
     protected override void FixedUpdate()
@@ -50,8 +50,8 @@ public class ProjectileImpact : ProjectileComponent
         Gizmos.color = Color.red;
 
         // Create a new matrix that applies the projectile's rotation
-        var rotationMatrix = Matrix4x4.TRS(transform.position,
-            Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z), Vector3.one);
+        var rotationMatrix = Matrix4x4.TRS(transform.parent.position,
+            Quaternion.Euler(0, 0, transform.parent.rotation.eulerAngles.z), Vector3.one);
         Gizmos.matrix = rotationMatrix;
 
         // Draw the wireframe cube

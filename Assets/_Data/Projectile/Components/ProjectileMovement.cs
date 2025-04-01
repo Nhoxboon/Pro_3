@@ -13,7 +13,7 @@ public class ProjectileMovement : ProjectileComponent
         SetVelocity();
     }
 
-    private void SetVelocity() => rb.velocity = Speed * transform.right;
+    private void SetVelocity() => rb.velocity = Speed * transform.parent.right;
 
     protected override void FixedUpdate()
     {

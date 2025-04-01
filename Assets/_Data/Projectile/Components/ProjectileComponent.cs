@@ -14,6 +14,7 @@ public class ProjectileComponent : NhoxBehaviour
     protected virtual void Init()
     {
         SetActive(true);
+        transform.parent.gameObject.SetActive(true);
     }
 
     protected virtual void ResetProjectile()
