@@ -33,6 +33,13 @@ public class DamageSender : ProjectileComponent
             // Is the object under consideration part of the LayerMask that we can damage?
             if (!LayerMaskUtilities.IsLayerInMask(hit, LayerMask))
                 continue;
+            
+            // If the object is a CombatDummy, we want to deal damage to it and then despawn the projectile
+            if (hit.collider.transform.gameObject.TryGetComponent(out CombatDummy combatDummy))
+            {
+                combatDummy.Damage(10);
+                ProjectileSpawner.Instance.Despawn(projectile.gameObject);
+            }
 
             // NOTE: We need to use .collider.transform instead of just .transform to get the GameObject the collider we detected is attached to, otherwise it returns the parent
             if (!hit.collider.transform.gameObject.TryGetComponent(out DamageReceiver damageReceiver))

@@ -14,7 +14,6 @@ public class ProjectileComponent : NhoxBehaviour
     protected virtual void Init()
     {
         SetActive(true);
-        transform.parent.gameObject.SetActive(true);
     }
 
     protected virtual void ResetProjectile()
@@ -34,7 +33,14 @@ public class ProjectileComponent : NhoxBehaviour
 
     public virtual void SetActiveNextFrame(bool value)
     {
-        StartCoroutine(SetActiveNextFrameCoroutine(value));
+        if (gameObject.activeInHierarchy)
+        {
+            StartCoroutine(SetActiveNextFrameCoroutine(value));
+        }
+        else
+        {
+            SetActive(value);
+        }
     }
 
     public IEnumerator SetActiveNextFrameCoroutine(bool value)

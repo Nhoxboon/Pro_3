@@ -36,12 +36,12 @@ public class Damage : WeaponComponent<DamageData, AttackDamage>
         TryDamage(detectedObjects, new CombatDamageData(currentAttackData.Amount, Core.Root), out _);
 
         // (1)
-        // foreach (var item in detectedObjects)
-        // {
-        //     if (item.TryGetComponent(out DamageReceiver damageReceiver))
-        //     {
-        //         damageReceiver.Damage(new CombatDamageData(currentAttackData.Amount, Core.Root));
-        //     }
-        // }
+        foreach (var item in detectedObjects)
+            // if (item.TryGetComponent(out DamageReceiver damageReceiver))
+            // {
+            //     damageReceiver.Damage(new CombatDamageData(currentAttackData.Amount, Core.Root));
+            // }
+            if (item.TryGetComponent(out CombatDummy combatDummy))
+                combatDummy.Damage(10);
     }
 }

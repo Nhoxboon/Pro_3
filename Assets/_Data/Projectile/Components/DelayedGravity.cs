@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class DelayedGravity : ProjectileComponent
 {
-    [field: SerializeField] public float Distance { get; private set; } = 10f;
+    [field: SerializeField] public float Distance { get; private set; } = 5f;
 
-    [SerializeField] protected float gravity;
+    [SerializeField] protected float gravity = 4f;
 
     // Used so other projectile components, such as DrawModifyDelayedGravity, can modify how far the projectile travels before being affected by gravity
     [SerializeField] public float distanceMultiplier = 1;

@@ -8,6 +8,8 @@ public class Projectile : NhoxBehaviour
 
     [SerializeField] protected DamageSender damageSender;
     [SerializeField] protected ProjectileImpact projectileImpact;
+    [SerializeField] protected StickToLayer stickToLayer;
+    public StickToLayer StickToLayer => stickToLayer;
 
     public ProjectileImpact ProjectileImpact => projectileImpact;
     public Rigidbody2D Rb => rb;
@@ -29,9 +31,7 @@ public class Projectile : NhoxBehaviour
     {
         OnInit?.Invoke();
     }
-
-    /* This function is called before Init from the weapon. Any weapon component can use this to function to pass along information that the projectile might need that is
-    weapon specific, such as: damage amount, draw length modifiers, etc. */
+    
     public void SendDataPackage(ProjectileDataPackage dataPackage)
     {
         OnReceiveDataPackage?.Invoke(dataPackage);
@@ -43,6 +43,7 @@ public class Projectile : NhoxBehaviour
         LoadRigidbody2D();
         LoadDamageSender();
         LoadProjectileImpact();
+        LoadStickToLayer();
     }
 
     protected void LoadRigidbody2D()
@@ -61,6 +62,12 @@ public class Projectile : NhoxBehaviour
     {
         if (projectileImpact != null) return;
         projectileImpact = GetComponentInChildren<ProjectileImpact>();
+    }
+    
+    protected void LoadStickToLayer()
+    {
+        if (stickToLayer != null) return;
+        stickToLayer = GetComponentInChildren<StickToLayer>();
     }
 
 // private void OnEnable()

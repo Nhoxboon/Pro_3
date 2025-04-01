@@ -31,4 +31,22 @@ public class Draw : WeaponComponent<DrawData, AttackDraw>
                 Mathf.Clamp((Time.time - attackStartTime) / currentAttackData.DrawTime, 0f, 1f));
         OnEvaluateCurve?.Invoke(drawPercentage);
     }
+
+    #region Plumbing
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        weapon.OnCurrentInputChange += HandleCurrentInputChange;
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+
+        weapon.OnCurrentInputChange -= HandleCurrentInputChange;
+    }
+
+    #endregion
 }

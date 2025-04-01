@@ -52,6 +52,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: InactiveProjectile
+    uniqueID: 2315528081
+    locked: 0
+  - name: Platforms
+    uniqueID: 2722087687
+    locked: 0
   - name: Enemy
     uniqueID: 2518032555
     locked: 0
@@ -60,4 +66,7 @@ TagManager:
     locked: 0
   - name: Foreground Decoration
     uniqueID: 1131003253
+    locked: 0
+  - name: ActiveProjectile
+    uniqueID: 2199159589
     locked: 0
