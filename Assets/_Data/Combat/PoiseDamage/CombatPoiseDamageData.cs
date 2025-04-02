@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-public class PoiseDamageData
+public class CombatPoiseDamageData
 {
-    public PoiseDamageData(float amount, GameObject source)
+    public CombatPoiseDamageData(float amount, GameObject source)
     {
         Amount = amount;
         Source = source;

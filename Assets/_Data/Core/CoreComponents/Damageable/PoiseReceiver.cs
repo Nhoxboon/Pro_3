@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class PoiseReceiver : CoreComponent
 {
-    public virtual void Poise(float amount)
+    public Modifiers<Modifier<CombatPoiseDamageData>, CombatPoiseDamageData> Modifiers { get; } = new();
+    
+    public virtual void Poise(CombatPoiseDamageData data)
     {
-        core.Stats.Poise.Decrease(amount);
+        data = Modifiers.ApplyAllModifiers(data);
+        
+        core.Stats.Poise.Decrease(data.Amount);
     }
 }

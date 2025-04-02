@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-public class KnockBackData
+public class CombatKnockbackData
 {
     public Vector2 Angle;
     public int Direction;
     public float Strength;
 
-    public KnockBackData(Vector2 angle, float strength, int direction, GameObject source)
+    public CombatKnockbackData(Vector2 angle, float strength, int direction, GameObject source)
     {
         Angle = angle;
         Strength = strength;

@@ -19,11 +19,10 @@ public class CombatDummy : NhoxBehaviour
         Debug.Log(transform.name + " :LoadAnimator", gameObject);
     }
 
-    public void Damage(float amount)
+    public void Damage()
     {
         Transform obj =  ParticleSpawner.Instance.Spawn("HitParticles", transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360)));
         obj.gameObject.SetActive(true);
         anim.SetTrigger("damage");
     }
-
 }

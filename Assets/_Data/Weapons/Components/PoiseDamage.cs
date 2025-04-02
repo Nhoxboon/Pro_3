@@ -37,7 +37,7 @@ public class PoiseDamage : WeaponComponent<PoiseData, AttackPoise>
         {
             if (item.TryGetComponent(out PoiseReceiver poiseDamageable))
             {
-                poiseDamageable.Poise(currentAttackData.amount);
+                poiseDamageable.Poise(new CombatPoiseDamageData(currentAttackData.amount, Core.Root));
             }
         }
     }

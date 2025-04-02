@@ -7,6 +7,7 @@ public class DamageSender : ProjectileComponent
     [field: SerializeField] public bool SetInactiveAfterDamage { get; private set; }
     [field: SerializeField] public float Cooldown { get; private set; }
     public UnityEvent<DamageReceiver> OnDamage;
+    public UnityEvent<CombatDummy> OnCombatDummyDamage;
     public UnityEvent<RaycastHit2D> OnRaycastHit;
 
     private float amount;
@@ -37,8 +38,9 @@ public class DamageSender : ProjectileComponent
             // If the object is a CombatDummy, we want to deal damage to it and then despawn the projectile
             if (hit.collider.transform.gameObject.TryGetComponent(out CombatDummy combatDummy))
             {
-                combatDummy.Damage(10);
-                ProjectileSpawner.Instance.Despawn(projectile.gameObject);
+                combatDummy.Damage();
+                OnCombatDummyDamage?.Invoke(combatDummy);
+                //NOTE: if we want to despawn the projectile we have to do in unity event because we use start coroutine to set the projectile inactive
             }
 
             // NOTE: We need to use .collider.transform instead of just .transform to get the GameObject the collider we detected is attached to, otherwise it returns the parent

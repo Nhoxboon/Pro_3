@@ -33,14 +33,7 @@ public class ProjectileComponent : NhoxBehaviour
 
     public virtual void SetActiveNextFrame(bool value)
     {
-        if (gameObject.activeInHierarchy)
-        {
-            StartCoroutine(SetActiveNextFrameCoroutine(value));
-        }
-        else
-        {
-            SetActive(value);
-        }
+        StartCoroutine(SetActiveNextFrameCoroutine(value));
     }
 
     public IEnumerator SetActiveNextFrameCoroutine(bool value)

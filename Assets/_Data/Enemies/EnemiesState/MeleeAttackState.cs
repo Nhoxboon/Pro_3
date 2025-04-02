@@ -50,10 +50,10 @@ public class MeleeAttackState : AttackState
                 damageable.Damage(new CombatDamageData(enemyDataSO.attackDamage, core.Root));
 
             if (col.TryGetComponent<Knockbackable>(out var knockbackable))
-                knockbackable.Knockback(enemyDataSO.knockbackAngle, enemyDataSO.knockbackStrength,
-                    core.Movement.FacingDirection);
+                knockbackable.Knockback(new CombatKnockbackData(enemyDataSO.knockbackAngle, enemyDataSO.knockbackStrength,
+                    core.Movement.FacingDirection, core.Root));
 
-            if (col.TryGetComponent<PoiseReceiver>(out var stunnable)) stunnable.Poise(enemyDataSO.attackDamage);
+            if (col.TryGetComponent<PoiseReceiver>(out var stunnable)) stunnable.Poise(new CombatPoiseDamageData(enemyDataSO.attackDamage, core.Root));
         }
     }
 }

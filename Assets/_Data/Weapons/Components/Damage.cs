@@ -42,6 +42,6 @@ public class Damage : WeaponComponent<DamageData, AttackDamage>
             //     damageReceiver.Damage(new CombatDamageData(currentAttackData.Amount, Core.Root));
             // }
             if (item.TryGetComponent(out CombatDummy combatDummy))
-                combatDummy.Damage(10);
+                combatDummy.Damage();
     }
 }

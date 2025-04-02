@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Knockbackable : CoreComponent
 {
+    public Modifiers<Modifier<CombatKnockbackData>, CombatKnockbackData> Modifiers { get; } = new();
+    
     [SerializeField] protected bool isKnockbackActive;
     [SerializeField] protected float knockbackStartTime;
     [SerializeField] protected float maxKnockbackTime = 0.2f;
@@ -14,11 +16,11 @@ public class Knockbackable : CoreComponent
         CheckKnockback();
     }
 
-    public virtual void Knockback(Vector2 angle, float strength, int direction)
+    public virtual void Knockback(CombatKnockbackData data)
     {
         if (core != null && core.Movement != null)
         {
-            core.Movement.SetVelocity(strength, angle, direction);
+            core.Movement.SetVelocity(data.Strength, data.Angle, data.Direction);
             core.Movement.canSetVelocity = false;
             isKnockbackActive = true;
             knockbackStartTime = Time.time;

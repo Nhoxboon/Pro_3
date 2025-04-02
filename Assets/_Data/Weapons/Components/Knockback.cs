@@ -37,7 +37,7 @@ public class Knockback : WeaponComponent<KnockbackData, AttackKnockback>
         {
             if (item.TryGetComponent(out Knockbackable knockbackable))
             {
-                knockbackable.Knockback(currentAttackData.angle, currentAttackData.strength, Core.Movement.FacingDirection);
+                knockbackable.Knockback(new CombatKnockbackData(currentAttackData.angle, currentAttackData.strength, Core.Movement.FacingDirection, Core.Root));
             }
         }
     }
