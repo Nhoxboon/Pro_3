@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class ArrowDespawn : DespawnByTime
+public class ProjectileDespawn : DespawnByTime
 {
     public override void DespawnObject()
     {

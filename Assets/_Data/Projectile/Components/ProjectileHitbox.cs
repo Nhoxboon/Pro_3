@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ProjectileImpact : ProjectileComponent
+public class ProjectileHitbox : ProjectileComponent
 {
     public UnityEvent<RaycastHit2D[]> OnRaycastHit2D;
 

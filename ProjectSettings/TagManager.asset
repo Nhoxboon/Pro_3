@@ -46,14 +46,14 @@ TagManager:
   - name: Decoration
     uniqueID: 3387638567
     locked: 0
+  - name: InactiveProjectile
+    uniqueID: 2315528081
+    locked: 0
   - name: Foreground
     uniqueID: 104190383
     locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: InactiveProjectile
-    uniqueID: 2315528081
     locked: 0
   - name: Platforms
     uniqueID: 2722087687

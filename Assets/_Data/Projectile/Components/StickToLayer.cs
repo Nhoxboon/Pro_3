@@ -16,16 +16,15 @@ public class StickToLayer : ProjectileComponent
     [field: SerializeField] public string InactiveSortingLayerName { get; private set; }
     [field: SerializeField] public float CheckDistance { get; private set; }
 
-    [SerializeField] protected SpriteRenderer sr;
+    protected SpriteRenderer sr => projectile.sr;
     private Transform _transform;
 
 
-    private string activeSortingLayerName;
+    [SerializeField] protected string activeSortingLayerName;
 
     private float gravityScale;
 
-    private bool isStuck;
-    public bool IsStuck => isStuck;
+    [SerializeField] protected bool isStuck;
 
     private Vector3 offsetPosition;
     private Quaternion offsetRotation;
@@ -139,13 +138,12 @@ public class StickToLayer : ProjectileComponent
 
         gravityScale = rb.gravityScale;
 
-        _transform = transform;
+        _transform = transform.parent;
 
-        sr = GetComponentInParent<SpriteRenderer>();
         activeSortingLayerName = sr.sortingLayerName;
 
 
-        projectile.ProjectileImpact.OnRaycastHit2D.AddListener(HandleRaycastHit2D);
+        projectile.ProjectileHitbox.OnRaycastHit2D.AddListener(HandleRaycastHit2D);
     }
 
     protected override void Update()
@@ -171,7 +169,7 @@ public class StickToLayer : ProjectileComponent
     {
         base.OnDestroy();
 
-        projectile.ProjectileImpact.OnRaycastHit2D.RemoveListener(HandleRaycastHit2D);
+        projectile.ProjectileHitbox.OnRaycastHit2D.RemoveListener(HandleRaycastHit2D);
 
         if (subscribedToDisableNotifier) onDisableNotifier.OnDisableEvent -= HandleDisableNotifier;
     }

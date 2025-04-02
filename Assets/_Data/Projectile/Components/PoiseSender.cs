@@ -56,14 +56,14 @@ public class PoiseSender : ProjectileComponent
     {
         base.Awake();
 
-        projectile.ProjectileImpact.OnRaycastHit2D.AddListener(HandleRaycastHit2D);
+        projectile.ProjectileHitbox.OnRaycastHit2D.AddListener(HandleRaycastHit2D);
     }
 
     protected override void OnDestroy()
     {
         base.OnDestroy();
 
-        projectile.ProjectileImpact.OnRaycastHit2D.RemoveListener(HandleRaycastHit2D);
+        projectile.ProjectileHitbox.OnRaycastHit2D.RemoveListener(HandleRaycastHit2D);
     }
 
     #endregion
