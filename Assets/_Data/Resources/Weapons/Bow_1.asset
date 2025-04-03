@@ -21,6 +21,7 @@ MonoBehaviour:
   - rid: 2535277654091235330
   - rid: 7391817252711170050
   - rid: 7391817252711170049
+  - rid: 3991057962048421888
   references:
     version: 2
     RefIds:
@@ -69,6 +70,15 @@ MonoBehaviour:
               <Amount>k__BackingField: 30
             <SpriteDataPackage>k__BackingField:
               <Sprite>k__BackingField: {fileID: 0}
+    - rid: 3991057962048421888
+      type: {class: OptionalSpriteData, ns: , asm: Assembly-CSharp}
+      data:
+        name: OptionalSpriteData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          <UseOptionalSprite>k__BackingField: 1
+          sprite: {fileID: -89418386, guid: 8159ae2d61b463342bf787b21154ec57, type: 3}
     - rid: 7391817252711170049
       type: {class: DrawToProjectileData, ns: , asm: Assembly-CSharp}
       data:

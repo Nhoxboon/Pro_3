@@ -44792,6 +44792,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PrimaryWeapon
       objectReference: {fileID: 0}
+    - target: {fileID: 6100998192838715355, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6100998192838715355, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7475308349179960004, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
       propertyPath: m_Controller
       value: 
