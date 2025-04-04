@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70a795254499b3e4c925c0083b7ef4ab, type: 3}
+  m_Name: Tome_1
+  m_EditorClassIdentifier: 
+  animatorController: {fileID: 9100000, guid: dfd10b2623d026e4dae0e2550edfa63b, type: 2}
+  numberOfAttacks: 1
+  componentData:
+  - rid: 3991057996206833664
+  - rid: 3991057996206833665
+  - rid: 3991057996206833670
+  - rid: 3991057996206833669
+  references:
+    version: 2
+    RefIds:
+    - rid: 3991057996206833664
+      type: {class: AttackMovementData, ns: , asm: Assembly-CSharp}
+      data:
+        name: AttackMovementData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          direction: {x: 1, y: 0}
+          velocity: 1
+    - rid: 3991057996206833665
+      type: {class: InputHoldData, ns: , asm: Assembly-CSharp}
+      data:
+        name: InputHoldData
+    - rid: 3991057996206833669
+      type: {class: ProjectileSpawnerData, ns: , asm: Assembly-CSharp}
+      data:
+        name: ProjectileSpawnerData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          isChargeable: 0
+          <SpawnInfos>k__BackingField: []
+    - rid: 3991057996206833670
+      type: {class: WeaponSpriteData, ns: , asm: Assembly-CSharp}
+      data:
+        name: WeaponSpriteData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          <PhaseSprites>k__BackingField: []

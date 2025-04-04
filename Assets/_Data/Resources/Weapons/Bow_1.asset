@@ -57,6 +57,7 @@ MonoBehaviour:
         repeatData: 0
         attackData:
         - name: Attack 1
+          isChargeable: 0
           <SpawnInfos>k__BackingField:
           - <Offset>k__BackingField: {x: 1.24, y: 0.2}
             <Direction>k__BackingField: {x: 1, y: 0}
@@ -68,8 +69,6 @@ MonoBehaviour:
               Angle: {x: 1, y: 1}
             <PoiseDamageData>k__BackingField:
               <Amount>k__BackingField: 30
-            <SpriteDataPackage>k__BackingField:
-              <Sprite>k__BackingField: {fileID: 0}
     - rid: 3991057962048421888
       type: {class: OptionalSpriteData, ns: , asm: Assembly-CSharp}
       data:

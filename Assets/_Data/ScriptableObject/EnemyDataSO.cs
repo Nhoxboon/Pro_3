@@ -50,8 +50,4 @@ public class EnemyDataSO : ScriptableObject
     public float dodgeTime = 0.2f;
     public float dodgeCooldown = 2f;
     public Vector2 dodgeAngle;
-
-    [Header("Dead State")]
-    public GameObject deathChunkParticle;
-    public GameObject deathBloodParticle;
 }
