@@ -3,11 +3,14 @@ using UnityEngine;
 
 public class ProjectileSpawner : Spawner
 {
-    private Projectile currentProjectile;
-    private Vector2 spawnDir;
+    protected Projectile currentProjectile;
+    protected Vector2 spawnDir;
+    protected Vector2 spawnPos;
 
-    // Biến tạm lưu trữ thông tin spawn
-    private Vector2 spawnPos;
+    [SerializeField] protected int chargeAmount;
+    [SerializeField] protected float angleVariation;
+    protected Vector2 currentDirection;
+    
     public static ProjectileSpawner Instance { get; private set; }
 
     protected override void Awake()
@@ -23,7 +26,7 @@ public class ProjectileSpawner : Spawner
     }
 
     /// <summary>
-    ///     Spawn projectile và xử lý toàn bộ logic
+    ///     Spawn projectile and handle all logic
     /// </summary>
     public void SpawnProjectile(ProjectileSpawnInfo spawnInfo, Vector2 spawnDirection,
         Vector3 spawnerPos,
@@ -41,24 +44,19 @@ public class ProjectileSpawner : Spawner
 
     protected virtual void SetSpawnPosition(Vector3 referencePosition, Vector2 offset, int facingDirection)
     {
+        // Add offset to player position, accounting for FacingDirection
         spawnPos = referencePosition;
-        spawnPos.Set(
-            spawnPos.x + offset.x * facingDirection,
-            spawnPos.y + offset.y
-        );
+        spawnPos.Set(spawnPos.x + offset.x * facingDirection, spawnPos.y + offset.y);
     }
 
     protected virtual void SetSpawnDirection(Vector2 direction, int facingDirection)
     {
-        spawnDir.Set(
-            direction.x * facingDirection,
-            direction.y
-        );
+        spawnDir.Set(direction.x * facingDirection, direction.y);
     }
 
     protected virtual void GetProjectileAndSetPositionAndRotation(string prefabName)
     {
-        // Lấy projectile từ pool
+        // GET projectile from pool
         var projectileTransform = Spawn(prefabName, spawnPos, Quaternion.identity);
         projectileTransform.gameObject.SetActive(true);
         currentProjectile = projectileTransform.GetComponent<Projectile>();
@@ -69,21 +67,19 @@ public class ProjectileSpawner : Spawner
             return;
         }
 
-        // Tính góc quay từ hướng spawn
+        // Calculate angle and set rotation
         var angle = Mathf.Atan2(spawnDir.y, spawnDir.x) * Mathf.Rad2Deg;
         projectileTransform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
     protected virtual void InitializeProjectile(ProjectileSpawnInfo spawnInfo, Action<Projectile> OnSpawnProjectile)
     {
-        // Gửi dữ liệu từ ProjectileSpawnInfo
         currentProjectile.Reset();
         currentProjectile.SendDataPackage(spawnInfo.DamageData);
         currentProjectile.SendDataPackage(spawnInfo.KnockBackData);
         currentProjectile.SendDataPackage(spawnInfo.PoiseDamageData);
-        currentProjectile.SendDataPackage(spawnInfo.SpriteDataPackage);
 
-        // Kích hoạt sự kiện
+        // Broadcast new projectile has been spawned so other components can  pass through data packages
         OnSpawnProjectile?.Invoke(currentProjectile);
 
         currentProjectile.Init();
@@ -98,17 +94,13 @@ public class ProjectileSpawner : Spawner
     {
         SpawnProjectile(spawnInfo, spawnInfo.Direction, spawnerPos, facingDirection, OnSpawnProjectile);
     }
-
-    /// <summary>
-    ///     Spawn nhiều projectile theo góc lệch (Charge strategy)
-    /// </summary>
+    
+    //NOTE: Spawn multiple projectiles at an offset angle (Charge strategy)
+    //TODO: Need to processing more...
     public void SpawnWithChargeStrategy(
         ProjectileSpawnInfo spawnInfo,
         Vector3 spawnerPos,
         int facingDirection,
-        int chargeAmount,
-        float angleVariation,
-        Vector2 currentDirection,
         Action<Projectile> OnSpawnProjectile
     )
     {

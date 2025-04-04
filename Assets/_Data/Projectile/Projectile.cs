@@ -9,7 +9,7 @@ public class Projectile : NhoxBehaviour
     [SerializeField] protected Rigidbody2D rb;
 
     [SerializeField] protected DamageSender damageSender;
-    [FormerlySerializedAs("projectileImpact")] [SerializeField] protected ProjectileHitbox projectileHitbox;
+    [SerializeField] protected ProjectileHitbox projectileHitbox;
     [SerializeField] protected StickToLayer stickToLayer;
     public StickToLayer StickToLayer => stickToLayer;
 

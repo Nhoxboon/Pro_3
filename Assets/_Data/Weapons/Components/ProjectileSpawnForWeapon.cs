@@ -9,20 +9,20 @@ public class ProjectileSpawnForWeapon : WeaponComponent<ProjectileSpawnerData, A
 
     private void HandleAttackAction()
     {
-        foreach (var projectileSpawnInfo in currentAttackData.SpawnInfos)
-            // Gọi trực tiếp ProjectileSpawner để spawn projectile
-            ProjectileSpawner.Instance.SpawnProjectileStrategy(
-                projectileSpawnInfo,
-                transform.position,
-                Core.Movement.FacingDirection,
-                OnSpawnProjectile
-            );
-    }
-
-
-    protected override void HandleExit()
-    {
-        base.HandleExit();
+        if (currentAttackData.isChargeable)
+        {
+            Debug.Log("Chargeable attack detected");
+        }
+        else
+        {
+            foreach (var projectileSpawnInfo in currentAttackData.SpawnInfos)
+                ProjectileSpawner.Instance.SpawnProjectileStrategy(
+                    projectileSpawnInfo,
+                    transform.position,
+                    Core.Movement.FacingDirection,
+                    OnSpawnProjectile
+                );
+        }
     }
 
     #region Plumbing
