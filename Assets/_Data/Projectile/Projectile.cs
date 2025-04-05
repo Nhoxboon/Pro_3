@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Projectile : NhoxBehaviour
 {
@@ -11,12 +10,9 @@ public class Projectile : NhoxBehaviour
     [SerializeField] protected DamageSender damageSender;
     [SerializeField] protected ProjectileHitbox projectileHitbox;
     [SerializeField] protected StickToLayer stickToLayer;
-    public StickToLayer StickToLayer => stickToLayer;
 
     public ProjectileHitbox ProjectileHitbox => projectileHitbox;
     public Rigidbody2D Rb => rb;
-
-    public DamageSender DamageSender => damageSender;
 
     public override void Reset()
     {
@@ -34,7 +30,7 @@ public class Projectile : NhoxBehaviour
     {
         OnInit?.Invoke();
     }
-    
+
     public void SendDataPackage(ProjectileDataPackage dataPackage)
     {
         OnReceiveDataPackage?.Invoke(dataPackage);
@@ -49,7 +45,7 @@ public class Projectile : NhoxBehaviour
         LoadProjectileImpact();
         LoadStickToLayer();
     }
-    
+
     protected void LoadSpriteRenderer()
     {
         if (sr != null) return;
@@ -75,7 +71,7 @@ public class Projectile : NhoxBehaviour
         if (projectileHitbox != null) return;
         projectileHitbox = GetComponentInChildren<ProjectileHitbox>();
     }
-    
+
     protected void LoadStickToLayer()
     {
         if (stickToLayer != null) return;

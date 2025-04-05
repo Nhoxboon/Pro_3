@@ -1,18 +1,20 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class DamageSender : ProjectileComponent
 {
-    [field: SerializeField] public LayerMask LayerMask { get; private set; }
-    [field: SerializeField] public bool SetInactiveAfterDamage { get; private set; }
-    [field: SerializeField] public float Cooldown { get; private set; }
+    [SerializeField] protected LayerMask layerMask;
+    [SerializeField] protected bool setInactiveAfterDamage;
+    [SerializeField] protected float cooldown;
+    
     public UnityEvent<DamageReceiver> OnDamage;
     public UnityEvent<CombatDummy> OnCombatDummyDamage;
     public UnityEvent<RaycastHit2D> OnRaycastHit;
 
-    private float amount;
+    protected float amount;
 
-    private float lastDamageTime;
+    protected float lastDamageTime;
 
     protected override void Init()
     {
@@ -26,16 +28,14 @@ public class DamageSender : ProjectileComponent
         if (!Active)
             return;
 
-        if (Time.time < lastDamageTime + Cooldown)
+        if (Time.time < lastDamageTime + cooldown)
             return;
 
         foreach (var hit in hits)
         {
-            // Is the object under consideration part of the LayerMask that we can damage?
-            if (!LayerMaskUtilities.IsLayerInMask(hit, LayerMask))
+            if (!LayerMaskUtilities.IsLayerInMask(hit, layerMask))
                 continue;
             
-            // If the object is a CombatDummy, we want to deal damage to it and then despawn the projectile
             if (hit.collider.transform.gameObject.TryGetComponent(out CombatDummy combatDummy))
             {
                 combatDummy.Damage();
@@ -54,13 +54,12 @@ public class DamageSender : ProjectileComponent
 
             lastDamageTime = Time.time;
 
-            if (SetInactiveAfterDamage) SetActive(false);
+            if (setInactiveAfterDamage) SetActive(false);
 
             return;
         }
     }
-
-    // Handles checking to see if the data is relevant or not, and if so, extracts the information we care about
+    
     protected override void HandleReceiveDataPackage(ProjectileDataPackage dataPackage)
     {
         base.HandleReceiveDataPackage(dataPackage);
@@ -85,6 +84,19 @@ public class DamageSender : ProjectileComponent
         base.OnDestroy();
 
         projectile.ProjectileHitbox.OnRaycastHit2D.RemoveListener(HandleRaycastHit2D);
+    }
+    
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        LoadLayerMask();
+    }
+    
+    protected void LoadLayerMask()
+    {
+        if (layerMask != 0) return;
+        layerMask = LayerMask.GetMask("Damageable");
+        Debug.Log(transform.name + ": LoadLayerMask", gameObject);
     }
 
     #endregion

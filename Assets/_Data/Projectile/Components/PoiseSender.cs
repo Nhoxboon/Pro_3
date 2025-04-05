@@ -2,15 +2,11 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-/*
- * The PoiseDamage component is responsible for using information provided by the HitBox component to damage the poise of any entities that are on the relevant LayerMask
- * The amount comes from the weapon via the ProjectileDataPackage system.
- */
 public class PoiseSender : ProjectileComponent
 {
     public UnityEvent OnPoiseDamage;
 
-    [field: SerializeField] public LayerMask LayerMask { get; private set; }
+    [SerializeField] protected LayerMask layerMask;
         
     private float amount;
 
@@ -21,8 +17,7 @@ public class PoiseSender : ProjectileComponent
 
         foreach (var hit in hits)
         {
-            // Is the object under consideration part of the LayerMask that we can damage?
-            if (!LayerMaskUtilities.IsLayerInMask(hit, LayerMask))
+            if (!LayerMaskUtilities.IsLayerInMask(hit, layerMask))
                 continue;
             
             if (hit.collider.transform.gameObject.TryGetComponent(out CombatDummy combatDummy)) return;
@@ -38,8 +33,7 @@ public class PoiseSender : ProjectileComponent
             return;
         }
     }
-        
-    // Handles checking to see if the data is relevant or not, and if so, extracts the information we care about
+    
     protected override void HandleReceiveDataPackage(ProjectileDataPackage dataPackage)
     {
         base.HandleReceiveDataPackage(dataPackage);
@@ -64,6 +58,19 @@ public class PoiseSender : ProjectileComponent
         base.OnDestroy();
 
         projectile.ProjectileHitbox.OnRaycastHit2D.RemoveListener(HandleRaycastHit2D);
+    }
+    
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        LoadLayerMask();
+    }
+    
+    protected void LoadLayerMask()
+    {
+        if (layerMask != 0) return;
+        layerMask = LayerMask.GetMask("Damageable");
+        Debug.Log(transform.name + ": LoadLayerMask", gameObject);
     }
 
     #endregion

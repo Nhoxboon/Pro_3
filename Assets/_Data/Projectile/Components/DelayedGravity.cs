@@ -1,13 +1,14 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DelayedGravity : ProjectileComponent
 {
-    [field: SerializeField] public float Distance { get; private set; } = 5f;
+    [SerializeField] protected float distance = 5f;
 
     [SerializeField] protected float gravity = 4f;
 
     // Used so other projectile components, such as DrawModifyDelayedGravity, can modify how far the projectile travels before being affected by gravity
-    [SerializeField] public float distanceMultiplier = 1;
+    public float distanceMultiplier = 1;
 
     protected DistanceNotifier distanceNotifier = new();
 
@@ -16,13 +17,12 @@ public class DelayedGravity : ProjectileComponent
         rb.gravityScale = gravity;
     }
 
-    // On Init, enable the distance notifier to trigger once distance has been travelled.
     protected override void Init()
     {
         base.Init();
 
         rb.gravityScale = 0f;
-        distanceNotifier.Init(transform.parent.position, Distance * distanceMultiplier);
+        distanceNotifier.Init(transform.parent.position, distance * distanceMultiplier);
         distanceMultiplier = 1;
     }
 

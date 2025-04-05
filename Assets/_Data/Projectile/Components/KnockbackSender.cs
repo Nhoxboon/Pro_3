@@ -6,7 +6,7 @@ public class KnockbackSender : ProjectileComponent
 {
     public UnityEvent OnKnockBack;
 
-        [field: SerializeField] public LayerMask LayerMask { get; private set; }
+    [SerializeField] protected LayerMask layerMask;    
 
         private int direction;
         private float strength;
@@ -21,8 +21,7 @@ public class KnockbackSender : ProjectileComponent
             
             foreach (var hit in hits)
             {
-                // Is the object under consideration part of the LayerMask that we can damage?
-                if (!LayerMaskUtilities.IsLayerInMask(hit, LayerMask))
+                if (!LayerMaskUtilities.IsLayerInMask(hit, layerMask))
                     continue;
                 
                 // NOTE: We need to use .collider.transform instead of just .transform to get the GameObject the collider we detected is attached to, otherwise it returns the parent
@@ -36,8 +35,7 @@ public class KnockbackSender : ProjectileComponent
                 return;
             }
         }
-
-        // Handles checking to see if the data is relevant or not, and if so, extracts the information we care about
+        
         protected override void HandleReceiveDataPackage(ProjectileDataPackage dataPackage)
         {
             base.HandleReceiveDataPackage(dataPackage);
@@ -63,6 +61,19 @@ public class KnockbackSender : ProjectileComponent
             base.OnDestroy();
             
             projectile.ProjectileHitbox.OnRaycastHit2D.RemoveListener(HandleRaycastHit2D);
+        }
+        
+        protected override void LoadComponents()
+        {
+            base.LoadComponents();
+            LoadLayerMask();
+        }
+    
+        protected void LoadLayerMask()
+        {
+            if (layerMask != 0) return;
+            layerMask = LayerMask.GetMask("Damageable");
+            Debug.Log(transform.name + ": LoadLayerMask", gameObject);
         }
 
         #endregion

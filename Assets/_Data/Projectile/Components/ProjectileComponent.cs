@@ -10,7 +10,6 @@ public class ProjectileComponent : NhoxBehaviour
     public bool Active { get; private set; }
 
 
-    // This function is called whenever the projectile is fired, indicating the start of it's journey
     protected virtual void Init()
     {
         SetActive(true);
@@ -42,19 +41,6 @@ public class ProjectileComponent : NhoxBehaviour
         SetActive(value);
     }
 
-    protected override void LoadComponents()
-    {
-        base.LoadComponents();
-        LoadProjectile();
-    }
-
-    private void LoadProjectile()
-    {
-        if (projectile != null) return;
-        projectile = GetComponentInParent<Projectile>();
-        // Debug.Log(transform.name + ": Loading projectile", gameObject);
-    }
-
     #region Plumbing
 
     protected override void Awake()
@@ -78,6 +64,19 @@ public class ProjectileComponent : NhoxBehaviour
         projectile.OnInit -= Init;
         projectile.OnReset -= ResetProjectile;
         projectile.OnReceiveDataPackage -= HandleReceiveDataPackage;
+    }
+
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        LoadProjectile();
+    }
+
+    private void LoadProjectile()
+    {
+        if (projectile != null) return;
+        projectile = GetComponentInParent<Projectile>();
+        // Debug.Log(transform.name + ": Loading projectile", gameObject);
     }
 
     #endregion

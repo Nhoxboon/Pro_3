@@ -6,13 +6,13 @@ public class RotateTowardsVelocity : ProjectileComponent
     {
         base.FixedUpdate();
 
-        var velocity = rb.velocity;
+        //Note: CAREFUL
+        Vector2 velocity = rb.velocity;
 
         if (velocity.Equals(Vector3.zero))
             return;
 
-        // Find velocity vector angle
-        var angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
 
         // Apply angle as rotation around Vector3.forward (So using the vector pointing in to your screen as the axis around which we are rotating)
         transform.parent.rotation = Quaternion.AngleAxis(angle, Vector3.forward);

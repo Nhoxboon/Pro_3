@@ -5,7 +5,16 @@ public class ProjectileMovement : ProjectileComponent
     [SerializeField] protected bool applyContinuously;
     [field: SerializeField] public float Speed { get; private set; }
 
-    // On Init, set projectile velocity once
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+
+        if (!applyContinuously)
+            return;
+
+        SetVelocity();
+    }
+
     protected override void Init()
     {
         base.Init();
@@ -13,15 +22,8 @@ public class ProjectileMovement : ProjectileComponent
         SetVelocity();
     }
 
-    private void SetVelocity() => rb.velocity = Speed * transform.parent.right;
-
-    protected override void FixedUpdate()
+    private void SetVelocity()
     {
-        base.FixedUpdate();
-            
-        if (!applyContinuously)
-            return;
-            
-        SetVelocity();
+        rb.velocity = Speed * transform.parent.right;
     }
 }

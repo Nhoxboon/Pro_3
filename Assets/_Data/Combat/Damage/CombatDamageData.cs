@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 
-/*
- * The DamageData class holds information we want to pass through the IDamageable interface.
- */
+
 public class CombatDamageData
 {
     public CombatDamageData(float amount, GameObject source)

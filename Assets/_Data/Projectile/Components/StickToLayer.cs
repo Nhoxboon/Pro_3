@@ -1,40 +1,36 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class StickToLayer : ProjectileComponent
 {
-    /*
-     * Unity events are used to facilitate building some logic in the editor. For example: Setting the Damage Component to Inactive
-     * when stuck, and active again when unstuck
-     */
     [SerializeField] public UnityEvent setStuck;
     [SerializeField] public UnityEvent setUnstuck;
 
-    [field: SerializeField] public LayerMask LayerMask { get; private set; }
+    [SerializeField] protected LayerMask layerMask;
 
-    // SpriteRenderer sorting to be used when projectile is stuck
-    [field: SerializeField] public string InactiveSortingLayerName { get; private set; }
-    [field: SerializeField] public float CheckDistance { get; private set; }
+   [SerializeField] protected string inactiveSortingLayerName = "InactiveProjectile";
+   
+   [SerializeField] protected string activeSortingLayerName;
+   
+   [SerializeField] protected float checkDistance = 2;
 
     protected SpriteRenderer sr => projectile.sr;
-    private Transform _transform;
+    protected Transform _transform;
 
-
-    [SerializeField] protected string activeSortingLayerName;
-
-    private float gravityScale;
+    protected float gravityScale;
 
     [SerializeField] protected bool isStuck;
 
-    private Vector3 offsetPosition;
-    private Quaternion offsetRotation;
+    protected Vector3 offsetPosition;
+    protected Quaternion offsetRotation;
 
-    private OnDisableNotifier onDisableNotifier;
+    protected OnDisableNotifier onDisableNotifier;
 
-    private Transform referenceTransform;
-    private bool subscribedToDisableNotifier;
+    protected Transform referenceTransform;
+    protected bool subscribedToDisableNotifier;
 
-    private void HandleRaycastHit2D(RaycastHit2D[] hits)
+    protected void HandleRaycastHit2D(RaycastHit2D[] hits)
     {
         if (isStuck)
             return;
@@ -43,33 +39,28 @@ public class StickToLayer : ProjectileComponent
 
         // The point returned by the boxcast can be weird, so we do one last check by firing a ray from the origin to the right to find
         // a more suitable resting point
-        var lineHit = Physics2D.Raycast(_transform.position, _transform.right, CheckDistance, LayerMask);
-
-        //If out line hit finds a collider to use, then use it.
+        var lineHit = Physics2D.Raycast(_transform.position, _transform.right, checkDistance, layerMask);
+        
         if (lineHit)
         {
             SetReferenceTransformAndPoint(lineHit.transform, lineHit.point);
             return;
         }
 
-        // Otherwise look through the hits from the HitBox
         foreach (var hit in hits)
         {
-            //HitBox might detect things on more layers than we care about so,
-            //did this hit happen with the correct LayerMask we are interested in?
-            if (!LayerMaskUtilities.IsLayerInMask(hit, LayerMask))
+            if (!LayerMaskUtilities.IsLayerInMask(hit, layerMask))
                 continue;
 
             SetReferenceTransformAndPoint(hit.transform, hit.point);
             return;
         }
 
-        // If there is nothing to get stuck in, set isStuck to false and make body dynamic again so it will fall
         SetUnstuck();
     }
 
     // Set projectile position to point and set new reference transform for projectile to track
-    private void SetReferenceTransformAndPoint(Transform newReferenceTransform, Vector2 newPoint)
+    protected void SetReferenceTransformAndPoint(Transform newReferenceTransform, Vector2 newPoint)
     {
         if (newReferenceTransform.TryGetComponent(out onDisableNotifier))
         {
@@ -80,26 +71,23 @@ public class StickToLayer : ProjectileComponent
         // Set projectile position to detected point
         _transform.position = newPoint;
 
-        // Set reference transform and cache position and rotation offset
         referenceTransform = newReferenceTransform;
         offsetPosition = _transform.position - referenceTransform.position;
         offsetRotation = Quaternion.Inverse(referenceTransform.rotation) * _transform.rotation;
     }
-
-    // Set Rigidbody2D bodyType to static so that it is not affected by gravity and set sorting layer such that projectile appears behind other items
-    private void SetStuck()
+    
+    protected void SetStuck()
     {
         isStuck = true;
 
-        sr.sortingLayerName = InactiveSortingLayerName;
+        sr.sortingLayerName = inactiveSortingLayerName;
         rb.velocity = Vector2.zero;
         rb.bodyType = RigidbodyType2D.Static;
 
         setStuck?.Invoke();
     }
-
-    // Set Rigidbody2D bodyType to dynamic so that it is affected by gravity again and set sorting layer such that projectile appears in front of other items
-    private void SetUnstuck()
+    
+    protected void SetUnstuck()
     {
         isStuck = false;
 
@@ -109,9 +97,8 @@ public class StickToLayer : ProjectileComponent
 
         setUnstuck?.Invoke();
     }
-
-    // If the body we are stuck in gets disabled or destroyed, make projectile dynamic again
-    private void HandleDisableNotifier()
+    
+    protected void HandleDisableNotifier()
     {
         SetUnstuck();
 
@@ -128,8 +115,14 @@ public class StickToLayer : ProjectileComponent
 
         SetUnstuck();
     }
-
-
+    
+    protected void UpdateStuckPositionAndRotation()
+    {
+        var referenceRotation = referenceTransform.rotation;
+        _transform.position = referenceTransform.position + referenceRotation * offsetPosition;
+        _transform.rotation = referenceRotation * offsetRotation;
+    }
+    
     #region Plumbing
 
     protected override void Awake()
@@ -153,16 +146,13 @@ public class StickToLayer : ProjectileComponent
         if (!isStuck)
             return;
 
-        // Update position and rotation based on reference transform
         if (!referenceTransform)
         {
             SetUnstuck();
             return;
         }
 
-        var referenceRotation = referenceTransform.rotation;
-        _transform.position = referenceTransform.position + referenceRotation * offsetPosition;
-        _transform.rotation = referenceRotation * offsetRotation;
+        UpdateStuckPositionAndRotation();
     }
 
     protected override void OnDestroy()
@@ -172,6 +162,19 @@ public class StickToLayer : ProjectileComponent
         projectile.ProjectileHitbox.OnRaycastHit2D.RemoveListener(HandleRaycastHit2D);
 
         if (subscribedToDisableNotifier) onDisableNotifier.OnDisableEvent -= HandleDisableNotifier;
+    }
+
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        LoadLayerMask();
+    }
+    
+    private void LoadLayerMask()
+    {
+        if (layerMask != 0) return;
+        layerMask = LayerMask.GetMask("Ground");
+        Debug.Log(transform.name + "LoadLayerMask", gameObject);
     }
 
     #endregion
