@@ -19,9 +19,31 @@ MonoBehaviour:
   - rid: 3991057996206833665
   - rid: 3991057996206833670
   - rid: 3991057996206833669
+  - rid: 2154769166144897024
+  - rid: 2154769166144897025
   references:
     version: 2
     RefIds:
+    - rid: 2154769166144897024
+      type: {class: TargeterData, ns: , asm: Assembly-CSharp}
+      data:
+        name: TargeterData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          area:
+            serializedVersion: 2
+            x: -15
+            y: -3.2
+            width: 30
+            height: 10
+          damageableLayer:
+            serializedVersion: 2
+            m_Bits: 128
+    - rid: 2154769166144897025
+      type: {class: TargeterToProjectileData, ns: , asm: Assembly-CSharp}
+      data:
+        name: TargeterToProjectileData
     - rid: 3991057996206833664
       type: {class: AttackMovementData, ns: , asm: Assembly-CSharp}
       data:
@@ -43,7 +65,17 @@ MonoBehaviour:
         attackData:
         - name: Attack 1
           isChargeable: 0
-          <SpawnInfos>k__BackingField: []
+          <SpawnInfos>k__BackingField:
+          - <Offset>k__BackingField: {x: 0.81, y: 0.42}
+            <Direction>k__BackingField: {x: 1, y: 0.25}
+            <ProjectilePrefabName>k__BackingField: MagicMissible
+            <DamageData>k__BackingField:
+              <Amount>k__BackingField: 1
+            <KnockBackData>k__BackingField:
+              Strength: 0
+              Angle: {x: 0, y: 0}
+            <PoiseDamageData>k__BackingField:
+              <Amount>k__BackingField: 0
     - rid: 3991057996206833670
       type: {class: WeaponSpriteData, ns: , asm: Assembly-CSharp}
       data:
@@ -51,4 +83,40 @@ MonoBehaviour:
         repeatData: 0
         attackData:
         - name: Attack 1
-          <PhaseSprites>k__BackingField: []
+          <PhaseSprites>k__BackingField:
+          - <Phase>k__BackingField: 0
+            <Sprites>k__BackingField:
+            - {fileID: -343458627, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+            - {fileID: -1167965788, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+            - {fileID: 1280519163, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+            - {fileID: -4770094, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+            - {fileID: 429844373, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+            - {fileID: 2140877182, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+            - {fileID: -999324550, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+            - {fileID: -546286681, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+            - {fileID: 13195811, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+            - {fileID: 1798353266, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+            - {fileID: -666534084, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+          - <Phase>k__BackingField: 1
+            <Sprites>k__BackingField:
+            - {fileID: 198847440, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+            - {fileID: -1420823505, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+            - {fileID: 532654856, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+            - {fileID: -1337752547, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+            - {fileID: -1616817202, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+          - <Phase>k__BackingField: 2
+            <Sprites>k__BackingField:
+            - {fileID: 263293815, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+            - {fileID: 1528764586, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+            - {fileID: -1730668507, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+            - {fileID: 603014478, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+            - {fileID: 1309720193, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+            - {fileID: 424340148, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+            - {fileID: -355846592, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+          - <Phase>k__BackingField: 3
+            <Sprites>k__BackingField:
+            - {fileID: 1972756222, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+            - {fileID: 274220764, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+            - {fileID: 2049699035, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+            - {fileID: 1317996437, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}
+            - {fileID: 157723010, guid: 4447f4e12fe768a4797089bd75ed4b3a, type: 3}

@@ -9,7 +9,6 @@ public class Projectile : NhoxBehaviour
 
     [SerializeField] protected DamageSender damageSender;
     [SerializeField] protected ProjectileHitbox projectileHitbox;
-    [SerializeField] protected StickToLayer stickToLayer;
 
     public ProjectileHitbox ProjectileHitbox => projectileHitbox;
     public Rigidbody2D Rb => rb;
@@ -43,7 +42,6 @@ public class Projectile : NhoxBehaviour
         LoadRigidbody2D();
         LoadDamageSender();
         LoadProjectileImpact();
-        LoadStickToLayer();
     }
 
     protected void LoadSpriteRenderer()
@@ -70,12 +68,6 @@ public class Projectile : NhoxBehaviour
     {
         if (projectileHitbox != null) return;
         projectileHitbox = GetComponentInChildren<ProjectileHitbox>();
-    }
-
-    protected void LoadStickToLayer()
-    {
-        if (stickToLayer != null) return;
-        stickToLayer = GetComponentInChildren<StickToLayer>();
     }
 
     // public void FireProjectile(float speed, float travelDistance, float damage)
