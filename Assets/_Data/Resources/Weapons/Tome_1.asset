@@ -21,6 +21,8 @@ MonoBehaviour:
   - rid: 3991057996206833669
   - rid: 2154769166144897024
   - rid: 2154769166144897025
+  - rid: 2154769201534861312
+  - rid: 2154769201534861313
   references:
     version: 2
     RefIds:
@@ -44,6 +46,27 @@ MonoBehaviour:
       type: {class: TargeterToProjectileData, ns: , asm: Assembly-CSharp}
       data:
         name: TargeterToProjectileData
+    - rid: 2154769201534861312
+      type: {class: ChargeData, ns: , asm: Assembly-CSharp}
+      data:
+        name: ChargeData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          chargeTime: 1
+          initialChargeAmount: 1
+          numberOfCharges: 3
+          chargeIncreaseIndicatorParticalName: MagicMissleChargeParticles
+          fullyChargedIndicatorParticleName: MagicMissleChargeParticles
+          particlesOffset: {x: -0.6, y: 0.4}
+    - rid: 2154769201534861313
+      type: {class: ChargeToProjectileSpawnerData, ns: , asm: Assembly-CSharp}
+      data:
+        name: ChargeToProjectileSpawnerData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          angleVariation: 15
     - rid: 3991057996206833664
       type: {class: AttackMovementData, ns: , asm: Assembly-CSharp}
       data:
@@ -64,7 +87,7 @@ MonoBehaviour:
         repeatData: 0
         attackData:
         - name: Attack 1
-          isChargeable: 0
+          isChargeable: 1
           <SpawnInfos>k__BackingField:
           - <Offset>k__BackingField: {x: 0.81, y: 0.42}
             <Direction>k__BackingField: {x: 1, y: 0.25}

@@ -1,20 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Movement : CoreComponent
 {
     [SerializeField] protected Rigidbody2D rb;
-    public Rigidbody2D Rb => rb;
 
     [SerializeField] protected int facingDirection;
-    public int FacingDirection => facingDirection;
 
     public bool canSetVelocity;
 
     [SerializeField] protected Vector2 workSpace;
-    public Vector2 WorkSpace => workSpace;
     [SerializeField] protected Vector2 currentVelocity;
+    public Rigidbody2D Rb => rb;
+    public int FacingDirection => facingDirection;
     public Vector2 CurrentVelocity => currentVelocity;
 
     protected override void Awake()
@@ -46,9 +43,9 @@ public class Movement : CoreComponent
     {
         workSpace.Set(velocity, currentVelocity.y);
         SetFinalVelocity();
-    } 
+    }
 
-    public void SetVelocityY(float velocity) 
+    public void SetVelocityY(float velocity)
     {
         workSpace.Set(currentVelocity.x, velocity);
         SetFinalVelocity();
@@ -75,7 +72,7 @@ public class Movement : CoreComponent
 
     protected void SetFinalVelocity()
     {
-        if(canSetVelocity)
+        if (canSetVelocity)
         {
             rb.velocity = workSpace;
             currentVelocity = workSpace;
@@ -84,15 +81,20 @@ public class Movement : CoreComponent
 
     public void CheckIfShouldFlip(int xInput)
     {
-        if (xInput != 0 && xInput != facingDirection)
-        {
-            Flip();
-        }
+        if (xInput != 0 && xInput != facingDirection) Flip();
     }
 
     public void Flip()
     {
         facingDirection *= -1;
         transform.parent.parent.Rotate(0, 180, 0);
+    }
+
+    public Vector2 FindRelativePoint(Vector2 offset)
+    {
+        offset.x *= facingDirection;
+
+        //Note: maybe use transform.parent.parent instead
+        return transform.position + (Vector3)offset;
     }
 }

@@ -22,7 +22,7 @@ public class Weapon : NhoxBehaviour
 
     [SerializeField] protected Core core;
 
-    protected Timer attackCounterResetTimeNotifier;
+    protected TimeNotifier attackCounterResetTimeNotifier;
     public WeaponDataSO WeaponDataSO => weaponDataSO;
     public Animator Anim => anim;
     public GameObject BaseGameObj => baseGameObj;
@@ -49,7 +49,7 @@ public class Weapon : NhoxBehaviour
     protected override void Awake()
     {
         base.Awake();
-        attackCounterResetTimeNotifier = new Timer();
+        attackCounterResetTimeNotifier = new TimeNotifier();
     }
 
     private void Update()

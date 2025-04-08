@@ -3,26 +3,43 @@ using UnityEngine;
 
 public class ProjectileSpawnForWeapon : WeaponComponent<ProjectileSpawnerData, AttackProjectileSpawner>
 {
+    public int chargeAmount;
+    public float angleVariation;
+
     // Event fired off for each projectile before we call the Init() function on that projectile to allow other components to also pass through some data
     public event Action<Projectile> OnSpawnProjectile;
 
 
-    private void HandleAttackAction()
+    protected void HandleAttackAction()
     {
         if (currentAttackData.isChargeable)
-        {
-            Debug.Log("Chargeable attack detected");
-        }
+            ChargeAttack();
         else
-        {
-            foreach (var projectileSpawnInfo in currentAttackData.SpawnInfos)
-                ProjectileSpawner.Instance.SpawnProjectileStrategy(
-                    projectileSpawnInfo,
-                    transform.position,
-                    Core.Movement.FacingDirection,
-                    OnSpawnProjectile
-                );
-        }
+            NormalAttack();
+    }
+
+    protected void NormalAttack()
+    {
+        foreach (var projectileSpawnInfo in currentAttackData.SpawnInfos)
+            ProjectileSpawner.Instance.SpawnProjectileStrategy(
+                projectileSpawnInfo,
+                transform.position,
+                Core.Movement.FacingDirection,
+                OnSpawnProjectile
+            );
+    }
+
+    protected void ChargeAttack()
+    {
+        foreach (var projectileSpawnInfo in currentAttackData.SpawnInfos)
+            ProjectileSpawner.Instance.SpawnWithChargeStrategy(
+                projectileSpawnInfo,
+                transform.position,
+                Core.Movement.FacingDirection,
+                chargeAmount,
+                angleVariation,
+                OnSpawnProjectile
+            );
     }
 
     #region Plumbing
@@ -40,6 +57,7 @@ public class ProjectileSpawnForWeapon : WeaponComponent<ProjectileSpawnerData, A
 
         EventHandler.OnAttackAction -= HandleAttackAction;
     }
+
 
     private void OnDrawGizmosSelected()
     {

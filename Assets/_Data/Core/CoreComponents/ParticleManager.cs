@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ParticleManager : CoreComponent
 {
     public GameObject StartParticles(string particleName, Vector3 position, Quaternion rotation)
     {
-        Transform particle = ParticleSpawner.Instance.Spawn(particleName, position, rotation);
+        var particle = ParticleSpawner.Instance.Spawn(particleName, position, rotation);
         particle.gameObject.SetActive(true);
         return particle != null ? particle.gameObject : null;
     }
@@ -20,5 +18,23 @@ public class ParticleManager : CoreComponent
     {
         var randomRotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
         return StartParticles(particleName, transform.position, randomRotation);
+    }
+
+    public GameObject StartWithRandomRotation(string particleName, Vector2 offset)
+    {
+        var randomRotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
+        return StartParticles(particleName, FindRelativePoint(offset), randomRotation);
+    }
+
+    public GameObject StartParticlesRelative(string particleName, Vector2 offset, Quaternion rotation)
+    {
+        var pos = FindRelativePoint(offset);
+
+        return StartParticles(particleName, pos, rotation);
+    }
+
+    private Vector2 FindRelativePoint(Vector2 offset)
+    {
+        return core.Movement.FindRelativePoint(offset);
     }
 }

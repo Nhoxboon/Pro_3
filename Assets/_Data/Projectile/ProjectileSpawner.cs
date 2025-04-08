@@ -3,14 +3,11 @@ using UnityEngine;
 
 public class ProjectileSpawner : Spawner
 {
+    protected Vector2 currentDirection;
     protected Projectile currentProjectile;
     protected Vector2 spawnDir;
     protected Vector2 spawnPos;
 
-    [SerializeField] protected int chargeAmount;
-    [SerializeField] protected float angleVariation;
-    protected Vector2 currentDirection;
-    
     public static ProjectileSpawner Instance { get; private set; }
 
     protected override void Awake()
@@ -94,13 +91,15 @@ public class ProjectileSpawner : Spawner
     {
         SpawnProjectile(spawnInfo, spawnInfo.Direction, spawnerPos, facingDirection, OnSpawnProjectile);
     }
-    
+
     //NOTE: Spawn multiple projectiles at an offset angle (Charge strategy)
     //TODO: Need to processing more...
     public void SpawnWithChargeStrategy(
         ProjectileSpawnInfo spawnInfo,
         Vector3 spawnerPos,
         int facingDirection,
+        int chargeAmount,
+        float angleVariation,
         Action<Projectile> OnSpawnProjectile
     )
     {

@@ -5,7 +5,7 @@ using UnityEngine;
  * TimeNotifier fires off an event after some duration once the timer has started. The timer can also be configured
  * to automatically restart the timer once the duration has passed or to only trigger once.
  */
-public class Timer
+public class TimeNotifier
 {
     private float duration;
 

@@ -1,17 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class WeaponComponent : NhoxBehaviour
 {
     [SerializeField] protected Weapon weapon;
 
+    protected bool isAttacking;
+
     protected WeaponGetAnimationEvent EventHandler => weapon.GetAnimationEvent;
     protected Core Core => weapon.Core;
-    
-    protected float attackStartTime => weapon.AttackStartTime;
 
-    protected bool isAttacking;
+    protected float attackStartTime => weapon.AttackStartTime;
 
     protected override void Start()
     {
@@ -34,8 +32,8 @@ public abstract class WeaponComponent : NhoxBehaviour
 
     protected void LoadWeapon()
     {
-        if (this.weapon != null) return;
-        this.weapon = GetComponent<Weapon>();
+        if (weapon != null) return;
+        weapon = GetComponent<Weapon>();
         //Debug.Log(transform.name + " LoadWeapon", gameObject);
     }
 
@@ -55,10 +53,12 @@ public abstract class WeaponComponent : NhoxBehaviour
     }
 }
 
-public abstract class WeaponComponent<T1, T2> : WeaponComponent where T1 : ComponentDataAbstract<T2> where T2 : AttackData
+public abstract class WeaponComponent<T1, T2> : WeaponComponent
+    where T1 : ComponentDataAbstract<T2> where T2 : AttackData
 {
-    protected T1 data;
     protected T2 currentAttackData;
+    protected T1 data;
+    public T2 CurrentAttackData => currentAttackData;
 
     protected override void Awake()
     {
@@ -83,4 +83,3 @@ public abstract class WeaponComponent<T1, T2> : WeaponComponent where T1 : Compo
         data = weapon.WeaponDataSO.GetData<T1>();
     }
 }
-
