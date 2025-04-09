@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70a795254499b3e4c925c0083b7ef4ab, type: 3}
+  m_Name: Shield_1
+  m_EditorClassIdentifier: 
+  animatorController: {fileID: 9100000, guid: ff955959dc379b34cb969c83216179a8, type: 2}
+  numberOfAttacks: 1
+  componentData:
+  - rid: 2154769230626553858
+  - rid: 2154769230626553856
+  - rid: 2154769230626553857
+  - rid: 2154769230626553859
+  references:
+    version: 2
+    RefIds:
+    - rid: 2154769230626553856
+      type: {class: InputHoldData, ns: , asm: Assembly-CSharp}
+      data:
+        name: InputHoldData
+    - rid: 2154769230626553857
+      type: {class: AttackMovementData, ns: , asm: Assembly-CSharp}
+      data:
+        name: AttackMovementData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          direction: {x: 1, y: 0}
+          velocity: 0
+    - rid: 2154769230626553858
+      type: {class: WeaponSpriteData, ns: , asm: Assembly-CSharp}
+      data:
+        name: WeaponSpriteData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          <PhaseSprites>k__BackingField:
+          - <Phase>k__BackingField: 0
+            <Sprites>k__BackingField:
+            - {fileID: -877070371, guid: b69bbaa0bc532f04496c8602a756dc26, type: 3}
+            - {fileID: 1588771010, guid: b69bbaa0bc532f04496c8602a756dc26, type: 3}
+            - {fileID: -1110153838, guid: b69bbaa0bc532f04496c8602a756dc26, type: 3}
+            - {fileID: -1930006162, guid: b69bbaa0bc532f04496c8602a756dc26, type: 3}
+            - {fileID: 2112843777, guid: b69bbaa0bc532f04496c8602a756dc26, type: 3}
+            - {fileID: 581015081, guid: b69bbaa0bc532f04496c8602a756dc26, type: 3}
+          - <Phase>k__BackingField: 1
+            <Sprites>k__BackingField:
+            - {fileID: -2084246873, guid: b69bbaa0bc532f04496c8602a756dc26, type: 3}
+            - {fileID: -2013142566, guid: b69bbaa0bc532f04496c8602a756dc26, type: 3}
+            - {fileID: -142318980, guid: b69bbaa0bc532f04496c8602a756dc26, type: 3}
+            - {fileID: -809752752, guid: b69bbaa0bc532f04496c8602a756dc26, type: 3}
+          - <Phase>k__BackingField: 3
+            <Sprites>k__BackingField:
+            - {fileID: 1245256033, guid: b69bbaa0bc532f04496c8602a756dc26, type: 3}
+            - {fileID: 1910891917, guid: b69bbaa0bc532f04496c8602a756dc26, type: 3}
+            - {fileID: 2130864903, guid: b69bbaa0bc532f04496c8602a756dc26, type: 3}
+            - {fileID: 761413926, guid: b69bbaa0bc532f04496c8602a756dc26, type: 3}
+            - {fileID: 205951617, guid: 886dd9f8efa4fa14dac76d520879e537, type: 3}
+          - <Phase>k__BackingField: 4
+            <Sprites>k__BackingField:
+            - {fileID: 425418913, guid: b69bbaa0bc532f04496c8602a756dc26, type: 3}
+            - {fileID: -319955310, guid: b69bbaa0bc532f04496c8602a756dc26, type: 3}
+            - {fileID: 1044471651, guid: b69bbaa0bc532f04496c8602a756dc26, type: 3}
+            - {fileID: 2100145021, guid: b69bbaa0bc532f04496c8602a756dc26, type: 3}
+            - {fileID: 205951617, guid: 886dd9f8efa4fa14dac76d520879e537, type: 3}
+          - <Phase>k__BackingField: 5
+            <Sprites>k__BackingField:
+            - {fileID: -1095814936, guid: b69bbaa0bc532f04496c8602a756dc26, type: 3}
+            - {fileID: -1041472608, guid: b69bbaa0bc532f04496c8602a756dc26, type: 3}
+            - {fileID: 576418507, guid: b69bbaa0bc532f04496c8602a756dc26, type: 3}
+            - {fileID: -781804509, guid: b69bbaa0bc532f04496c8602a756dc26, type: 3}
+    - rid: 2154769230626553859
+      type: {class: BlockData, ns: , asm: Assembly-CSharp}
+      data:
+        name: BlockData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          blockDirectionInformation:
+          - minAngle: -90
+            maxAngle: 90
+            damageAbsorption: 0.75
+            knockbackAbsorption: 0.5
+            poiseAbsorption: 0.75
+          blockWindowStart:
+            duration: 0.2666667
+            phase: 0
+          blockWindowEnd:
+            duration: 0
+            phase: 3
+          particles: HitParticles
+          particlesOffset: {x: 0.75, y: -0.25}

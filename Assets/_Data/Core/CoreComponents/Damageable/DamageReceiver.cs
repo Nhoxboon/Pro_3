@@ -1,6 +1,6 @@
 public class DamageReceiver : CoreComponent
 {
-    protected string damageParticle = "HitParticles";
+    protected string damageParticle = "HitParticles_1";
 
     //TODO: Need to process this
     /*

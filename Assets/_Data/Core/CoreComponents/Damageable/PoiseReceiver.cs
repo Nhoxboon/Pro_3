@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PoiseReceiver : CoreComponent
 {
-    public Modifiers<Modifier<CombatPoiseDamageData>, CombatPoiseDamageData> Modifiers { get; } = new();
+    public Modifiers<Modifier<CombatPoiseData>, CombatPoiseData> Modifiers { get; } = new();
     
-    public virtual void Poise(CombatPoiseDamageData data)
+    public virtual void Poise(CombatPoiseData data)
     {
         data = Modifiers.ApplyAllModifiers(data);
         

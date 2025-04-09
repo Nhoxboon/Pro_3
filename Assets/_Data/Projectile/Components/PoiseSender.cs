@@ -26,7 +26,7 @@ public class PoiseSender : ProjectileComponent
             if (!hit.collider.transform.gameObject.TryGetComponent(out PoiseReceiver poiseDamageable))
                 continue;
                 
-            poiseDamageable.Poise(new CombatPoiseDamageData(amount, projectile.gameObject));
+            poiseDamageable.Poise(new CombatPoiseData(amount, projectile.gameObject));
                 
             OnPoiseDamage?.Invoke();
 

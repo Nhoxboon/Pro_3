@@ -1,19 +1,53 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Core : NhoxBehaviour
 {
     [SerializeField] protected List<CoreComponent> components = new();
+    
+    #region Core Components
+
+    [SerializeField] protected GameObject root;
+    public GameObject Root => root;
+
+    [SerializeField] protected Movement movement;
+    public Movement Movement => movement;
+
+    [SerializeField] protected TouchingDirection touchingDirection;
+    public TouchingDirection TouchingDirection => touchingDirection;
+
+    [SerializeField] protected Stats stats;
+    public Stats Stats => stats;
+
+    [SerializeField] protected DamageReceiver damageReceiver;
+    public DamageReceiver DamageReceiver => damageReceiver;
+
+    [SerializeField] protected Knockbackable knockbackable;
+    public Knockbackable Knockbackable => knockbackable;
+    
+    [SerializeField] protected PoiseReceiver poiseReceiver;
+    public PoiseReceiver PoiseReceiver => poiseReceiver;
+
+    [SerializeField] protected ParticleManager particleManager;
+    public ParticleManager ParticleManager => particleManager;
+
+    [SerializeField] protected Death death;
+    public Death Death => death;
+
+    #endregion
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
+        LoadRoot();
         LoadMovement();
         LoadTouchingDirection();
         LoadStats();
 
         LoadDamageReceiver();
         LoadKnockbackable();
+        LoadPoiseReceiver();
         LoadParticleManager();
         LoadDeath();
     }
@@ -59,6 +93,13 @@ public class Core : NhoxBehaviour
         knockbackable = GetComponentInChildren<Knockbackable>();
         Debug.Log(transform.name + " LoadKnockbackable", gameObject);
     }
+    
+    protected void LoadPoiseReceiver()
+    {
+        if (poiseReceiver != null) return;
+        poiseReceiver = GetComponentInChildren<PoiseReceiver>();
+        Debug.Log(transform.name + " LoadPoiseReceiver", gameObject);
+    }
 
     protected void LoadParticleManager()
     {
@@ -83,32 +124,4 @@ public class Core : NhoxBehaviour
     {
         if (!components.Contains(component)) components.Add(component);
     }
-
-    #region Core Components
-
-    [SerializeField] protected GameObject root;
-    public GameObject Root => root;
-
-    [SerializeField] protected Movement movement;
-    public Movement Movement => movement;
-
-    [SerializeField] protected TouchingDirection touchingDirection;
-    public TouchingDirection TouchingDirection => touchingDirection;
-
-    [SerializeField] protected Stats stats;
-    public Stats Stats => stats;
-
-    [SerializeField] protected DamageReceiver damageReceiver;
-    public DamageReceiver DamageReceiver => damageReceiver;
-
-    [SerializeField] protected Knockbackable knockbackable;
-    public Knockbackable Knockbackable => knockbackable;
-
-    [SerializeField] protected ParticleManager particleManager;
-    public ParticleManager ParticleManager => particleManager;
-
-    [SerializeField] protected Death death;
-    public Death Death => death;
-
-    #endregion
 }

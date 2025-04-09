@@ -18,13 +18,12 @@ public class Knockbackable : CoreComponent
 
     public virtual void Knockback(CombatKnockbackData data)
     {
-        if (core != null && core.Movement != null)
-        {
-            core.Movement.SetVelocity(data.Strength, data.Angle, data.Direction);
-            core.Movement.canSetVelocity = false;
-            isKnockbackActive = true;
-            knockbackStartTime = Time.time;
-        }
+        data = Modifiers.ApplyAllModifiers(data);
+        
+        core.Movement.SetVelocity(data.Strength, data.Angle, data.Direction);
+        core.Movement.canSetVelocity = false;
+        isKnockbackActive = true;
+        knockbackStartTime = Time.time;
     }
 
     public void CheckKnockback()

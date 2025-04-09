@@ -4,10 +4,54 @@ using UnityEngine;
 
 public class WeaponMovement : WeaponComponent<AttackMovementData, AttackMovement>
 {
+    protected float velocity;
+    protected Vector2 direction;
+
+    private void HandleStartMovement()
+    {
+        velocity = currentAttackData.velocity;
+        direction = currentAttackData.direction;
+            
+        SetVelocity();
+    }
+
+    private void HandleStopMovement()
+    {
+        velocity = 0f;
+        direction = Vector2.zero;
+
+        SetVelocity();
+    }
+
+    protected override void HandleEnter()
+    {
+        base.HandleEnter();
+            
+        velocity = 0f;
+        direction = Vector2.zero;
+    }
+
+    private void FixedUpdate()
+    {
+        if(!isAttacking) return;
+            
+        SetVelocityX();
+    }
+
+    private void SetVelocity()
+    {
+        Core.Movement.SetVelocity(velocity, direction, Core.Movement.FacingDirection);
+    }
+
+    private void SetVelocityX()
+    {
+        Core.Movement.SetVelocityX((direction * velocity).x * Core.Movement.FacingDirection);
+    }
 
     protected override void Start()
     {
         base.Start();
+
         EventHandler.OnStartMovement += HandleStartMovement;
         EventHandler.OnStopMovement += HandleStopMovement;
     }
@@ -15,17 +59,8 @@ public class WeaponMovement : WeaponComponent<AttackMovementData, AttackMovement
     protected override void OnDestroy()
     {
         base.OnDestroy();
+            
         EventHandler.OnStartMovement -= HandleStartMovement;
         EventHandler.OnStopMovement -= HandleStopMovement;
-    }
-
-    protected void HandleStartMovement()
-    {
-        Core.Movement.SetVelocity(currentAttackData.velocity, currentAttackData.direction, Core.Movement.FacingDirection);
-    }
-
-    protected void HandleStopMovement()
-    {
-        Core.Movement.SetVelocityZero();
     }
 }
