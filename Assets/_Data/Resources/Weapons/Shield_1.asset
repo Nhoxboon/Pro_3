@@ -19,6 +19,8 @@ MonoBehaviour:
   - rid: 2154769230626553856
   - rid: 2154769230626553857
   - rid: 2154769230626553859
+  - rid: 2154769252116856832
+  - rid: 2154769252116856834
   references:
     version: 2
     RefIds:
@@ -96,5 +98,34 @@ MonoBehaviour:
           blockWindowEnd:
             duration: 0
             phase: 3
+          particles: HitParticles
+          particlesOffset: {x: 0.75, y: -0.25}
+    - rid: 2154769252116856832
+      type: {class: DamageOnBlockData, ns: , asm: Assembly-CSharp}
+      data:
+        name: DamageOnBlockData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          <Amount>k__BackingField: 10
+    - rid: 2154769252116856834
+      type: {class: ParryData, ns: , asm: Assembly-CSharp}
+      data:
+        name: ParryData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          parryDirectionalInformation:
+          - minAngle: -90
+            maxAngle: 90
+            damageAbsorption: 1
+            knockbackAbsorption: 0.85
+            poiseAbsorption: 1
+          parryWindowStart:
+            duration: 0
+            phase: 0
+          parryWindowEnd:
+            duration: 0.25
+            phase: 0
           particles: HitParticles
           particlesOffset: {x: 0.75, y: -0.25}

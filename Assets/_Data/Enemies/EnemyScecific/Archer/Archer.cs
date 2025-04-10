@@ -82,6 +82,13 @@ public class Archer : Enemy
         rangedAttackPosition = transform.parent.Find("Attack/RangedAttack");
         Debug.Log(transform.name + " LoadRangedAttackPosition", gameObject);
     }
+    
+    protected override void HandleParry()
+    {
+        base.HandleParry();
+        
+        stateMachine.ChangeState(archerStunState);
+    }
 
     protected void HandlePoiseZero()
     {

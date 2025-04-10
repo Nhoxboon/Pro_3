@@ -42,6 +42,8 @@ public class EnemyDataSO : ScriptableObject
     public float timeBetweenTurns = 0.75f;
 
     [Header("Stun State")]
+    public float stunResistance = 3f;
+    public float stunRecoveryTime = 2f;
     public float stunTime = 3f;
     public float stunKnockBackTime = 0.2f;
 

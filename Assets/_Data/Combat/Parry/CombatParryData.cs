@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-public class ParryData
+public class CombatParryData
 {
-    public ParryData(GameObject source)
+    public CombatParryData(GameObject source)
     {
         Source = source;
     }

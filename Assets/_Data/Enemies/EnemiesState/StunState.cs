@@ -35,6 +35,7 @@ public class StunState : State
     {
         base.Exit();
 
+        enemy.ResetStunResistance();
     }
 
     public override void LogicUpdate()

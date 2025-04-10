@@ -56,4 +56,7 @@ public class AttackState : State
     {
         isAnimationFinished = true;
     }
+    
+    public void SetParryWindowActive(bool value) => core.ParryReceiver.SetParryColliderActive(value);
+
 }

@@ -8,7 +8,7 @@ public class Block : WeaponComponent<BlockData, AttackBlock>
     public event Action<GameObject> OnBlock;
 
     // The modifier that we give the DamageReceiver when the block window is active.
-    protected DamageModifier damageModifier;
+    protected DamageModifier blockDamageModifier;
     protected BlockKnockbackModifier knockbackModifier;
     protected BlockPoiseModifier poiseModifier;
 
@@ -22,9 +22,9 @@ public class Block : WeaponComponent<BlockData, AttackBlock>
         isBlockWindowActive = true;
         shouldUpdate = false;
         
-        damageModifier.OnModified += HandleModified;
+        blockDamageModifier.OnModified += HandleBlock;
         
-        Core.DamageReceiver.Modifiers.AddModifier(damageModifier);
+        Core.DamageReceiver.Modifiers.AddModifier(blockDamageModifier);
         Core.Knockbackable.Modifiers.AddModifier(knockbackModifier);
         Core.PoiseReceiver.Modifiers.AddModifier(poiseModifier);
     }
@@ -34,9 +34,9 @@ public class Block : WeaponComponent<BlockData, AttackBlock>
         isBlockWindowActive = false;
         shouldUpdate = false;
         
-        damageModifier.OnModified -= HandleModified;
+        blockDamageModifier.OnModified -= HandleBlock;
         
-        Core.DamageReceiver.Modifiers.RemoveModifier(damageModifier);
+        Core.DamageReceiver.Modifiers.RemoveModifier(blockDamageModifier);
         Core.Knockbackable.Modifiers.RemoveModifier(knockbackModifier);
         Core.PoiseReceiver.Modifiers.RemoveModifier(poiseModifier);
     }
@@ -49,7 +49,7 @@ public class Block : WeaponComponent<BlockData, AttackBlock>
         return currentAttackData.IsBlocked(angleOfAttacker, out directionalInformation);
     }
 
-    protected void HandleModified(GameObject source)
+    protected void HandleBlock(GameObject source)
     {
         Core.ParticleManager.StartWithRandomRotation(currentAttackData.particles, currentAttackData.particlesOffset);
         
@@ -69,7 +69,7 @@ public class Block : WeaponComponent<BlockData, AttackBlock>
     {
         base.Start();
         
-        damageModifier = new DamageModifier(IsAttackBlocked);
+        blockDamageModifier = new DamageModifier(IsAttackBlocked);
         knockbackModifier = new BlockKnockbackModifier(IsAttackBlocked);
         poiseModifier = new BlockPoiseModifier(IsAttackBlocked);
         
@@ -80,14 +80,8 @@ public class Block : WeaponComponent<BlockData, AttackBlock>
     {
         if(!shouldUpdate || !IsPastTriggerTime()) return;
 
-        if (isBlockWindowActive)
-        {
-            StopBlockWindow();
-        }
-        else
-        {
-            StartBlockWindow();
-        }
+        if (isBlockWindowActive) StopBlockWindow();
+        else StartBlockWindow();
     }
     
     protected override void OnDestroy()
@@ -105,9 +99,8 @@ public class Block : WeaponComponent<BlockData, AttackBlock>
     #endregion
     
     #region Gizmos
-    [SerializeField] private float gizmoRadius = 2f; // Bán kính hiển thị
-
-#if UNITY_EDITOR
+    [SerializeField] private float gizmoRadius = 2f;
+    
     private void OnDrawGizmosSelected()
     {
         if (!Application.isPlaying || currentAttackData == null) 
@@ -118,11 +111,9 @@ public class Block : WeaponComponent<BlockData, AttackBlock>
 
         foreach (var directionInfo in currentAttackData.blockDirectionInformation)
         {
-            // Tính toán góc thực tế dựa trên hướng nhìn
             float startAngle = directionInfo.minAngle + (facingDirection == 1 ? 0f : 180f);
             float endAngle = directionInfo.maxAngle + (facingDirection == 1 ? 0f : 180f);
 
-            // Đặt màu theo trạng thái block window
             Gizmos.color = isBlockWindowActive ? Color.green : Color.red;
             
             DrawDirectionalGizmo(
@@ -148,7 +139,6 @@ public class Block : WeaponComponent<BlockData, AttackBlock>
             prevPoint = nextPoint;
         }
 
-        // Vẽ đường biên
         Gizmos.DrawLine(center, center + GetDirection(startAngle) * radius);
         Gizmos.DrawLine(center, center + GetDirection(endAngle) * radius);
     }
@@ -157,6 +147,5 @@ public class Block : WeaponComponent<BlockData, AttackBlock>
     {
         return Quaternion.Euler(0, 0, angle) * Vector3.right;
     }
-#endif
     #endregion
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Core : NhoxBehaviour
 {
     [SerializeField] protected List<CoreComponent> components = new();
-    
+
     #region Core Components
 
     [SerializeField] protected GameObject root;
@@ -25,9 +25,12 @@ public class Core : NhoxBehaviour
 
     [SerializeField] protected Knockbackable knockbackable;
     public Knockbackable Knockbackable => knockbackable;
-    
+
     [SerializeField] protected PoiseReceiver poiseReceiver;
     public PoiseReceiver PoiseReceiver => poiseReceiver;
+
+    [SerializeField] protected ParryReceiver parryReceiver;
+    public ParryReceiver ParryReceiver => parryReceiver;
 
     [SerializeField] protected ParticleManager particleManager;
     public ParticleManager ParticleManager => particleManager;
@@ -48,6 +51,7 @@ public class Core : NhoxBehaviour
         LoadDamageReceiver();
         LoadKnockbackable();
         LoadPoiseReceiver();
+        LoadParryReceiver();
         LoadParticleManager();
         LoadDeath();
     }
@@ -93,7 +97,7 @@ public class Core : NhoxBehaviour
         knockbackable = GetComponentInChildren<Knockbackable>();
         Debug.Log(transform.name + " LoadKnockbackable", gameObject);
     }
-    
+
     protected void LoadPoiseReceiver()
     {
         if (poiseReceiver != null) return;
@@ -101,7 +105,14 @@ public class Core : NhoxBehaviour
         Debug.Log(transform.name + " LoadPoiseReceiver", gameObject);
     }
 
-    protected void LoadParticleManager()
+    protected void LoadParryReceiver()
+    {
+        if(parryReceiver != null) return;
+        parryReceiver = GetComponentInChildren<ParryReceiver>();
+        Debug.Log(transform.name + " LoadParryReceiver", gameObject);
+    }
+
+protected void LoadParticleManager()
     {
         if (particleManager != null) return;
         particleManager = GetComponentInChildren<ParticleManager>();

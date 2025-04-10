@@ -75,6 +75,13 @@ public class Pig : Enemy
     {
         stateMachine.ChangeState(pigStunState);
     }
+    
+    protected override void HandleParry()
+    {
+        base.HandleParry();
+        
+        stateMachine.ChangeState(pigStunState);
+    }
 
     public override void OnDrawGizmos()
     {

@@ -28,11 +28,16 @@ public class Enemy : NhoxBehaviour
     [Header("Status")]
     [SerializeField] protected Stats stats;
 
-    [SerializeField] protected bool isDead;
-
+    protected bool isStunned;
+    protected float currentStunResistance;
+    protected float lastDamageTime;
+    
     protected override void Awake()
     {
         base.Awake();
+        
+        core.ParryReceiver.OnParried += HandleParry;
+        currentStunResistance = enemyDataSO.stunResistance;
 
         stateMachine = new FiniteStateMachine();
     }
@@ -45,7 +50,9 @@ public class Enemy : NhoxBehaviour
 
         enemyCtrl.EnemyAnimation.YVelocityAnimation(core.Movement.Rb.velocity.y);
 
-        
+        if (Time.time >= lastDamageTime + enemyDataSO.stunRecoveryTime) {
+            ResetStunResistance();
+        }
     }
 
     protected virtual void FixedUpdate()
@@ -104,6 +111,16 @@ public class Enemy : NhoxBehaviour
         if (getAnimEvent != null) return;
         getAnimEvent = GetComponent<EnemyGetAnimationEvent>();
         Debug.Log(transform.name + " LoadAnimationEvent", gameObject);
+    }
+    
+    protected virtual void HandleParry()
+    {
+		
+    }
+    
+    public virtual void ResetStunResistance() {
+        isStunned = false;
+        currentStunResistance = enemyDataSO.stunResistance;
     }
 
     public virtual bool CheckPlayerInMinAgroRange()
