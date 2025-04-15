@@ -164,18 +164,5 @@ public class StickToLayer : ProjectileComponent
         if (subscribedToDisableNotifier) onDisableNotifier.OnDisableEvent -= HandleDisableNotifier;
     }
 
-    protected override void LoadComponents()
-    {
-        base.LoadComponents();
-        LoadLayerMask();
-    }
-    
-    private void LoadLayerMask()
-    {
-        if (layerMask != 0) return;
-        layerMask = LayerMask.GetMask("Ground");
-        Debug.Log(transform.name + "LoadLayerMask", gameObject);
-    }
-
     #endregion
 }
