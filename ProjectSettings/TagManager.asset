@@ -18,8 +18,8 @@ TagManager:
   - Player
   - Dead
   - Weapon
-  - 
-  - 
+  - Interactable
+  - WorldItem
   - 
   - 
   - 

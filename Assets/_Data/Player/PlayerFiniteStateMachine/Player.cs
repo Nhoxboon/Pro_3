@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -83,6 +84,9 @@ public class Player : NhoxBehaviour
 
     [Header("Stats")]
     [SerializeField] protected Stats stats;
+    
+    [Header("Interactable")]
+    [SerializeField] protected InteractableDetector interactableDetector;
 
     protected override void Awake()
     {
@@ -109,6 +113,9 @@ public class Player : NhoxBehaviour
     {
         base.Start();
 
+        InputManager.Instance.OnInteractInputChanged += interactableDetector.TryInteract;
+        
+        stats.Poise.OnCurrentValueZero += HandlePoiseCurrentValueZero;
         stateMachine.Initialize(playerIdleState);
     }
 
@@ -123,6 +130,11 @@ public class Player : NhoxBehaviour
         stateMachine.CurrentState.PhysicsUpdate();
     }
 
+    protected void OnDestroy()
+    {
+        stats.Poise.OnCurrentValueZero -= HandlePoiseCurrentValueZero;
+    }
+
     #region Load Components
     protected override void LoadComponents()
     {
@@ -135,6 +147,7 @@ public class Player : NhoxBehaviour
         LoadPrimaryWeapon();
         LoadSecondaryWeapon();
         LoadStats();
+        LoadInteractableDetector();
     }
 
     protected void LoadCore()
@@ -192,6 +205,13 @@ public class Player : NhoxBehaviour
         stats = transform.parent.GetComponentInChildren<Stats>();
         Debug.Log(transform.name + " LoadStats", gameObject);
     }
+    
+    protected void LoadInteractableDetector()
+    {
+        if (interactableDetector != null) return;
+        interactableDetector = transform.parent.GetComponentInChildren<InteractableDetector>();
+        Debug.Log(transform.name + " LoadInteractableDetector", gameObject);
+    }
     #endregion
 
     public void SetColliderHeight(float height)
@@ -205,7 +225,10 @@ public class Player : NhoxBehaviour
         col.offset = center;
     }
 
-    
+    private void HandlePoiseCurrentValueZero()
+    {
+        // stateMachine.ChangeState(PlayerStunState);
+    }
 
     public void AnimationTrigger() => stateMachine.CurrentState.AnimationTrigger();
 

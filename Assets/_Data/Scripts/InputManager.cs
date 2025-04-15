@@ -9,7 +9,7 @@ public class InputManager : NhoxBehaviour
     public static InputManager Instance => instance;
 
     public bool InteractInput { get; private set; }
-    public event System.Action<bool> OnInteractInputChanged;
+    public event Action<bool> OnInteractInputChanged;
 
     public Vector2 RawMovementInput { get; private set; }
     public int NormInputX { get; private set; }
