@@ -7,7 +7,7 @@ using UnityEngine;
 public class WeaponDataSO : ScriptableObject
 {
     public Sprite icon;
-    public string name;
+    public string nameWeapon;
     public string description;
 
     public RuntimeAnimatorController animatorController;

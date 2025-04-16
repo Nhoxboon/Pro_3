@@ -1,73 +1,83 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Bardent
+public class Bobber : NhoxBehaviour
 {
-    public class Bobber : MonoBehaviour
+    [SerializeField] protected float yOffset = 0.2f;
+    [SerializeField] protected float bobDuration = 1f;
+    [SerializeField] protected float stopMultiplier = 4f;
+
+    [SerializeField] protected AnimationCurve bobCurve =
+        new(new Keyframe(0f, 0f), new Keyframe(0.5f, 1f), new Keyframe(1f, 0f));
+
+    protected Vector3 currentPosition;
+
+    protected Vector3 initialPosition;
+
+    protected bool isBobbing;
+    protected bool shouldStopBobbing;
+
+    protected float t;
+
+    protected override void Awake()
     {
-        [SerializeField] private float yOffset;
-        [SerializeField] private float bobDuration;
-        [SerializeField] private float stopMultiplier;
+        base.Awake();
+        initialPosition = transform.localPosition;
+    }
 
-        [SerializeField] private AnimationCurve bobCurve;
+    protected void Update()
+    {
+        if (!isBobbing) return;
 
-        private float t;
-
-        private bool isBobbing;
-        private bool shouldStopBobbing;
-
-        private Vector3 initialPosition;
-        private Vector3 currentPosition;
-
-        public void StartBobbing()
+        if (shouldStopBobbing && t <= 0f)
         {
-            isBobbing = true;
-            shouldStopBobbing = false;
-            t = 0f;
+            StopCompletely();
         }
 
-        public void StopBobbing()
+        UpdateCurvePosition();
+
+        UpdateTime();
+    }
+
+    public void StartBobbing()
+    {
+        isBobbing = true;
+        shouldStopBobbing = false;
+        t = 0f;
+    }
+
+    public void StopBobbing()
+    {
+        shouldStopBobbing = true;
+    }
+
+    protected void StopCompletely()
+    {
+        isBobbing = false;
+        transform.localPosition = initialPosition;
+    }
+    
+    protected void UpdateCurvePosition()
+    {
+        var curveValue = bobCurve.Evaluate(t / bobDuration);
+
+        currentPosition = transform.localPosition;
+        currentPosition.y = initialPosition.y + yOffset * curveValue;
+
+        transform.localPosition = currentPosition;
+    }
+    
+    protected void UpdateTime()
+    {
+        if (!shouldStopBobbing)
         {
-            shouldStopBobbing = true;
+            t += Time.deltaTime;
+            t %= bobDuration;
         }
-
-        private void Update()
+        else
         {
-            if (!isBobbing)
-                return;
+            if (t > bobDuration / 2f) t = bobDuration - t;
 
-            if (shouldStopBobbing && t <= 0f)
-            {
-                isBobbing = false;
-                transform.localPosition = initialPosition;
-            }
-
-            var curveValue = bobCurve.Evaluate(t / bobDuration);
-
-            currentPosition = transform.localPosition;
-            currentPosition.y = initialPosition.y + (yOffset * curveValue);
-
-            transform.localPosition = currentPosition;
-
-            if (!shouldStopBobbing)
-            {
-                t += Time.deltaTime;
-                t %= bobDuration;
-            }
-            else
-            {
-                if (t > bobDuration / 2f)
-                {
-                    t = bobDuration - t;
-                }
-                
-                t -= (Time.deltaTime * stopMultiplier);
-            }
-        }
-
-        private void Awake()
-        {
-            initialPosition = transform.localPosition;
+            t -= Time.deltaTime * stopMultiplier;
         }
     }
 }
