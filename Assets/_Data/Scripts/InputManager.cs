@@ -10,6 +10,8 @@ public class InputManager : NhoxBehaviour
 
     public bool InteractInput { get; private set; }
     public event Action<bool> OnInteractInputChanged;
+    
+    [SerializeField] protected bool isUIMode = false;
 
     public Vector2 RawMovementInput { get; private set; }
     public int NormInputX { get; private set; }
@@ -56,6 +58,8 @@ public class InputManager : NhoxBehaviour
 
     private void Update()
     {
+        if (isUIMode) return;
+
         ProcessMovementInput();
         ProcessJumpInput();
         ProcessGrabInput();
@@ -87,6 +91,14 @@ public class InputManager : NhoxBehaviour
         if (this.player != null) return;
         this.player = GameObject.FindGameObjectWithTag("Player").transform;
         Debug.Log(transform.name + " LoadPlayer", gameObject);
+    }
+    
+    // ReSharper disable Unity.PerformanceAnalysis
+    public void SetUIMode(bool isUI)
+    {
+        isUIMode = isUI;
+        if (isUI) 
+            ResetInputs();
     }
 
     protected void ProcessMovementInput()

@@ -11,6 +11,14 @@ public class WeaponPickup : NhoxBehaviour, IInteractable<WeaponDataSO>
     [SerializeField] protected WeaponDataSO weaponData;
     public Rigidbody2D Rb => rb;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        if(weaponData is null) return;
+
+        weaponIcon.sprite = weaponData.icon;
+    }
+
     public WeaponDataSO GetContext()
     {
         return weaponData;

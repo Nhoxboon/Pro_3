@@ -52,11 +52,11 @@ public class PlayerGroundedState : PlayerState
         dashInput = InputManager.Instance.DashInput;
 
 
-        if (InputManager.Instance.AttackInputs[(int)CombatInputs.primary] && !isTouchingCeiling)
+        if (InputManager.Instance.AttackInputs[(int)CombatInputs.primary] && !isTouchingCeiling && player.PrimaryAttackState.CanTransitionToAttackState())
         {
             stateMachine.ChangeState(player.PrimaryAttackState);
         }
-        else if(InputManager.Instance.AttackInputs[(int)CombatInputs.secondary] && !isTouchingCeiling)
+        else if(InputManager.Instance.AttackInputs[(int)CombatInputs.secondary] && !isTouchingCeiling && player.SecondaryAttackState.CanTransitionToAttackState())
         {
             stateMachine.ChangeState(player.SecondaryAttackState);
         }

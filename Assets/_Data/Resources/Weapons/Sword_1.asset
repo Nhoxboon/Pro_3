@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sword_1
   m_EditorClassIdentifier: 
   icon: {fileID: 264998466, guid: 7698f902a8e73cb4b88c4738f7fb0ff5, type: 3}
-  name: Normal Sword
+  nameWeapon: Normal sword
   description: Just a sword
   animatorController: {fileID: 9100000, guid: 68ac596f21eddd74facce663237e74e4, type: 2}
   numberOfAttacks: 3
@@ -142,7 +142,7 @@ MonoBehaviour:
         repeatData: 0
         attackData:
         - name: Attack 1
-          amount: 30
+          amount: 15
         - name: Attack 2
           amount: 30
         - name: Attack 3

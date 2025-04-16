@@ -59,8 +59,7 @@ public class PlayerAttackState : PlayerAbilityState
             core.Movement.CheckIfShouldFlip(xInput);
         }
 
-        if (!canInterrupt)
-            return;
+        if (!canInterrupt) return;
 
         if (xInput != 0 || InputManager.Instance.AttackInputs[0] || InputManager.Instance.AttackInputs[1])
         {
@@ -82,7 +81,9 @@ public class PlayerAttackState : PlayerAbilityState
     {
         checkFlip = value;
     }
-
+    
+    public bool CanTransitionToAttackState() => weapon.CanEnterAttack;
+    
     protected void HandleWeaponGenerating()
     {
         stateMachine.ChangeState(player.PlayerIdleState);

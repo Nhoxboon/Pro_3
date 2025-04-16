@@ -7,6 +7,8 @@ public class DiscardedWeaponPickupSpawner : CoreComponent
     [SerializeField] protected WeaponPickup weaponPickupPrefab;
     [SerializeField] protected Vector2 spawnOffset;
 
+    [SerializeField] protected Transform weaponPool;
+
     [SerializeField] protected WeaponSwap weaponSwap;
 
     protected void OnEnable()
@@ -24,6 +26,7 @@ public class DiscardedWeaponPickupSpawner : CoreComponent
         base.LoadComponents();
         LoadWeaponSwap();
         LoadWeaponPickupPrefab();
+        LoadWeaponPool();
     }
 
     protected void LoadWeaponSwap()
@@ -39,12 +42,23 @@ public class DiscardedWeaponPickupSpawner : CoreComponent
         weaponPickupPrefab = Resources.Load<WeaponPickup>("Weapons/WeaponPickup");
         Debug.Log(transform.name + " :LoadWeaponPickupPrefab", gameObject);
     }
+    
+    protected void LoadWeaponPool()
+    {
+        if (weaponPool != null) return;
+        weaponPool = GameObject.FindGameObjectWithTag("WeaponHolder").transform;
+        Debug.Log(transform.name + " :LoadWeaponPool", gameObject);
+    }
 
+    //Note: Consider changing this to a obj pooling system
     protected void HandleWeaponDiscarded(WeaponDataSO discardedWeaponData)
     {
         var spawnPoint = core.Movement.FindRelativePoint(spawnOffset);
 
         var weaponPickup = Instantiate(weaponPickupPrefab, spawnPoint, Quaternion.identity);
+        
+        weaponPickup.transform.SetParent(weaponPool);
+        weaponPickup.transform.name = discardedWeaponData.name;
 
         weaponPickup.SetContext(discardedWeaponData);
 

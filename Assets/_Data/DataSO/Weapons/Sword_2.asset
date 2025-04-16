@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sword_2
   m_EditorClassIdentifier: 
   icon: {fileID: 278680207, guid: 7698f902a8e73cb4b88c4738f7fb0ff5, type: 3}
-  name: Fire sword
+  nameWeapon: Fire sword
   description: A sword can throw fire
   animatorController: {fileID: 9100000, guid: 68ac596f21eddd74facce663237e74e4, type: 2}
   numberOfAttacks: 3

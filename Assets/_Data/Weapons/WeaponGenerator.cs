@@ -9,7 +9,9 @@ public class WeaponGenerator : NhoxBehaviour
     public event Action OnWeaponGenerating;
 
     [SerializeField] protected Weapon weapon;
-    [SerializeField] protected WeaponDataSO weaponDataSO;
+    
+    [SerializeField] protected CombatInputs combatInput;
+
 
     protected List<WeaponComponent> componentsAlreadyOnWp = new List<WeaponComponent>();
 
@@ -18,17 +20,31 @@ public class WeaponGenerator : NhoxBehaviour
     protected List<Type> componentDependencies = new List<Type>();
 
     [SerializeField] protected Animator anim;
+    
+    [SerializeField] protected WeaponInventory weaponInventory;
 
     protected override void Start()
     {
         base.Start();
-        GenerateWeapon(weaponDataSO);
+        weaponInventory.OnWeaponDataChanged += HandleWeaponDataChanged;
+        
+        if (weaponInventory.TryGetWeapon((int)combatInput, out var data))
+        {
+            GenerateWeapon(data);
+        }
     }
+    
+    protected void OnDestroy()
+    {
+        weaponInventory.OnWeaponDataChanged -= HandleWeaponDataChanged;
+    }
+    
     protected override void LoadComponents()
     {
         base.LoadComponents();
         LoadWeapon();
         LoadAnim();
+        LoadWeaponInventory();
     }
 
     protected void LoadWeapon()
@@ -44,11 +60,12 @@ public class WeaponGenerator : NhoxBehaviour
         anim = GetComponentInChildren<Animator>();
         Debug.Log(transform.name + " :LoadAnim", gameObject);
     }
-
-    [ContextMenu("Test Generate")]
-    private void TestGeneration()
+    
+    protected void LoadWeaponInventory()
     {
-        GenerateWeapon(weaponDataSO);
+        if (weaponInventory != null) return;
+        weaponInventory = FindFirstObjectByType<WeaponInventory>();
+        Debug.Log(transform.name + " :LoadWeaponInventory", gameObject);
     }
 
     public void GenerateWeapon(WeaponDataSO data)
@@ -56,6 +73,12 @@ public class WeaponGenerator : NhoxBehaviour
         OnWeaponGenerating?.Invoke();
 
         weapon.SetData(data);
+        
+        if (data is null)
+        {
+            weapon.SetCanEnterAttack(false);
+            return;
+        }
 
         componentsAlreadyOnWp.Clear();
         componentsAddedToWp.Clear();
@@ -89,5 +112,14 @@ public class WeaponGenerator : NhoxBehaviour
         }
 
         anim.runtimeAnimatorController = data.animatorController;
+        
+        weapon.SetCanEnterAttack(true);
+    }
+    
+    private void HandleWeaponDataChanged(int inputIndex, WeaponDataSO data)
+    {
+        if (inputIndex != (int)combatInput) return;
+            
+        GenerateWeapon(data);
     }
 }

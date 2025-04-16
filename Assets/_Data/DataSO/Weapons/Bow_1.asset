@@ -10,27 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70a795254499b3e4c925c0083b7ef4ab, type: 3}
-  m_Name: Bow_2
+  m_Name: Bow_1
   m_EditorClassIdentifier: 
-  icon: {fileID: 1146833934, guid: 7698f902a8e73cb4b88c4738f7fb0ff5, type: 3}
-  name: Crystal bow
-  description: A bow that uses magic to generate a second arrow
+  icon: {fileID: 1819778140, guid: 7698f902a8e73cb4b88c4738f7fb0ff5, type: 3}
+  nameWeapon: Wooden Bow
+  description: Just a normal bow
   animatorController: {fileID: 9100000, guid: 07e81c3a272f1dc48941fa31d89ba18e, type: 2}
   numberOfAttacks: 1
   componentData:
-  - rid: 2154769359367569412
-  - rid: 2154769359367569413
-  - rid: 2154769359367569415
-  - rid: 2154769359367569414
-  - rid: 2154769359367569416
-  - rid: 2154769359367569417
-  - rid: 2154769359367569418
-  - rid: 2154769359367569419
-  - rid: 2154769359367569420
+  - rid: 2535277628317761541
+  - rid: 2535277628317761543
+  - rid: 7391817252711170051
+  - rid: 2535277654091235330
+  - rid: 7391817252711170050
+  - rid: 7391817252711170049
+  - rid: 3991057962048421888
   references:
     version: 2
     RefIds:
-    - rid: 2154769359367569412
+    - rid: 2535277628317761541
       type: {class: WeaponSpriteData, ns: , asm: Assembly-CSharp}
       data:
         name: WeaponSpriteData
@@ -40,50 +38,41 @@ MonoBehaviour:
           <PhaseSprites>k__BackingField:
           - <Phase>k__BackingField: 0
             <Sprites>k__BackingField:
-            - {fileID: -564182797, guid: ad0f5a2540c215149a02e50e4860f3ec, type: 3}
-            - {fileID: 81674671, guid: ad0f5a2540c215149a02e50e4860f3ec, type: 3}
+            - {fileID: 9044786021765537137, guid: 7590a3e0175293c4889640c4eb0143fd, type: 3}
+            - {fileID: 3647156553916755266, guid: 7590a3e0175293c4889640c4eb0143fd, type: 3}
           - <Phase>k__BackingField: 1
             <Sprites>k__BackingField:
-            - {fileID: 81674671, guid: ad0f5a2540c215149a02e50e4860f3ec, type: 3}
+            - {fileID: 3647156553916755266, guid: 7590a3e0175293c4889640c4eb0143fd, type: 3}
           - <Phase>k__BackingField: 2
             <Sprites>k__BackingField:
-            - {fileID: -1611011074, guid: ad0f5a2540c215149a02e50e4860f3ec, type: 3}
-            - {fileID: -1104745541, guid: ad0f5a2540c215149a02e50e4860f3ec, type: 3}
-            - {fileID: 499624155, guid: ad0f5a2540c215149a02e50e4860f3ec, type: 3}
-            - {fileID: -791562598, guid: ad0f5a2540c215149a02e50e4860f3ec, type: 3}
-    - rid: 2154769359367569413
+            - {fileID: -7025760825990288548, guid: 7590a3e0175293c4889640c4eb0143fd, type: 3}
+            - {fileID: 1008453939145656331, guid: 7590a3e0175293c4889640c4eb0143fd, type: 3}
+            - {fileID: 1121910671679707029, guid: 7590a3e0175293c4889640c4eb0143fd, type: 3}
+            - {fileID: -5727901431455522701, guid: 7590a3e0175293c4889640c4eb0143fd, type: 3}
+    - rid: 2535277628317761543
       type: {class: InputHoldData, ns: , asm: Assembly-CSharp}
       data:
         name: InputHoldData
-    - rid: 2154769359367569414
+    - rid: 2535277654091235330
       type: {class: ProjectileSpawnerData, ns: , asm: Assembly-CSharp}
       data:
         name: ProjectileSpawnerData
         repeatData: 0
         attackData:
         - name: Attack 1
-          isChargeable: 1
+          isChargeable: 0
           <SpawnInfos>k__BackingField:
           - <Offset>k__BackingField: {x: 1.24, y: 0.2}
             <Direction>k__BackingField: {x: 1, y: 0}
-            <ProjectilePrefabName>k__BackingField: Arrow_1
+            <ProjectilePrefabName>k__BackingField: Arrow
             <DamageData>k__BackingField:
-              <Amount>k__BackingField: 15
+              <Amount>k__BackingField: 1
             <KnockBackData>k__BackingField:
               Strength: 10
               Angle: {x: 1, y: 1}
             <PoiseDamageData>k__BackingField:
               <Amount>k__BackingField: 30
-    - rid: 2154769359367569415
-      type: {class: AttackMovementData, ns: , asm: Assembly-CSharp}
-      data:
-        name: AttackMovementData
-        repeatData: 0
-        attackData:
-        - name: Attack 1
-          direction: {x: 0, y: 0}
-          velocity: 0
-    - rid: 2154769359367569416
+    - rid: 3991057962048421888
       type: {class: OptionalSpriteData, ns: , asm: Assembly-CSharp}
       data:
         name: OptionalSpriteData
@@ -91,8 +80,12 @@ MonoBehaviour:
         attackData:
         - name: Attack 1
           <UseOptionalSprite>k__BackingField: 1
-          sprite: {fileID: 93036008, guid: a78660a794210184a9d790ecb66c85a2, type: 3}
-    - rid: 2154769359367569417
+          sprite: {fileID: -89418386, guid: 8159ae2d61b463342bf787b21154ec57, type: 3}
+    - rid: 7391817252711170049
+      type: {class: DrawToProjectileData, ns: , asm: Assembly-CSharp}
+      data:
+        name: DrawToProjectileData
+    - rid: 7391817252711170050
       type: {class: DrawData, ns: , asm: Assembly-CSharp}
       data:
         name: DrawData
@@ -124,28 +117,12 @@ MonoBehaviour:
             m_PostInfinity: 2
             m_RotationOrder: 4
           <DrawTime>k__BackingField: 0.2666667
-    - rid: 2154769359367569418
-      type: {class: DrawToProjectileData, ns: , asm: Assembly-CSharp}
+    - rid: 7391817252711170051
+      type: {class: AttackMovementData, ns: , asm: Assembly-CSharp}
       data:
-        name: DrawToProjectileData
-    - rid: 2154769359367569419
-      type: {class: ChargeData, ns: , asm: Assembly-CSharp}
-      data:
-        name: ChargeData
+        name: AttackMovementData
         repeatData: 0
         attackData:
         - name: Attack 1
-          chargeTime: 1
-          initialChargeAmount: 1
-          numberOfCharges: 2
-          chargeIncreaseIndicatorParticalName: CrystalBowChargeParticles
-          fullyChargedIndicatorParticleName: CrystalBowChargeParticles
-          particlesOffset: {x: 0, y: 0}
-    - rid: 2154769359367569420
-      type: {class: ChargeToProjectileSpawnerData, ns: , asm: Assembly-CSharp}
-      data:
-        name: ChargeToProjectileSpawnerData
-        repeatData: 0
-        attackData:
-        - name: Attack 1
-          angleVariation: 3
+          direction: {x: 0, y: 0}
+          velocity: 0

@@ -26,16 +26,15 @@ public static class CombatDamageUtilities
     public static bool TryDamage(Collider2D[] colliders, CombatDamageData combatDamageData,
         out List<DamageReceiver> damageReceivers)
     {
-        var hasDamaged = false;
         damageReceivers = new List<DamageReceiver>();
 
         foreach (var collider in colliders)
             if (TryDamage(collider.gameObject, combatDamageData, out var damageable))
             {
                 damageReceivers.Add(damageable);
-                hasDamaged = true;
+                return true;
             }
 
-        return hasDamaged;
+        return false;
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Shield_1
   m_EditorClassIdentifier: 
   icon: {fileID: 853403320, guid: 7698f902a8e73cb4b88c4738f7fb0ff5, type: 3}
-  name: Crystal shield
+  nameWeapon: Crystal Shield
   description: A shield made of pure crystal. Watch out! Crystals can be pretty pokey!
   animatorController: {fileID: 9100000, guid: ff955959dc379b34cb969c83216179a8, type: 2}
   numberOfAttacks: 1

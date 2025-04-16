@@ -42,7 +42,10 @@ public class DirectTowardsTarget : ProjectileComponent
 
     protected bool HasTarget()
     {
-        if(currentTarget) return true;
+        if (currentTarget != null && currentTarget.gameObject.activeInHierarchy)
+            return true;
+
+        currentTarget = null;
         
         targets.RemoveAll(item => item == null || !item.gameObject.activeInHierarchy);
         

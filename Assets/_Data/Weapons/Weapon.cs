@@ -19,6 +19,9 @@ public class Weapon : NhoxBehaviour
     [SerializeField] protected int currentAttack;
 
     [SerializeField] protected bool currentInput;
+    
+    [SerializeField] protected bool canEnterAttack;
+    public bool CanEnterAttack => canEnterAttack;
 
     [SerializeField] protected Core core;
 
@@ -74,12 +77,15 @@ public class Weapon : NhoxBehaviour
     public event Action OnUseInput;
 
     public event Action<bool> OnCurrentInputChange;
+    
+    public void SetCanEnterAttack(bool value) => canEnterAttack = value;
 
     public void SetData(WeaponDataSO data)
     {
         weaponDataSO = data;
     }
 
+    #region LoadComponents
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -124,6 +130,7 @@ public class Weapon : NhoxBehaviour
         core = transform.parent.parent.GetComponentInChildren<Core>();
         Debug.Log(transform.name + " LoadCore", gameObject);
     }
+    #endregion
 
     public void Enter()
     {
