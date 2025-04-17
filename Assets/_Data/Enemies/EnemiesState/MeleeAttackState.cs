@@ -2,9 +2,12 @@ using UnityEngine;
 
 public class MeleeAttackState : AttackState
 {
+    protected EnemyMeleeAttackStateSO stateData;
+
     public MeleeAttackState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO,
-        Transform attackPosition) : base(enemy, stateMachine, animBoolName, enemyDataSO, attackPosition)
+        Transform attackPosition, EnemyMeleeAttackStateSO stateData) : base(enemy, stateMachine, animBoolName, enemyDataSO, attackPosition)
     {
+        this.stateData = stateData;
     }
 
     public override void DoChecks()
@@ -42,18 +45,18 @@ public class MeleeAttackState : AttackState
         base.TriggerAttack();
 
         var detectedObjs =
-            Physics2D.OverlapCircleAll(attackPosition.position, enemyDataSO.attackRadius, enemyDataSO.whatIsPlayer);
+            Physics2D.OverlapCircleAll(attackPosition.position, stateData.attackRadius, stateData.whatIsPlayer);
 
         foreach (var col in detectedObjs)
         {
             if (col.TryGetComponent<DamageReceiver>(out var damageable))
-                damageable.Damage(new CombatDamageData(enemyDataSO.attackDamage, core.Root));
+                damageable.Damage(new CombatDamageData(stateData.attackDamage, core.Root));
 
             if (col.TryGetComponent<Knockbackable>(out var knockbackable))
-                knockbackable.Knockback(new CombatKnockbackData(enemyDataSO.knockbackAngle, enemyDataSO.knockbackStrength,
+                knockbackable.Knockback(new CombatKnockbackData(stateData.knockbackAngle, stateData.knockbackStrength,
                     core.Movement.FacingDirection, core.Root));
 
-            if (col.TryGetComponent<PoiseReceiver>(out var stunnable)) stunnable.Poise(new CombatPoiseData(enemyDataSO.attackDamage, core.Root));
+            if (col.TryGetComponent<PoiseReceiver>(out var stunnable)) stunnable.Poise(new CombatPoiseData(stateData.poiseDamage, core.Root));
         }
     }
 }

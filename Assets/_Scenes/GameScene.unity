@@ -46271,6 +46271,7 @@ MonoBehaviour:
   core: {fileID: 792120566}
   stats: {fileID: 205591677}
   meleeAttackPosition: {fileID: 2012583876}
+  meleeAttackDataSO: {fileID: 11400000, guid: 7936c9a9864b549d0a115425a3d8865c, type: 2}
 --- !u!114 &555530533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47743,6 +47744,8 @@ MonoBehaviour:
   stats: {fileID: 1675996391}
   meleeAttackPosition: {fileID: 840026661}
   rangedAttackPosition: {fileID: 722171643}
+  meleeAttackDataSO: {fileID: 11400000, guid: 7f60dd69aa701453c8caf5c000bfaa9c, type: 2}
+  rangedAttackDataSO: {fileID: 11400000, guid: b22073cca55354ebea2c4c7f0186526c, type: 2}
 --- !u!212 &1053543239
 SpriteRenderer:
   m_ObjectHideFlags: 0

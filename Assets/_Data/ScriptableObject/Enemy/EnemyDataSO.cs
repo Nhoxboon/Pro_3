@@ -23,15 +23,6 @@ public class EnemyDataSO : ScriptableObject
 
     [Header("Attack State")]
     public float closeRangeActionDistance = 1f;
-    public float attackRadius = 0.75f;
-    public float attackDamage = 10f;
-    public Vector2 knockbackAngle = Vector2.one;
-    public float knockbackStrength = 10f;
-
-    [Header("Ranged Attack State")]
-    public float projectileDamage = 10f;
-    public float projectileSpeed = 12f;
-    public float projectileTravelDistance = 5f;
 
     [Header("Charge State")]
     public float chargeSpeed = 6f;

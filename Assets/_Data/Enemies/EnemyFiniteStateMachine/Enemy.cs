@@ -81,7 +81,7 @@ public class Enemy : NhoxBehaviour
     protected void LoadEnemyDataSO()
     {
         if (enemyDataSO != null) return;
-        enemyDataSO = Resources.Load<EnemyDataSO>("Enemies/" + transform.parent.name);
+        enemyDataSO = Resources.Load<EnemyDataSO>("Enemies/" + transform.parent.name + "/" + transform.parent.name);
         Debug.Log(transform.name + " LoadEnemyDataSO", gameObject);
     }
 

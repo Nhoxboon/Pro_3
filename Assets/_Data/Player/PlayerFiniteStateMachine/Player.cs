@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Player : NhoxBehaviour
 {
+    
     #region State Variable
     protected PlayerStateMachine stateMachine;
     public PlayerStateMachine StateMachine => stateMachine;
@@ -14,6 +15,9 @@ public class Player : NhoxBehaviour
 
     protected PlayerMoveState playerMoveState;
     public PlayerMoveState PlayerMoveState => playerMoveState;
+    
+    protected PlayerStunState playerStunState;
+    public PlayerStunState PlayerStunState => playerStunState;
 
     protected PlayerJumpState playerJumpState;
     public PlayerJumpState PlayerJumpState => playerJumpState;
@@ -94,6 +98,7 @@ public class Player : NhoxBehaviour
         stateMachine = new PlayerStateMachine();
         playerIdleState = new PlayerIdleState(this, stateMachine, playerDataSO, "idle");
         playerMoveState = new PlayerMoveState(this, stateMachine, playerDataSO, "move");
+        playerStunState = new PlayerStunState(this, stateMachine, playerDataSO, "stun");
         playerJumpState = new PlayerJumpState(this, stateMachine, playerDataSO, "inAir");
         playerInAirState = new PlayerInAirState(this, stateMachine, playerDataSO, "inAir");
         playerLandState = new PlayerLandState(this, stateMachine, playerDataSO, "land");
@@ -227,7 +232,7 @@ public class Player : NhoxBehaviour
 
     private void HandlePoiseCurrentValueZero()
     {
-        // stateMachine.ChangeState(PlayerStunState);
+        stateMachine.ChangeState(PlayerStunState);
     }
 
     public void AnimationTrigger() => stateMachine.CurrentState.AnimationTrigger();

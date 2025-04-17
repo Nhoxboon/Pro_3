@@ -8,6 +8,9 @@ public class PlayerDataSO : ScriptableObject
 {
     [Header("Move State")]
     public float movementVelocity = 10f;
+    
+    [Header("Stun State")]
+    public float stunTime = 2f;
 
     [Header("Crouch State")]
     public float crouchMovementVelocity = 5f;

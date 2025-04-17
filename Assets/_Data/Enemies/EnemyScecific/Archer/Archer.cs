@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Archer : Enemy
 {
+    #region State Variables
     protected ArcherIdleState archerIdleState;
     public ArcherIdleState ArcherIdleState => archerIdleState;
 
@@ -30,9 +31,14 @@ public class Archer : Enemy
 
     protected ArcherRangedAttackState archerRangedAttackState;
     public ArcherRangedAttackState ArcherRangedAttackState => archerRangedAttackState;
+    #endregion
 
     [SerializeField] Transform meleeAttackPosition;
     [SerializeField] Transform rangedAttackPosition;
+    
+    [Header("State Data")]
+    [SerializeField] protected EnemyMeleeAttackStateSO meleeAttackDataSO;
+    [SerializeField] protected EnemyRangedAttackStateSO rangedAttackDataSO;
 
     protected override void Awake()
     {
@@ -41,12 +47,12 @@ public class Archer : Enemy
         archerIdleState = new ArcherIdleState(this, stateMachine, "idle", enemyDataSO, this);
         archerMoveState = new ArcherMoveState(this, stateMachine, "move", enemyDataSO, this);
         archerDetectedPlayerState = new ArcherDetectedPlayerState(this, stateMachine, "detectedPlayer", enemyDataSO, this);
-        archerMeleeAttackState = new ArcherMeleeAttackState(this, stateMachine, "meleeAttack", enemyDataSO, meleeAttackPosition, this);
+        archerMeleeAttackState = new ArcherMeleeAttackState(this, stateMachine, "meleeAttack", enemyDataSO, meleeAttackPosition, meleeAttackDataSO, this);
         archerLookForPlayerState = new ArcherLookForPlayerState(this, stateMachine, "lookForPlayer", enemyDataSO, this);
         archerStunState = new ArcherStunState(this, stateMachine, "stun", enemyDataSO, this);
         archerDeadState = new ArcherDeadState(this, stateMachine, "dead", enemyDataSO, this);
         archerDodgeState = new ArcherDodgeState(this, stateMachine, "dodge", enemyDataSO, this);
-        archerRangedAttackState = new ArcherRangedAttackState(this, stateMachine, "rangedAttack", enemyDataSO, rangedAttackPosition, this);
+        archerRangedAttackState = new ArcherRangedAttackState(this, stateMachine, "rangedAttack", enemyDataSO, rangedAttackPosition, rangedAttackDataSO, this);
 
         stats.Poise.OnCurrentValueZero += HandlePoiseZero;
     }
@@ -65,8 +71,24 @@ public class Archer : Enemy
     protected override void LoadComponents()
     {
         base.LoadComponents();
+        LoadMeleeAttackDataSO();
+        LoadRangedAttackDataSO();
         LoadMeleeAttackPosition();
         LoadRangedAttackPosition();
+    }
+
+    protected void LoadMeleeAttackDataSO()
+    {
+        if(meleeAttackDataSO != null) return;
+        meleeAttackDataSO = Resources.Load<EnemyMeleeAttackStateSO>("Enemies/Archer/ArcherMeleeAttack");
+        Debug.Log(transform.name + " LoadMeleeAttackDataSO", gameObject);
+    }
+    
+    protected void LoadRangedAttackDataSO()
+    {
+        if(rangedAttackDataSO != null) return;
+        rangedAttackDataSO = Resources.Load<EnemyRangedAttackStateSO>("Enemies/Archer/ArcherRangedAttack");
+        Debug.Log(transform.name + " LoadRangedAttackDataSO", gameObject);
     }
 
     protected void LoadMeleeAttackPosition()
@@ -99,6 +121,6 @@ public class Archer : Enemy
     {
         base.OnDrawGizmos();
 
-        Gizmos.DrawWireSphere(meleeAttackPosition.position, enemyDataSO.attackRadius);
+        Gizmos.DrawWireSphere(meleeAttackPosition.position, meleeAttackDataSO.attackRadius);
     }
 }

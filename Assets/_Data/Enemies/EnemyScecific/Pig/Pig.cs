@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Pig : Enemy
 {
+    #region State Variables
     protected PigIdleState pigIdleState;
     public PigIdleState PigIdleState => pigIdleState;
 
@@ -27,8 +28,12 @@ public class Pig : Enemy
 
     protected PigDeadState pigDeadState;
     public PigDeadState PigDeadState => pigDeadState;
+    #endregion
 
     [SerializeField] Transform meleeAttackPosition;
+    
+    [Header("State Data")]
+    [SerializeField] protected EnemyMeleeAttackStateSO meleeAttackDataSO;
 
     protected override void Awake()
     {
@@ -39,7 +44,7 @@ public class Pig : Enemy
         pigDetectedPlayerState = new PigDetectedPlayerState(this, stateMachine, "detectedPlayer", enemyDataSO, this);
         pigChargeState = new PigChargeState(this, stateMachine, "charge", enemyDataSO, this);
         pigLookForPlayerState = new PigLookForPlayerState(this, stateMachine, "lookForPlayer", enemyDataSO, this);
-        pigMeleeAttackState = new PigMeleeAttackState(this, stateMachine, "meleeAttack", enemyDataSO, meleeAttackPosition, this);
+        pigMeleeAttackState = new PigMeleeAttackState(this, stateMachine, "meleeAttack", enemyDataSO, meleeAttackPosition, meleeAttackDataSO, this);
         pigStunState = new PigStunState(this, stateMachine, "stun", enemyDataSO, this);
         pigDeadState = new PigDeadState(this, stateMachine, "dead", enemyDataSO, this);
 
@@ -61,9 +66,16 @@ public class Pig : Enemy
     protected override void LoadComponents()
     {
         base.LoadComponents();
+        LoadMeleeAttackDataSO();
         LoadMeleeAttackPosition();
     }
 
+    protected void LoadMeleeAttackDataSO()
+    {
+        if(meleeAttackDataSO != null) return;
+        meleeAttackDataSO = Resources.Load<EnemyMeleeAttackStateSO>("Enemies/Pig/PigMeleeAttack");
+    }
+    
     protected void LoadMeleeAttackPosition()
     {
         if (meleeAttackPosition != null) return;
@@ -87,6 +99,6 @@ public class Pig : Enemy
     {
         base.OnDrawGizmos();
 
-        Gizmos.DrawWireSphere(meleeAttackPosition.position, enemyDataSO.attackRadius);
+        Gizmos.DrawWireSphere(meleeAttackPosition.position, meleeAttackDataSO.attackRadius);
     }
 }

@@ -6,7 +6,9 @@ public class ArcherRangedAttackState : RangedAttackState
 {
     private Archer archer;
 
-    public ArcherRangedAttackState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Transform attackPosition, Archer archer) : base(enemy, stateMachine, animBoolName, enemyDataSO, attackPosition)
+    public ArcherRangedAttackState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, Transform attackPosition, EnemyRangedAttackStateSO stateData, Archer archer) : base(
+        enemy, stateMachine, animBoolName, enemyDataSO, attackPosition, stateData)
     {
         this.archer = archer;
     }
