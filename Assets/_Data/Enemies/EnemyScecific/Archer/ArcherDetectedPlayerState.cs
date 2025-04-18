@@ -32,7 +32,7 @@ public class ArcherDetectedPlayerState : DetectedPlayerState
 
         if (performCloseRangeAction)
         {
-            if (Time.time >= archer.ArcherDodgeState.StartTime + archer.EnemyDataSO.dodgeCooldown)
+            if (Time.time >= archer.ArcherDodgeState.StartTime + archer.DodgeDataSO.dodgeCooldown)
             {
                 stateMachine.ChangeState(archer.ArcherDodgeState);
             }

@@ -7,4 +7,6 @@ public class EnemyRangedAttackStateSO : ScriptableObject
     public float projectileDamage = 10f;
     public float projectileSpeed = 12f;
     public float projectileTravelDistance = 8f;
+    
+    [field: SerializeField] public ProjectileSpawnInfo[] SpawnInfos { get; private set; }
 }

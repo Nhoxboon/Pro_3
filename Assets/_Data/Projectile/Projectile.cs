@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Projectile : NhoxBehaviour
 {
-//===Old===
     public SpriteRenderer sr;
     [SerializeField] protected Rigidbody2D rb;
 
@@ -12,18 +11,17 @@ public class Projectile : NhoxBehaviour
 
     public ProjectileHitbox ProjectileHitbox => projectileHitbox;
     public Rigidbody2D Rb => rb;
+    
+    // This event is used to notify all projectile components that Init has been called
+    public event Action OnInit;
+    public event Action OnReset;
+    public event Action<ProjectileDataPackage> OnReceiveDataPackage;
 
     public override void Reset()
     {
         base.Reset();
         OnReset?.Invoke();
     }
-
-    //===New===
-    // This event is used to notify all projectile components that Init has been called
-    public event Action OnInit;
-    public event Action OnReset;
-    public event Action<ProjectileDataPackage> OnReceiveDataPackage;
 
     public void Init()
     {
@@ -41,7 +39,7 @@ public class Projectile : NhoxBehaviour
         LoadSpriteRenderer();
         LoadRigidbody2D();
         LoadDamageSender();
-        LoadProjectileImpact();
+        LoadProjectileHitbox();
     }
 
     protected void LoadSpriteRenderer()
@@ -64,16 +62,9 @@ public class Projectile : NhoxBehaviour
         damageSender = GetComponentInChildren<DamageSender>();
     }
 
-    protected void LoadProjectileImpact()
+    protected void LoadProjectileHitbox()
     {
         if (projectileHitbox != null) return;
         projectileHitbox = GetComponentInChildren<ProjectileHitbox>();
     }
-
-    // public void FireProjectile(float speed, float travelDistance, float damage)
-    // {
-    //     this.speed = speed;
-    //     this.travelDistance = travelDistance;
-    //     damageSender.damage = damage;
-    // }
 }

@@ -15,3 +15,14 @@ MonoBehaviour:
   projectileDamage: 10
   projectileSpeed: 12
   projectileTravelDistance: 8
+  <SpawnInfos>k__BackingField:
+  - <Offset>k__BackingField: {x: 1.24, y: 0.2}
+    <Direction>k__BackingField: {x: 1, y: 0}
+    <ProjectilePrefabName>k__BackingField: Arrow
+    <DamageData>k__BackingField:
+      <Amount>k__BackingField: 1
+    <KnockBackData>k__BackingField:
+      Strength: 10
+      Angle: {x: 1, y: 1}
+    <PoiseDamageData>k__BackingField:
+      <Amount>k__BackingField: 30

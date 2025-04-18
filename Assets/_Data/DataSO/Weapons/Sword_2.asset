@@ -24,9 +24,35 @@ MonoBehaviour:
   - rid: 2535277604444307457
   - rid: 2535277619803062273
   - rid: 2535277628317761536
+  - rid: 2248302690497724416
   references:
     version: 2
     RefIds:
+    - rid: 2248302690497724416
+      type: {class: ProjectileSpawnerData, ns: , asm: Assembly-CSharp}
+      data:
+        name: ProjectileSpawnerData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          isChargeable: 0
+          <SpawnInfos>k__BackingField: []
+        - name: Attack 2
+          isChargeable: 0
+          <SpawnInfos>k__BackingField: []
+        - name: Attack 3
+          isChargeable: 0
+          <SpawnInfos>k__BackingField:
+          - <Offset>k__BackingField: {x: 0.81, y: 0.21}
+            <Direction>k__BackingField: {x: 1, y: 0}
+            <ProjectilePrefabName>k__BackingField: Fireball
+            <DamageData>k__BackingField:
+              <Amount>k__BackingField: 10
+            <KnockBackData>k__BackingField:
+              Strength: 10
+              Angle: {x: 1, y: 1}
+            <PoiseDamageData>k__BackingField:
+              <Amount>k__BackingField: 50
     - rid: 2535277552246456322
       type: {class: WeaponSpriteData, ns: , asm: Assembly-CSharp}
       data:

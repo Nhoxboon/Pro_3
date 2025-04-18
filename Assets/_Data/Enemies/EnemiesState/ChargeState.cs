@@ -10,8 +10,11 @@ public class ChargeState : State
     protected bool isChargeTimeOver;
     protected bool performCloseRangeAction;
 
-    public ChargeState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO) : base(enemy, stateMachine, animBoolName, enemyDataSO)
+    protected EnemyChargeStateSO stateData;
+
+    public ChargeState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, EnemyChargeStateSO stateData) : base(enemy, stateMachine, animBoolName, enemyDataSO)
     {
+        this.stateData = stateData;
     }
 
     public override void DoChecks()
@@ -29,7 +32,7 @@ public class ChargeState : State
         base.Enter();
 
         isChargeTimeOver = false;
-        core.Movement.SetVelocityX(enemyDataSO.chargeSpeed * core.Movement.FacingDirection);
+        core.Movement.SetVelocityX(stateData.chargeSpeed * core.Movement.FacingDirection);
     }
 
     public override void Exit()
@@ -41,9 +44,9 @@ public class ChargeState : State
     {
         base.LogicUpdate();
 
-        core.Movement.SetVelocityX(enemyDataSO.chargeSpeed * core.Movement.FacingDirection);
+        core.Movement.SetVelocityX(stateData.chargeSpeed * core.Movement.FacingDirection);
 
-        if (Time.time >= startTime + enemyDataSO.chargeTime)
+        if (Time.time >= startTime + stateData.chargeTime)
         {
             isChargeTimeOver = true;
         }

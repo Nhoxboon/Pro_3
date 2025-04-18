@@ -5,12 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyDataSO", menuName = "ScriptableObject/Enemy Data/Base Data")]
 public class EnemyDataSO : ScriptableObject
 {
-    [Header("General")]
-    public float damageHopSpeed = 10f;
-
     [Header("Idle State")]
     public float minIdleTime = 1f;
     public float maxIdleTime = 2f;
+    
+    [Header("Attack State")]
+    public float closeRangeActionDistance = 1f;
 
     [Header("Move State")]
     public float movementSpeed = 3f;
@@ -20,14 +20,7 @@ public class EnemyDataSO : ScriptableObject
     public float minAgroDistance = 3f;
     public float maxAgroDistance = 4f;
     public LayerMask whatIsPlayer;
-
-    [Header("Attack State")]
-    public float closeRangeActionDistance = 1f;
-
-    [Header("Charge State")]
-    public float chargeSpeed = 6f;
-    public float chargeTime = 2f;
-
+    
     [Header("Look For Player State")]
     public int amountOfTurns = 2;
     public float timeBetweenTurns = 0.75f;
@@ -37,10 +30,4 @@ public class EnemyDataSO : ScriptableObject
     public float stunRecoveryTime = 2f;
     public float stunTime = 3f;
     public float stunKnockBackTime = 0.2f;
-
-    [Header("Dodge State")]
-    public float dodgeSpeed = 15f;
-    public float dodgeTime = 0.2f;
-    public float dodgeCooldown = 2f;
-    public Vector2 dodgeAngle;
 }

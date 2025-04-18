@@ -26,4 +26,9 @@ public class ProjectileMovement : ProjectileComponent
     {
         rb.velocity = Speed * transform.parent.right;
     }
+
+    public void SetSpeed(float speed)
+    {
+        Speed = speed;
+    }
 }

@@ -30193,7 +30193,7 @@ Transform:
   m_GameObject: {fileID: 211230908}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.830269, y: -0.30351162, z: -10.03267}
+  m_LocalPosition: {x: 7.790269, y: -0.30351162, z: -10.03267}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -35479,11 +35479,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7993310243443167207, guid: a18c6b8ae26f9c94b839f9e12b69b12d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.69
+      value: 3.9
       objectReference: {fileID: 0}
     - target: {fileID: 7993310243443167207, guid: a18c6b8ae26f9c94b839f9e12b69b12d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.88
+      value: 8.9
       objectReference: {fileID: 0}
     - target: {fileID: 7993310243443167207, guid: a18c6b8ae26f9c94b839f9e12b69b12d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -45950,7 +45950,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.830269, y: -0.30351162, z: -10.03267}
+  m_LocalPosition: {x: 7.790269, y: -0.30351162, z: -10.03267}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46049,11 +46049,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7993310243443167207, guid: a18c6b8ae26f9c94b839f9e12b69b12d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.26
+      value: -3.3
       objectReference: {fileID: 0}
     - target: {fileID: 7993310243443167207, guid: a18c6b8ae26f9c94b839f9e12b69b12d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9
+      value: -6.9
       objectReference: {fileID: 0}
     - target: {fileID: 7993310243443167207, guid: a18c6b8ae26f9c94b839f9e12b69b12d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -46272,6 +46272,7 @@ MonoBehaviour:
   stats: {fileID: 205591677}
   meleeAttackPosition: {fileID: 2012583876}
   meleeAttackDataSO: {fileID: 11400000, guid: 7936c9a9864b549d0a115425a3d8865c, type: 2}
+  chargeDataSO: {fileID: 11400000, guid: e7fb5fb55c63d46a6ae5c0922e6340ab, type: 2}
 --- !u!114 &555530533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46809,7 +46810,7 @@ Transform:
   m_GameObject: {fileID: 722171642}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.042, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -47746,6 +47747,7 @@ MonoBehaviour:
   rangedAttackPosition: {fileID: 722171643}
   meleeAttackDataSO: {fileID: 11400000, guid: 7f60dd69aa701453c8caf5c000bfaa9c, type: 2}
   rangedAttackDataSO: {fileID: 11400000, guid: b22073cca55354ebea2c4c7f0186526c, type: 2}
+  dodgeDataSO: {fileID: 11400000, guid: 74c978c615e2a491a9a431661a194873, type: 2}
 --- !u!212 &1053543239
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -55457,7 +55459,7 @@ Transform:
   m_GameObject: {fileID: 1522995592}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.27, y: 9.3, z: 0}
+  m_LocalPosition: {x: 2.23, y: 9.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -62621,7 +62623,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8658195065428444, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8658195065428444, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -62903,7 +62905,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 384
   setInactiveAfterDamage: 0
   cooldown: 1
   OnDamage:
@@ -63177,7 +63179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   applyContinuously: 0
-  <Speed>k__BackingField: 25
+  <Speed>k__BackingField: 20
 --- !u!4 &2038091908850828744
 Transform:
   m_ObjectHideFlags: 0
@@ -68185,7 +68187,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8658195065428444, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8658195065428444, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -88545,7 +88547,7 @@ MonoBehaviour:
     height: 0.19
   layerMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 448
 --- !u!114 &8883794489740064146
 MonoBehaviour:
   m_ObjectHideFlags: 0

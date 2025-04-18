@@ -8,9 +8,12 @@ public class DodgeState : State
     protected bool isPlayerInMaxAgroRange;
     protected bool isGrounded;
     protected bool isDodgeOver;
+    
+    protected EnemyDodgeStateSO stateData;
 
-    public DodgeState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO) : base(enemy, stateMachine, animBoolName, enemyDataSO)
+    public DodgeState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, EnemyDodgeStateSO stateData) : base(enemy, stateMachine, animBoolName, enemyDataSO)
     {
+        this.stateData = stateData;
     }
 
     public override void DoChecks()
@@ -27,7 +30,7 @@ public class DodgeState : State
         base.Enter();
 
         isDodgeOver = false;
-        core.Movement.SetVelocity(enemyDataSO.dodgeSpeed, enemyDataSO.dodgeAngle, -core.Movement.FacingDirection);
+        core.Movement.SetVelocity(stateData.dodgeSpeed, stateData.dodgeAngle, -core.Movement.FacingDirection);
     }
 
     public override void Exit()
@@ -39,7 +42,7 @@ public class DodgeState : State
     {
         base.LogicUpdate();
 
-        if(Time.time >= startTime + enemyDataSO.dodgeTime && isGrounded)
+        if(Time.time >= startTime + stateData.dodgeTime && isGrounded)
         {
             isDodgeOver = true;
         }

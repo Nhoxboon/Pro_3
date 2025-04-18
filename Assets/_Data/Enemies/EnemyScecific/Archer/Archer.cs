@@ -39,6 +39,8 @@ public class Archer : Enemy
     [Header("State Data")]
     [SerializeField] protected EnemyMeleeAttackStateSO meleeAttackDataSO;
     [SerializeField] protected EnemyRangedAttackStateSO rangedAttackDataSO;
+    [SerializeField] protected EnemyDodgeStateSO dodgeDataSO;
+    public EnemyDodgeStateSO DodgeDataSO => dodgeDataSO;
 
     protected override void Awake()
     {
@@ -51,7 +53,7 @@ public class Archer : Enemy
         archerLookForPlayerState = new ArcherLookForPlayerState(this, stateMachine, "lookForPlayer", enemyDataSO, this);
         archerStunState = new ArcherStunState(this, stateMachine, "stun", enemyDataSO, this);
         archerDeadState = new ArcherDeadState(this, stateMachine, "dead", enemyDataSO, this);
-        archerDodgeState = new ArcherDodgeState(this, stateMachine, "dodge", enemyDataSO, this);
+        archerDodgeState = new ArcherDodgeState(this, stateMachine, "dodge", enemyDataSO, dodgeDataSO, this);
         archerRangedAttackState = new ArcherRangedAttackState(this, stateMachine, "rangedAttack", enemyDataSO, rangedAttackPosition, rangedAttackDataSO, this);
 
         stats.Poise.OnCurrentValueZero += HandlePoiseZero;
@@ -73,6 +75,7 @@ public class Archer : Enemy
         base.LoadComponents();
         LoadMeleeAttackDataSO();
         LoadRangedAttackDataSO();
+        LoadDodgeDataSO();
         LoadMeleeAttackPosition();
         LoadRangedAttackPosition();
     }
@@ -89,6 +92,13 @@ public class Archer : Enemy
         if(rangedAttackDataSO != null) return;
         rangedAttackDataSO = Resources.Load<EnemyRangedAttackStateSO>("Enemies/Archer/ArcherRangedAttack");
         Debug.Log(transform.name + " LoadRangedAttackDataSO", gameObject);
+    }
+    
+    protected void LoadDodgeDataSO()
+    {
+        if(dodgeDataSO != null) return;
+        dodgeDataSO = Resources.Load<EnemyDodgeStateSO>("Enemies/Archer/ArcherDodge");
+        Debug.Log(transform.name + " LoadDodgeDataSO", gameObject);
     }
 
     protected void LoadMeleeAttackPosition()

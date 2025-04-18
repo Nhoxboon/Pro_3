@@ -34,6 +34,7 @@ public class Pig : Enemy
     
     [Header("State Data")]
     [SerializeField] protected EnemyMeleeAttackStateSO meleeAttackDataSO;
+    [SerializeField] protected EnemyChargeStateSO chargeDataSO;
 
     protected override void Awake()
     {
@@ -42,7 +43,7 @@ public class Pig : Enemy
         pigIdleState = new PigIdleState(this, stateMachine, "idle", enemyDataSO, this);
         pigMoveState = new PigMoveState(this, stateMachine, "move", enemyDataSO, this);
         pigDetectedPlayerState = new PigDetectedPlayerState(this, stateMachine, "detectedPlayer", enemyDataSO, this);
-        pigChargeState = new PigChargeState(this, stateMachine, "charge", enemyDataSO, this);
+        pigChargeState = new PigChargeState(this, stateMachine, "charge", enemyDataSO, chargeDataSO, this);
         pigLookForPlayerState = new PigLookForPlayerState(this, stateMachine, "lookForPlayer", enemyDataSO, this);
         pigMeleeAttackState = new PigMeleeAttackState(this, stateMachine, "meleeAttack", enemyDataSO, meleeAttackPosition, meleeAttackDataSO, this);
         pigStunState = new PigStunState(this, stateMachine, "stun", enemyDataSO, this);
@@ -67,6 +68,7 @@ public class Pig : Enemy
     {
         base.LoadComponents();
         LoadMeleeAttackDataSO();
+        LoadChargeDataSO();
         LoadMeleeAttackPosition();
     }
 
@@ -74,6 +76,14 @@ public class Pig : Enemy
     {
         if(meleeAttackDataSO != null) return;
         meleeAttackDataSO = Resources.Load<EnemyMeleeAttackStateSO>("Enemies/Pig/PigMeleeAttack");
+        Debug.Log(transform.name + " LoadMeleeAttackDataSO", gameObject);
+    }
+    
+    protected void LoadChargeDataSO()
+    {
+        if (chargeDataSO != null) return;
+        chargeDataSO = Resources.Load<EnemyChargeStateSO>("Enemies/Pig/PigCharge");
+        Debug.Log(transform.name + " LoadChargeDataSO", gameObject);
     }
     
     protected void LoadMeleeAttackPosition()

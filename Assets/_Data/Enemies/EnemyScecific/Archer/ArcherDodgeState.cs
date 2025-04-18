@@ -6,7 +6,7 @@ public class ArcherDodgeState : DodgeState
 {
     private Archer archer;
 
-    public ArcherDodgeState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Archer archer) : base(enemy, stateMachine, animBoolName, enemyDataSO)
+    public ArcherDodgeState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, EnemyDodgeStateSO stateData, Archer archer) : base(enemy, stateMachine, animBoolName, enemyDataSO, stateData)
     {
         this.archer = archer;
     }
