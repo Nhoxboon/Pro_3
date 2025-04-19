@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerCrouchMoveState : PlayerGroundedState
 {
-    public PlayerCrouchMoveState(Player playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
+    public PlayerCrouchMoveState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerStateManagerMovement, stateMachine, playerDataSO, animBoolName)
     {
     }
 
@@ -12,14 +12,14 @@ public class PlayerCrouchMoveState : PlayerGroundedState
     {
         base.Enter();
 
-        player.SetColliderHeight(playerDataSO.crouchColliderHeight);
+        playerStateManager.SetColliderHeight(playerDataSO.crouchColliderHeight);
     }
 
     public override void Exit()
     {
         base.Exit();
 
-        player.SetColliderHeight(playerDataSO.standColliderHeight);
+        playerStateManager.SetColliderHeight(playerDataSO.standColliderHeight);
     }
 
     public override void LogicUpdate()
@@ -33,11 +33,11 @@ public class PlayerCrouchMoveState : PlayerGroundedState
 
             if (xInput == 0)
             {
-                stateMachine.ChangeState(player.PlayerCrouchIdleState);
+                stateMachine.ChangeState(playerStateManager.PlayerCrouchIdleState);
             }
             else if(yInput != -1 && !isTouchingCeiling)
             {
-                stateMachine.ChangeState(player.PlayerMoveState);
+                stateMachine.ChangeState(playerStateManager.PlayerMoveState);
             }
         }
     }

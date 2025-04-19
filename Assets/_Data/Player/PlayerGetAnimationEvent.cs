@@ -6,11 +6,11 @@ public class PlayerGetAnimationEvent : NhoxBehaviour
 {
     protected void AnimationTrigger()
     {
-        PlayerCtrl.Instance.Player.AnimationTrigger();
+        PlayerCtrl.Instance.PlayerStateManager.AnimationTrigger();
     }
 
     protected void AnimationFinishTrigger()
     {
-        PlayerCtrl.Instance.Player.AnimationFinishTrigger();
+        PlayerCtrl.Instance.PlayerStateManager.AnimationFinishTrigger();
     }
 }

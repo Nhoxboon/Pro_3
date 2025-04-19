@@ -6,7 +6,7 @@ public class PigDetectedPlayerState : DetectedPlayerState
 {
     private Pig pig;
 
-    public PigDetectedPlayerState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Pig pig) : base(enemy, stateMachine, animBoolName, enemyDataSO)
+    public PigDetectedPlayerState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Pig pig) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO)
     {
         this.pig = pig;
     }

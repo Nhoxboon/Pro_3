@@ -5,7 +5,7 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class PlayerCrouchIdleState : PlayerGroundedState
 {
-    public PlayerCrouchIdleState(Player playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
+    public PlayerCrouchIdleState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerStateManagerMovement, stateMachine, playerDataSO, animBoolName)
     {
     }
 
@@ -14,14 +14,14 @@ public class PlayerCrouchIdleState : PlayerGroundedState
         base.Enter();
 
         core.Movement.SetVelocityZero();
-        player.SetColliderHeight(playerDataSO.crouchColliderHeight);
+        playerStateManager.SetColliderHeight(playerDataSO.crouchColliderHeight);
     }
 
     public override void Exit()
     {
         base.Exit();
 
-        player.SetColliderHeight(playerDataSO.standColliderHeight);
+        playerStateManager.SetColliderHeight(playerDataSO.standColliderHeight);
     }
 
     public override void LogicUpdate()
@@ -33,11 +33,11 @@ public class PlayerCrouchIdleState : PlayerGroundedState
         {
             if (xInput != 0)
             {
-                stateMachine.ChangeState(player.PlayerCrouchMoveState);
+                stateMachine.ChangeState(playerStateManager.PlayerCrouchMoveState);
             }
             else if (yInput != -1 && !isTouchingCeiling)
             {
-                stateMachine.ChangeState(player.PlayerIdleState);
+                stateMachine.ChangeState(playerStateManager.PlayerIdleState);
             }
         }
     }

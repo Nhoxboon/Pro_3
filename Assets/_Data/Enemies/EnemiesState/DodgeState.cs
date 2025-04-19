@@ -11,7 +11,7 @@ public class DodgeState : State
     
     protected EnemyDodgeStateSO stateData;
 
-    public DodgeState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, EnemyDodgeStateSO stateData) : base(enemy, stateMachine, animBoolName, enemyDataSO)
+    public DodgeState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, EnemyDodgeStateSO stateData) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO)
     {
         this.stateData = stateData;
     }
@@ -20,8 +20,8 @@ public class DodgeState : State
     {
         base.DoChecks();
 
-        performCloseRangeAction = enemy.CheckPlayerInCloseRangeAction();
-        isPlayerInMaxAgroRange = enemy.CheckPlayerInMaxAgroRange();
+        performCloseRangeAction = enemyStateManager.CheckPlayerInCloseRangeAction();
+        isPlayerInMaxAgroRange = enemyStateManager.CheckPlayerInMaxAgroRange();
         isGrounded = core.TouchingDirection.IsGrounded;
     }
 

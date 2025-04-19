@@ -8,7 +8,7 @@ public class MoveState : State
     protected bool isDetectingCliff;
     protected bool isPlayerInMinAgroRange;
 
-    public MoveState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO) : base(enemy, stateMachine, animBoolName, enemyDataSO)
+    public MoveState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO)
     {
     }
 
@@ -17,7 +17,7 @@ public class MoveState : State
         base.DoChecks();
         isDetectingWall = core.TouchingDirection.IsTouchingWall;
         isDetectingCliff = core.TouchingDirection.IsTouchingCliff;
-        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
+        isPlayerInMinAgroRange = enemyStateManager.CheckPlayerInMinAgroRange();
     }
 
     public override void Enter()

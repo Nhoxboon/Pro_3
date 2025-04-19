@@ -10,7 +10,7 @@ public class DetectedPlayerState : State
     protected bool performCloseRangeAction;
     protected bool isDetectingCliff;
 
-    public DetectedPlayerState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO) : base(enemy, stateMachine, animBoolName, enemyDataSO)
+    public DetectedPlayerState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO)
     {
     }
 
@@ -18,11 +18,11 @@ public class DetectedPlayerState : State
     {
         base.DoChecks();
 
-        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
-        isPlayerInMaxAgroRange = enemy.CheckPlayerInMaxAgroRange();
+        isPlayerInMinAgroRange = enemyStateManager.CheckPlayerInMinAgroRange();
+        isPlayerInMaxAgroRange = enemyStateManager.CheckPlayerInMaxAgroRange();
         isDetectingCliff = core.TouchingDirection.IsTouchingCliff;
 
-        performCloseRangeAction = enemy.CheckPlayerInCloseRangeAction();
+        performCloseRangeAction = enemyStateManager.CheckPlayerInCloseRangeAction();
     }
 
     public override void Enter()

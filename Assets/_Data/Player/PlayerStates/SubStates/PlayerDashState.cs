@@ -13,7 +13,7 @@ public class PlayerDashState : PlayerAbilityState
     protected Vector2 dashDirectionInput;
     protected Vector2 lastAIPos;
 
-    public PlayerDashState(Player playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
+    public PlayerDashState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerStateManagerMovement, stateMachine, playerDataSO, animBoolName)
     {
     }
 
@@ -30,7 +30,7 @@ public class PlayerDashState : PlayerAbilityState
         Time.timeScale = playerDataSO.holdTimeScale;
         startTime = Time.unscaledTime;
 
-        player.DashDirectionIndicator.gameObject.SetActive(true);
+        PlayerCtrl.Instance.DashDirectionIndicator.gameObject.SetActive(true);
     }
 
     public override void Exit()
@@ -64,7 +64,7 @@ public class PlayerDashState : PlayerAbilityState
                 }
 
                 float angle = Vector2.SignedAngle(Vector2.right, dashDirection);
-                player.DashDirectionIndicator.rotation = Quaternion.Euler(0f, 0f, angle - 45f);
+                PlayerCtrl.Instance.DashDirectionIndicator.rotation = Quaternion.Euler(0f, 0f, angle - 45f);
 
                 if (dashInputStop || Time.unscaledTime >= startTime + playerDataSO.maxHoldTime)
                 {
@@ -72,9 +72,9 @@ public class PlayerDashState : PlayerAbilityState
                     Time.timeScale = 1f;
                     startTime = Time.time;
                     core.Movement.CheckIfShouldFlip(Mathf.RoundToInt(dashDirection.x));
-                    player.Rb.drag = playerDataSO.drag;
+                    playerStateManager.Rb.drag = playerDataSO.drag;
                     core.Movement.SetVelocity(playerDataSO.dashVelocity, dashDirection);
-                    player.DashDirectionIndicator.gameObject.SetActive(false);
+                    PlayerCtrl.Instance.DashDirectionIndicator.gameObject.SetActive(false);
                     PlayAfterImage();
                 }
             }
@@ -85,7 +85,7 @@ public class PlayerDashState : PlayerAbilityState
 
                 if (Time.time >= startTime + playerDataSO.dashTime)
                 {
-                    player.Rb.drag = 0f;
+                    playerStateManager.Rb.drag = 0f;
                     isAbilityDone = true;
                     lastDashTime = Time.time;
                 }
@@ -95,7 +95,7 @@ public class PlayerDashState : PlayerAbilityState
 
     protected void CheckIfShouldAfterImage()
     {
-        if (Vector2.Distance(player.transform.parent.position, lastAIPos) >= playerDataSO.distanceBetweenImages)
+        if (Vector2.Distance(playerStateManager.transform.position, lastAIPos) >= playerDataSO.distanceBetweenImages)
         {
             PlayAfterImage();
         }
@@ -104,7 +104,7 @@ public class PlayerDashState : PlayerAbilityState
     protected void PlayAfterImage()
     {
         PlayerAfterImagePool.Instance.GetFromPool();
-        lastAIPos = player.transform.parent.position;
+        lastAIPos = playerStateManager.transform.position;
     }
 
     public bool CheckIfCanDash()

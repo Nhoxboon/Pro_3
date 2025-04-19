@@ -6,7 +6,7 @@ public class PlayerJumpState : PlayerAbilityState
 {
     protected int amountOfJumpsLeft;
 
-    public PlayerJumpState(Player playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
+    public PlayerJumpState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerStateManagerMovement, stateMachine, playerDataSO, animBoolName)
     {
         amountOfJumpsLeft = playerDataSO.amountOfJumps;
     }
@@ -19,7 +19,7 @@ public class PlayerJumpState : PlayerAbilityState
         core.Movement.SetVelocityY(playerDataSO.jumpVelocity);
         isAbilityDone = true;
         DecreaseAmountOfJumpsLeft();
-        player.PlayerInAirState.SetJumping();
+        playerStateManager.PlayerInAirState.SetJumping();
     }
 
     public bool CanJump()

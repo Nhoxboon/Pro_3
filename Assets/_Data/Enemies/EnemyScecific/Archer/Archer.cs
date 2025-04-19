@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Archer : Enemy
+public class Archer : EnemyStateManager
 {
     #region State Variables
     protected ArcherIdleState archerIdleState;
@@ -33,10 +33,10 @@ public class Archer : Enemy
     public ArcherRangedAttackState ArcherRangedAttackState => archerRangedAttackState;
     #endregion
 
+    [Header("Archer")]
     [SerializeField] Transform meleeAttackPosition;
     [SerializeField] Transform rangedAttackPosition;
     
-    [Header("State Data")]
     [SerializeField] protected EnemyMeleeAttackStateSO meleeAttackDataSO;
     [SerializeField] protected EnemyRangedAttackStateSO rangedAttackDataSO;
     [SerializeField] protected EnemyDodgeStateSO dodgeDataSO;
@@ -56,7 +56,7 @@ public class Archer : Enemy
         archerDodgeState = new ArcherDodgeState(this, stateMachine, "dodge", enemyDataSO, dodgeDataSO, this);
         archerRangedAttackState = new ArcherRangedAttackState(this, stateMachine, "rangedAttack", enemyDataSO, rangedAttackPosition, rangedAttackDataSO, this);
 
-        stats.Poise.OnCurrentValueZero += HandlePoiseZero;
+        core.Stats.Poise.OnCurrentValueZero += HandlePoiseZero;
     }
 
     protected override void Start()
@@ -67,7 +67,7 @@ public class Archer : Enemy
 
     protected void OnDestroy()
     {
-        stats.Poise.OnCurrentValueZero -= HandlePoiseZero;
+        core.Stats.Poise.OnCurrentValueZero -= HandlePoiseZero;
     }
 
     protected override void LoadComponents()
@@ -104,14 +104,14 @@ public class Archer : Enemy
     protected void LoadMeleeAttackPosition()
     {
         if (meleeAttackPosition != null) return;
-        meleeAttackPosition = transform.parent.Find("Attack/MeleeAttack");
+        meleeAttackPosition = transform.Find("Attack/MeleeAttack");
         Debug.Log(transform.name + " LoadMeleeAttackPosition", gameObject);
     }
 
     protected void LoadRangedAttackPosition()
     {
         if (rangedAttackPosition != null) return;
-        rangedAttackPosition = transform.parent.Find("Attack/RangedAttack");
+        rangedAttackPosition = transform.Find("Attack/RangedAttack");
         Debug.Log(transform.name + " LoadRangedAttackPosition", gameObject);
     }
     

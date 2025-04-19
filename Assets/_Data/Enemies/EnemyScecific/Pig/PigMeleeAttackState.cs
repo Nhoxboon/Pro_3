@@ -6,7 +6,7 @@ public class PigMeleeAttackState : MeleeAttackState
 {
     private Pig pig;
 
-    public PigMeleeAttackState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Transform attackPosition, EnemyMeleeAttackStateSO stateData, Pig pig) : base(enemy, stateMachine, animBoolName, enemyDataSO, attackPosition, stateData)
+    public PigMeleeAttackState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Transform attackPosition, EnemyMeleeAttackStateSO stateData, Pig pig) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO, attackPosition, stateData)
     {
         this.pig = pig;
     }

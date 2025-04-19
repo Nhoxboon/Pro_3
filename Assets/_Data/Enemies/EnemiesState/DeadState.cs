@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DeadState : State
 {
-    public DeadState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO) : base(enemy, stateMachine, animBoolName, enemyDataSO)
+    public DeadState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO)
     {
     }
 
@@ -17,7 +17,7 @@ public class DeadState : State
     {
         base.Enter();
 
-        enemy.gameObject.SetActive(false);
+        enemyStateManager.gameObject.SetActive(false);
     }
 
     public override void Exit()

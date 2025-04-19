@@ -12,7 +12,7 @@ public class ChargeState : State
 
     protected EnemyChargeStateSO stateData;
 
-    public ChargeState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, EnemyChargeStateSO stateData) : base(enemy, stateMachine, animBoolName, enemyDataSO)
+    public ChargeState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, EnemyChargeStateSO stateData) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO)
     {
         this.stateData = stateData;
     }
@@ -21,10 +21,10 @@ public class ChargeState : State
     {
         base.DoChecks();
 
-        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
+        isPlayerInMinAgroRange = enemyStateManager.CheckPlayerInMinAgroRange();
         isDetectingCliff = core.TouchingDirection.IsTouchingCliff;
         isDetectingWall = core.TouchingDirection.IsTouchingWall;
-        performCloseRangeAction = enemy.CheckPlayerInCloseRangeAction();
+        performCloseRangeAction = enemyStateManager.CheckPlayerInCloseRangeAction();
     }
 
     public override void Enter()

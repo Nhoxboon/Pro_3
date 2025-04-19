@@ -35680,7 +35680,6 @@ GameObject:
   - component: {fileID: 400835929}
   - component: {fileID: 400835930}
   - component: {fileID: 400835932}
-  - component: {fileID: 400835933}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -35788,28 +35787,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50ce267ec05474d4ca338952208e379e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &400835933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 400835927}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 815582fc9e8bc40059c1913be81188e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  core: {fileID: 1086326392}
-  rb: {fileID: 1522995598}
-  col: {fileID: 1522995600}
-  playerDataSO: {fileID: 11400000, guid: d2682658d8ce547b7a2cbe937ccf431e, type: 2}
-  workpace: {x: 0, y: 0}
-  dashDirectionIndicator: {fileID: 1132115251}
-  primaryWeapon: {fileID: 728468968}
-  secondaryWeapon: {fileID: 1882316397}
-  stats: {fileID: 626746182}
-  interactableDetector: {fileID: 1352440850}
 --- !u!1 &406395779
 GameObject:
   m_ObjectHideFlags: 0
@@ -46155,7 +46132,6 @@ GameObject:
   - component: {fileID: 555530530}
   - component: {fileID: 555530529}
   - component: {fileID: 555530533}
-  - component: {fileID: 555530532}
   m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
@@ -46251,28 +46227,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1438226298}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &555530532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 555530527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 668019fb0cab06b41877c2bee26498a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  workSpace: {x: 0, y: 0}
-  enemyDataSO: {fileID: 11400000, guid: d415e48a03152ec44ab5675061391129, type: 2}
-  detectedZone: {fileID: 1567068164}
-  getAnimEvent: {fileID: 555530533}
-  enemyCtrl: {fileID: 1438226297}
-  core: {fileID: 792120566}
-  stats: {fileID: 205591677}
-  meleeAttackPosition: {fileID: 2012583876}
-  meleeAttackDataSO: {fileID: 11400000, guid: 7936c9a9864b549d0a115425a3d8865c, type: 2}
-  chargeDataSO: {fileID: 11400000, guid: e7fb5fb55c63d46a6ae5c0922e6340ab, type: 2}
 --- !u!114 &555530533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47695,7 +47649,6 @@ GameObject:
   - component: {fileID: 1053543239}
   - component: {fileID: 1053543237}
   - component: {fileID: 1053543241}
-  - component: {fileID: 1053543238}
   m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
@@ -47724,30 +47677,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1053543238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1053543236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c3f1019f9c8744a49b78f8dc2806f25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  workSpace: {x: 0, y: 0}
-  enemyDataSO: {fileID: 11400000, guid: 693ca0d388de743e48739423511ff8ba, type: 2}
-  detectedZone: {fileID: 1387365919}
-  getAnimEvent: {fileID: 1053543241}
-  enemyCtrl: {fileID: 1146429977}
-  core: {fileID: 919859134}
-  stats: {fileID: 1675996391}
-  meleeAttackPosition: {fileID: 840026661}
-  rangedAttackPosition: {fileID: 722171643}
-  meleeAttackDataSO: {fileID: 11400000, guid: 7f60dd69aa701453c8caf5c000bfaa9c, type: 2}
-  rangedAttackDataSO: {fileID: 11400000, guid: b22073cca55354ebea2c4c7f0186526c, type: 2}
-  dodgeDataSO: {fileID: 11400000, guid: 74c978c615e2a491a9a431661a194873, type: 2}
 --- !u!212 &1053543239
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -48463,6 +48392,7 @@ GameObject:
   - component: {fileID: 1146429979}
   - component: {fileID: 1146429978}
   - component: {fileID: 1146429977}
+  - component: {fileID: 1146429981}
   m_Layer: 7
   m_Name: Archer
   m_TagString: Enemy
@@ -48482,8 +48412,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 503facb028c2e26468e594aaf27f4eb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 1053543238}
+  enemyStateManager: {fileID: 1146429981}
   enemyAnimation: {fileID: 843118312}
+  getAnimEvent: {fileID: 1053543241}
 --- !u!61 &1146429978
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -48576,6 +48507,28 @@ Transform:
   - {fileID: 1350911515}
   m_Father: {fileID: 1478441408}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1146429981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146429976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c3f1019f9c8744a49b78f8dc2806f25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  workSpace: {x: 0, y: 0}
+  enemyDataSO: {fileID: 11400000, guid: 693ca0d388de743e48739423511ff8ba, type: 2}
+  detectedZone: {fileID: 1387365919}
+  enemyCtrl: {fileID: 1146429977}
+  core: {fileID: 919859134}
+  meleeAttackPosition: {fileID: 840026661}
+  rangedAttackPosition: {fileID: 722171643}
+  meleeAttackDataSO: {fileID: 11400000, guid: 7f60dd69aa701453c8caf5c000bfaa9c, type: 2}
+  rangedAttackDataSO: {fileID: 11400000, guid: b22073cca55354ebea2c4c7f0186526c, type: 2}
+  dodgeDataSO: {fileID: 11400000, guid: 74c978c615e2a491a9a431661a194873, type: 2}
 --- !u!1 &1152729773
 GameObject:
   m_ObjectHideFlags: 0
@@ -50170,6 +50123,7 @@ GameObject:
   - component: {fileID: 1438226296}
   - component: {fileID: 1438226295}
   - component: {fileID: 1438226297}
+  - component: {fileID: 1438226299}
   m_Layer: 7
   m_Name: Pig
   m_TagString: Enemy
@@ -50261,8 +50215,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 503facb028c2e26468e594aaf27f4eb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 555530532}
+  enemyStateManager: {fileID: 1438226299}
   enemyAnimation: {fileID: 638455869}
+  getAnimEvent: {fileID: 555530533}
 --- !u!4 &1438226298
 Transform:
   m_ObjectHideFlags: 0
@@ -50283,6 +50238,26 @@ Transform:
   - {fileID: 895938554}
   m_Father: {fileID: 1478441408}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1438226299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438226294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 668019fb0cab06b41877c2bee26498a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  workSpace: {x: 0, y: 0}
+  enemyDataSO: {fileID: 11400000, guid: d415e48a03152ec44ab5675061391129, type: 2}
+  detectedZone: {fileID: 1567068164}
+  enemyCtrl: {fileID: 1438226297}
+  core: {fileID: 792120566}
+  meleeAttackPosition: {fileID: 2012583876}
+  meleeAttackDataSO: {fileID: 11400000, guid: 7936c9a9864b549d0a115425a3d8865c, type: 2}
+  chargeDataSO: {fileID: 11400000, guid: e7fb5fb55c63d46a6ae5c0922e6340ab, type: 2}
 --- !u!1 &1441833901
 GameObject:
   m_ObjectHideFlags: 0
@@ -55443,6 +55418,7 @@ GameObject:
   - component: {fileID: 1522995600}
   - component: {fileID: 1522995601}
   - component: {fileID: 1522995599}
+  - component: {fileID: 1522995602}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -55509,8 +55485,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07f72d3182f44ba478d75d8ab984053e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 400835933}
+  playerStateManager: {fileID: 1522995602}
   playerAnimation: {fileID: 366224570}
+  dashDirectionIndicator: {fileID: 1132115251}
 --- !u!70 &1522995600
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -55559,6 +55536,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1010186413}
+--- !u!114 &1522995602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1522995592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 815582fc9e8bc40059c1913be81188e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  core: {fileID: 1086326392}
+  rb: {fileID: 1522995598}
+  col: {fileID: 1522995600}
+  workpace: {x: 0, y: 0}
+  primaryWeapon: {fileID: 728468968}
+  secondaryWeapon: {fileID: 1882316397}
+  playerDataSO: {fileID: 11400000, guid: d2682658d8ce547b7a2cbe937ccf431e, type: 2}
+  interactableDetector: {fileID: 1352440850}
 --- !u!1 &1529173853
 GameObject:
   m_ObjectHideFlags: 0
@@ -62907,7 +62904,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 384
   setInactiveAfterDamage: 0
-  cooldown: 1
+  cooldown: 0.5
   OnDamage:
     m_PersistentCalls:
       m_Calls:
@@ -68257,18 +68254,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PrimaryWeapon
       objectReference: {fileID: 0}
-    - target: {fileID: 6100998192838715355, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6100998192838715355, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7475308349179960004, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: ff955959dc379b34cb969c83216179a8, type: 2}
     - target: {fileID: 8024135088874977378, guid: a8be3f4485928d24ea290dc75197b0c2, type: 3}
       propertyPath: coreMovement
       value: 

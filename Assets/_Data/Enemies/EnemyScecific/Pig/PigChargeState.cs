@@ -6,7 +6,7 @@ public class PigChargeState : ChargeState
 {
     private Pig pig;
 
-    public PigChargeState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, EnemyChargeStateSO stateData, Pig pig) : base(enemy, stateMachine, animBoolName, enemyDataSO, stateData)
+    public PigChargeState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, EnemyChargeStateSO stateData, Pig pig) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO, stateData)
     {
         this.pig = pig;
     }

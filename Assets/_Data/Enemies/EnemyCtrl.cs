@@ -1,33 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnemyCtrl : NhoxBehaviour
 {
-    [SerializeField] protected Enemy enemy;
-    public Enemy Enemy => enemy;
+    [SerializeField] protected EnemyStateManager enemyStateManager;
+    public EnemyStateManager EnemyStateManager => enemyStateManager;
 
     [SerializeField] protected PlayAnimation enemyAnimation;
     public PlayAnimation EnemyAnimation => enemyAnimation;
+    
+    [SerializeField] protected EnemyGetAnimationEvent getAnimEvent;
+    public EnemyGetAnimationEvent GetAnimEvent => getAnimEvent;
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadEnemy();
-        this.LoadPlayAnimation();
+        LoadEnemyStateManager();
+        LoadPlayAnimation();
+        LoadAnimationEvent();
     }
 
-    protected void LoadEnemy()
+    protected void LoadEnemyStateManager()
     {
-        if (this.enemy != null) return;
-        this.enemy = this.GetComponentInChildren<Enemy>();
+        if (enemyStateManager != null) return;
+        enemyStateManager = GetComponent<EnemyStateManager>();
         Debug.Log(transform.name + " LoadEnemy", gameObject);
     }
 
     protected void LoadPlayAnimation()
     {
-        if (this.enemyAnimation != null) return;
-        this.enemyAnimation = this.GetComponentInChildren<PlayAnimation>();
+        if (enemyAnimation != null) return;
+        enemyAnimation = GetComponentInChildren<PlayAnimation>();
         Debug.Log(transform.name + " LoadPlayAnimation", gameObject);
+    }
+    
+    protected void LoadAnimationEvent()
+    {
+        if (getAnimEvent != null) return;
+        getAnimEvent = GetComponentInChildren<EnemyGetAnimationEvent>();
+        Debug.Log(transform.name + " LoadAnimationEvent", gameObject);
     }
 }

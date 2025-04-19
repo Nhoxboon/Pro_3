@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : NhoxBehaviour
+public class PlayerStateManager : NhoxBehaviour
 {
     
     #region State Variable
@@ -70,24 +70,15 @@ public class Player : NhoxBehaviour
     public Rigidbody2D Rb => rb;
 
     [SerializeField] protected CapsuleCollider2D col;
-    public CapsuleCollider2D Col => col;
-
-    [Header("Data")]
-    [SerializeField] protected PlayerDataSO playerDataSO;
 
     [SerializeField] protected Vector2 workpace;
 
-    [SerializeField] protected Transform dashDirectionIndicator;
-    public Transform DashDirectionIndicator => dashDirectionIndicator;
-
     [SerializeField] protected Weapon primaryWeapon;
-    public Weapon PrimaryWeapon => primaryWeapon;
 
     [SerializeField] protected Weapon secondaryWeapon;
-    public Weapon SecondaryWeapon => secondaryWeapon;
-
-    [Header("Stats")]
-    [SerializeField] protected Stats stats;
+    
+    [Header("Data")]
+    [SerializeField] protected PlayerDataSO playerDataSO;
     
     [Header("Interactable")]
     [SerializeField] protected InteractableDetector interactableDetector;
@@ -120,7 +111,7 @@ public class Player : NhoxBehaviour
 
         InputManager.Instance.OnInteractInputChanged += interactableDetector.TryInteract;
         
-        stats.Poise.OnCurrentValueZero += HandlePoiseCurrentValueZero;
+        core.Stats.Poise.OnCurrentValueZero += HandlePoiseCurrentValueZero;
         stateMachine.Initialize(playerIdleState);
     }
 
@@ -137,7 +128,7 @@ public class Player : NhoxBehaviour
 
     protected void OnDestroy()
     {
-        stats.Poise.OnCurrentValueZero -= HandlePoiseCurrentValueZero;
+        core.Stats.Poise.OnCurrentValueZero -= HandlePoiseCurrentValueZero;
     }
 
     #region Load Components
@@ -148,73 +139,57 @@ public class Player : NhoxBehaviour
         LoadRigidbody2d();
         LoadCollider2d();
         LoadPlayerDataSO();
-        LoadDashDirectionIndicator();
         LoadPrimaryWeapon();
         LoadSecondaryWeapon();
-        LoadStats();
         LoadInteractableDetector();
     }
 
     protected void LoadCore()
     {
         if(this.core != null) return;
-        this.core = transform.parent.GetComponentInChildren<Core>();
+        this.core = transform.GetComponentInChildren<Core>();
         Debug.Log(transform.name + " LoadCore", gameObject);
     }
 
     protected void LoadRigidbody2d()
     {
-        if (this.rb != null) return;
-        this.rb = GetComponentInParent<Rigidbody2D>();
+        if (rb != null) return;
+        rb = GetComponent<Rigidbody2D>();
         Debug.Log(transform.name + " LoadRigidbody2d", gameObject);
     }
 
     protected void LoadCollider2d()
     {
-        if (this.col != null) return;
-        this.col = GetComponentInParent<CapsuleCollider2D>();
+        if (col != null) return;
+        col = GetComponentInParent<CapsuleCollider2D>();
         Debug.Log(transform.name + " LoadCollider2d", gameObject);
     }
 
     protected void LoadPlayerDataSO()
     {
-        if (this.playerDataSO != null) return;
-        this.playerDataSO = Resources.Load<PlayerDataSO>("Player/Player");
+        if (playerDataSO != null) return;
+        playerDataSO = Resources.Load<PlayerDataSO>("Player/Player");
         Debug.Log(transform.name + " LoadPlayerDataSO", gameObject);
-    }
-
-    protected void LoadDashDirectionIndicator()
-    {
-        if(this.dashDirectionIndicator != null) return;
-        this.dashDirectionIndicator = transform.parent.Find("DashDirectionIndicator");
-        Debug.Log(transform.name + " LoadDashDirectionIndicator", gameObject);
     }
 
     protected void LoadPrimaryWeapon()
     {
-        if (this.primaryWeapon != null) return;
-        this.primaryWeapon = transform.parent.Find("Weapons/PrimaryWeapon").GetComponent<Weapon>();
+        if (primaryWeapon != null) return;
+        primaryWeapon = transform.Find("Weapons/PrimaryWeapon").GetComponent<Weapon>();
         Debug.Log(transform.name + " LoadPrimaryWeapon", gameObject);
     }
 
     protected void LoadSecondaryWeapon()
     {
-        if (this.secondaryWeapon != null) return;
-        this.secondaryWeapon = transform.parent.Find("Weapons/SecondaryWeapon").GetComponent<Weapon>();
+        if (secondaryWeapon != null) return;
+        secondaryWeapon = transform.Find("Weapons/SecondaryWeapon").GetComponent<Weapon>();
         Debug.Log(transform.name + " LoadSecondaryWeapon", gameObject);
-    }
-
-    protected void LoadStats()
-    {
-        if (stats != null) return;
-        stats = transform.parent.GetComponentInChildren<Stats>();
-        Debug.Log(transform.name + " LoadStats", gameObject);
     }
     
     protected void LoadInteractableDetector()
     {
         if (interactableDetector != null) return;
-        interactableDetector = transform.parent.GetComponentInChildren<InteractableDetector>();
+        interactableDetector = transform.GetComponentInChildren<InteractableDetector>();
         Debug.Log(transform.name + " LoadInteractableDetector", gameObject);
     }
     #endregion

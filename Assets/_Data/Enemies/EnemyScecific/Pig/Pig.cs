@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pig : Enemy
+public class Pig : EnemyStateManager
 {
     #region State Variables
     protected PigIdleState pigIdleState;
@@ -30,9 +30,9 @@ public class Pig : Enemy
     public PigDeadState PigDeadState => pigDeadState;
     #endregion
 
+    [Header("Pig")]
     [SerializeField] Transform meleeAttackPosition;
     
-    [Header("State Data")]
     [SerializeField] protected EnemyMeleeAttackStateSO meleeAttackDataSO;
     [SerializeField] protected EnemyChargeStateSO chargeDataSO;
 
@@ -49,7 +49,7 @@ public class Pig : Enemy
         pigStunState = new PigStunState(this, stateMachine, "stun", enemyDataSO, this);
         pigDeadState = new PigDeadState(this, stateMachine, "dead", enemyDataSO, this);
 
-        stats.Poise.OnCurrentValueZero += HandlePoiseZero;
+        core.Stats.Poise.OnCurrentValueZero += HandlePoiseZero;
 
     }
 
@@ -61,7 +61,7 @@ public class Pig : Enemy
 
     protected void OnDestroy()
     {
-        stats.Poise.OnCurrentValueZero -= HandlePoiseZero;
+        core.Stats.Poise.OnCurrentValueZero -= HandlePoiseZero;
     }
 
     protected override void LoadComponents()
@@ -89,7 +89,7 @@ public class Pig : Enemy
     protected void LoadMeleeAttackPosition()
     {
         if (meleeAttackPosition != null) return;
-        meleeAttackPosition = transform.parent.Find("Attack/MeleeAttack");
+        meleeAttackPosition = transform.Find("Attack/MeleeAttack");
         Debug.Log(transform.name + " LoadMeleeAttackPosition", gameObject);
     }
 

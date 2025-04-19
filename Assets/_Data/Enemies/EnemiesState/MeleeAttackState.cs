@@ -4,40 +4,10 @@ public class MeleeAttackState : AttackState
 {
     protected EnemyMeleeAttackStateSO stateData;
 
-    public MeleeAttackState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO,
-        Transform attackPosition, EnemyMeleeAttackStateSO stateData) : base(enemy, stateMachine, animBoolName, enemyDataSO, attackPosition)
+    public MeleeAttackState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO,
+        Transform attackPosition, EnemyMeleeAttackStateSO stateData) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO, attackPosition)
     {
         this.stateData = stateData;
-    }
-
-    public override void DoChecks()
-    {
-        base.DoChecks();
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
-    public override void FinishAttack()
-    {
-        base.FinishAttack();
-    }
-
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-    }
-
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
     }
 
     public override void TriggerAttack()
