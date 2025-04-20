@@ -55,19 +55,12 @@ public class Archer : EnemyStateManager
         archerDeadState = new ArcherDeadState(this, stateMachine, "dead", enemyDataSO, this);
         archerDodgeState = new ArcherDodgeState(this, stateMachine, "dodge", enemyDataSO, dodgeDataSO, this);
         archerRangedAttackState = new ArcherRangedAttackState(this, stateMachine, "rangedAttack", enemyDataSO, rangedAttackPosition, rangedAttackDataSO, this);
-
-        core.Stats.Poise.OnCurrentValueZero += HandlePoiseZero;
     }
 
     protected override void Start()
     {
         base.Start();
         stateMachine.Initialize(archerMoveState);
-    }
-
-    protected void OnDestroy()
-    {
-        core.Stats.Poise.OnCurrentValueZero -= HandlePoiseZero;
     }
 
     protected override void LoadComponents()
@@ -122,9 +115,17 @@ public class Archer : EnemyStateManager
         stateMachine.ChangeState(archerStunState);
     }
 
-    protected void HandlePoiseZero()
+    protected override void HandlePoiseZero()
     {
+        base.HandlePoiseZero();
         stateMachine.ChangeState(archerStunState);
+    }
+    
+    protected override void HandleHealthDecrease()
+    {
+        base.HandleHealthDecrease();
+        if(stateMachine.CurrentState == archerStunState) return;
+        Flash();
     }
 
     public override void OnDrawGizmos()

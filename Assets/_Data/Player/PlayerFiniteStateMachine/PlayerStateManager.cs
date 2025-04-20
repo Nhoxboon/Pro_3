@@ -8,7 +8,6 @@ public class PlayerStateManager : NhoxBehaviour
     
     #region State Variable
     protected PlayerStateMachine stateMachine;
-    public PlayerStateMachine StateMachine => stateMachine;
 
     protected PlayerIdleState playerIdleState;
     public PlayerIdleState PlayerIdleState => playerIdleState;
@@ -112,6 +111,7 @@ public class PlayerStateManager : NhoxBehaviour
         InputManager.Instance.OnInteractInputChanged += interactableDetector.TryInteract;
         
         core.Stats.Poise.OnCurrentValueZero += HandlePoiseCurrentValueZero;
+        core.Stats.Health.OnValueDecreased += HandleHealthDecrease;
         stateMachine.Initialize(playerIdleState);
     }
 
@@ -129,6 +129,7 @@ public class PlayerStateManager : NhoxBehaviour
     protected void OnDestroy()
     {
         core.Stats.Poise.OnCurrentValueZero -= HandlePoiseCurrentValueZero;
+        core.Stats.Health.OnValueDecreased -= HandleHealthDecrease;
     }
 
     #region Load Components
@@ -205,9 +206,27 @@ public class PlayerStateManager : NhoxBehaviour
         col.offset = center;
     }
 
-    private void HandlePoiseCurrentValueZero()
+    protected void HandleHealthDecrease()
     {
-        stateMachine.ChangeState(PlayerStunState);
+        if(stateMachine.CurrentState == playerStunState) return;
+        Flash();
+    }
+
+    protected void HandlePoiseCurrentValueZero()
+    {
+        stateMachine.ChangeState(playerStunState);
+    }
+    
+    protected void Flash()
+    {
+        StartCoroutine(FlashRoutine());
+    }
+
+    private IEnumerator FlashRoutine()
+    {
+        PlayerCtrl.Instance.Sr.material.SetInt("_Flash", 1);
+        yield return new WaitForSeconds(0.3f);
+        PlayerCtrl.Instance.Sr.material.SetInt("_Flash", 0);
     }
 
     public void AnimationTrigger() => stateMachine.CurrentState.AnimationTrigger();

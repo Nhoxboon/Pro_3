@@ -49,5 +49,4 @@ public class PlayerDataSO : ScriptableObject
     public float drag = 10f;
     public float dashEndYMultiplier = 0.2f;
     public float distanceBetweenImages = 0.5f;
-
 }

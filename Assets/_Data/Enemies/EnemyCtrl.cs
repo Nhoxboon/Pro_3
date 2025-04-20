@@ -5,6 +5,9 @@ using UnityEngine.Serialization;
 
 public class EnemyCtrl : NhoxBehaviour
 {
+    [SerializeField] protected SpriteRenderer sr;
+    public SpriteRenderer Sr => sr;
+    
     [SerializeField] protected EnemyStateManager enemyStateManager;
     public EnemyStateManager EnemyStateManager => enemyStateManager;
 
@@ -17,9 +20,17 @@ public class EnemyCtrl : NhoxBehaviour
     protected override void LoadComponents()
     {
         base.LoadComponents();
+        LoadSpriteRenderer();
         LoadEnemyStateManager();
         LoadPlayAnimation();
         LoadAnimationEvent();
+    }
+    
+    protected void LoadSpriteRenderer()
+    {
+        if (sr != null) return;
+        sr = GetComponentInChildren<SpriteRenderer>();
+        Debug.Log(transform.name + " LoadSpriteRenderer", gameObject);
     }
 
     protected void LoadEnemyStateManager()

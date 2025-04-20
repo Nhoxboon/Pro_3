@@ -35722,7 +35722,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: -876546973899608171, guid: c7fb89ad30adf48abaeb21f6efb4c4f0, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -46180,7 +46180,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: -876546973899608171, guid: c7fb89ad30adf48abaeb21f6efb4c4f0, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -47697,7 +47697,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: -876546973899608171, guid: c7fb89ad30adf48abaeb21f6efb4c4f0, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -48412,6 +48412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 503facb028c2e26468e594aaf27f4eb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sr: {fileID: 1053543239}
   enemyStateManager: {fileID: 1146429981}
   enemyAnimation: {fileID: 843118312}
   getAnimEvent: {fileID: 1053543241}
@@ -50215,6 +50216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 503facb028c2e26468e594aaf27f4eb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sr: {fileID: 555530530}
   enemyStateManager: {fileID: 1438226299}
   enemyAnimation: {fileID: 638455869}
   getAnimEvent: {fileID: 555530533}
@@ -55485,6 +55487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07f72d3182f44ba478d75d8ab984053e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sr: {fileID: 400835929}
   playerStateManager: {fileID: 1522995602}
   playerAnimation: {fileID: 366224570}
   dashDirectionIndicator: {fileID: 1132115251}

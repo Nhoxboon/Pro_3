@@ -48,20 +48,12 @@ public class Pig : EnemyStateManager
         pigMeleeAttackState = new PigMeleeAttackState(this, stateMachine, "meleeAttack", enemyDataSO, meleeAttackPosition, meleeAttackDataSO, this);
         pigStunState = new PigStunState(this, stateMachine, "stun", enemyDataSO, this);
         pigDeadState = new PigDeadState(this, stateMachine, "dead", enemyDataSO, this);
-
-        core.Stats.Poise.OnCurrentValueZero += HandlePoiseZero;
-
     }
 
     protected override void Start()
     {
         base.Start();
         stateMachine.Initialize(pigMoveState);
-    }
-
-    protected void OnDestroy()
-    {
-        core.Stats.Poise.OnCurrentValueZero -= HandlePoiseZero;
     }
 
     protected override void LoadComponents()
@@ -93,22 +85,28 @@ public class Pig : EnemyStateManager
         Debug.Log(transform.name + " LoadMeleeAttackPosition", gameObject);
     }
 
-    protected void HandlePoiseZero()
+    protected override void HandlePoiseZero()
     {
+        base.HandlePoiseZero();
         stateMachine.ChangeState(pigStunState);
+    }
+    
+    protected override void HandleHealthDecrease()
+    {
+        base.HandleHealthDecrease();
+        if(stateMachine.CurrentState == pigStunState) return;
+        Flash();
     }
     
     protected override void HandleParry()
     {
         base.HandleParry();
-        
         stateMachine.ChangeState(pigStunState);
     }
 
     public override void OnDrawGizmos()
     {
         base.OnDrawGizmos();
-
         Gizmos.DrawWireSphere(meleeAttackPosition.position, meleeAttackDataSO.attackRadius);
     }
 }

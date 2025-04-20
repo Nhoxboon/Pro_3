@@ -7,6 +7,9 @@ public class PlayerCtrl : NhoxBehaviour
 {
     private static PlayerCtrl instance;
     public static PlayerCtrl Instance => instance;
+    
+    [SerializeField] protected SpriteRenderer sr;
+    public SpriteRenderer Sr => sr;
 
     [SerializeField] protected PlayerStateManager playerStateManager;
     public PlayerStateManager PlayerStateManager => playerStateManager;
@@ -31,9 +34,17 @@ public class PlayerCtrl : NhoxBehaviour
     protected override void LoadComponents()
     {
         base.LoadComponents();
+        LoadSpriteRenderer();
         LoadPlayerStateMachine();
         LoadPlayAnimation();
         LoadDashDirectionIndicator();
+    }
+    
+    protected void LoadSpriteRenderer()
+    {
+        if (sr != null) return;
+        sr = GetComponentInChildren<SpriteRenderer>();
+        Debug.Log(transform.name + " LoadSpriteRenderer", gameObject);
     }
 
     protected void LoadPlayerStateMachine()

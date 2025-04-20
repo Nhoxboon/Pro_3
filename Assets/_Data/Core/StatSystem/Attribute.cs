@@ -7,6 +7,7 @@ using System;
 public class Attribute
 {
     public event Action OnCurrentValueZero;
+    public event Action OnValueDecreased;
 
     [SerializeField] protected float maxValue;
     public float MaxValue => maxValue;
@@ -34,5 +35,9 @@ public class Attribute
 
     public void Increase(float amount) => CurrentValue += amount;
 
-    public void Decrease(float amount) => CurrentValue -= amount;
+    public void Decrease(float amount)
+    {
+        CurrentValue -= amount;
+        OnValueDecreased?.Invoke();
+    }
 }

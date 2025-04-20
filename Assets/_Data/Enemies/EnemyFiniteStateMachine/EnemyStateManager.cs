@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -21,7 +22,6 @@ public abstract class EnemyStateManager : NhoxBehaviour
     [SerializeField] protected Core core;
     public Core Core => core;
     
-
     protected bool isStunned;
     protected float currentStunResistance;
     protected float lastDamageTime;
@@ -32,6 +32,9 @@ public abstract class EnemyStateManager : NhoxBehaviour
         
         core.ParryReceiver.OnParried += HandleParry;
         currentStunResistance = enemyDataSO.stunResistance;
+        
+        core.Stats.Poise.OnCurrentValueZero += HandlePoiseZero;
+        core.Stats.Health.OnValueDecreased += HandleHealthDecrease;
 
         stateMachine = new FiniteStateMachine();
     }
@@ -52,6 +55,13 @@ public abstract class EnemyStateManager : NhoxBehaviour
     protected virtual void FixedUpdate()
     {
         stateMachine.CurrentState.PhysicsUpdate();
+    }
+
+    protected void OnDestroy()
+    {
+        core.ParryReceiver.OnParried -= HandleParry;
+        core.Stats.Poise.OnCurrentValueZero -= HandlePoiseZero;
+        core.Stats.Health.OnValueDecreased -= HandleHealthDecrease;
     }
 
     protected override void LoadComponents()
@@ -90,12 +100,32 @@ public abstract class EnemyStateManager : NhoxBehaviour
         core = transform.GetComponentInChildren<Core>();
         Debug.Log(transform.name + " LoadCore", gameObject);
     }
-
-    
     
     protected virtual void HandleParry()
     {
 		
+    }
+    
+    protected virtual void HandlePoiseZero()
+    {
+        
+    }
+    
+    protected virtual void HandleHealthDecrease()
+    {
+        
+    }
+    
+    protected void Flash()
+    {
+        StartCoroutine(FlashRoutine());
+    }
+
+    private IEnumerator FlashRoutine()
+    {
+        enemyCtrl.Sr.material.SetInt("_Flash", 1);
+        yield return new WaitForSeconds(0.3f);
+        enemyCtrl.Sr.material.SetInt("_Flash", 0);
     }
     
     public virtual void ResetStunResistance() {
@@ -118,18 +148,11 @@ public abstract class EnemyStateManager : NhoxBehaviour
         return Physics2D.Raycast(detectedZone.position, transform.right, enemyDataSO.closeRangeActionDistance, enemyDataSO.whatIsPlayer);
     }
 
-    public virtual void DamageHop(float velocity)
-    {
-        workSpace.Set(core.Movement.Rb.velocity.x, velocity);
-        core.Movement.Rb.velocity = workSpace;
-    }
-
     public virtual void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(detectedZone.position + (Vector3)(Vector2.right * enemyDataSO.minAgroDistance), 0.2f);
         Gizmos.DrawWireSphere(detectedZone.position + (Vector3)(Vector2.right * enemyDataSO.maxAgroDistance), 0.2f);
 
         Gizmos.DrawWireSphere(detectedZone.position + (Vector3)(Vector2.right * enemyDataSO.closeRangeActionDistance), 0.2f);
-
     }
 }
