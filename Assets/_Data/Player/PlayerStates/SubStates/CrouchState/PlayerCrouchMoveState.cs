@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PlayerCrouchMoveState : PlayerGroundedState
 {
-    public PlayerCrouchMoveState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerStateManagerMovement, stateMachine, playerDataSO, animBoolName)
+    public PlayerCrouchMoveState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine,
+        PlayerDataSO playerDataSO, EntityAudioDataSO playerAudioDataSO, string animBoolName) : base(
+        playerStateManagerMovement, stateMachine, playerDataSO, playerAudioDataSO, animBoolName)
     {
     }
 

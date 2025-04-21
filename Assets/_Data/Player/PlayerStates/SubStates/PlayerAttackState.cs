@@ -12,7 +12,10 @@ public class PlayerAttackState : PlayerAbilityState
 
     private bool checkFlip;
 
-    public PlayerAttackState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName, Weapon weapon, CombatInputs input) : base(playerStateManagerMovement, stateMachine, playerDataSO, animBoolName)
+    public PlayerAttackState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine,
+        PlayerDataSO playerDataSO, EntityAudioDataSO playerAudioDataSO, string animBoolName, Weapon weapon,
+        CombatInputs input) : base(playerStateManagerMovement, stateMachine, playerDataSO, playerAudioDataSO,
+        animBoolName)
     {
         this.weapon = weapon;
         weaponGenerator = weapon.GetComponent<WeaponGenerator>();

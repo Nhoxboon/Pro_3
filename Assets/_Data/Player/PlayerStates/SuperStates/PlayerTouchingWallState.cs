@@ -12,7 +12,9 @@ public class PlayerTouchingWallState : PlayerState
     protected bool grabInput;
     protected bool isTouchingLedge;
 
-    public PlayerTouchingWallState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerStateManagerMovement, stateMachine, playerDataSO, animBoolName)
+    public PlayerTouchingWallState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine,
+        PlayerDataSO playerDataSO, EntityAudioDataSO playerAudioDataSO, string animBoolName) : base(
+        playerStateManagerMovement, stateMachine, playerDataSO, playerAudioDataSO, animBoolName)
     {
     }
 

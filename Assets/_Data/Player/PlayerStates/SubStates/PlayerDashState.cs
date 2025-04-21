@@ -13,7 +13,9 @@ public class PlayerDashState : PlayerAbilityState
     protected Vector2 dashDirectionInput;
     protected Vector2 lastAIPos;
 
-    public PlayerDashState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerStateManagerMovement, stateMachine, playerDataSO, animBoolName)
+    public PlayerDashState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine,
+        PlayerDataSO playerDataSO, EntityAudioDataSO playerAudioDataSO, string animBoolName) : base(
+        playerStateManagerMovement, stateMachine, playerDataSO, playerAudioDataSO, animBoolName)
     {
     }
 

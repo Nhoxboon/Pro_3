@@ -9,6 +9,7 @@ public class PlayerState
     protected PlayerStateManager playerStateManager;
     protected PlayerStateMachine stateMachine;
     protected PlayerDataSO playerDataSO;
+    protected EntityAudioDataSO playerAudioDataSO;
 
     protected bool isAnimationFinished;
     protected bool isExitingState;
@@ -16,11 +17,12 @@ public class PlayerState
     protected float startTime;
     protected string animBoolName;
 
-    public PlayerState(PlayerStateManager playerStateManager, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName)
+    public PlayerState(PlayerStateManager playerStateManager, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, EntityAudioDataSO playerAudioDataSO, string animBoolName)
     {
         this.playerStateManager = playerStateManager;
         this.stateMachine = stateMachine;
         this.playerDataSO = playerDataSO;
+        this.playerAudioDataSO = playerAudioDataSO;
         this.animBoolName = animBoolName;
         core = playerStateManager.Core;
     }

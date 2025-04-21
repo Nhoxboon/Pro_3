@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class PlayerStunState : PlayerState
 {
-    public PlayerStunState(PlayerStateManager playerStateManager, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerStateManager, stateMachine, playerDataSO, animBoolName)
+    public PlayerStunState(PlayerStateManager playerStateManager, PlayerStateMachine stateMachine,
+        PlayerDataSO playerDataSO, EntityAudioDataSO playerAudioDataSO, string animBoolName) : base(playerStateManager,
+        stateMachine, playerDataSO, playerAudioDataSO, animBoolName)
     {
     }
     

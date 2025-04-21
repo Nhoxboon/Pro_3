@@ -78,6 +78,8 @@ public class PlayerStateManager : NhoxBehaviour
     
     [Header("Data")]
     [SerializeField] protected PlayerDataSO playerDataSO;
+    [SerializeField] protected EntityAudioDataSO playerAudioDataSO;
+    public EntityAudioDataSO PlayerAudioDataSO => playerAudioDataSO;
     
     [Header("Interactable")]
     [SerializeField] protected InteractableDetector interactableDetector;
@@ -86,22 +88,22 @@ public class PlayerStateManager : NhoxBehaviour
     {
         base.Awake();
         stateMachine = new PlayerStateMachine();
-        playerIdleState = new PlayerIdleState(this, stateMachine, playerDataSO, "idle");
-        playerMoveState = new PlayerMoveState(this, stateMachine, playerDataSO, "move");
-        playerStunState = new PlayerStunState(this, stateMachine, playerDataSO, "stun");
-        playerJumpState = new PlayerJumpState(this, stateMachine, playerDataSO, "inAir");
-        playerInAirState = new PlayerInAirState(this, stateMachine, playerDataSO, "inAir");
-        playerLandState = new PlayerLandState(this, stateMachine, playerDataSO, "land");
-        playerWallSlideState = new PlayerWallSlideState(this, stateMachine, playerDataSO, "wallSlide");
-        playerWallGrabState = new PlayerWallGrabState(this, stateMachine, playerDataSO, "wallGrab");
-        playerWallClimbState = new PlayerWallClimbState(this, stateMachine, playerDataSO, "wallClimb");
-        playerWallJumpState = new PlayerWallJumpState(this, stateMachine, playerDataSO, "inAir");
-        playerLedgeClimbState = new PlayerLedgeClimbState(this, stateMachine, playerDataSO, "ledgeClimbState");
-        playerDashState = new PlayerDashState(this, stateMachine, playerDataSO, "inAir");
-        playerCrouchIdleState = new PlayerCrouchIdleState(this, stateMachine, playerDataSO, "crouchIdle");
-        playerCrouchMoveState = new PlayerCrouchMoveState(this, stateMachine, playerDataSO, "crouchMove");
-        primaryAttackState = new PlayerAttackState(this, stateMachine, playerDataSO, "attack", primaryWeapon, CombatInputs.primary);
-        secondaryAttackState = new PlayerAttackState(this, stateMachine, playerDataSO, "attack", secondaryWeapon, CombatInputs.secondary);
+        playerIdleState = new PlayerIdleState(this, stateMachine, playerDataSO, playerAudioDataSO, "idle");
+        playerMoveState = new PlayerMoveState(this, stateMachine, playerDataSO, playerAudioDataSO, "move");
+        playerStunState = new PlayerStunState(this, stateMachine, playerDataSO, playerAudioDataSO, "stun");
+        playerJumpState = new PlayerJumpState(this, stateMachine, playerDataSO, playerAudioDataSO, "inAir");
+        playerInAirState = new PlayerInAirState(this, stateMachine, playerDataSO, playerAudioDataSO, "inAir");
+        playerLandState = new PlayerLandState(this, stateMachine, playerDataSO, playerAudioDataSO,"land");
+        playerWallSlideState = new PlayerWallSlideState(this, stateMachine, playerDataSO, playerAudioDataSO, "wallSlide");
+        playerWallGrabState = new PlayerWallGrabState(this, stateMachine, playerDataSO, playerAudioDataSO, "wallGrab");
+        playerWallClimbState = new PlayerWallClimbState(this, stateMachine, playerDataSO, playerAudioDataSO, "wallClimb");
+        playerWallJumpState = new PlayerWallJumpState(this, stateMachine, playerDataSO, playerAudioDataSO, "inAir");
+        playerLedgeClimbState = new PlayerLedgeClimbState(this, stateMachine, playerDataSO, playerAudioDataSO, "ledgeClimbState");
+        playerDashState = new PlayerDashState(this, stateMachine, playerDataSO, playerAudioDataSO, "inAir");
+        playerCrouchIdleState = new PlayerCrouchIdleState(this, stateMachine, playerDataSO, playerAudioDataSO, "crouchIdle");
+        playerCrouchMoveState = new PlayerCrouchMoveState(this, stateMachine, playerDataSO, playerAudioDataSO, "crouchMove");
+        primaryAttackState = new PlayerAttackState(this, stateMachine, playerDataSO, playerAudioDataSO, "attack", primaryWeapon, CombatInputs.primary);
+        secondaryAttackState = new PlayerAttackState(this, stateMachine, playerDataSO, playerAudioDataSO, "attack", secondaryWeapon, CombatInputs.secondary);
     }
 
     protected override void Start()
@@ -140,6 +142,7 @@ public class PlayerStateManager : NhoxBehaviour
         LoadRigidbody2d();
         LoadCollider2d();
         LoadPlayerDataSO();
+        LoadPlayerAudioDataSO();
         LoadPrimaryWeapon();
         LoadSecondaryWeapon();
         LoadInteractableDetector();
@@ -171,6 +174,13 @@ public class PlayerStateManager : NhoxBehaviour
         if (playerDataSO != null) return;
         playerDataSO = Resources.Load<PlayerDataSO>("Player/Player");
         Debug.Log(transform.name + " LoadPlayerDataSO", gameObject);
+    }
+    
+    protected void LoadPlayerAudioDataSO()
+    {
+        if (playerAudioDataSO != null) return;
+        playerAudioDataSO = Resources.Load<EntityAudioDataSO>("Player/PlayerAudio");
+        Debug.Log(transform.name + " LoadPlayerAudioDataSO", gameObject);
     }
 
     protected void LoadPrimaryWeapon()
@@ -208,6 +218,7 @@ public class PlayerStateManager : NhoxBehaviour
 
     protected void HandleHealthDecrease()
     {
+        AudioManager.Instance.PlaySFX(playerAudioDataSO.hitAudio);
         if(stateMachine.CurrentState == playerStunState) return;
         Flash();
     }
