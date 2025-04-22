@@ -7,7 +7,7 @@ public class PlayerWallJumpState : PlayerAbilityState
     protected int wallJumpDirection;
 
     public PlayerWallJumpState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine,
-        PlayerDataSO playerDataSO, EntityAudioDataSO playerAudioDataSO, string animBoolName) : base(
+        PlayerDataSO playerDataSO, PlayerAudioDataSO playerAudioDataSO, string animBoolName) : base(
         playerStateManagerMovement, stateMachine, playerDataSO, playerAudioDataSO, animBoolName)
     {
     }
@@ -17,6 +17,8 @@ public class PlayerWallJumpState : PlayerAbilityState
         base.Enter();
 
         InputManager.Instance.UseJumpInput();
+        AudioManager.Instance.PlaySFX(playerAudioDataSO.jumpAudio);
+        
         playerStateManager.PlayerJumpState.ResetAmountOfJumpsLeft();
         core.Movement.SetVelocity(playerDataSO.wallJumpVelocity, playerDataSO.wallJumpAngle, wallJumpDirection);
         core.Movement.CheckIfShouldFlip(wallJumpDirection);

@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class DeadState : State
 {
-    public DeadState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO)
+    public DeadState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO) : base(enemyStateManager, stateMachine, animBoolName,
+        enemyDataSO, audioDataSO)
     {
-    }
-
-    public override void DoChecks()
-    {
-        base.DoChecks();
     }
 
     public override void Enter()
@@ -18,20 +15,5 @@ public class DeadState : State
         base.Enter();
 
         enemyStateManager.gameObject.SetActive(false);
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-    }
-
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
     }
 }

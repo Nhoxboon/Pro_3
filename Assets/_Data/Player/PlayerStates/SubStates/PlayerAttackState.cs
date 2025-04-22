@@ -13,7 +13,7 @@ public class PlayerAttackState : PlayerAbilityState
     private bool checkFlip;
 
     public PlayerAttackState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine,
-        PlayerDataSO playerDataSO, EntityAudioDataSO playerAudioDataSO, string animBoolName, Weapon weapon,
+        PlayerDataSO playerDataSO, PlayerAudioDataSO playerAudioDataSO, string animBoolName, Weapon weapon,
         CombatInputs input) : base(playerStateManagerMovement, stateMachine, playerDataSO, playerAudioDataSO,
         animBoolName)
     {

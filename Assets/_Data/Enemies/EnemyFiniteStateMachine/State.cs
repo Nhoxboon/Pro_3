@@ -7,6 +7,7 @@ public class State
     protected FiniteStateMachine stateMachine;
     protected EnemyStateManager enemyStateManager;
     protected EnemyDataSO enemyDataSO;
+    protected EnemyAudioDataSO audioDataSO;
     protected Core core;
 
     protected float startTime;
@@ -14,12 +15,13 @@ public class State
 
     protected string animBoolName;
 
-    public State(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO)
+    public State(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSo)
     {
         this.enemyStateManager = enemyStateManager;
         this.stateMachine = stateMachine;
         this.animBoolName = animBoolName;
         this.enemyDataSO = enemyDataSO;
+        this.audioDataSO = audioDataSo;
         this.core = enemyStateManager.Core;
     }
 

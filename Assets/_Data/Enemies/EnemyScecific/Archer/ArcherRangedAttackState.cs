@@ -7,8 +7,8 @@ public class ArcherRangedAttackState : RangedAttackState
     private Archer archer;
 
     public ArcherRangedAttackState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
-        EnemyDataSO enemyDataSO, Transform attackPosition, EnemyRangedAttackStateSO stateData, Archer archer) : base(
-        enemyStateManager, stateMachine, animBoolName, enemyDataSO, attackPosition, stateData)
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, Transform attackPosition, EnemyRangedAttackStateSO stateData, Archer archer) : base(
+        enemyStateManager, stateMachine, animBoolName, enemyDataSO, audioDataSO, attackPosition, stateData)
     {
         this.archer = archer;
     }

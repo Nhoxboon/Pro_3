@@ -46433,7 +46433,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.493
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -48779,6 +48779,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   workSpace: {x: 0, y: 0}
   enemyDataSO: {fileID: 11400000, guid: 693ca0d388de743e48739423511ff8ba, type: 2}
+  audioDataSO: {fileID: 0}
   detectedZone: {fileID: 1387365919}
   enemyCtrl: {fileID: 1146429977}
   core: {fileID: 919859134}
@@ -50511,6 +50512,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   workSpace: {x: 0, y: 0}
   enemyDataSO: {fileID: 11400000, guid: d415e48a03152ec44ab5675061391129, type: 2}
+  audioDataSO: {fileID: 0}
   detectedZone: {fileID: 1567068164}
   enemyCtrl: {fileID: 1438226297}
   core: {fileID: 792120566}
@@ -55815,7 +55817,7 @@ MonoBehaviour:
   primaryWeapon: {fileID: 728468968}
   secondaryWeapon: {fileID: 1882316397}
   playerDataSO: {fileID: 11400000, guid: d2682658d8ce547b7a2cbe937ccf431e, type: 2}
-  playerAudioDataSO: {fileID: 11400000, guid: 9506f6c617e7a1b4ea6782467505f705, type: 2}
+  playerAudioDataSO: {fileID: 11400000, guid: 3f9542cfbc2ef4c6ea24493cefbbcfa9, type: 2}
   interactableDetector: {fileID: 1352440850}
 --- !u!1 &1529173853
 GameObject:

@@ -6,24 +6,11 @@ public class ArcherLookForPlayerState : LookForPlayerState
 {
     private Archer archer;
 
-    public ArcherLookForPlayerState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Archer archer) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO)
+    public ArcherLookForPlayerState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine,
+        string animBoolName, EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, Archer archer) : base(
+        enemyStateManager, stateMachine, animBoolName, enemyDataSO, audioDataSO)
     {
         this.archer = archer;
-    }
-
-    public override void DoChecks()
-    {
-        base.DoChecks();
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
     }
 
     public override void LogicUpdate()
@@ -38,10 +25,5 @@ public class ArcherLookForPlayerState : LookForPlayerState
         {
             stateMachine.ChangeState(archer.ArcherMoveState);
         }
-    }
-
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
     }
 }

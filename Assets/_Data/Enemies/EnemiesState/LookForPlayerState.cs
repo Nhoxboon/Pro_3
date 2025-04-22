@@ -14,7 +14,9 @@ public class LookForPlayerState : State
     protected float lastTurnTime;
     protected int amountOfTurnsDone;
 
-    public LookForPlayerState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO)
+    public LookForPlayerState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO) : base(enemyStateManager, stateMachine, animBoolName,
+        enemyDataSO, audioDataSO)
     {
     }
 

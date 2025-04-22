@@ -11,7 +11,9 @@ public class DodgeState : State
     
     protected EnemyDodgeStateSO stateData;
 
-    public DodgeState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, EnemyDodgeStateSO stateData) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO)
+    public DodgeState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, EnemyDodgeStateSO stateData) : base(enemyStateManager,
+        stateMachine, animBoolName, enemyDataSO, audioDataSO)
     {
         this.stateData = stateData;
     }

@@ -46,15 +46,15 @@ public class Archer : EnemyStateManager
     {
         base.Awake();
 
-        archerIdleState = new ArcherIdleState(this, stateMachine, "idle", enemyDataSO, this);
-        archerMoveState = new ArcherMoveState(this, stateMachine, "move", enemyDataSO, this);
-        archerDetectedPlayerState = new ArcherDetectedPlayerState(this, stateMachine, "detectedPlayer", enemyDataSO, this);
-        archerMeleeAttackState = new ArcherMeleeAttackState(this, stateMachine, "meleeAttack", enemyDataSO, meleeAttackPosition, meleeAttackDataSO, this);
-        archerLookForPlayerState = new ArcherLookForPlayerState(this, stateMachine, "lookForPlayer", enemyDataSO, this);
-        archerStunState = new ArcherStunState(this, stateMachine, "stun", enemyDataSO, this);
-        archerDeadState = new ArcherDeadState(this, stateMachine, "dead", enemyDataSO, this);
-        archerDodgeState = new ArcherDodgeState(this, stateMachine, "dodge", enemyDataSO, dodgeDataSO, this);
-        archerRangedAttackState = new ArcherRangedAttackState(this, stateMachine, "rangedAttack", enemyDataSO, rangedAttackPosition, rangedAttackDataSO, this);
+        archerIdleState = new ArcherIdleState(this, stateMachine, "idle", enemyDataSO, audioDataSO, this);
+        archerMoveState = new ArcherMoveState(this, stateMachine, "move", enemyDataSO, audioDataSO, this);
+        archerDetectedPlayerState = new ArcherDetectedPlayerState(this, stateMachine, "detectedPlayer", enemyDataSO, audioDataSO, this);
+        archerMeleeAttackState = new ArcherMeleeAttackState(this, stateMachine, "meleeAttack", enemyDataSO, audioDataSO, meleeAttackPosition, meleeAttackDataSO, this);
+        archerLookForPlayerState = new ArcherLookForPlayerState(this, stateMachine, "lookForPlayer", enemyDataSO, audioDataSO, this);
+        archerStunState = new ArcherStunState(this, stateMachine, "stun", enemyDataSO, audioDataSO, this);
+        archerDeadState = new ArcherDeadState(this, stateMachine, "dead", enemyDataSO, audioDataSO, this);
+        archerDodgeState = new ArcherDodgeState(this, stateMachine, "dodge", enemyDataSO, audioDataSO, dodgeDataSO, this);
+        archerRangedAttackState = new ArcherRangedAttackState(this, stateMachine, "rangedAttack", enemyDataSO, audioDataSO, rangedAttackPosition, rangedAttackDataSO, this);
     }
 
     protected override void Start()
@@ -71,6 +71,13 @@ public class Archer : EnemyStateManager
         LoadDodgeDataSO();
         LoadMeleeAttackPosition();
         LoadRangedAttackPosition();
+    }
+
+    protected override void LoadEnemyAudioDataSO()
+    {
+        if(audioDataSO != null) return;
+        audioDataSO = Resources.Load<EnemyAudioDataSO>("Enemies/Archer/ArcherAudio");
+        Debug.Log(transform.name + " LoadEnemyAudioDataSO", gameObject);
     }
 
     protected void LoadMeleeAttackDataSO()
@@ -110,20 +117,16 @@ public class Archer : EnemyStateManager
     
     protected override void HandleParry()
     {
-        base.HandleParry();
-        
         stateMachine.ChangeState(archerStunState);
     }
 
     protected override void HandlePoiseZero()
     {
-        base.HandlePoiseZero();
         stateMachine.ChangeState(archerStunState);
     }
     
     protected override void HandleHealthDecrease()
     {
-        base.HandleHealthDecrease();
         if(stateMachine.CurrentState == archerStunState) return;
         Flash();
     }

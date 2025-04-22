@@ -78,8 +78,8 @@ public class PlayerStateManager : NhoxBehaviour
     
     [Header("Data")]
     [SerializeField] protected PlayerDataSO playerDataSO;
-    [SerializeField] protected EntityAudioDataSO playerAudioDataSO;
-    public EntityAudioDataSO PlayerAudioDataSO => playerAudioDataSO;
+    [SerializeField] protected PlayerAudioDataSO playerAudioDataSO;
+    public PlayerAudioDataSO PlayerAudioDataSO => playerAudioDataSO;
     
     [Header("Interactable")]
     [SerializeField] protected InteractableDetector interactableDetector;
@@ -179,7 +179,7 @@ public class PlayerStateManager : NhoxBehaviour
     protected void LoadPlayerAudioDataSO()
     {
         if (playerAudioDataSO != null) return;
-        playerAudioDataSO = Resources.Load<EntityAudioDataSO>("Player/PlayerAudio");
+        playerAudioDataSO = Resources.Load<PlayerAudioDataSO>("Player/PlayerAudio");
         Debug.Log(transform.name + " LoadPlayerAudioDataSO", gameObject);
     }
 

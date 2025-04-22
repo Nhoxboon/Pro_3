@@ -14,7 +14,7 @@ public class PlayerDashState : PlayerAbilityState
     protected Vector2 lastAIPos;
 
     public PlayerDashState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine,
-        PlayerDataSO playerDataSO, EntityAudioDataSO playerAudioDataSO, string animBoolName) : base(
+        PlayerDataSO playerDataSO, PlayerAudioDataSO playerAudioDataSO, string animBoolName) : base(
         playerStateManagerMovement, stateMachine, playerDataSO, playerAudioDataSO, animBoolName)
     {
     }
@@ -78,6 +78,7 @@ public class PlayerDashState : PlayerAbilityState
                     core.Movement.SetVelocity(playerDataSO.dashVelocity, dashDirection);
                     PlayerCtrl.Instance.DashDirectionIndicator.gameObject.SetActive(false);
                     PlayAfterImage();
+                    AudioManager.Instance.PlaySFX(playerAudioDataSO.dashAudio);
                 }
             }
             else

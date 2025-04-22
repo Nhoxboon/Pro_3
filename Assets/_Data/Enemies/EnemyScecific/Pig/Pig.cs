@@ -40,14 +40,14 @@ public class Pig : EnemyStateManager
     {
         base.Awake();
 
-        pigIdleState = new PigIdleState(this, stateMachine, "idle", enemyDataSO, this);
-        pigMoveState = new PigMoveState(this, stateMachine, "move", enemyDataSO, this);
-        pigDetectedPlayerState = new PigDetectedPlayerState(this, stateMachine, "detectedPlayer", enemyDataSO, this);
-        pigChargeState = new PigChargeState(this, stateMachine, "charge", enemyDataSO, chargeDataSO, this);
-        pigLookForPlayerState = new PigLookForPlayerState(this, stateMachine, "lookForPlayer", enemyDataSO, this);
-        pigMeleeAttackState = new PigMeleeAttackState(this, stateMachine, "meleeAttack", enemyDataSO, meleeAttackPosition, meleeAttackDataSO, this);
-        pigStunState = new PigStunState(this, stateMachine, "stun", enemyDataSO, this);
-        pigDeadState = new PigDeadState(this, stateMachine, "dead", enemyDataSO, this);
+        pigIdleState = new PigIdleState(this, stateMachine, "idle", enemyDataSO, audioDataSO, this);
+        pigMoveState = new PigMoveState(this, stateMachine, "move", enemyDataSO, audioDataSO, this);
+        pigDetectedPlayerState = new PigDetectedPlayerState(this, stateMachine, "detectedPlayer", enemyDataSO, audioDataSO, this);
+        pigChargeState = new PigChargeState(this, stateMachine, "charge", enemyDataSO, audioDataSO, chargeDataSO, this);
+        pigLookForPlayerState = new PigLookForPlayerState(this, stateMachine, "lookForPlayer", enemyDataSO, audioDataSO, this);
+        pigMeleeAttackState = new PigMeleeAttackState(this, stateMachine, "meleeAttack", enemyDataSO, audioDataSO, meleeAttackPosition, meleeAttackDataSO, this);
+        pigStunState = new PigStunState(this, stateMachine, "stun", enemyDataSO, audioDataSO, this);
+        pigDeadState = new PigDeadState(this, stateMachine, "dead", enemyDataSO, audioDataSO, this);
     }
 
     protected override void Start()
@@ -62,6 +62,13 @@ public class Pig : EnemyStateManager
         LoadMeleeAttackDataSO();
         LoadChargeDataSO();
         LoadMeleeAttackPosition();
+    }
+
+    protected override void LoadEnemyAudioDataSO()
+    {
+        if(audioDataSO != null) return;
+        audioDataSO = Resources.Load<EnemyAudioDataSO>("Enemies/Pig/PigAudio");
+        Debug.Log(transform.name + " LoadEnemyAudioDataSO", gameObject);
     }
 
     protected void LoadMeleeAttackDataSO()
@@ -87,20 +94,17 @@ public class Pig : EnemyStateManager
 
     protected override void HandlePoiseZero()
     {
-        base.HandlePoiseZero();
         stateMachine.ChangeState(pigStunState);
     }
     
     protected override void HandleHealthDecrease()
     {
-        base.HandleHealthDecrease();
         if(stateMachine.CurrentState == pigStunState) return;
         Flash();
     }
     
     protected override void HandleParry()
     {
-        base.HandleParry();
         stateMachine.ChangeState(pigStunState);
     }
 

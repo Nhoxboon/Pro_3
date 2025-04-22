@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerStunState : PlayerState
 {
     public PlayerStunState(PlayerStateManager playerStateManager, PlayerStateMachine stateMachine,
-        PlayerDataSO playerDataSO, EntityAudioDataSO playerAudioDataSO, string animBoolName) : base(playerStateManager,
+        PlayerDataSO playerDataSO, PlayerAudioDataSO playerAudioDataSO, string animBoolName) : base(playerStateManager,
         stateMachine, playerDataSO, playerAudioDataSO, animBoolName)
     {
     }

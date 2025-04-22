@@ -12,7 +12,9 @@ public class ChargeState : State
 
     protected EnemyChargeStateSO stateData;
 
-    public ChargeState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, EnemyChargeStateSO stateData) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO)
+    public ChargeState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, EnemyChargeStateSO stateData) : base(enemyStateManager,
+        stateMachine, animBoolName, enemyDataSO, audioDataSO)
     {
         this.stateData = stateData;
     }

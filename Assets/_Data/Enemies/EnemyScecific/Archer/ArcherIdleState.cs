@@ -6,7 +6,9 @@ public class ArcherIdleState : IdleState
 {
     private Archer archer;
 
-    public ArcherIdleState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Archer archer) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO)
+    public ArcherIdleState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, Archer archer) : base(enemyStateManager, stateMachine,
+        animBoolName, enemyDataSO, audioDataSO)
     {
         this.archer = archer;
     }

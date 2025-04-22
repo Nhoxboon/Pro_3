@@ -13,6 +13,7 @@ public abstract class EnemyStateManager : NhoxBehaviour
     [SerializeField] protected Vector2 workSpace;
 
     [SerializeField] protected EnemyDataSO enemyDataSO;
+    [SerializeField] protected EnemyAudioDataSO audioDataSO;
 
     [SerializeField] protected Transform detectedZone;
 
@@ -67,6 +68,7 @@ public abstract class EnemyStateManager : NhoxBehaviour
     protected override void LoadComponents()
     {
         base.LoadComponents();
+        LoadEnemyAudioDataSO();
         LoadDetectedZone();
         LoadEnemyCtrl();
         LoadEnemyDataSO();
@@ -86,6 +88,8 @@ public abstract class EnemyStateManager : NhoxBehaviour
         enemyDataSO = Resources.Load<EnemyDataSO>("Enemies/" + transform.name + "/" + transform.name);
         Debug.Log(transform.name + " LoadEnemyDataSO", gameObject);
     }
+    
+    protected abstract void LoadEnemyAudioDataSO();
 
     protected void LoadEnemyCtrl()
     {
@@ -100,21 +104,12 @@ public abstract class EnemyStateManager : NhoxBehaviour
         core = transform.GetComponentInChildren<Core>();
         Debug.Log(transform.name + " LoadCore", gameObject);
     }
-    
-    protected virtual void HandleParry()
-    {
-		
-    }
-    
-    protected virtual void HandlePoiseZero()
-    {
-        
-    }
-    
-    protected virtual void HandleHealthDecrease()
-    {
-        
-    }
+
+    protected abstract void HandleParry();
+
+    protected abstract void HandlePoiseZero();
+
+    protected abstract void HandleHealthDecrease();
     
     protected void Flash()
     {

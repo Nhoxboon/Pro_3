@@ -26,7 +26,7 @@ public class PlayerInAirState : PlayerState
     protected float startWallJumpCoyoteTime;
 
     public PlayerInAirState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine,
-        PlayerDataSO playerDataSO, EntityAudioDataSO playerAudioDataSO, string animBoolName) : base(
+        PlayerDataSO playerDataSO, PlayerAudioDataSO playerAudioDataSO, string animBoolName) : base(
         playerStateManagerMovement, stateMachine, playerDataSO, playerAudioDataSO, animBoolName)
     {
     }

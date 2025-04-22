@@ -7,7 +7,7 @@ public class PlayerJumpState : PlayerAbilityState
     protected int amountOfJumpsLeft;
 
     public PlayerJumpState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine,
-        PlayerDataSO playerDataSO, EntityAudioDataSO playerAudioDataSO, string animBoolName) : base(
+        PlayerDataSO playerDataSO, PlayerAudioDataSO playerAudioDataSO, string animBoolName) : base(
         playerStateManagerMovement, stateMachine, playerDataSO, playerAudioDataSO, animBoolName)
     {
         amountOfJumpsLeft = playerDataSO.amountOfJumps;
@@ -18,6 +18,8 @@ public class PlayerJumpState : PlayerAbilityState
         base.Enter();
 
         InputManager.Instance.UseJumpInput();
+        AudioManager.Instance.PlaySFX(playerAudioDataSO.jumpAudio);
+        
         core.Movement.SetVelocityY(playerDataSO.jumpVelocity);
         isAbilityDone = true;
         DecreaseAmountOfJumpsLeft();

@@ -10,7 +10,9 @@ public class DetectedPlayerState : State
     protected bool performCloseRangeAction;
     protected bool isDetectingCliff;
 
-    public DetectedPlayerState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO)
+    public DetectedPlayerState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine,
+        string animBoolName, EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO) : base(enemyStateManager,
+        stateMachine, animBoolName, enemyDataSO, audioDataSO)
     {
     }
 

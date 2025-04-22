@@ -6,7 +6,9 @@ public class ArcherMoveState : MoveState
 {
     private Archer archer;
 
-    public ArcherMoveState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Archer archer) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO)
+    public ArcherMoveState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, Archer archer) : base(enemyStateManager, stateMachine,
+        animBoolName, enemyDataSO, audioDataSO)
     {
         this.archer = archer;
     }

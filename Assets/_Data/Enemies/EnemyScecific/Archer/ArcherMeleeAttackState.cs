@@ -6,29 +6,17 @@ public class ArcherMeleeAttackState : MeleeAttackState
 {
     private Archer archer;
 
-    public ArcherMeleeAttackState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Transform attackPosition, EnemyMeleeAttackStateSO stateData, Archer archer) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO, attackPosition, stateData)
+    public ArcherMeleeAttackState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine,
+        string animBoolName, EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, Transform attackPosition,
+        EnemyMeleeAttackStateSO stateData, Archer archer) : base(enemyStateManager, stateMachine, animBoolName,
+        enemyDataSO, audioDataSO, attackPosition, stateData)
     {
         this.archer = archer;
-    }
-
-    public override void DoChecks()
-    {
-        base.DoChecks();
     }
 
     public override void Enter()
     {
         base.Enter();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
-    public override void FinishAttack()
-    {
-        base.FinishAttack();
     }
 
     public override void LogicUpdate()

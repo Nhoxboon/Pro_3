@@ -5,9 +5,15 @@ using UnityEngine;
 public class PlayerLandState : PlayerGroundedState
 {
     public PlayerLandState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine,
-        PlayerDataSO playerDataSO, EntityAudioDataSO playerAudioDataSO, string animBoolName) : base(
+        PlayerDataSO playerDataSO, PlayerAudioDataSO playerAudioDataSO, string animBoolName) : base(
         playerStateManagerMovement, stateMachine, playerDataSO, playerAudioDataSO, animBoolName)
     {
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
+        AudioManager.Instance.PlaySFX(playerAudioDataSO.landAudio);
     }
 
     public override void LogicUpdate()

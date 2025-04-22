@@ -6,19 +6,11 @@ public class PigMoveState : MoveState
 {
     private Pig pig;
 
-    public PigMoveState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Pig pig) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO)
+    public PigMoveState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, Pig pig) : base(enemyStateManager, stateMachine,
+        animBoolName, enemyDataSO, audioDataSO)
     {
         this.pig = pig;
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
     }
 
     public override void LogicUpdate()
@@ -34,10 +26,5 @@ public class PigMoveState : MoveState
             pig.PigIdleState.SetFlipAfterIdle(true);
             stateMachine.ChangeState(pig.PigIdleState);
         }
-    }
-
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
     }
 }

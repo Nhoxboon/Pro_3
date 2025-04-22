@@ -8,7 +8,9 @@ public class MoveState : State
     protected bool isDetectingCliff;
     protected bool isPlayerInMinAgroRange;
 
-    public MoveState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO)
+    public MoveState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO) : base(enemyStateManager, stateMachine, animBoolName,
+        enemyDataSO, audioDataSO)
     {
     }
 

@@ -5,8 +5,5 @@ using UnityEngine;
 public class EntityAudioDataSO : ScriptableObject
 {
     public AudioClip moveAudio;
-    public AudioClip climbAudio;
-    public AudioClip jumpAudio;
-    public AudioClip fallAudio;
     public AudioClip hitAudio;
 }

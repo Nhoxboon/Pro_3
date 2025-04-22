@@ -19,6 +19,11 @@ public class PlayerGetAnimationEvent : NhoxBehaviour
     {
         AudioManager.Instance.PlaySFX(playerStateManager.PlayerAudioDataSO.moveAudio);
     }
+    
+    protected void WallClimbAnimationAudioEvent()
+    {
+        AudioManager.Instance.PlaySFX(playerStateManager.PlayerAudioDataSO.climbAudio);
+    }
 
     protected override void LoadComponents()
     {

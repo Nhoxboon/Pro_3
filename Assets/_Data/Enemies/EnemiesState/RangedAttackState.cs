@@ -8,9 +8,11 @@ public class RangedAttackState : AttackState
     public event Action<Projectile> OnSpawnProjectile;
 
 
-    public RangedAttackState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO,
-        Transform attackPosition, EnemyRangedAttackStateSO stateData) : base(enemyStateManager, stateMachine, animBoolName,
-        enemyDataSO, attackPosition)
+    public RangedAttackState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO,
+        Transform attackPosition, EnemyRangedAttackStateSO stateData) : base(enemyStateManager, stateMachine,
+        animBoolName,
+        enemyDataSO, audioDataSO, attackPosition)
     {
         this.stateData = stateData;
     }

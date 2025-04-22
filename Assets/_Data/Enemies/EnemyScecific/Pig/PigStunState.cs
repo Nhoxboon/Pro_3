@@ -5,24 +5,12 @@ using UnityEngine;
 public class PigStunState : StunState
 {
     private Pig pig;
-    public PigStunState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Pig pig) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO)
+
+    public PigStunState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, Pig pig) : base(enemyStateManager, stateMachine,
+        animBoolName, enemyDataSO, audioDataSO)
     {
         this.pig = pig;
-    }
-
-    public override void DoChecks()
-    {
-        base.DoChecks();
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
     }
 
     public override void LogicUpdate()
@@ -45,10 +33,5 @@ public class PigStunState : StunState
                 stateMachine.ChangeState(pig.PigLookForPlayerState);
             }
         }
-    }
-
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
     }
 }

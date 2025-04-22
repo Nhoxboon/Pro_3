@@ -4,8 +4,10 @@ public class MeleeAttackState : AttackState
 {
     protected EnemyMeleeAttackStateSO stateData;
 
-    public MeleeAttackState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO,
-        Transform attackPosition, EnemyMeleeAttackStateSO stateData) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO, attackPosition)
+    public MeleeAttackState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO,
+        Transform attackPosition, EnemyMeleeAttackStateSO stateData) : base(enemyStateManager, stateMachine,
+        animBoolName, enemyDataSO, audioDataSO, attackPosition)
     {
         this.stateData = stateData;
     }

@@ -6,7 +6,7 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 public class PlayerCrouchIdleState : PlayerGroundedState
 {
     public PlayerCrouchIdleState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine,
-        PlayerDataSO playerDataSO, EntityAudioDataSO playerAudioDataSO, string animBoolName) : base(
+        PlayerDataSO playerDataSO, PlayerAudioDataSO playerAudioDataSO, string animBoolName) : base(
         playerStateManagerMovement, stateMachine, playerDataSO, playerAudioDataSO, animBoolName)
     {
     }

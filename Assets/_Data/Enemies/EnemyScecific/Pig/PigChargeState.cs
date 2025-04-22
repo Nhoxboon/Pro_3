@@ -6,25 +6,18 @@ public class PigChargeState : ChargeState
 {
     private Pig pig;
 
-    public PigChargeState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, EnemyChargeStateSO stateData, Pig pig) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO, stateData)
+    public PigChargeState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, EnemyChargeStateSO stateData, Pig pig) : base(
+        enemyStateManager, stateMachine, animBoolName, enemyDataSO, audioDataSO, stateData)
     {
         this.pig = pig;
-    }
-
-    public override void DoChecks()
-    {
-        base.DoChecks();
     }
 
     public override void Enter()
     {
         base.Enter();
     }
-
-    public override void Exit()
-    {
-        base.Exit();
-    }
+    
 
     public override void LogicUpdate()
     {

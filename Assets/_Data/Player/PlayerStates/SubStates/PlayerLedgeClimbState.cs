@@ -19,7 +19,7 @@ public class PlayerLedgeClimbState : PlayerState
     protected bool jumpInput;
 
     public PlayerLedgeClimbState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine,
-        PlayerDataSO playerDataSO, EntityAudioDataSO playerAudioDataSO, string animBoolName) : base(
+        PlayerDataSO playerDataSO, PlayerAudioDataSO playerAudioDataSO, string animBoolName) : base(
         playerStateManagerMovement, stateMachine, playerDataSO, playerAudioDataSO, animBoolName)
     {
     }
@@ -41,7 +41,8 @@ public class PlayerLedgeClimbState : PlayerState
     public override void Enter()
     {
         base.Enter();
-
+        AudioManager.Instance.PlaySFX(playerAudioDataSO.climbAudio);
+        
         core.Movement.SetVelocityZero();
         playerStateManager.transform.position = detectedPos;
         cornerPos = DetermineCorner();

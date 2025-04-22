@@ -6,7 +6,9 @@ public class ArcherDodgeState : DodgeState
 {
     private Archer archer;
 
-    public ArcherDodgeState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, EnemyDodgeStateSO stateData, Archer archer) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO, stateData)
+    public ArcherDodgeState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, EnemyDodgeStateSO stateData, Archer archer) : base(
+        enemyStateManager, stateMachine, animBoolName, enemyDataSO, audioDataSO, stateData)
     {
         this.archer = archer;
     }

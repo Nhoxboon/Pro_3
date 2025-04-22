@@ -10,7 +10,9 @@ public class StunState : State
     protected bool performCloseRangeAction;
     protected bool isPlayerInMinAgroRange;
 
-    public StunState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO)
+    public StunState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO) : base(enemyStateManager, stateMachine, animBoolName,
+        enemyDataSO, audioDataSO)
     {
     }
 
@@ -52,10 +54,5 @@ public class StunState : State
             isMovementStop = true;
             core.Movement.SetVelocityX(0f);
         }
-    }
-
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
     }
 }
