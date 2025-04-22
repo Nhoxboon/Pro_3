@@ -20,6 +20,7 @@ public class AudioManager : NhoxBehaviour
             return;
         }
         instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     protected override void Start()
