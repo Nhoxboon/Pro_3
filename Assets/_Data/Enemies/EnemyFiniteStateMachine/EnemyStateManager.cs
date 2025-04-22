@@ -1,16 +1,10 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 public abstract class EnemyStateManager : NhoxBehaviour
 {
-    protected FiniteStateMachine stateMachine;
-
-    [Header("Enemy State Manager")]
-    [SerializeField] protected Vector2 workSpace;
+    [Header("Enemy State Manager")] [SerializeField]
+    protected Vector2 workSpace;
 
     [SerializeField] protected EnemyDataSO enemyDataSO;
     [SerializeField] protected EnemyAudioDataSO audioDataSO;
@@ -18,22 +12,25 @@ public abstract class EnemyStateManager : NhoxBehaviour
     [SerializeField] protected Transform detectedZone;
 
     [SerializeField] protected EnemyCtrl enemyCtrl;
-    public EnemyCtrl EnemyCtrl => enemyCtrl;
 
     [SerializeField] protected Core core;
-    public Core Core => core;
-    
-    protected bool isStunned;
     protected float currentStunResistance;
+
+    protected bool isStunned;
     protected float lastDamageTime;
-    
+    protected FiniteStateMachine stateMachine;
+    public EnemyAudioDataSO AudioDataSO => audioDataSO;
+    public EnemyCtrl EnemyCtrl => enemyCtrl;
+    public Core Core => core;
+
     protected override void Awake()
     {
         base.Awake();
-        
+
         core.ParryReceiver.OnParried += HandleParry;
         currentStunResistance = enemyDataSO.stunResistance;
-        
+
+        core.Stats.Health.OnCurrentValueZero += HandleDeath;
         core.Stats.Poise.OnCurrentValueZero += HandlePoiseZero;
         core.Stats.Health.OnValueDecreased += HandleHealthDecrease;
 
@@ -48,9 +45,7 @@ public abstract class EnemyStateManager : NhoxBehaviour
 
         enemyCtrl.EnemyAnimation.YVelocityAnimation(core.Movement.Rb.velocity.y);
 
-        if (Time.time >= lastDamageTime + enemyDataSO.stunRecoveryTime) {
-            ResetStunResistance();
-        }
+        if (Time.time >= lastDamageTime + enemyDataSO.stunRecoveryTime) ResetStunResistance();
     }
 
     protected virtual void FixedUpdate()
@@ -61,8 +56,18 @@ public abstract class EnemyStateManager : NhoxBehaviour
     protected void OnDestroy()
     {
         core.ParryReceiver.OnParried -= HandleParry;
+        core.Stats.Health.OnCurrentValueZero -= HandleDeath;
         core.Stats.Poise.OnCurrentValueZero -= HandlePoiseZero;
         core.Stats.Health.OnValueDecreased -= HandleHealthDecrease;
+    }
+
+    public virtual void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(detectedZone.position + (Vector3)(Vector2.right * enemyDataSO.minAgroDistance), 0.2f);
+        Gizmos.DrawWireSphere(detectedZone.position + (Vector3)(Vector2.right * enemyDataSO.maxAgroDistance), 0.2f);
+
+        Gizmos.DrawWireSphere(detectedZone.position + (Vector3)(Vector2.right * enemyDataSO.closeRangeActionDistance),
+            0.2f);
     }
 
     protected override void LoadComponents()
@@ -88,7 +93,7 @@ public abstract class EnemyStateManager : NhoxBehaviour
         enemyDataSO = Resources.Load<EnemyDataSO>("Enemies/" + transform.name + "/" + transform.name);
         Debug.Log(transform.name + " LoadEnemyDataSO", gameObject);
     }
-    
+
     protected abstract void LoadEnemyAudioDataSO();
 
     protected void LoadEnemyCtrl()
@@ -106,13 +111,16 @@ public abstract class EnemyStateManager : NhoxBehaviour
     }
 
     protected abstract void HandleParry();
+    
+    protected abstract void HandleDeath();
 
     protected abstract void HandlePoiseZero();
 
     protected abstract void HandleHealthDecrease();
-    
+
     protected void Flash()
     {
+        if (!gameObject.activeInHierarchy) return;
         StartCoroutine(FlashRoutine());
     }
 
@@ -122,32 +130,28 @@ public abstract class EnemyStateManager : NhoxBehaviour
         yield return new WaitForSeconds(0.3f);
         enemyCtrl.Sr.material.SetInt("_Flash", 0);
     }
-    
-    public virtual void ResetStunResistance() {
+
+    public virtual void ResetStunResistance()
+    {
         isStunned = false;
         currentStunResistance = enemyDataSO.stunResistance;
     }
 
     public virtual bool CheckPlayerInMinAgroRange()
     {
-        return Physics2D.Raycast(detectedZone.position, transform.right, enemyDataSO.minAgroDistance, enemyDataSO.whatIsPlayer);
+        return Physics2D.Raycast(detectedZone.position, transform.right, enemyDataSO.minAgroDistance,
+            enemyDataSO.whatIsPlayer);
     }
 
     public virtual bool CheckPlayerInMaxAgroRange()
     {
-        return Physics2D.Raycast(detectedZone.position, transform.right, enemyDataSO.maxAgroDistance, enemyDataSO.whatIsPlayer);
+        return Physics2D.Raycast(detectedZone.position, transform.right, enemyDataSO.maxAgroDistance,
+            enemyDataSO.whatIsPlayer);
     }
 
     public virtual bool CheckPlayerInCloseRangeAction()
     {
-        return Physics2D.Raycast(detectedZone.position, transform.right, enemyDataSO.closeRangeActionDistance, enemyDataSO.whatIsPlayer);
-    }
-
-    public virtual void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(detectedZone.position + (Vector3)(Vector2.right * enemyDataSO.minAgroDistance), 0.2f);
-        Gizmos.DrawWireSphere(detectedZone.position + (Vector3)(Vector2.right * enemyDataSO.maxAgroDistance), 0.2f);
-
-        Gizmos.DrawWireSphere(detectedZone.position + (Vector3)(Vector2.right * enemyDataSO.closeRangeActionDistance), 0.2f);
+        return Physics2D.Raycast(detectedZone.position, transform.right, enemyDataSO.closeRangeActionDistance,
+            enemyDataSO.whatIsPlayer);
     }
 }

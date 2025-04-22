@@ -14,6 +14,7 @@ public class DeadState : State
     {
         base.Enter();
 
+        AudioManager.Instance.PlaySFX(audioDataSO.deathClip);
         enemyStateManager.gameObject.SetActive(false);
     }
 }

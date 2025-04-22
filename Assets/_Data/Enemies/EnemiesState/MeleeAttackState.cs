@@ -16,6 +16,7 @@ public class MeleeAttackState : AttackState
     {
         base.TriggerAttack();
 
+        AudioManager.Instance.PlaySFX(audioDataSO.meleeAttackClip);
         var detectedObjs =
             Physics2D.OverlapCircleAll(attackPosition.position, stateData.attackRadius, stateData.whatIsPlayer);
 
@@ -28,7 +29,8 @@ public class MeleeAttackState : AttackState
                 knockbackable.Knockback(new CombatKnockbackData(stateData.knockbackAngle, stateData.knockbackStrength,
                     core.Movement.FacingDirection, core.Root));
 
-            if (col.TryGetComponent<PoiseReceiver>(out var stunnable)) stunnable.Poise(new CombatPoiseData(stateData.poiseDamage, core.Root));
+            if (col.TryGetComponent<PoiseReceiver>(out var stunnable))
+                stunnable.Poise(new CombatPoiseData(stateData.poiseDamage, core.Root));
         }
     }
 }

@@ -97,8 +97,14 @@ public class Pig : EnemyStateManager
         stateMachine.ChangeState(pigStunState);
     }
     
+    protected override void HandleDeath()
+    {
+        stateMachine.ChangeState(pigDeadState);
+    }
+    
     protected override void HandleHealthDecrease()
     {
+        AudioManager.Instance.PlaySFX(audioDataSO.hitClip);
         if(stateMachine.CurrentState == pigStunState) return;
         Flash();
     }

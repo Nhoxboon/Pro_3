@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class PigChargeState : ChargeState
 {
-    private Pig pig;
+    private readonly Pig pig;
 
     public PigChargeState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
         EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, EnemyChargeStateSO stateData, Pig pig) : base(
@@ -12,12 +8,6 @@ public class PigChargeState : ChargeState
     {
         this.pig = pig;
     }
-
-    public override void Enter()
-    {
-        base.Enter();
-    }
-    
 
     public override void LogicUpdate()
     {
@@ -33,21 +23,10 @@ public class PigChargeState : ChargeState
         }
         else if (isChargeTimeOver)
         {
-            
-            if(isPlayerInMinAgroRange)
-            {
+            if (isPlayerInMinAgroRange)
                 stateMachine.ChangeState(pig.PigDetectedPlayerState);
-            }
             else
-            {
                 stateMachine.ChangeState(pig.PigLookForPlayerState);
-            }
         }
-
-    }
-
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
     }
 }

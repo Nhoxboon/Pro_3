@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerGetAnimationEvent : NhoxBehaviour
 {
     [SerializeField] protected PlayerStateManager playerStateManager;
+
     protected void AnimationTrigger()
     {
         PlayerCtrl.Instance.PlayerStateManager.AnimationTrigger();
@@ -14,12 +13,12 @@ public class PlayerGetAnimationEvent : NhoxBehaviour
     {
         PlayerCtrl.Instance.PlayerStateManager.AnimationFinishTrigger();
     }
-    
+
     protected void MoveAnimationAudioEvent()
     {
-        AudioManager.Instance.PlaySFX(playerStateManager.PlayerAudioDataSO.moveAudio);
+        AudioManager.Instance.PlaySFX(playerStateManager.PlayerAudioDataSO.moveClip);
     }
-    
+
     protected void WallClimbAnimationAudioEvent()
     {
         AudioManager.Instance.PlaySFX(playerStateManager.PlayerAudioDataSO.climbAudio);
@@ -30,7 +29,7 @@ public class PlayerGetAnimationEvent : NhoxBehaviour
         base.LoadComponents();
         LoadPlayerStateManager();
     }
-    
+
     protected void LoadPlayerStateManager()
     {
         if (playerStateManager != null) return;

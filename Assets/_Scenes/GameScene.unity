@@ -46368,6 +46368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78b8cb167489d4af9b5a71b96486d6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyStateManager: {fileID: 1438226299}
 --- !u!4 &556451924 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7993310243443167207, guid: a18c6b8ae26f9c94b839f9e12b69b12d, type: 3}
@@ -48013,6 +48014,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78b8cb167489d4af9b5a71b96486d6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyStateManager: {fileID: 1146429981}
 --- !u!1001 &1071553891
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -48779,7 +48781,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   workSpace: {x: 0, y: 0}
   enemyDataSO: {fileID: 11400000, guid: 693ca0d388de743e48739423511ff8ba, type: 2}
-  audioDataSO: {fileID: 0}
+  audioDataSO: {fileID: 11400000, guid: 5b1466644559446d99df3cd9b6ae94d7, type: 2}
   detectedZone: {fileID: 1387365919}
   enemyCtrl: {fileID: 1146429977}
   core: {fileID: 919859134}
@@ -50512,7 +50514,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   workSpace: {x: 0, y: 0}
   enemyDataSO: {fileID: 11400000, guid: d415e48a03152ec44ab5675061391129, type: 2}
-  audioDataSO: {fileID: 0}
+  audioDataSO: {fileID: 11400000, guid: a9c228d8b32a3f744bfec8ca9fc66dd1, type: 2}
   detectedZone: {fileID: 1567068164}
   enemyCtrl: {fileID: 1438226297}
   core: {fileID: 792120566}

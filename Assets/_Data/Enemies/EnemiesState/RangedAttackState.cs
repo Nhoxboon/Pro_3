@@ -4,8 +4,6 @@ using UnityEngine;
 public class RangedAttackState : AttackState
 {
     protected EnemyRangedAttackStateSO stateData;
-    
-    public event Action<Projectile> OnSpawnProjectile;
 
 
     public RangedAttackState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
@@ -17,11 +15,14 @@ public class RangedAttackState : AttackState
         this.stateData = stateData;
     }
 
+    public event Action<Projectile> OnSpawnProjectile;
+
     public override void TriggerAttack()
     {
         base.TriggerAttack();
-        
-        ProjectileSpawner.Instance.SpawnProjectileStrategy(stateData.SpawnInfos[0], 
+
+        AudioManager.Instance.PlaySFX(audioDataSO.rangedAttackClip);
+        ProjectileSpawner.Instance.SpawnProjectileStrategy(stateData.SpawnInfos[0],
             attackPosition.position, core.Movement.FacingDirection, OnSpawnProjectile);
     }
 }

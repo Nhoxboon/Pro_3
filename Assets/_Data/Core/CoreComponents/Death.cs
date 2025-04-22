@@ -22,7 +22,5 @@ public class Death : CoreComponent
         {
             core.ParticleManager.StartParticles(particle);
         }
-
-        core.transform.parent.gameObject.SetActive(false);
     }
 }

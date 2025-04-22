@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10d884f021bb42e8aecf7ff7eda63c09, type: 3}
   m_Name: ArcherAudio
   m_EditorClassIdentifier: 
-  moveAudio: {fileID: 8300000, guid: b3844a231306dcb44b2ffaec06bb440a, type: 3}
-  hitAudio: {fileID: 8300000, guid: d8448a8c01e44b54ab93c3de8c2c42fb, type: 3}
-  attackAudio: {fileID: 8300000, guid: d9c949a543b544f4890b50bc53cc4460, type: 3}
+  moveClip: {fileID: 8300000, guid: b3844a231306dcb44b2ffaec06bb440a, type: 3}
+  hitClip: {fileID: 8300000, guid: d8448a8c01e44b54ab93c3de8c2c42fb, type: 3}
+  deathClip: {fileID: 8300000, guid: 8bbe64439676c2b408f763802b86a0f7, type: 3}
+  jumpClip: {fileID: 8300000, guid: 97349dbf84d392749bc4261c1e43769f, type: 3}
+  meleeAttackClip: {fileID: 8300000, guid: d9c949a543b544f4890b50bc53cc4460, type: 3}
+  rangedAttackClip: {fileID: 8300000, guid: a93a58f8391158e469f9ba345d5bc75e, type: 3}
