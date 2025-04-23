@@ -15,4 +15,6 @@ public struct ProjectileSpawnInfo
     [field: SerializeField] public DamageDataPackage DamageData { get; private set; }
     [field: SerializeField] public KnockBackDataPackage KnockBackData { get; private set; }
     [field: SerializeField] public PoiseDamageDataPackage PoiseDamageData { get; private set; }
+    
+    [field: SerializeField] public AudioDataPackage ProjectileAudioData { get; private set; }
 }

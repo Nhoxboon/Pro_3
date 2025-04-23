@@ -82,6 +82,8 @@ MonoBehaviour:
               Angle: {x: 1, y: 1}
             <PoiseDamageData>k__BackingField:
               <Amount>k__BackingField: 30
+            <ProjectileAudioData>k__BackingField:
+              projectileClip: {fileID: 8300000, guid: d8448a8c01e44b54ab93c3de8c2c42fb, type: 3}
     - rid: 3991057962048421888
       type: {class: OptionalSpriteData, ns: , asm: Assembly-CSharp}
       data:

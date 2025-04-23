@@ -75,6 +75,7 @@ public class ProjectileSpawner : Spawner
         currentProjectile.SendDataPackage(spawnInfo.DamageData);
         currentProjectile.SendDataPackage(spawnInfo.KnockBackData);
         currentProjectile.SendDataPackage(spawnInfo.PoiseDamageData);
+        currentProjectile.SendDataPackage(spawnInfo.ProjectileAudioData);
 
         // Broadcast new projectile has been spawned so other components can  pass through data packages
         OnSpawnProjectile?.Invoke(currentProjectile);

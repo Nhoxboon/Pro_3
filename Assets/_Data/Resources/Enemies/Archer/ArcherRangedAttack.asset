@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09bdb3c01b54e76a9241a7c3790bfe4, type: 3}
   m_Name: ArcherRangedAttack
   m_EditorClassIdentifier: 
-  projectileDamage: 10
-  projectileSpeed: 12
-  projectileTravelDistance: 8
   <SpawnInfos>k__BackingField:
   - <Offset>k__BackingField: {x: 1.24, y: 0.2}
     <Direction>k__BackingField: {x: 1, y: 0}
-    <ProjectilePrefabName>k__BackingField: Arrow
+    <ProjectilePrefabName>k__BackingField: EnemyArrow
     <DamageData>k__BackingField:
-      <Amount>k__BackingField: 1
+      <Amount>k__BackingField: 10
     <KnockBackData>k__BackingField:
       Strength: 10
       Angle: {x: 1, y: 1}
     <PoiseDamageData>k__BackingField:
-      <Amount>k__BackingField: 30
+      <Amount>k__BackingField: 3
+    <ProjectileAudioData>k__BackingField:
+      projectileClip: {fileID: 8300000, guid: d8448a8c01e44b54ab93c3de8c2c42fb, type: 3}

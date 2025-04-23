@@ -20,8 +20,6 @@ public class PoiseSender : ProjectileComponent
             if (!LayerMaskUtilities.IsLayerInMask(hit, layerMask))
                 continue;
             
-            if (hit.collider.transform.gameObject.TryGetComponent(out CombatDummy combatDummy)) return;
-
             // NOTE: We need to use .collider.transform instead of just .transform to get the GameObject the collider we detected is attached to, otherwise it returns the parent
             if (!hit.collider.transform.gameObject.TryGetComponent(out PoiseReceiver poiseDamageable))
                 continue;
