@@ -4,6 +4,7 @@ using UnityEngine;
 [Serializable]
 public class AttackCharge : AttackData
 {
+    public AudioClip chargeSound;
     public float chargeTime;
     [Range(0, 1)] public int initialChargeAmount;
     public int numberOfCharges;

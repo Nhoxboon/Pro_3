@@ -24,9 +24,22 @@ MonoBehaviour:
   - rid: 2535277604444307456
   - rid: 2535277619803062272
   - rid: 7391817183939002368
+  - rid: 2154769539791323144
   references:
     version: 2
     RefIds:
+    - rid: 2154769539791323144
+      type: {class: AudioData, ns: , asm: Assembly-CSharp}
+      data:
+        name: AudioData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          audioClip: {fileID: 8300000, guid: d9c949a543b544f4890b50bc53cc4460, type: 3}
+        - name: Attack 2
+          audioClip: {fileID: 8300000, guid: d9c949a543b544f4890b50bc53cc4460, type: 3}
+        - name: Attack 3
+          audioClip: {fileID: 8300000, guid: d9c949a543b544f4890b50bc53cc4460, type: 3}
     - rid: 2535277604444307456
       type: {class: DamageData, ns: , asm: Assembly-CSharp}
       data:

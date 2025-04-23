@@ -5,6 +5,7 @@ using UnityEngine;
 [Serializable]
 public class AttackBlock : AttackData
 {
+    public AudioClip blockSound;
     [SerializeField] public DirectionalInformation[] blockDirectionInformation;
     
     [SerializeField] public PhaseTime blockWindowStart;

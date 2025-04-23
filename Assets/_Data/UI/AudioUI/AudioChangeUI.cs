@@ -9,6 +9,7 @@ public class AudioChangeUI : NhoxBehaviour
     [SerializeField] protected GameManager gameManager;
     [SerializeField] protected Image panel;
     [SerializeField] protected Button audioBtn;
+    [SerializeField] protected bool isUI;
 
     protected void OnEnable()
     {
@@ -19,21 +20,15 @@ public class AudioChangeUI : NhoxBehaviour
     {
         audioBtn.onClick.RemoveListener(HandleAudioBtnClick);
     }
-    
-    protected override void Awake()
-    {
-        base.Awake();
-        panel.gameObject.SetActive(false);
-    }
 
     protected void HandleAudioBtnClick()
     {
-        bool isActive = !panel.gameObject.activeSelf;
-        panel.gameObject.SetActive(isActive);
-        gameManager.ChangeState(isActive ? GameManager.GameState.UI : GameManager.GameState.Gameplay);
+        isUI = !panel.gameObject.activeSelf;
+        panel.gameObject.SetActive(isUI);
+
+        gameManager.ChangeState(isUI ? GameManager.GameState.UI : GameManager.GameState.Gameplay);
         
-        InputManager.Instance.SetUIMode(isActive);
-        if (!isActive)
+        if (!isUI)
             EventSystem.current.SetSelectedGameObject(null);
     }
     

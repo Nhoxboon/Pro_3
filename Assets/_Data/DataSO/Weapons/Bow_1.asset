@@ -25,9 +25,18 @@ MonoBehaviour:
   - rid: 7391817252711170050
   - rid: 7391817252711170049
   - rid: 3991057962048421888
+  - rid: 2154769539791323141
   references:
     version: 2
     RefIds:
+    - rid: 2154769539791323141
+      type: {class: AudioData, ns: , asm: Assembly-CSharp}
+      data:
+        name: AudioData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          audioClip: {fileID: 8300000, guid: 3054daca93447744b8504f6e13b2a696, type: 3}
     - rid: 2535277628317761541
       type: {class: WeaponSpriteData, ns: , asm: Assembly-CSharp}
       data:
@@ -61,6 +70,7 @@ MonoBehaviour:
         attackData:
         - name: Attack 1
           isChargeable: 0
+          spawnSound: {fileID: 8300000, guid: a93a58f8391158e469f9ba345d5bc75e, type: 3}
           <SpawnInfos>k__BackingField:
           - <Offset>k__BackingField: {x: 1.24, y: 0.2}
             <Direction>k__BackingField: {x: 1, y: 0}

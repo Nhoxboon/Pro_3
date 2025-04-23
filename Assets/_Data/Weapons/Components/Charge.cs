@@ -29,6 +29,7 @@ public class Charge : WeaponComponent<ChargeData, AttackCharge>
 
     protected void HandleNotify()
     {
+        AudioManager.Instance.PlaySFX(currentAttackData.chargeSound);
         currentCharge++;
 
         if (currentCharge >= currentAttackData.numberOfCharges)

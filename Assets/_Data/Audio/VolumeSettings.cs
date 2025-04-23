@@ -26,6 +26,7 @@ public class VolumeSettings : NhoxBehaviour
         base.Start();
         LoadVolume("music", "musicVolume", musicSlider);
         LoadVolume("sfx", "sfxVolume", sfxSlider);
+        gameObject.SetActive(false);
     }
 
     #region LoadComponents
