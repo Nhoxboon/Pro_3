@@ -14,6 +14,9 @@ public abstract class EnemyStateManager : NhoxBehaviour
     [SerializeField] protected EnemyCtrl enemyCtrl;
 
     [SerializeField] protected Core core;
+    
+    [SerializeField] protected Transform meleeAttackPosition;
+
     protected float currentStunResistance;
 
     protected bool isStunned;
@@ -78,6 +81,7 @@ public abstract class EnemyStateManager : NhoxBehaviour
         LoadEnemyCtrl();
         LoadEnemyDataSO();
         LoadCore();
+        LoadMeleeAttackPosition();
     }
 
     protected void LoadDetectedZone()
@@ -87,14 +91,19 @@ public abstract class EnemyStateManager : NhoxBehaviour
         Debug.Log(transform.name + " LoadDetectedZone", gameObject);
     }
 
-    protected void LoadEnemyDataSO()
+    protected virtual void LoadEnemyDataSO()
     {
         if (enemyDataSO != null) return;
         enemyDataSO = Resources.Load<EnemyDataSO>("Enemies/" + transform.name + "/" + transform.name);
         Debug.Log(transform.name + " LoadEnemyDataSO", gameObject);
     }
 
-    protected abstract void LoadEnemyAudioDataSO();
+    protected virtual void LoadEnemyAudioDataSO()
+    {
+        if (audioDataSO != null) return;
+        audioDataSO = Resources.Load<EnemyAudioDataSO>("Enemies/" + transform.name + "/" + transform.name + "Audio");
+        Debug.Log(transform.name + " LoadEnemyAudioDataSO", gameObject);
+    }
 
     protected void LoadEnemyCtrl()
     {
@@ -108,6 +117,13 @@ public abstract class EnemyStateManager : NhoxBehaviour
         if (core != null) return;
         core = transform.GetComponentInChildren<Core>();
         Debug.Log(transform.name + " LoadCore", gameObject);
+    }
+    
+    protected void LoadMeleeAttackPosition()
+    {
+        if (meleeAttackPosition != null) return;
+        meleeAttackPosition = transform.Find("Attack/MeleeAttack");
+        Debug.Log(transform.name + " LoadMeleeAttackPosition", gameObject);
     }
 
     protected abstract void HandleParry();

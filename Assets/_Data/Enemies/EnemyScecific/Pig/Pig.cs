@@ -31,7 +31,6 @@ public class Pig : EnemyStateManager
     #endregion
 
     [Header("Pig")]
-    [SerializeField] Transform meleeAttackPosition;
     
     [SerializeField] protected EnemyMeleeAttackStateSO meleeAttackDataSO;
     [SerializeField] protected EnemyChargeStateSO chargeDataSO;
@@ -61,14 +60,6 @@ public class Pig : EnemyStateManager
         base.LoadComponents();
         LoadMeleeAttackDataSO();
         LoadChargeDataSO();
-        LoadMeleeAttackPosition();
-    }
-
-    protected override void LoadEnemyAudioDataSO()
-    {
-        if(audioDataSO != null) return;
-        audioDataSO = Resources.Load<EnemyAudioDataSO>("Enemies/Pig/PigAudio");
-        Debug.Log(transform.name + " LoadEnemyAudioDataSO", gameObject);
     }
 
     protected void LoadMeleeAttackDataSO()
@@ -83,13 +74,6 @@ public class Pig : EnemyStateManager
         if (chargeDataSO != null) return;
         chargeDataSO = Resources.Load<EnemyChargeStateSO>("Enemies/Pig/PigCharge");
         Debug.Log(transform.name + " LoadChargeDataSO", gameObject);
-    }
-    
-    protected void LoadMeleeAttackPosition()
-    {
-        if (meleeAttackPosition != null) return;
-        meleeAttackPosition = transform.Find("Attack/MeleeAttack");
-        Debug.Log(transform.name + " LoadMeleeAttackPosition", gameObject);
     }
 
     protected override void HandlePoiseZero()

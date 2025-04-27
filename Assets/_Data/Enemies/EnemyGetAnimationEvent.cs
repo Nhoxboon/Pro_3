@@ -4,6 +4,7 @@ using UnityEngine;
 public class EnemyGetAnimationEvent : NhoxBehaviour
 {
     [SerializeField] protected EnemyStateManager enemyStateManager;
+    public IntroState introState;
     public AttackState attackState;
 
     protected void TriggerAttack()
@@ -14,6 +15,11 @@ public class EnemyGetAnimationEvent : NhoxBehaviour
     protected void FinishAttack()
     {
         attackState.FinishAttack();
+    }
+    
+    protected void AnimationFinishTrigger()
+    {
+        introState.AnimationFinishTrigger();
     }
 
     protected void SetParryWindowActive(int value)

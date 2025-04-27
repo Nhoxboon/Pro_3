@@ -33,7 +33,6 @@ public class Archer : EnemyStateManager
 
     #endregion
     [Header("Archer")] 
-    [SerializeField] private Transform meleeAttackPosition;
 
     [SerializeField] private Transform rangedAttackPosition;
 
@@ -84,14 +83,7 @@ public class Archer : EnemyStateManager
         LoadMeleeAttackPosition();
         LoadRangedAttackPosition();
     }
-
-    protected override void LoadEnemyAudioDataSO()
-    {
-        if (audioDataSO != null) return;
-        audioDataSO = Resources.Load<EnemyAudioDataSO>("Enemies/Archer/ArcherAudio");
-        Debug.Log(transform.name + " LoadEnemyAudioDataSO", gameObject);
-    }
-
+    
     protected void LoadMeleeAttackDataSO()
     {
         if (meleeAttackDataSO != null) return;
@@ -111,13 +103,6 @@ public class Archer : EnemyStateManager
         if (dodgeDataSO != null) return;
         dodgeDataSO = Resources.Load<EnemyDodgeStateSO>("Enemies/Archer/ArcherDodge");
         Debug.Log(transform.name + " LoadDodgeDataSO", gameObject);
-    }
-
-    protected void LoadMeleeAttackPosition()
-    {
-        if (meleeAttackPosition != null) return;
-        meleeAttackPosition = transform.Find("Attack/MeleeAttack");
-        Debug.Log(transform.name + " LoadMeleeAttackPosition", gameObject);
     }
 
     protected void LoadRangedAttackPosition()

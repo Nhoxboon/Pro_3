@@ -1,0 +1,25 @@
+﻿
+using UnityEngine;
+
+public class Boss_1MeleeAttackState : MeleeAttackState
+{
+    private Boss_1 boss;
+
+    public Boss_1MeleeAttackState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine,
+        string animBoolName, EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, Transform attackPosition,
+        EnemyMeleeAttackStateSO stateData, Boss_1 boss) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO,
+        audioDataSO, attackPosition, stateData)
+    {
+        this.boss = boss;
+    }
+
+    public override void LogicUpdate()
+    {
+        base.LogicUpdate();
+        
+        if (isAnimationFinished)
+        {
+            stateMachine.ChangeState(boss.BossMoveState);
+        }
+    }
+}
