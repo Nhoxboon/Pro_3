@@ -34,7 +34,7 @@ public class Archer : EnemyStateManager
     #endregion
     [Header("Archer")] 
 
-    [SerializeField] private Transform rangedAttackPosition;
+    [SerializeField] protected Transform rangedAttackPosition;
 
     [SerializeField] protected EnemyMeleeAttackStateSO meleeAttackDataSO;
     [SerializeField] protected EnemyRangedAttackStateSO rangedAttackDataSO;

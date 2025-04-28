@@ -7,6 +7,7 @@ public abstract class EnemyStateManager : NhoxBehaviour
     protected Vector2 workSpace;
 
     [SerializeField] protected EnemyDataSO enemyDataSO;
+    public EnemyDataSO EnemyDataSO => enemyDataSO;
     [SerializeField] protected EnemyAudioDataSO audioDataSO;
 
     [SerializeField] protected Transform detectedZone;
@@ -25,6 +26,8 @@ public abstract class EnemyStateManager : NhoxBehaviour
     public EnemyAudioDataSO AudioDataSO => audioDataSO;
     public EnemyCtrl EnemyCtrl => enemyCtrl;
     public Core Core => core;
+    
+    public int currentPointIndex;
 
     protected override void Awake()
     {

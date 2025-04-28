@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Boss_1 : EnemyStateManager
@@ -17,10 +18,28 @@ public class Boss_1 : EnemyStateManager
     protected Boss_1MeleeAttackState bossMeleeAttackState;
     public Boss_1MeleeAttackState BossMeleeAttackState => bossMeleeAttackState;
 
+    protected Boss_1RangedAttackState bossRangedAttackState;
+    public Boss_1RangedAttackState BossRangedAttackState => bossRangedAttackState;
+    
+    protected Boss_1MoveByPointState bossMoveByPointState;
+    public Boss_1MoveByPointState BossMoveByPointState => bossMoveByPointState;
+
     #endregion
     
     [Header("Boss 1")]
+    [SerializeField] protected Transform rangedAttackPosition;
+    
     [SerializeField] protected EnemyMeleeAttackStateSO meleeAttackDataSO;
+    [SerializeField] protected BossRangedAttackStateSO rangedAttackDataSO;
+    public BossRangedAttackStateSO RangedAttackStateSO => rangedAttackDataSO;
+    
+    [Header("Move Points")]
+    [SerializeField] protected Transform pointsHolder;
+    [SerializeField] protected List<Transform> movePoints;
+    public List<Transform> MovePoints => movePoints;
+    
+    public float lastMoveByPointTime;
+
 
     protected override void Awake()
     {
@@ -30,6 +49,8 @@ public class Boss_1 : EnemyStateManager
         bossIdleState = new Boss_1IdleState(this, stateMachine, "idle", enemyDataSO, audioDataSO, this);
         bossMoveState = new Boss_1MoveState(this, stateMachine, "move", enemyDataSO, audioDataSO, this);
         bossMeleeAttackState = new Boss_1MeleeAttackState(this, stateMachine, "meleeAttack", enemyDataSO, audioDataSO, meleeAttackPosition, meleeAttackDataSO, this);
+        bossRangedAttackState = new Boss_1RangedAttackState(this, stateMachine, "rangedAttack", enemyDataSO, audioDataSO, rangedAttackPosition, rangedAttackDataSO, this);
+        bossMoveByPointState = new Boss_1MoveByPointState(this, stateMachine, "move", enemyDataSO, audioDataSO, movePoints, this);
     }
 
     protected override void Start()
@@ -38,11 +59,15 @@ public class Boss_1 : EnemyStateManager
         
         stateMachine.Initialize(bossIntroState);
     }
-    
+
+    #region LoadComponents
     protected override void LoadComponents()
     {
         base.LoadComponents();
+        LoadRangedAttackPosition();
         LoadMeleeAttackDataSO();
+        LoadRangedAttackDataSO();
+        LoadPoints();
     }
     
     protected override void LoadEnemyDataSO()
@@ -65,6 +90,32 @@ public class Boss_1 : EnemyStateManager
         meleeAttackDataSO = Resources.Load<EnemyMeleeAttackStateSO>("Boss/Boss_1MeleeAttack");
         Debug.Log(transform.name + " LoadMeleeAttackDataSO", gameObject);
     }
+    
+    protected void LoadRangedAttackDataSO()
+    {
+        if (rangedAttackDataSO != null) return;
+        rangedAttackDataSO = Resources.Load<BossRangedAttackStateSO>("Boss/Boss_1RangedAttack");
+        Debug.Log(transform.name + " LoadRangedAttackDataSO", gameObject);
+    }
+    
+    protected void LoadRangedAttackPosition()
+    {
+        if (rangedAttackPosition != null) return;
+        rangedAttackPosition = transform.Find("Attack/RangedAttack");
+        Debug.Log(transform.name + " LoadRangedAttackPosition", gameObject);
+    }
+    
+    protected virtual void LoadPoints()
+    {
+        if (pointsHolder != null) return;
+        pointsHolder = GameObject.Find("BossMovePoints").transform;
+        foreach (Transform point in pointsHolder)
+        {
+            movePoints.Add(point);
+        }
+        Debug.Log(transform.name + " LoadPoints", gameObject);
+    }
+    #endregion
 
     protected override void HandleParry()
     {
