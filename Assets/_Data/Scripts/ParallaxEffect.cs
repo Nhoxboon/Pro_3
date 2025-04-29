@@ -11,6 +11,7 @@ public class ParallaxEffect : NhoxBehaviour
     {
         base.Start();
         startPos = transform.position.x;
+        lenght = GetComponent<SpriteRenderer>().bounds.size.x;
     }
 
     protected void FixedUpdate()
