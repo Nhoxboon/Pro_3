@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Boss_1RangedAttackState : RangedAttackState
@@ -11,6 +12,12 @@ public class Boss_1RangedAttackState : RangedAttackState
         enemyDataSO, audioDataSO, attackPosition, stateData)
     {
         this.boss = boss;
+    }
+    
+    public override void Enter()
+    {
+        base.Enter();
+        OnSpawnProjectile += HandleSpawnedProjectile;
     }
     
     public override void LogicUpdate()
@@ -28,5 +35,21 @@ public class Boss_1RangedAttackState : RangedAttackState
                 stateMachine.ChangeState(boss.BossMoveState);
             }
         }
+    }
+    
+    protected void HandleSpawnedProjectile(Projectile projectile)
+    {
+        var targetDirection = PlayerCtrl.Instance.transform.position;
+
+        projectile.SendDataPackage(new DirectionDataPackage
+        {
+            direction = targetDirection
+        });
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        OnSpawnProjectile -= HandleSpawnedProjectile;
     }
 }

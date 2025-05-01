@@ -28,7 +28,7 @@ public class PigDetectedPlayerState : DetectedPlayerState
         }
         else if (performLongRangeAction)
         {
-            stateMachine.ChangeState(pig.PigChargeState);
+            stateMachine.ChangeState(pig.PigChaseState);
         }
         else if (!isPlayerInMaxAgroRange)
         {

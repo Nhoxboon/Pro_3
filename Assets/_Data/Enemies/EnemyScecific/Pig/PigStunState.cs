@@ -25,7 +25,7 @@ public class PigStunState : StunState
             }
             else if(isPlayerInMinAgroRange)
             {
-                stateMachine.ChangeState(pig.PigChargeState);
+                stateMachine.ChangeState(pig.PigChaseState);
             }
             else
             {

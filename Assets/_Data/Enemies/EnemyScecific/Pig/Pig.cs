@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Pig : EnemyStateManager
 {
@@ -14,8 +15,8 @@ public class Pig : EnemyStateManager
     protected PigDetectedPlayerState pigDetectedPlayerState;
     public PigDetectedPlayerState PigDetectedPlayerState => pigDetectedPlayerState;
 
-    protected PigChargeState pigChargeState;
-    public PigChargeState PigChargeState => pigChargeState;
+    protected PigChaseState pigChaseState;
+    public PigChaseState PigChaseState => pigChaseState;
 
     protected PigLookForPlayerState pigLookForPlayerState;
     public PigLookForPlayerState PigLookForPlayerState => pigLookForPlayerState;
@@ -33,7 +34,7 @@ public class Pig : EnemyStateManager
     [Header("Pig")]
     
     [SerializeField] protected EnemyMeleeAttackStateSO meleeAttackDataSO;
-    [SerializeField] protected EnemyChargeStateSO chargeDataSO;
+    [SerializeField] protected EnemyChaseStateSO chaseDataSO;
 
     protected override void Awake()
     {
@@ -42,7 +43,7 @@ public class Pig : EnemyStateManager
         pigIdleState = new PigIdleState(this, stateMachine, "idle", enemyDataSO, audioDataSO, this);
         pigMoveState = new PigMoveState(this, stateMachine, "move", enemyDataSO, audioDataSO, this);
         pigDetectedPlayerState = new PigDetectedPlayerState(this, stateMachine, "detectedPlayer", enemyDataSO, audioDataSO, this);
-        pigChargeState = new PigChargeState(this, stateMachine, "charge", enemyDataSO, audioDataSO, chargeDataSO, this);
+        pigChaseState = new PigChaseState(this, stateMachine, "charge", enemyDataSO, audioDataSO, chaseDataSO, this);
         pigLookForPlayerState = new PigLookForPlayerState(this, stateMachine, "lookForPlayer", enemyDataSO, audioDataSO, this);
         pigMeleeAttackState = new PigMeleeAttackState(this, stateMachine, "meleeAttack", enemyDataSO, audioDataSO, meleeAttackPosition, meleeAttackDataSO, this);
         pigStunState = new PigStunState(this, stateMachine, "stun", enemyDataSO, audioDataSO, this);
@@ -59,7 +60,7 @@ public class Pig : EnemyStateManager
     {
         base.LoadComponents();
         LoadMeleeAttackDataSO();
-        LoadChargeDataSO();
+        LoadChaseDataSO();
     }
 
     protected void LoadMeleeAttackDataSO()
@@ -69,11 +70,11 @@ public class Pig : EnemyStateManager
         Debug.Log(transform.name + " LoadMeleeAttackDataSO", gameObject);
     }
     
-    protected void LoadChargeDataSO()
+    protected void LoadChaseDataSO()
     {
-        if (chargeDataSO != null) return;
-        chargeDataSO = Resources.Load<EnemyChargeStateSO>("Enemies/Pig/PigCharge");
-        Debug.Log(transform.name + " LoadChargeDataSO", gameObject);
+        if (chaseDataSO != null) return;
+        chaseDataSO = Resources.Load<EnemyChaseStateSO>("Enemies/Pig/PigChase");
+        Debug.Log(transform.name + " LoadChaseDataSO", gameObject);
     }
 
     protected override void HandlePoiseZero()

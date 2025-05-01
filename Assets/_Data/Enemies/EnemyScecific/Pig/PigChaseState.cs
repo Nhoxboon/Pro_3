@@ -1,9 +1,9 @@
-public class PigChargeState : ChargeState
+public class PigChaseState : ChaseState
 {
     private readonly Pig pig;
 
-    public PigChargeState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
-        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, EnemyChargeStateSO stateData, Pig pig) : base(
+    public PigChaseState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, EnemyChaseStateSO stateData, Pig pig) : base(
         enemyStateManager, stateMachine, animBoolName, enemyDataSO, audioDataSO, stateData)
     {
         this.pig = pig;

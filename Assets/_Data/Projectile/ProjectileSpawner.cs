@@ -8,18 +8,18 @@ public class ProjectileSpawner : Spawner
     protected Vector2 spawnDir;
     protected Vector2 spawnPos;
 
-    public static ProjectileSpawner Instance { get; private set; }
+    protected static ProjectileSpawner instance;
+    public static ProjectileSpawner Instance => instance;
 
     protected override void Awake()
     {
         base.Awake();
-        if (Instance != null)
+        if (instance != null)
         {
             Debug.LogError("Only 1 ProjectileSpawner allowed to exist");
             return;
         }
-
-        Instance = this;
+        instance = this;
     }
 
     /// <summary>

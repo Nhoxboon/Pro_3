@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25ded37bccdf497db5f6f6f5786f9c8a, type: 3}
-  m_Name: PigCharge
+  m_Name: PigChase
   m_EditorClassIdentifier: 
   chargeSpeed: 6
   chargeTime: 1

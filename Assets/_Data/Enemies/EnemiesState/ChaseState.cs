@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChargeState : State
+public class ChaseState : State
 {
     protected bool isPlayerInMinAgroRange;
     protected bool isDetectingCliff;
@@ -10,10 +10,10 @@ public class ChargeState : State
     protected bool isChargeTimeOver;
     protected bool performCloseRangeAction;
 
-    protected EnemyChargeStateSO stateData;
+    protected EnemyChaseStateSO stateData;
 
-    public ChargeState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
-        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, EnemyChargeStateSO stateData) : base(enemyStateManager,
+    public ChaseState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, EnemyChaseStateSO stateData) : base(enemyStateManager,
         stateMachine, animBoolName, enemyDataSO, audioDataSO)
     {
         this.stateData = stateData;
