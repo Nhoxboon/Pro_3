@@ -21,10 +21,7 @@ public class ProjectileSpawner : Spawner
         }
         instance = this;
     }
-
-    /// <summary>
-    ///     Spawn projectile and handle all logic
-    /// </summary>
+    
     public void SpawnProjectile(ProjectileSpawnInfo spawnInfo, Vector2 spawnDirection,
         Vector3 spawnerPos,
         int facingDirection,
@@ -41,7 +38,6 @@ public class ProjectileSpawner : Spawner
 
     protected virtual void SetSpawnPosition(Vector3 referencePosition, Vector2 offset, int facingDirection)
     {
-        // Add offset to player position, accounting for FacingDirection
         spawnPos = referencePosition;
         spawnPos.Set(spawnPos.x + offset.x * facingDirection, spawnPos.y + offset.y);
     }
@@ -53,7 +49,6 @@ public class ProjectileSpawner : Spawner
 
     protected virtual void GetProjectileAndSetPositionAndRotation(string prefabName)
     {
-        // GET projectile from pool
         var projectileTransform = Spawn(prefabName, spawnPos, Quaternion.identity);
         projectileTransform.gameObject.SetActive(true);
         currentProjectile = projectileTransform.GetComponent<Projectile>();
@@ -64,7 +59,6 @@ public class ProjectileSpawner : Spawner
             return;
         }
 
-        // Calculate angle and set rotation
         var angle = Mathf.Atan2(spawnDir.y, spawnDir.x) * Mathf.Rad2Deg;
         projectileTransform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
@@ -77,13 +71,12 @@ public class ProjectileSpawner : Spawner
         currentProjectile.SendDataPackage(spawnInfo.PoiseDamageData);
         currentProjectile.SendDataPackage(spawnInfo.ProjectileAudioData);
 
-        // Broadcast new projectile has been spawned so other components can  pass through data packages
         OnSpawnProjectile?.Invoke(currentProjectile);
 
         currentProjectile.Init();
     }
 
-    public void SpawnProjectileStrategy(
+    public void SpawnSingleProjectile(
         ProjectileSpawnInfo spawnInfo,
         Vector3 spawnerPos,
         int facingDirection,
@@ -93,9 +86,7 @@ public class ProjectileSpawner : Spawner
         SpawnProjectile(spawnInfo, spawnInfo.Direction, spawnerPos, facingDirection, OnSpawnProjectile);
     }
 
-    //NOTE: Spawn multiple projectiles at an offset angle (Charge strategy)
-    //TODO: Need to processing more...
-    public void SpawnWithChargeStrategy(
+    public void SpawnChargedProjectiles(
         ProjectileSpawnInfo spawnInfo,
         Vector3 spawnerPos,
         int facingDirection,
@@ -104,11 +95,8 @@ public class ProjectileSpawner : Spawner
         Action<Projectile> OnSpawnProjectile
     )
     {
-        // If there are no charges, we don't spawn any projectiles.
-        if (chargeAmount <= 0)
-            return;
+        if (chargeAmount <= 0) return;
 
-        // If there is only one charge, the direction to spawn the projectile in is the same as the direction that has been passed in.
         if (chargeAmount == 1)
         {
             currentDirection = spawnInfo.Direction;
@@ -123,20 +111,16 @@ public class ProjectileSpawner : Spawner
              */
             var initialRotationQuaternion = Quaternion.Euler(0f, 0f, -((chargeAmount - 1f) * angleVariation / 2f));
 
-            // Rotate the vector to set our first spawn direction
             currentDirection = initialRotationQuaternion * spawnInfo.Direction;
         }
 
-        // The quaternion that we will use to rotate the spawn direction by our angle variation for every projectile we spawn
         var rotationQuaternion = Quaternion.Euler(0f, 0f, angleVariation);
 
         for (var i = 0; i < chargeAmount; i++)
         {
-            // Projectile spawn methods. See ProjectileSpawnerStrategy class for more details
             SpawnProjectile(spawnInfo, currentDirection, spawnerPos, facingDirection,
                 OnSpawnProjectile);
 
-            // Rotate the spawn direction for next projectile.
             currentDirection = rotationQuaternion * currentDirection;
         }
     }

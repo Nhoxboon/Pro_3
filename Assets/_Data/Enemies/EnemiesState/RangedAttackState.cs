@@ -22,7 +22,7 @@ public class RangedAttackState : AttackState
         base.TriggerAttack();
 
         AudioManager.Instance.PlaySFX(audioDataSO.rangedAttackClip);
-        ProjectileSpawner.Instance.SpawnProjectileStrategy(stateData.SpawnInfos[0],
+        ProjectileSpawner.Instance.SpawnSingleProjectile(stateData.SpawnInfos[0],
             attackPosition.position, core.Movement.FacingDirection, OnSpawnProjectile);
     }
 }

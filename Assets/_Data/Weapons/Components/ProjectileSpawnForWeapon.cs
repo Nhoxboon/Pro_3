@@ -23,7 +23,7 @@ public class ProjectileSpawnForWeapon : WeaponComponent<ProjectileSpawnerData, A
         foreach (var projectileSpawnInfo in currentAttackData.SpawnInfos)
         {
             AudioManager.Instance.PlaySFX(currentAttackData.spawnSound);
-            ProjectileSpawner.Instance.SpawnProjectileStrategy(
+            ProjectileSpawner.Instance.SpawnSingleProjectile(
                 projectileSpawnInfo,
                 transform.position,
                 Core.Movement.FacingDirection,
@@ -37,7 +37,7 @@ public class ProjectileSpawnForWeapon : WeaponComponent<ProjectileSpawnerData, A
         foreach (var projectileSpawnInfo in currentAttackData.SpawnInfos)
         {
             AudioManager.Instance.PlaySFX(currentAttackData.spawnSound);
-            ProjectileSpawner.Instance.SpawnWithChargeStrategy(
+            ProjectileSpawner.Instance.SpawnChargedProjectiles(
                 projectileSpawnInfo,
                 transform.position,
                 Core.Movement.FacingDirection,
