@@ -16,6 +16,10 @@ public class Boss_1MoveState : MoveState
     {
         base.Enter();
         randomCoolDown = Random.Range(boss.RangedAttackStateSO.minAttackCooldown, boss.RangedAttackStateSO.maxAttackCooldown);
+        if (boss.IsPhaseChange)
+        {
+            moveSpeed = enemyDataSO.movementSpeed * 2f;
+        }
     }
     
     public override void LogicUpdate()

@@ -23,7 +23,10 @@ public class Boss_1 : EnemyStateManager
     
     protected Boss_1MoveByPointState bossMoveByPointState;
     public Boss_1MoveByPointState BossMoveByPointState => bossMoveByPointState;
+    
+    protected Boss_1PhaseChangeState bossPhaseChangeState;
 
+    protected Boss_1DeadState bossDeadState;
     #endregion
     
     [Header("Boss 1")]
@@ -39,7 +42,9 @@ public class Boss_1 : EnemyStateManager
     public List<Transform> MovePoints => movePoints;
     
     public float lastMoveByPointTime;
-
+    
+    protected bool isPhaseChange = false;
+    public bool IsPhaseChange => isPhaseChange;
 
     protected override void Awake()
     {
@@ -51,6 +56,8 @@ public class Boss_1 : EnemyStateManager
         bossMeleeAttackState = new Boss_1MeleeAttackState(this, stateMachine, "meleeAttack", enemyDataSO, audioDataSO, meleeAttackPosition, meleeAttackDataSO, this);
         bossRangedAttackState = new Boss_1RangedAttackState(this, stateMachine, "rangedAttack", enemyDataSO, audioDataSO, rangedAttackPosition, rangedAttackDataSO, this);
         bossMoveByPointState = new Boss_1MoveByPointState(this, stateMachine, "move", enemyDataSO, audioDataSO, movePoints, this);
+        bossPhaseChangeState = new Boss_1PhaseChangeState(this, stateMachine, "phaseChange", enemyDataSO, audioDataSO, this);
+        bossDeadState = new Boss_1DeadState(this, stateMachine, "dead", enemyDataSO, audioDataSO, this);
     }
 
     protected override void Start()
@@ -124,7 +131,7 @@ public class Boss_1 : EnemyStateManager
 
     protected override void HandleDeath()
     {
-        
+        stateMachine.ChangeState(bossDeadState);
     }
 
     protected override void HandlePoiseZero()
@@ -134,7 +141,11 @@ public class Boss_1 : EnemyStateManager
 
     protected override void HandleHealthDecrease()
     {
-        
+        if (!isPhaseChange && core.Stats.Health.CurrentValue <= core.Stats.Health.MaxValue / 2)
+        {
+            isPhaseChange = true;
+            stateMachine.ChangeState(bossPhaseChangeState);
+        }
     }
     
     public override void OnDrawGizmos()

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ChaseState : State
 {
+    protected float chaseSpeed;
+    
     protected bool isPlayerInMinAgroRange;
     protected bool isDetectingCliff;
     protected bool isDetectingWall;
@@ -33,8 +35,10 @@ public class ChaseState : State
     {
         base.Enter();
 
+        chaseSpeed = stateData.chaseSpeed;
+
         isChargeTimeOver = false;
-        core.Movement.SetVelocityX(stateData.chargeSpeed * core.Movement.FacingDirection);
+        core.Movement.SetVelocityX(chaseSpeed * core.Movement.FacingDirection);
     }
 
     public override void Exit()
@@ -46,7 +50,7 @@ public class ChaseState : State
     {
         base.LogicUpdate();
 
-        core.Movement.SetVelocityX(stateData.chargeSpeed * core.Movement.FacingDirection);
+        core.Movement.SetVelocityX(chaseSpeed * core.Movement.FacingDirection);
 
         if (Time.time >= startTime + stateData.chargeTime)
         {

@@ -6,6 +6,7 @@ public class EnemyGetAnimationEvent : NhoxBehaviour
     [SerializeField] protected EnemyStateManager enemyStateManager;
     public IntroState introState;
     public AttackState attackState;
+    public DeadState deadState;
 
     protected void TriggerAttack()
     {
@@ -17,9 +18,14 @@ public class EnemyGetAnimationEvent : NhoxBehaviour
         attackState.FinishAttack();
     }
     
-    protected void AnimationFinishTrigger()
+    protected void FinishIntro()
     {
         introState.AnimationFinishTrigger();
+    }
+
+    protected void FinishDead()
+    {
+        deadState.FinishDead();
     }
 
     protected void SetParryWindowActive(int value)

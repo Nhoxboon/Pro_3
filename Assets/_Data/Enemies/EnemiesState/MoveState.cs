@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MoveState : State
 {
+    protected float moveSpeed;
+    
     protected bool isDetectingWall;
     protected bool isDetectingCliff;
     protected bool isPlayerInMinAgroRange;
@@ -28,7 +30,8 @@ public class MoveState : State
     {
         base.Enter();
 
-        core.Movement.SetVelocityX(enemyDataSO.movementSpeed * core.Movement.FacingDirection);
+        moveSpeed = enemyDataSO.movementSpeed;
+        core.Movement.SetVelocityX(moveSpeed * core.Movement.FacingDirection);
     }
 
     public override void Exit()
@@ -40,7 +43,7 @@ public class MoveState : State
     {
         base.LogicUpdate();
 
-        core.Movement.SetVelocityX(enemyDataSO.movementSpeed * core.Movement.FacingDirection);
+        core.Movement.SetVelocityX(moveSpeed * core.Movement.FacingDirection);
     }
 
     public override void PhysicsUpdate()

@@ -37029,7 +37029,7 @@ MonoBehaviour:
     height: 0.75
   layerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 192
 --- !u!114 &450568680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37045,7 +37045,7 @@ MonoBehaviour:
   setStuck:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1023312141}
+      - m_Target: {fileID: 252935584}
         m_TargetAssemblyTypeName: ProjectileDespawn, Assembly-CSharp
         m_MethodName: DespawnObject
         m_Mode: 4
@@ -46869,6 +46869,88 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a18c6b8ae26f9c94b839f9e12b69b12d, type: 3}
+--- !u!1 &534739164
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 534739165}
+  - component: {fileID: 534739166}
+  m_Layer: 0
+  m_Name: DamageSender
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &534739165
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534739164}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.01, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1978310839}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &534739166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534739164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04c2275d3be7fe44f9e4b2c2d3a689d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  setInactiveAfterDamage: 0
+  cooldown: 0
+  OnDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1023312141}
+        m_TargetAssemblyTypeName: ProjectileDespawn, Assembly-CSharp
+        m_MethodName: DespawnObject
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnCombatDummyDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1023312141}
+        m_TargetAssemblyTypeName: ProjectileDespawn, Assembly-CSharp
+        m_MethodName: DespawnObject
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnRaycastHit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &555530527
 GameObject:
   m_ObjectHideFlags: 0
@@ -47599,7 +47681,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   workSpace: {x: 0, y: 0}
-  enemyDataSO: {fileID: 11400000, guid: d9e83939877a4004eb6b0dafc8bd2d7e, type: 2}
+  enemyDataSO: {fileID: 11400000, guid: fb67fdef42c412340bb80f3179f22c59, type: 2}
   audioDataSO: {fileID: 11400000, guid: 5fb2b0acade414e4993bb080b817320a, type: 2}
   detectedZone: {fileID: 442970740}
   enemyCtrl: {fileID: 661029983}
@@ -48322,88 +48404,6 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 256
---- !u!1 &824972743
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 824972744}
-  - component: {fileID: 824972745}
-  m_Layer: 0
-  m_Name: DamageSender
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &824972744
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 824972743}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1978310839}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &824972745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 824972743}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04c2275d3be7fe44f9e4b2c2d3a689d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 256
-  setInactiveAfterDamage: 0
-  cooldown: 0
-  OnDamage:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1023312141}
-        m_TargetAssemblyTypeName: ProjectileDespawn, Assembly-CSharp
-        m_MethodName: DespawnObject
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnCombatDummyDamage:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1023312141}
-        m_TargetAssemblyTypeName: ProjectileDespawn, Assembly-CSharp
-        m_MethodName: DespawnObject
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnRaycastHit:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &840026660
 GameObject:
   m_ObjectHideFlags: 0
@@ -64572,7 +64572,7 @@ Transform:
   - {fileID: 486085869}
   - {fileID: 1023312142}
   - {fileID: 1406539262}
-  - {fileID: 824972744}
+  - {fileID: 534739165}
   - {fileID: 2039618841}
   - {fileID: 146340625}
   - {fileID: 44828306}
@@ -64593,7 +64593,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sr: {fileID: 8598081545449355452}
   rb: {fileID: 1978310841}
-  damageSender: {fileID: 824972745}
+  damageSender: {fileID: 0}
   projectileHitbox: {fileID: 1406539263}
 --- !u!50 &1978310841
 Rigidbody2D:

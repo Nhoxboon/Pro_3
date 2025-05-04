@@ -79,7 +79,8 @@ public class Pig : EnemyStateManager
 
     protected override void HandlePoiseZero()
     {
-        stateMachine.ChangeState(pigStunState);
+        if(core.Stats.Health.CurrentValue > 0)
+            stateMachine.ChangeState(pigStunState);
     }
     
     protected override void HandleDeath()

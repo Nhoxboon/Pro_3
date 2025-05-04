@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class MeleeAttackState : AttackState
 {
+    protected float attackDamage;
+    protected float knockbackStrength;
+    protected float poiseDamage;
+    
     protected EnemyMeleeAttackStateSO stateData;
 
     public MeleeAttackState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
@@ -10,6 +14,15 @@ public class MeleeAttackState : AttackState
         animBoolName, enemyDataSO, audioDataSO, attackPosition)
     {
         this.stateData = stateData;
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
+        
+        attackDamage = stateData.attackDamage;
+        knockbackStrength = stateData.knockbackStrength;
+        poiseDamage = stateData.poiseDamage;
     }
 
     public override void TriggerAttack()
@@ -23,14 +36,14 @@ public class MeleeAttackState : AttackState
         foreach (var col in detectedObjs)
         {
             if (col.TryGetComponent<DamageReceiver>(out var damageable))
-                damageable.Damage(new CombatDamageData(stateData.attackDamage, core.Root));
+                damageable.Damage(new CombatDamageData(attackDamage, core.Root));
 
             if (col.TryGetComponent<Knockbackable>(out var knockbackable))
-                knockbackable.Knockback(new CombatKnockbackData(stateData.knockbackAngle, stateData.knockbackStrength,
+                knockbackable.Knockback(new CombatKnockbackData(stateData.knockbackAngle, knockbackStrength,
                     core.Movement.FacingDirection, core.Root));
 
             if (col.TryGetComponent<PoiseReceiver>(out var stunnable))
-                stunnable.Poise(new CombatPoiseData(stateData.poiseDamage, core.Root));
+                stunnable.Poise(new CombatPoiseData(poiseDamage, core.Root));
         }
     }
 }

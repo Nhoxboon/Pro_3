@@ -12,6 +12,16 @@ public class Boss_1MeleeAttackState : MeleeAttackState
     {
         this.boss = boss;
     }
+    
+    public override void Enter()
+    {
+        base.Enter();
+
+        if (boss.IsPhaseChange)
+        {
+            attackDamage = stateData.attackDamage * 2;
+        }
+    }
 
     public override void LogicUpdate()
     {

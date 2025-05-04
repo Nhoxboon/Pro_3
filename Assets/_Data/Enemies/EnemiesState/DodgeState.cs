@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DodgeState : State
 {
+    protected float dodgeSpeed;
+    
     protected bool performCloseRangeAction;
     protected bool isPlayerInMaxAgroRange;
     protected bool isGrounded;
@@ -30,9 +32,11 @@ public class DodgeState : State
     public override void Enter()
     {
         base.Enter();
+        
+        dodgeSpeed = stateData.dodgeSpeed;
 
         isDodgeOver = false;
-        core.Movement.SetVelocity(stateData.dodgeSpeed, stateData.dodgeAngle, -core.Movement.FacingDirection);
+        core.Movement.SetVelocity(dodgeSpeed, stateData.dodgeAngle, -core.Movement.FacingDirection);
     }
 
     public override void Exit()

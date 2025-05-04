@@ -124,7 +124,8 @@ public class Archer : EnemyStateManager
 
     protected override void HandlePoiseZero()
     {
-        stateMachine.ChangeState(archerStunState);
+        if(core.Stats.Health.CurrentValue > 0)
+            stateMachine.ChangeState(archerStunState);
     }
 
     protected override void HandleHealthDecrease()
