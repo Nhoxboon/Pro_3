@@ -42,6 +42,7 @@ public class Boss_1 : EnemyStateManager
     public List<Transform> MovePoints => movePoints;
     
     public float lastMoveByPointTime;
+    public float lastRangedAttackTime;
     
     protected bool isPhaseChange = false;
     public bool IsPhaseChange => isPhaseChange;

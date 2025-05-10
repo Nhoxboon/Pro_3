@@ -173,4 +173,9 @@ public abstract class EnemyStateManager : NhoxBehaviour
         return Physics2D.Raycast(detectedZone.position, transform.right, enemyDataSO.closeRangeActionDistance,
             enemyDataSO.whatIsPlayer);
     }
+    
+    public virtual Vector3 CheckPlayerPosition()
+    {
+        return PlayerCtrl.Instance.transform.position;
+    }
 }

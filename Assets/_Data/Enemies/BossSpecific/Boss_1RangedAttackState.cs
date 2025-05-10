@@ -39,7 +39,7 @@ public class Boss_1RangedAttackState : RangedAttackState
     
     protected void HandleSpawnedProjectile(Projectile projectile)
     {
-        var targetDirection = PlayerCtrl.Instance.transform.position;
+        var targetDirection = boss.CheckPlayerPosition();
 
         projectile.SendDataPackage(new DirectionDataPackage
         {
