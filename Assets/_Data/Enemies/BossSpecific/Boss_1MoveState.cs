@@ -28,7 +28,7 @@ public class Boss_1MoveState : MoveState
         Vector3 playerPosition = enemyStateManager.CheckPlayerPosition();
         int directionToPlayer = playerPosition.x > core.Movement.Rb.position.x ? 1 : -1;
         
-        if (directionToPlayer != core.Movement.FacingDirection)
+        if (directionToPlayer != core.Movement.FacingDirection && PlayerCtrl.Instance.gameObject.activeInHierarchy)
         {
             core.Movement.Flip();
         }
@@ -47,6 +47,11 @@ public class Boss_1MoveState : MoveState
         {
             core.Movement.Flip();
             stateMachine.ChangeState(boss.BossIdleState);
+        }
+
+        else if(Input.GetKeyDown(KeyCode.V))
+        {
+            stateMachine.ChangeState(boss.BossLaserAttackState);
         }
     }
 }

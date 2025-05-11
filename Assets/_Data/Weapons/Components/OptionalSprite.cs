@@ -1,12 +1,6 @@
 ﻿
 using UnityEngine;
 
-/*
- * NOTE: This weapon component is responsible for showing an optional sprite during an attack. The OptionalSprite GameObject has a sprite renderer where
- * this optional sprite is displayed. The OptionalSprite GameObject is put into the appropriate position by the base animations.
- * The SetOptionalSpriteEnabled() and SetOptionalSpriteDisabled() animation events are used to enable and disable this optional sprite at the appropriate
- * times. This sprite, as the title states, is optional and not needed for every attack if the component is added.
- */
 public class OptionalSprite : WeaponComponent<OptionalSpriteData, AttackOptionalSprite>
 {
     protected SpriteRenderer spriteRenderer;
@@ -31,7 +25,6 @@ public class OptionalSprite : WeaponComponent<OptionalSpriteData, AttackOptional
     {
         base.Awake();
 
-        // Find the correct sprite renderer we care about using the OptionalSpriteMarker MonoBehaviour
         spriteRenderer = GetComponentInChildren<OptionalSpriteMarker>().SpriteRenderer;
         spriteRenderer.enabled = false;
     }

@@ -17,6 +17,8 @@ public class Projectile : NhoxBehaviour
     public event Action OnReset;
     public event Action<ProjectileDataPackage> OnReceiveDataPackage;
 
+    public event Action<float> OnDespawn;
+
     public override void Reset()
     {
         base.Reset();
@@ -31,6 +33,11 @@ public class Projectile : NhoxBehaviour
     public void SendDataPackage(ProjectileDataPackage dataPackage)
     {
         OnReceiveDataPackage?.Invoke(dataPackage);
+    }
+    
+    public void Despawn(float despawnTime)
+    {
+        OnDespawn?.Invoke(despawnTime);
     }
 
     protected override void LoadComponents()

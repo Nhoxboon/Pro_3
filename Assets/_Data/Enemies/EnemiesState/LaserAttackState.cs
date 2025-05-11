@@ -1,10 +1,12 @@
+using System;
 using UnityEngine;
 
 public class LaserAttackState : AttackState
 {
+    protected bool isAttack;
     protected EnemyLaserAttackStateSO stateData;
+    public event Action<Projectile> OnSpawnProjectile;
     
-
     public LaserAttackState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
         EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, Transform attackPosition,
         EnemyLaserAttackStateSO stateData) : base(enemyStateManager,
@@ -16,15 +18,23 @@ public class LaserAttackState : AttackState
     public override void Enter()
     {
         base.Enter();
+        isAttack = false;
         core.Movement.SetVelocityZero();
+        OnSpawnProjectile += HandleDespawn;
         // AudioManager.Instance.PlaySFX(audioDataSO.chargeClip); 
+    }
+    
+    public override void Exit()
+    {
+        base.Exit();
+        OnSpawnProjectile -= HandleDespawn;
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        
-        if (Time.time >= startTime + stateData.chargeTime + stateData.laserDuration)
+
+        if (Time.time >= startTime + stateData.laserDuration)
         {
             FinishAttack();
         }
@@ -34,6 +44,12 @@ public class LaserAttackState : AttackState
     {
         base.TriggerAttack();
 
-        
+        ProjectileSpawner.Instance.SpawnSingleProjectile(stateData.SpawnInfos[0],
+            attackPosition.position, -core.Movement.FacingDirection, OnSpawnProjectile);
+    }
+    
+    public void HandleDespawn(Projectile projectile)
+    {
+        projectile.Despawn(stateData.laserDuration - (Time.time - startTime));
     }
 }

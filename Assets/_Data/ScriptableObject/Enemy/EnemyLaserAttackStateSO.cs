@@ -4,5 +4,6 @@ using UnityEngine;
 public class EnemyLaserAttackStateSO : ScriptableObject
 {
     public float chargeTime;
-    public float laserDuration = 3f;
+    public float laserDuration = 2f;
+    [field: SerializeField] public ProjectileSpawnInfo[] SpawnInfos { get; private set; }
 }

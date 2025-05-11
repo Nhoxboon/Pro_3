@@ -62,7 +62,8 @@ AnimatorState:
   m_Name: Boss1_Laser_cast
   m_Speed: 1
   m_CycleOffset: 0
-  m_Transitions: []
+  m_Transitions:
+  - {fileID: 1614531642158992267}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -129,6 +130,31 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1101 &-5517742701486906622
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: laserAttack
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -8119989517676319091}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_ExitTime: 0
+  m_HasExitTime: 0
+  m_HasFixedDuration: 0
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1102 &-5097966374049741065
 AnimatorState:
   serializedVersion: 6
@@ -325,6 +351,7 @@ AnimatorState:
   - {fileID: -758429231670928666}
   - {fileID: 7224215426480881746}
   - {fileID: 2487417062593015076}
+  - {fileID: -5517742701486906622}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -391,6 +418,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
+  - m_Name: laserAttack
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   - m_Name: yVelocity
     m_Type: 1
     m_DefaultFloat: 0
@@ -410,6 +443,31 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
+--- !u!1101 &1614531642158992267
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 2
+    m_ConditionEvent: laserAttack
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -83588576510567680}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_ExitTime: 0.6428571
+  m_HasExitTime: 0
+  m_HasFixedDuration: 0
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1101 &2487417062593015076
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -654,7 +712,7 @@ AnimatorStateMachine:
     m_Position: {x: 220, y: 250, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5097966374049741065}
-    m_Position: {x: 270, y: 370, z: 0}
+    m_Position: {x: 210, y: 360, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8222295028513274132}
     m_Position: {x: 610, y: 110, z: 0}
@@ -666,13 +724,13 @@ AnimatorStateMachine:
     m_Position: {x: 320, y: 110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8119989517676319091}
-    m_Position: {x: 540, y: 420, z: 0}
+    m_Position: {x: 410, y: 440, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8363475140097601002}
     m_Position: {x: 910, y: 130, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6390634208951887049}
-    m_Position: {x: 210, y: 470, z: 0}
+    m_Position: {x: 300, y: 550, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5061247909444436916}
     m_Position: {x: 870, y: 390, z: 0}

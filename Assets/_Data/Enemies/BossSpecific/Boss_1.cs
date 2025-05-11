@@ -21,6 +21,9 @@ public class Boss_1 : EnemyStateManager
     protected Boss_1RangedAttackState bossRangedAttackState;
     public Boss_1RangedAttackState BossRangedAttackState => bossRangedAttackState;
     
+    protected Boss_1LaserAttackState bossLaserAttackState;
+    public Boss_1LaserAttackState BossLaserAttackState => bossLaserAttackState;
+    
     protected Boss_1MoveByPointState bossMoveByPointState;
     public Boss_1MoveByPointState BossMoveByPointState => bossMoveByPointState;
     
@@ -31,10 +34,12 @@ public class Boss_1 : EnemyStateManager
     
     [Header("Boss 1")]
     [SerializeField] protected Transform rangedAttackPosition;
+    [SerializeField] protected Transform laserAttackPosition;
     
     [SerializeField] protected EnemyMeleeAttackStateSO meleeAttackDataSO;
     [SerializeField] protected BossRangedAttackStateSO rangedAttackDataSO;
     public BossRangedAttackStateSO RangedAttackStateSO => rangedAttackDataSO;
+    [SerializeField] protected EnemyLaserAttackStateSO laserAttackDataSO;
     
     [Header("Move Points")]
     [SerializeField] protected Transform pointsHolder;
@@ -43,6 +48,9 @@ public class Boss_1 : EnemyStateManager
     
     public float lastMoveByPointTime;
     public float lastRangedAttackTime;
+    
+    [SerializeField] protected SpriteRenderer chargeSprite;
+    public SpriteRenderer ChargeSprite => chargeSprite;
     
     protected bool isPhaseChange = false;
     public bool IsPhaseChange => isPhaseChange;
@@ -56,6 +64,7 @@ public class Boss_1 : EnemyStateManager
         bossMoveState = new Boss_1MoveState(this, stateMachine, "move", enemyDataSO, audioDataSO, this);
         bossMeleeAttackState = new Boss_1MeleeAttackState(this, stateMachine, "meleeAttack", enemyDataSO, audioDataSO, meleeAttackPosition, meleeAttackDataSO, this);
         bossRangedAttackState = new Boss_1RangedAttackState(this, stateMachine, "rangedAttack", enemyDataSO, audioDataSO, rangedAttackPosition, rangedAttackDataSO, this);
+        bossLaserAttackState = new Boss_1LaserAttackState(this, stateMachine, "laserAttack", enemyDataSO, audioDataSO, laserAttackPosition, laserAttackDataSO, this);
         bossMoveByPointState = new Boss_1MoveByPointState(this, stateMachine, "move", enemyDataSO, audioDataSO, movePoints, this);
         bossPhaseChangeState = new Boss_1PhaseChangeState(this, stateMachine, "phaseChange", enemyDataSO, audioDataSO, this);
         bossDeadState = new Boss_1DeadState(this, stateMachine, "dead", enemyDataSO, audioDataSO, this);
@@ -65,6 +74,7 @@ public class Boss_1 : EnemyStateManager
     {
         base.Start();
         
+        chargeSprite.enabled = false;
         stateMachine.Initialize(bossIntroState);
     }
 
@@ -73,9 +83,19 @@ public class Boss_1 : EnemyStateManager
     {
         base.LoadComponents();
         LoadRangedAttackPosition();
+        LoadLaserAttackPosition();
         LoadMeleeAttackDataSO();
         LoadRangedAttackDataSO();
+        LoadLaserAttackDataSO();
         LoadPoints();
+        LoadChargeSprite();
+    }
+    
+    protected void LoadChargeSprite()
+    {
+        if (chargeSprite != null) return;
+        chargeSprite = laserAttackPosition.GetComponent<SpriteRenderer>();
+        Debug.Log(transform.name + " LoadChargeSprite", gameObject);
     }
     
     protected override void LoadEnemyDataSO()
@@ -106,11 +126,25 @@ public class Boss_1 : EnemyStateManager
         Debug.Log(transform.name + " LoadRangedAttackDataSO", gameObject);
     }
     
+    protected void LoadLaserAttackDataSO()
+    {
+        if (laserAttackDataSO != null) return;
+        laserAttackDataSO = Resources.Load<EnemyLaserAttackStateSO>("Boss/Boss_1LaserAttack");
+        Debug.Log(transform.name + " LoadLaserAttackDataSO", gameObject);
+    }
+    
     protected void LoadRangedAttackPosition()
     {
         if (rangedAttackPosition != null) return;
         rangedAttackPosition = transform.Find("Attack/RangedAttack");
         Debug.Log(transform.name + " LoadRangedAttackPosition", gameObject);
+    }
+    
+    protected void LoadLaserAttackPosition()
+    {
+        if (laserAttackPosition != null) return;
+        laserAttackPosition = transform.Find("Attack/LaserAttack");
+        Debug.Log(transform.name + " LoadLaserAttackPosition", gameObject);
     }
     
     protected virtual void LoadPoints()
