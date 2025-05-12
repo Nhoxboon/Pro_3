@@ -55,6 +55,9 @@ public class Boss_1 : EnemyStateManager
     protected bool isPhaseChange = false;
     public bool IsPhaseChange => isPhaseChange;
 
+    [SerializeField] protected LaserWarningMovement laserWarning;
+    public LaserWarningMovement LaserWarning => laserWarning;
+
     protected override void Awake()
     {
         base.Awake();
@@ -89,6 +92,7 @@ public class Boss_1 : EnemyStateManager
         LoadLaserAttackDataSO();
         LoadPoints();
         LoadChargeSprite();
+        LoadLaserWarning();
     }
     
     protected void LoadChargeSprite()
@@ -156,6 +160,13 @@ public class Boss_1 : EnemyStateManager
             movePoints.Add(point);
         }
         Debug.Log(transform.name + " LoadPoints", gameObject);
+    }
+    
+    protected void LoadLaserWarning()
+    {
+        if (laserWarning != null) return;
+        laserWarning = GetComponentInChildren<LaserWarningMovement>();
+        Debug.Log(transform.name + " LoadLaserWarning", gameObject);
     }
     #endregion
 

@@ -1,4 +1,5 @@
 ﻿
+using System.Collections;
 using UnityEngine;
 
 public class Boss_1LaserAttackState : LaserAttackState
@@ -16,10 +17,13 @@ public class Boss_1LaserAttackState : LaserAttackState
     public override void Enter()
     {
         base.Enter();
-        if (Time.time <= startTime + stateData.chargeTime)
+        
+        if (Time.time < startTime + stateData.chargeTime)
         {
             boss.ChargeSprite.enabled = true;
+            boss.LaserWarning.EnableLaser();
         }
+        
         OnSpawnProjectile += HandleSpawnedProjectile;
     }
     
@@ -35,9 +39,9 @@ public class Boss_1LaserAttackState : LaserAttackState
         
         if (Time.time >= startTime + stateData.chargeTime && !isAttack)
         {
-            boss.ChargeSprite.enabled = false;
             isAttack = true;
-            TriggerAttack();
+            boss.LaserWarning.StopLaser();
+            boss.StartCoroutine(DelayedAttack());
         }
         
         if (isAnimationFinished)
@@ -48,11 +52,20 @@ public class Boss_1LaserAttackState : LaserAttackState
 
     protected void HandleSpawnedProjectile(Projectile projectile)
     {
-        var targetDirection = boss.CheckPlayerPosition();
+        Vector3 targetDirection = boss.LaserWarning.CurrentDirection.normalized;
         
         projectile.SendDataPackage(new DirectionDataPackage
         {
             direction = targetDirection
         });
     }
+    
+    private IEnumerator DelayedAttack()
+    {
+        yield return new WaitForSeconds(0.5f);
+        boss.LaserWarning.DisableLaser();
+        boss.ChargeSprite.enabled = false;
+        TriggerAttack();
+    }
+
 }
