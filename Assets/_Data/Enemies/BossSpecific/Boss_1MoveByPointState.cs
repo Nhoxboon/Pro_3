@@ -19,7 +19,6 @@ public class Boss_1MoveByPointState : MoveByPointState
         base.Enter();
         movePoints = boss.MovePoints;
         hasAttackedThisPoint = false;
-        boss.lastMoveByPointTime = Time.time;
     }
 
     public override void Exit()
@@ -36,22 +35,15 @@ public class Boss_1MoveByPointState : MoveByPointState
     {
         if (!hasAttackedThisPoint)
         {
-            FlipTowardsPlayer();
+            core.Movement.Flip();
             hasAttackedThisPoint = true;
             core.Movement.SetVelocityZero();
-            stateMachine.ChangeState(boss.BossRangedAttackState);
+            stateMachine.ChangeState(boss.BossLaserAttackState);
         }
         else
         {
             base.OnReachPoint();
             hasAttackedThisPoint = false;
         }
-    }
-
-    protected override void OnFinishAllPoints()
-    {
-        base.OnFinishAllPoints();
-        
-        stateMachine.ChangeState(boss.BossMoveState);
     }
 }

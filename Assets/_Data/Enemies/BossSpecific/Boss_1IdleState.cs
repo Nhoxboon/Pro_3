@@ -16,12 +16,14 @@ public class Boss_1IdleState : IdleState
 
         if (isPlayerInMinAgroRange)
         {
-            //TODO: Will change
             stateMachine.ChangeState(boss.BossMoveState);
         }
         else if (isIdleTimeOver)
         {
-            stateMachine.ChangeState(boss.BossMoveState);
+            if (Random.value < 0.5f)
+                stateMachine.ChangeState(boss.BossMoveState);
+            else
+                stateMachine.ChangeState(boss.BossRangedAttackState);
         }
     }
 }

@@ -40,13 +40,13 @@ public class Boss_1 : EnemyStateManager
     [SerializeField] protected BossRangedAttackStateSO rangedAttackDataSO;
     public BossRangedAttackStateSO RangedAttackStateSO => rangedAttackDataSO;
     [SerializeField] protected EnemyLaserAttackStateSO laserAttackDataSO;
+    public EnemyLaserAttackStateSO LaserAttackStateSO => laserAttackDataSO;
     
     [Header("Move Points")]
     [SerializeField] protected Transform pointsHolder;
     [SerializeField] protected List<Transform> movePoints;
     public List<Transform> MovePoints => movePoints;
     
-    public float lastMoveByPointTime;
     public float lastRangedAttackTime;
     
     [SerializeField] protected SpriteRenderer chargeSprite;

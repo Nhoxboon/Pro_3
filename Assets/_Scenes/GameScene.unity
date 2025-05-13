@@ -54173,7 +54173,6 @@ MonoBehaviour:
   movePoints:
   - {fileID: 2133657508}
   - {fileID: 1391527943}
-  lastMoveByPointTime: 0
   lastRangedAttackTime: 0
   chargeSprite: {fileID: 495930279}
   laserWarning: {fileID: 495930280}
@@ -58327,7 +58326,7 @@ Transform:
   m_GameObject: {fileID: 1391527942}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.82, y: -9.88, z: 0}
+  m_LocalPosition: {x: -31.67, y: -10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -72578,7 +72577,7 @@ Transform:
   m_GameObject: {fileID: 2133657507}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.82, y: -6.43, z: 0}
+  m_LocalPosition: {x: -18, y: -10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

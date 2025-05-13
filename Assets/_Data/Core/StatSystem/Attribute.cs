@@ -25,10 +25,17 @@ public class Attribute
             }
         }
     }
+    
+    public bool IsInvincible { get; set; } = false;
 
     public void SetMaxValue(float maxValueData)
     {
         this.maxValue = maxValueData;
+    }
+    
+    public void SetInvincible(bool isInvincible)
+    {
+        IsInvincible = isInvincible;
     }
 
     public void Init() => CurrentValue = maxValue;
@@ -37,7 +44,13 @@ public class Attribute
 
     public void Decrease(float amount)
     {
+        if (IsInvincible || amount <= 0f || currentValue <= 0f) return;
+
+        float oldValue = currentValue;
         CurrentValue -= amount;
-        OnValueDecreased?.Invoke();
+
+        if (currentValue < oldValue)
+            OnValueDecreased?.Invoke();
     }
+
 }

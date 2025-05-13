@@ -19,8 +19,8 @@ MonoBehaviour:
   standColliderHeight: 1.66
   jumpVelocity: 15
   amountOfJumps: 1
-  wallJumpVelocity: 20
-  wallJumpTime: 0.4
+  wallJumpVelocity: 15
+  wallJumpTime: 0.1
   wallJumpAngle: {x: 1, y: 2}
   coyoteTime: 0.2
   variableJumpHeightMultiplier: 0.5
@@ -36,5 +36,3 @@ MonoBehaviour:
   drag: 10
   dashEndYMultiplier: 0.2
   distanceBetweenImages: 0.5
-  hurtTime: 0.5
-  invulnerableTime: 0.2

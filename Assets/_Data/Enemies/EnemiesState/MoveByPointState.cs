@@ -6,9 +6,10 @@ public class MoveByPointState : State
     protected List<Transform> movePoints;
     protected float pointReachedThreshold = 0.1f;
     protected Transform targetPoint;
+    protected Transform lastPoint;
 
     public MoveByPointState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
-        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, List<Transform> movePoints) 
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, List<Transform> movePoints)
         : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO, audioDataSO)
     {
         this.movePoints = movePoints;
@@ -18,10 +19,9 @@ public class MoveByPointState : State
     {
         base.Enter();
 
-        if (movePoints.Count > 0)
-        {
-            targetPoint = movePoints[enemyStateManager.currentPointIndex];
-        }
+        targetPoint = FindClosestPoint();
+        lastPoint = targetPoint;
+
         FlipTowardsPoint();
     }
 
@@ -37,35 +37,74 @@ public class MoveByPointState : State
         }
     }
     
-    protected virtual void FlipTowardsPoint()
+    public override void Exit()
+    {
+        base.Exit();
+        core.Movement.SetVelocityZero();
+    }
+
+    protected Transform FindClosestPoint()
+    {
+        Transform closest = null;
+        float minDistance = Mathf.Infinity;
+        Vector2 currentPos = enemyStateManager.transform.position;
+
+        foreach (Transform point in movePoints)
+        {
+            float dist = Vector2.Distance(currentPos, point.position);
+            if (dist < minDistance)
+            {
+                minDistance = dist;
+                closest = point;
+            }
+        }
+
+        return closest;
+    }
+
+    protected Transform FindNextClosestPoint()
+    {
+        Transform closest = null;
+        float minDistance = Mathf.Infinity;
+        Vector2 currentPos = enemyStateManager.transform.position;
+
+        foreach (Transform point in movePoints)
+        {
+            if (point == lastPoint) continue;
+
+            float dist = Vector2.Distance(currentPos, point.position);
+            if (dist < minDistance)
+            {
+                minDistance = dist;
+                closest = point;
+            }
+        }
+
+        return closest != null ? closest : lastPoint;
+    }
+
+    protected virtual void OnReachPoint()
+    {
+        lastPoint = targetPoint;
+        targetPoint = FindNextClosestPoint();
+        FlipTowardsPoint();
+    }
+
+    protected void FlipTowardsPoint()
     {
         float deltaX = targetPoint.position.x - enemyStateManager.transform.position.x;
 
-        if (deltaX > 0f && core.Movement.FacingDirection != 1)
+        if (deltaX != 0)
         {
-            core.Movement.Flip();
-        }
-        else if (deltaX < 0f && core.Movement.FacingDirection != -1)
-        {
-            core.Movement.Flip();
+            int direction = deltaX > 0 ? 1 : -1;
+            if (core.Movement.FacingDirection != direction)
+            {
+                core.Movement.Flip();
+            }
         }
     }
 
-    protected void FlipTowardsPlayer()
-    {
-        float deltaX = PlayerCtrl.Instance.transform.position.x - enemyStateManager.transform.position.x;
-
-        if (deltaX > 0f && core.Movement.FacingDirection != 1)
-        {
-            core.Movement.Flip();
-        }
-        else if (deltaX < 0f && core.Movement.FacingDirection != -1)
-        {
-            core.Movement.Flip();
-        }
-    }
-    
-    protected virtual void MoveToTarget()
+    protected void MoveToTarget()
     {
         Vector2 position = enemyStateManager.transform.position;
         Vector2 targetPosition = targetPoint.position;
@@ -97,8 +136,7 @@ public class MoveByPointState : State
         }
     }
 
-
-    protected virtual bool IsAtTarget()
+    protected bool IsAtTarget()
     {
         Vector2 position = enemyStateManager.transform.position;
         Vector2 targetPosition = targetPoint.position;
@@ -107,31 +145,5 @@ public class MoveByPointState : State
         float deltaY = Mathf.Abs(targetPosition.y - position.y);
 
         return deltaX <= pointReachedThreshold && deltaY <= pointReachedThreshold;
-    }
-
-
-    protected virtual void OnReachPoint()
-    {
-        enemyStateManager.currentPointIndex++;
-        
-        if (enemyStateManager.currentPointIndex >= movePoints.Count)
-        {
-            OnFinishAllPoints();
-        }
-        else
-        {
-            targetPoint = movePoints[enemyStateManager.currentPointIndex];
-        }
-    }
-
-    protected virtual void OnFinishAllPoints()
-    {
-        
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-        core.Movement.SetVelocityZero();
     }
 }

@@ -29,7 +29,10 @@ public class Boss_1MeleeAttackState : MeleeAttackState
         
         if (isAnimationFinished)
         {
-            stateMachine.ChangeState(boss.BossMoveState);
+            if (boss.IsPhaseChange && Random.value < 0.3f)
+                stateMachine.ChangeState(boss.BossMoveByPointState);
+            else
+                stateMachine.ChangeState(boss.BossMoveState);
         }
     }
 }

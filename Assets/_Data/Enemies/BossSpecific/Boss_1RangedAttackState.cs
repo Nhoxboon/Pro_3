@@ -26,14 +26,10 @@ public class Boss_1RangedAttackState : RangedAttackState
         
         if (isAnimationFinished)
         {
-            if (enemyStateManager.currentPointIndex != 0)
-            {
-                stateMachine.ChangeState(boss.BossMoveByPointState);
-            }
+            if (Random.value < 0.2f)
+                stateMachine.ChangeState(boss.BossIdleState);
             else
-            {
                 stateMachine.ChangeState(boss.BossMoveState);
-            }
         }
     }
     

@@ -19,7 +19,7 @@ public class Boss_1PhaseChangeState : PhaseChangeState
         
         if (isPhaseChangeTimeOver)
         {
-            stateMachine.ChangeState(boss.BossMoveState);
+            stateMachine.ChangeState(boss.BossMoveByPointState);
         }
     }
 }

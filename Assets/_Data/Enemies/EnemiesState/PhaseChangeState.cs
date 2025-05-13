@@ -5,6 +5,7 @@ public class PhaseChangeState : State
 {
     protected BossDataSO bossDataSO;
     protected bool isPhaseChangeTimeOver;
+    public bool IsPhaseChangeTimeOver => isPhaseChangeTimeOver;
     
     public PhaseChangeState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSo) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO, audioDataSo)
     {
@@ -15,6 +16,7 @@ public class PhaseChangeState : State
     public override void Enter()
     {
         base.Enter();
+        core.Stats.Health.IsInvincible = true;
         isPhaseChangeTimeOver = false;
         core.Movement.SetVelocityX(0f);
     }
@@ -28,5 +30,11 @@ public class PhaseChangeState : State
         {
             isPhaseChangeTimeOver = true;
         }
+    }
+    
+    public override void Exit()
+    {
+        base.Exit();
+        core.Stats.Health.IsInvincible = false;
     }
 }
