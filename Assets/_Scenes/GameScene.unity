@@ -35332,6 +35332,7 @@ GameObject:
   m_Component:
   - component: {fileID: 263951307}
   - component: {fileID: 263951306}
+  - component: {fileID: 263951308}
   m_Layer: 6
   m_Name: BossRoomTrigger
   m_TagString: Untagged
@@ -35392,13 +35393,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 263951305}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.777023, y: -7.3240185, z: -0.035961233}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -16.75, y: -7.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1436108101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &263951308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263951305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93cd197a25e2140aabdbd94fee7c870e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  col: {fileID: 263951306}
 --- !u!1 &266760577
 GameObject:
   m_ObjectHideFlags: 0
@@ -54132,8 +54146,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 661029982}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -28.4, y: -9.95, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -29.54, y: -9.95, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -54142,7 +54156,7 @@ Transform:
   - {fileID: 358061669}
   - {fileID: 442970740}
   - {fileID: 154141568}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1436108101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &661029987
 MonoBehaviour:
@@ -54176,6 +54190,8 @@ MonoBehaviour:
   lastRangedAttackTime: 0
   chargeSprite: {fileID: 495930279}
   laserWarning: {fileID: 495930280}
+  isPlayerInRoom: 0
+  bossRoomTrigger: {fileID: 263951308}
 --- !u!1 &668331699
 GameObject:
   m_ObjectHideFlags: 0
@@ -58666,6 +58682,40 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1034860248}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1436108100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1436108101}
+  m_Layer: 0
+  m_Name: ===BossRoom===
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1436108101
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436108100}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 661029986}
+  - {fileID: 2133044867}
+  - {fileID: 263951307}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1438226294
 GameObject:
@@ -72550,7 +72600,7 @@ Transform:
   m_Children:
   - {fileID: 2133657508}
   - {fileID: 1391527943}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1436108101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2133657507
 GameObject:
@@ -99736,7 +99786,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: -876546973899608171, guid: c7fb89ad30adf48abaeb21f6efb4c4f0, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -100654,6 +100704,4 @@ SceneRoots:
   - {fileID: 880830706}
   - {fileID: 420070629}
   - {fileID: 859961392}
-  - {fileID: 661029986}
-  - {fileID: 2133044867}
-  - {fileID: 263951307}
+  - {fileID: 1436108101}

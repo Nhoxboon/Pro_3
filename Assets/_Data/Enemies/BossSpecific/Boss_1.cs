@@ -5,63 +5,69 @@ using UnityEngine;
 public class Boss_1 : EnemyStateManager
 {
     #region State Variables
-    
+
+    protected Boss_1SleepState bossSleepState;
+
     protected Boss_1IntroState bossIntroState;
     public Boss_1IntroState BossIntroState => bossIntroState;
 
     protected Boss_1IdleState bossIdleState;
     public Boss_1IdleState BossIdleState => bossIdleState;
-    
+
     protected Boss_1MoveState bossMoveState;
     public Boss_1MoveState BossMoveState => bossMoveState;
-    
+
     protected Boss_1MeleeAttackState bossMeleeAttackState;
     public Boss_1MeleeAttackState BossMeleeAttackState => bossMeleeAttackState;
 
     protected Boss_1RangedAttackState bossRangedAttackState;
     public Boss_1RangedAttackState BossRangedAttackState => bossRangedAttackState;
-    
+
     protected Boss_1LaserAttackState bossLaserAttackState;
     public Boss_1LaserAttackState BossLaserAttackState => bossLaserAttackState;
-    
+
     protected Boss_1MoveByPointState bossMoveByPointState;
     public Boss_1MoveByPointState BossMoveByPointState => bossMoveByPointState;
-    
+
     protected Boss_1PhaseChangeState bossPhaseChangeState;
 
     protected Boss_1DeadState bossDeadState;
     #endregion
-    
+
     [Header("Boss 1")]
     [SerializeField] protected Transform rangedAttackPosition;
     [SerializeField] protected Transform laserAttackPosition;
-    
+
     [SerializeField] protected EnemyMeleeAttackStateSO meleeAttackDataSO;
     [SerializeField] protected BossRangedAttackStateSO rangedAttackDataSO;
     public BossRangedAttackStateSO RangedAttackStateSO => rangedAttackDataSO;
     [SerializeField] protected EnemyLaserAttackStateSO laserAttackDataSO;
-    public EnemyLaserAttackStateSO LaserAttackStateSO => laserAttackDataSO;
-    
+
     [Header("Move Points")]
     [SerializeField] protected Transform pointsHolder;
     [SerializeField] protected List<Transform> movePoints;
     public List<Transform> MovePoints => movePoints;
-    
+
     public float lastRangedAttackTime;
-    
+
     [SerializeField] protected SpriteRenderer chargeSprite;
     public SpriteRenderer ChargeSprite => chargeSprite;
-    
+
     protected bool isPhaseChange = false;
     public bool IsPhaseChange => isPhaseChange;
 
     [SerializeField] protected LaserWarningMovement laserWarning;
     public LaserWarningMovement LaserWarning => laserWarning;
 
+    [Header("Boss Room")]
+    [SerializeField] protected bool isPlayerInRoom = false;
+    [SerializeField] protected BossRoomTrigger bossRoomTrigger;
+
     protected override void Awake()
     {
         base.Awake();
-        
+
+        bossSleepState = new Boss_1SleepState(this, stateMachine, "sleep", enemyDataSO, audioDataSO, this);
         bossIntroState = new Boss_1IntroState(this, stateMachine, "intro", enemyDataSO, audioDataSO, this);
         bossIdleState = new Boss_1IdleState(this, stateMachine, "idle", enemyDataSO, audioDataSO, this);
         bossMoveState = new Boss_1MoveState(this, stateMachine, "move", enemyDataSO, audioDataSO, this);
@@ -71,14 +77,22 @@ public class Boss_1 : EnemyStateManager
         bossMoveByPointState = new Boss_1MoveByPointState(this, stateMachine, "move", enemyDataSO, audioDataSO, movePoints, this);
         bossPhaseChangeState = new Boss_1PhaseChangeState(this, stateMachine, "phaseChange", enemyDataSO, audioDataSO, this);
         bossDeadState = new Boss_1DeadState(this, stateMachine, "dead", enemyDataSO, audioDataSO, this);
+
+        bossRoomTrigger.OnPlayerEnter += StartBossFight;
     }
 
     protected override void Start()
     {
         base.Start();
-        
+
         chargeSprite.enabled = false;
-        stateMachine.Initialize(bossIntroState);
+        stateMachine.Initialize(bossSleepState);
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        bossRoomTrigger.OnPlayerEnter -= StartBossFight;
     }
 
     #region LoadComponents
@@ -93,15 +107,9 @@ public class Boss_1 : EnemyStateManager
         LoadPoints();
         LoadChargeSprite();
         LoadLaserWarning();
+        LoadBossRoomTrigger();
     }
-    
-    protected void LoadChargeSprite()
-    {
-        if (chargeSprite != null) return;
-        chargeSprite = laserAttackPosition.GetComponent<SpriteRenderer>();
-        Debug.Log(transform.name + " LoadChargeSprite", gameObject);
-    }
-    
+
     protected override void LoadEnemyDataSO()
     {
         if (enemyDataSO != null) return;
@@ -115,42 +123,42 @@ public class Boss_1 : EnemyStateManager
         audioDataSO = Resources.Load<EnemyAudioDataSO>("Boss/Boss_1Audio");
         Debug.Log(transform.name + " LoadEnemyAudioDataSO", gameObject);
     }
-    
+
     protected void LoadMeleeAttackDataSO()
     {
         if (meleeAttackDataSO != null) return;
         meleeAttackDataSO = Resources.Load<EnemyMeleeAttackStateSO>("Boss/Boss_1MeleeAttack");
         Debug.Log(transform.name + " LoadMeleeAttackDataSO", gameObject);
     }
-    
+
     protected void LoadRangedAttackDataSO()
     {
         if (rangedAttackDataSO != null) return;
         rangedAttackDataSO = Resources.Load<BossRangedAttackStateSO>("Boss/Boss_1RangedAttack");
         Debug.Log(transform.name + " LoadRangedAttackDataSO", gameObject);
     }
-    
+
     protected void LoadLaserAttackDataSO()
     {
         if (laserAttackDataSO != null) return;
         laserAttackDataSO = Resources.Load<EnemyLaserAttackStateSO>("Boss/Boss_1LaserAttack");
         Debug.Log(transform.name + " LoadLaserAttackDataSO", gameObject);
     }
-    
+
     protected void LoadRangedAttackPosition()
     {
         if (rangedAttackPosition != null) return;
         rangedAttackPosition = transform.Find("Attack/RangedAttack");
         Debug.Log(transform.name + " LoadRangedAttackPosition", gameObject);
     }
-    
+
     protected void LoadLaserAttackPosition()
     {
         if (laserAttackPosition != null) return;
         laserAttackPosition = transform.Find("Attack/LaserAttack");
         Debug.Log(transform.name + " LoadLaserAttackPosition", gameObject);
     }
-    
+
     protected virtual void LoadPoints()
     {
         if (pointsHolder != null) return;
@@ -161,14 +169,38 @@ public class Boss_1 : EnemyStateManager
         }
         Debug.Log(transform.name + " LoadPoints", gameObject);
     }
-    
+
+    protected void LoadChargeSprite()
+    {
+        if (chargeSprite != null) return;
+        chargeSprite = laserAttackPosition.GetComponent<SpriteRenderer>();
+        Debug.Log(transform.name + " LoadChargeSprite", gameObject);
+    }
+
     protected void LoadLaserWarning()
     {
         if (laserWarning != null) return;
         laserWarning = GetComponentInChildren<LaserWarningMovement>();
         Debug.Log(transform.name + " LoadLaserWarning", gameObject);
     }
+
+    protected void LoadBossRoomTrigger()
+    {
+        if(bossRoomTrigger != null) return;
+        bossRoomTrigger = transform.parent.GetComponentInChildren<BossRoomTrigger>();
+        Debug.Log(transform.name + " LoadBossRoomTrigger", gameObject);
+    }
     #endregion
+
+    protected void StartBossFight()
+    {
+        isPlayerInRoom = true;
+    }
+
+    public bool CheckPlayerInRoom()
+    {
+        return isPlayerInRoom;
+    }
 
     protected override void HandleParry()
     {

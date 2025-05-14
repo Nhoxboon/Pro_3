@@ -59,7 +59,7 @@ public abstract class EnemyStateManager : NhoxBehaviour
         stateMachine.CurrentState.PhysicsUpdate();
     }
 
-    protected void OnDestroy()
+    protected virtual void OnDestroy()
     {
         core.ParryReceiver.OnParried -= HandleParry;
         core.Stats.Health.OnCurrentValueZero -= HandleDeath;
