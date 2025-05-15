@@ -8,13 +8,12 @@ public class ProjectileAudio : ProjectileComponent
     
     private void HandleRaycastHit2D(RaycastHit2D[] hits)
     {
-        if (!Active)
-            return;
+        if (!Active) return;
 
         foreach (var hit in hits)
         {
-            if (!LayerMaskUtilities.IsLayerInMask(hit, layerMask))
-                continue;
+            if (!LayerMaskUtilities.IsLayerInMask(hit, layerMask)) continue;
+            
             AudioManager.Instance.PlaySFX(projectileAudio);
             return;
         }
