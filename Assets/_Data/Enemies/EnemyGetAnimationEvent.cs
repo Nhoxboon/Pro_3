@@ -4,7 +4,6 @@ using UnityEngine;
 public class EnemyGetAnimationEvent : NhoxBehaviour
 {
     [SerializeField] protected EnemyStateManager enemyStateManager;
-    public IntroState introState;
     public AttackState attackState;
     public DeadState deadState;
 
@@ -18,11 +17,6 @@ public class EnemyGetAnimationEvent : NhoxBehaviour
         attackState.FinishAttack();
     }
     
-    protected void FinishIntro()
-    {
-        introState.AnimationFinishTrigger();
-    }
-
     protected void FinishDead()
     {
         deadState.FinishDead();

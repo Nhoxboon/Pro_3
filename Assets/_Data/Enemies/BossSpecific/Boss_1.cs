@@ -8,9 +8,6 @@ public class Boss_1 : EnemyStateManager
 
     protected Boss_1SleepState bossSleepState;
 
-    protected Boss_1IntroState bossIntroState;
-    public Boss_1IntroState BossIntroState => bossIntroState;
-
     protected Boss_1IdleState bossIdleState;
     public Boss_1IdleState BossIdleState => bossIdleState;
 
@@ -68,7 +65,6 @@ public class Boss_1 : EnemyStateManager
         base.Awake();
 
         bossSleepState = new Boss_1SleepState(this, stateMachine, "sleep", enemyDataSO, audioDataSO, this);
-        bossIntroState = new Boss_1IntroState(this, stateMachine, "intro", enemyDataSO, audioDataSO, this);
         bossIdleState = new Boss_1IdleState(this, stateMachine, "idle", enemyDataSO, audioDataSO, this);
         bossMoveState = new Boss_1MoveState(this, stateMachine, "move", enemyDataSO, audioDataSO, this);
         bossMeleeAttackState = new Boss_1MeleeAttackState(this, stateMachine, "meleeAttack", enemyDataSO, audioDataSO, meleeAttackPosition, meleeAttackDataSO, this);

@@ -1,16 +1,39 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class BossRoomTrigger : NhoxBehaviour
 {
+    [SerializeField] protected EnemyCtrl enemyCtrl;
     [SerializeField] protected Collider2D col;
+    [SerializeField] protected PlayableDirector bossIntroTimeline;
+    
     public event Action OnPlayerEnter;
+
+    protected void OnEnable()
+    {
+        enemyCtrl.EnemyStateManager.Core.Stats.Health.OnCurrentValueZero += HandleBossDeath;
+    }
+    
+    protected void OnDisable()
+    {
+        enemyCtrl.EnemyStateManager.Core.Stats.Health.OnCurrentValueZero -= HandleBossDeath;
+    }
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
+        LoadEnemyCtrl();
         LoadBoxCollider2D();
+        LoadBossIntroTimeline();
+    }
+    
+    protected void LoadEnemyCtrl()
+    {
+        if(enemyCtrl != null) return;
+        enemyCtrl = transform.parent.GetComponentInChildren<EnemyCtrl>();
+        Debug.Log(transform.name + " :LoadEnemyCtrl", gameObject);
     }
 
     protected void LoadBoxCollider2D()
@@ -19,21 +42,30 @@ public class BossRoomTrigger : NhoxBehaviour
         col = GetComponent<Collider2D>();
         Debug.Log(transform.name + " :LoadBoxCollider2D", gameObject);
     }
+    
+    protected void LoadBossIntroTimeline()
+    {
+        if(bossIntroTimeline != null) return;
+        bossIntroTimeline = transform.parent.GetComponentInChildren<PlayableDirector>();
+        Debug.Log(transform.name + " :LoadBossIntroTimeline", gameObject);
+    }
 
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            OnPlayerEnter?.Invoke();
-
-            //TODO: Temporary solution to prevent multiple triggers
-            StartCoroutine(DisableTriggerAfterDelay());
+            bossIntroTimeline.Play();
         }
     }
-
-    private IEnumerator DisableTriggerAfterDelay()
+    
+    public void EnableControls()
     {
-        yield return new WaitForSeconds(0.2f);
         col.isTrigger = false;
+        OnPlayerEnter?.Invoke();
+    }
+    
+    protected void HandleBossDeath()
+    {
+        col.enabled = false;
     }
 }

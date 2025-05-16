@@ -22,6 +22,6 @@ public class Boss_1SleepState : SleepState
     {
         base.LogicUpdate();
 
-        if(isPlayerIn) stateMachine.ChangeState(boss.BossIntroState);
+        if(isPlayerIn) stateMachine.ChangeState(boss.BossMoveState);
     }
 }
