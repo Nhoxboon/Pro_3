@@ -56,8 +56,9 @@ public class AudioManager : NhoxBehaviour
         musicSource.Play();
     }
     
-    public void PlaySFX(AudioClip clip)
+    public void PlaySFX(AudioClip clip, float pitch = 1f)
     {
+        sfxSource.pitch = pitch;
         sfxSource.PlayOneShot(clip);
     }
     

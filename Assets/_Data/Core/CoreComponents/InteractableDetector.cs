@@ -7,20 +7,30 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class InteractableDetector : CoreComponent
 {
-    public Action<IInteractable> OnTryInteract;
+    public Action<IInteractableItem> OnTryInteract;
     
-    protected List<IInteractable> interactables = new();
+    protected List<IInteractableItem> interactables = new();
 
-    protected IInteractable closestInteractable;
+    protected IInteractableItem closestInteractable;
     
     protected float distanceToClosestInteractable = float.PositiveInfinity;
+
+    protected IInteractable interactableInRange;
     
     [ContextMenu("TryInteract")]
     public void TryInteract(bool inputValue)
     {
-        if(!inputValue || closestInteractable is null) return;
+        if (!inputValue) return;
+
+        if (closestInteractable is not null)
+        {
+            OnTryInteract?.Invoke(closestInteractable);
+        }
         
-        OnTryInteract?.Invoke(closestInteractable);
+        else if (interactableInRange is not null)
+        {
+            interactableInRange.Interact();
+        }
     }
 
     protected void Update()
@@ -54,13 +64,13 @@ public class InteractableDetector : CoreComponent
         }
     }
 
-    protected void HandleInteractableSwitch(IInteractable oldInteractable, IInteractable newInteractable)
+    protected void HandleInteractableSwitch(IInteractableItem oldInteractable, IInteractableItem newInteractable)
     {
         oldInteractable?.DisableInteraction();
         newInteractable?.EnableInteraction();
     }
 
-    protected float FindDistanceTo(IInteractable interactable)
+    protected float FindDistanceTo(IInteractableItem interactable)
     {
         return Vector3.Distance(transform.position, interactable.GetPosition());
     }
@@ -70,6 +80,11 @@ public class InteractableDetector : CoreComponent
         if (other.IsInteractable(out var interactable))
         {
             interactables.Add(interactable);
+        }
+
+        if (other.TryGetComponent(out IInteractable interactableInRange) && interactableInRange.CanInteract())
+        {
+            this.interactableInRange = interactableInRange;
         }
     }
     
@@ -85,11 +100,16 @@ public class InteractableDetector : CoreComponent
                 closestInteractable = null;
             }
         }
+        
+        if (other.TryGetComponent(out IInteractable interactableInRange) && interactableInRange == this.interactableInRange)
+        {
+            this.interactableInRange = null;
+        }
     }
     
     private void OnDrawGizmosSelected()
     {
-        foreach (IInteractable interactable in interactables)
+        foreach (IInteractableItem interactable in interactables)
         {
             Gizmos.color = interactable == closestInteractable ? Color.red : Color.white;
 

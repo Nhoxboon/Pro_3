@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class WeaponPickup : NhoxBehaviour, IInteractable<WeaponDataSO>
+public class WeaponPickup : NhoxBehaviour, IInteractableItem<WeaponDataSO>
 {
     [SerializeField] protected Rigidbody2D rb;
 
@@ -33,6 +33,12 @@ public class WeaponPickup : NhoxBehaviour, IInteractable<WeaponDataSO>
     public void Interact()
     {
         Destroy(gameObject);
+    }
+
+    //Warning: not used in the current implementation
+    public bool CanInteract()
+    {
+        return true;
     }
 
     public void EnableInteraction()
