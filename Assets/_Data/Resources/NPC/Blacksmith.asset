@@ -15,10 +15,15 @@ MonoBehaviour:
   npcName: Blacksmith
   npcPortrait: {fileID: 2090256289, guid: 91b4f0d9e53d61d43b42de133318b54c, type: 3}
   dialogueLines:
-  - Hello
-  - My nigga
+  - Oh hello!
+  - So you are the new adventurer in town huh?!
+  - Many people come and never return, but i hope you will comeback
+  - Take this weapon as a give.
+  - Goodluck young man. May the force be with you.
+  autoProgressLines: 0000000000
+  endDialogueLines: 0000000000
   typingSpeed: 0.05
   voiceSound: {fileID: 8300000, guid: e01d32aef9c39fe4a98c807b34d81e96, type: 3}
-  voicePitch: 1
-  autoProgressLines: 0000
+  voicePitch: 0.7
   autoProgressDelay: 1.5
+  choices: []

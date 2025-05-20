@@ -1,17 +1,22 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InputManager : NhoxBehaviour
 {
-    private static InputManager instance;
-    public static InputManager Instance => instance;
+    [SerializeField] protected bool isUIMode;
+
+    [SerializeField] protected float inputHoldTime = 0.2f;
+
+    [SerializeField] protected Camera cam;
+
+    [SerializeField] private Transform player;
+    protected float dashInputStartTime;
+
+    protected bool isPaused;
+    protected float jumpInputStartTime;
+    public static InputManager Instance { get; private set; }
 
     public bool InteractInput { get; private set; }
-    public event Action<bool> OnInteractInputChanged;
-    
-    [SerializeField] protected bool isUIMode = false;
 
     public Vector2 RawMovementInput { get; private set; }
     public int NormInputX { get; private set; }
@@ -19,46 +24,41 @@ public class InputManager : NhoxBehaviour
 
     public bool JumpInput { get; private set; }
     public bool JumpInputStop { get; private set; }
-    protected float jumpInputStartTime;
 
     public bool GrabInput { get; private set; }
 
     public bool DashInput { get; private set; }
     public bool DashInputStop { get; private set; }
-    protected float dashInputStartTime;
 
     public bool[] AttackInputs { get; private set; }
 
     public Vector2 RawDashDirectionInput { get; private set; }
     public Vector2Int DashDirectionInput { get; private set; }
 
-    [SerializeField] protected float inputHoldTime = 0.2f;
-
-    [SerializeField] protected Camera cam;
-
-    [SerializeField] private Transform player;
-
     protected override void Awake()
     {
         base.Awake();
-        if (instance != null)
+        if (Instance != null)
         {
             Debug.LogError("InputManager already exist...");
             Destroy(gameObject);
             return;
         }
-        instance = this;
+
+        Instance = this;
     }
 
     protected override void Start()
     {
-        int count = Enum.GetValues(typeof(CombatInputs)).Length;
+        var count = Enum.GetValues(typeof(CombatInputs)).Length;
         AttackInputs = new bool[count];
     }
 
     private void Update()
     {
-        if (isUIMode) return;
+        ProcessInteractInput();
+
+        if (isUIMode || isPaused) return;
 
         ProcessMovementInput();
         ProcessJumpInput();
@@ -66,11 +66,12 @@ public class InputManager : NhoxBehaviour
         ProcessDashDirectionInput();
         ProcessDashInput();
         ProcessAttackInput();
-        ProcessInteractInput();
 
         CheckJumpInputHoldTime();
         CheckDashInputHoldTime();
     }
+
+    public event Action<bool> OnInteractInputChanged;
 
     protected override void LoadComponents()
     {
@@ -81,35 +82,35 @@ public class InputManager : NhoxBehaviour
 
     protected void LoadCamera()
     {
-        if (this.cam != null) return;
-        this.cam = Camera.main;
+        if (cam != null) return;
+        cam = Camera.main;
         Debug.Log(transform.name + " LoadCamera", gameObject);
     }
 
     protected void LoadPlayer()
     {
-        if (this.player != null) return;
-        this.player = GameObject.FindGameObjectWithTag("Player").transform;
+        if (player != null) return;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         Debug.Log(transform.name + " LoadPlayer", gameObject);
     }
-    
+
     // ReSharper disable Unity.PerformanceAnalysis
     public void SetUIMode(bool isUI)
     {
         isUIMode = isUI;
-        if (isUI) 
+        if (isUI)
             ResetInputs();
     }
 
     protected void ProcessMovementInput()
     {
-        bool leftKey = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
-        bool rightKey = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
-        bool upKey = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
-        bool downKey = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
+        var leftKey = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
+        var rightKey = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
+        var upKey = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
+        var downKey = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
 
-        float horizontal = 0f;
-        float vertical = 0f;
+        var horizontal = 0f;
+        var vertical = 0f;
 
         if (leftKey && !rightKey)
             horizontal = -1f;
@@ -134,10 +135,8 @@ public class InputManager : NhoxBehaviour
             JumpInputStop = false;
             jumpInputStartTime = Time.time;
         }
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            JumpInputStop = true;
-        }
+
+        if (Input.GetKeyUp(KeyCode.Space)) JumpInputStop = true;
     }
 
     protected void ProcessGrabInput()
@@ -156,17 +155,15 @@ public class InputManager : NhoxBehaviour
             DashInputStop = false;
             dashInputStartTime = Time.time;
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            DashInputStop = true;
-        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift)) DashInputStop = true;
     }
 
     protected void ProcessDashDirectionInput()
     {
-        Vector3 mousePos = Input.mousePosition;
-        Vector3 worldPos = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, cam.nearClipPlane));
-        Vector2 dashDirection = (worldPos - player.position);
+        var mousePos = Input.mousePosition;
+        var worldPos = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, cam.nearClipPlane));
+        Vector2 dashDirection = worldPos - player.position;
         RawDashDirectionInput = dashDirection;
         DashDirectionInput = Vector2Int.RoundToInt(dashDirection.normalized);
     }
@@ -186,18 +183,12 @@ public class InputManager : NhoxBehaviour
 
     protected void CheckJumpInputHoldTime()
     {
-        if (Time.time >= jumpInputStartTime + inputHoldTime)
-        {
-            JumpInput = false;
-        }
+        if (Time.time >= jumpInputStartTime + inputHoldTime) JumpInput = false;
     }
 
     protected void CheckDashInputHoldTime()
     {
-        if (Time.time >= dashInputStartTime + inputHoldTime)
-        {
-            DashInput = false;
-        }
+        if (Time.time >= dashInputStartTime + inputHoldTime) DashInput = false;
     }
 
     private void ProcessInteractInput()
@@ -215,10 +206,20 @@ public class InputManager : NhoxBehaviour
         }
     }
 
-    public void UseAttackInput(int attackIndex) => AttackInputs[attackIndex] = false;
+    public void UseAttackInput(int attackIndex)
+    {
+        AttackInputs[attackIndex] = false;
+    }
 
-    public void UseJumpInput() => JumpInput = false;
-    public void UseDashInput() => DashInput = false;
+    public void UseJumpInput()
+    {
+        JumpInput = false;
+    }
+
+    public void UseDashInput()
+    {
+        DashInput = false;
+    }
 
     public void ResetInputs()
     {
@@ -237,6 +238,17 @@ public class InputManager : NhoxBehaviour
 
         InteractInput = false;
         OnInteractInputChanged?.Invoke(false);
+    }
+
+    public void Pause()
+    {
+        isPaused = true;
+        ResetInputs();
+    }
+
+    public void Unpause()
+    {
+        isPaused = false;
     }
 }
 
