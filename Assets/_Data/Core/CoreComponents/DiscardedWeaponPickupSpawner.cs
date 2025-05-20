@@ -55,15 +55,18 @@ public class DiscardedWeaponPickupSpawner : CoreComponent
     {
         var spawnPoint = core.Movement.FindRelativePoint(spawnOffset);
 
-        var weaponPickup = Instantiate(weaponPickupPrefab, spawnPoint, Quaternion.identity);
-        
-        weaponPickup.transform.SetParent(weaponPool);
+        string prefabName = discardedWeaponData.name;
+
+        var spawnedTransform = WeaponSpawner.Instance.Spawn(prefabName, spawnPoint, Quaternion.identity);
+
+        WeaponPickup weaponPickup = spawnedTransform.GetComponent<WeaponPickup>();
+
         weaponPickup.transform.name = discardedWeaponData.name;
+        // weaponPickup.SetContext(discardedWeaponData);
 
-        weaponPickup.SetContext(discardedWeaponData);
-
+        weaponPickup.gameObject.SetActive(true);
         var adjustedSpawnDirection = new Vector2(spawnDirection.x * core.Movement.FacingDirection, spawnDirection.y);
-
         weaponPickup.Rb.velocity = adjustedSpawnDirection.normalized * spawnVelocity;
     }
+
 }

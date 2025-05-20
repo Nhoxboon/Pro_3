@@ -32,7 +32,7 @@ public class WeaponPickup : NhoxBehaviour, IInteractableItem<WeaponDataSO>
 
     public void Interact()
     {
-        Destroy(gameObject);
+        WeaponSpawner.Instance.Despawn(gameObject);
     }
 
     //Warning: not used in the current implementation
