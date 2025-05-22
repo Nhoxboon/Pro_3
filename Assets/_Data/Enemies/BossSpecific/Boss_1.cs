@@ -59,6 +59,9 @@ public class Boss_1 : EnemyStateManager
     [Header("Boss Room")]
     [SerializeField] protected bool isPlayerInRoom = false;
     [SerializeField] protected BossRoomTrigger bossRoomTrigger;
+    
+    [SerializeField] protected BossHealthBarUI bossHealthBarUI;
+    public BossHealthBarUI BossHealthBarUI => bossHealthBarUI;
 
     protected override void Awake()
     {
@@ -104,6 +107,7 @@ public class Boss_1 : EnemyStateManager
         LoadChargeSprite();
         LoadLaserWarning();
         LoadBossRoomTrigger();
+        LoadBossHealthBarUI();
     }
 
     protected override void LoadEnemyDataSO()
@@ -186,10 +190,19 @@ public class Boss_1 : EnemyStateManager
         bossRoomTrigger = transform.parent.GetComponentInChildren<BossRoomTrigger>();
         Debug.Log(transform.name + " LoadBossRoomTrigger", gameObject);
     }
+    
+    protected void LoadBossHealthBarUI()
+    {
+        if (bossHealthBarUI != null) return;
+        bossHealthBarUI = GameObject.FindGameObjectWithTag("BossHealthBarUI").GetComponent<BossHealthBarUI>();
+        Debug.Log(transform.name + " LoadBossHealthBarUI", gameObject);
+    }
     #endregion
 
     protected void StartBossFight()
     {
+        bossHealthBarUI.SetCore(core);
+        bossHealthBarUI.gameObject.SetActive(true);
         isPlayerInRoom = true;
     }
 

@@ -9,5 +9,14 @@ public class Boss_1DeadState : DeadState
     {
         this.boss = boss;
     }
-    
+
+    public override void LogicUpdate()
+    {
+        base.LogicUpdate();
+        if (isAnimationFinished)
+        {
+            boss.BossHealthBarUI.gameObject.SetActive(false);
+            OnDead?.Invoke();
+        }
+    }
 }
