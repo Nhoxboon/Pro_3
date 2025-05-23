@@ -12,11 +12,4 @@ public class PigDeadState : DeadState
     {
         this.pig = pig;
     }
-
-    public override void Enter()
-    {
-        base.Enter();
-    }
-
-    
 }

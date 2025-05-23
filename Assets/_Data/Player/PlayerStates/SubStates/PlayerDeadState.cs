@@ -10,6 +10,7 @@ public class PlayerDeadState : PlayerState
     {
         base.Enter();
         AudioManager.Instance.PlaySFX(playerAudioDataSO.deathClip);
+        core.Death.Die();
         playerStateManager.gameObject.SetActive(false);
     }
 }

@@ -21,16 +21,16 @@ public class PigStunState : StunState
         {
             if(performCloseRangeAction)
             {
-                stateMachine.ChangeState(pig.PigMeleeAttackState);
+                stateMachine.ChangeState(pig.MeleeAttackState);
             }
             else if(isPlayerInMinAgroRange)
             {
-                stateMachine.ChangeState(pig.PigChaseState);
+                stateMachine.ChangeState(pig.ChaseState);
             }
             else
             {
-                pig.PigLookForPlayerState.SetTurnImmediately(true);
-                stateMachine.ChangeState(pig.PigLookForPlayerState);
+                pig.LookForPlayerState.SetTurnImmediately(true);
+                stateMachine.ChangeState(pig.LookForPlayerState);
             }
         }
     }

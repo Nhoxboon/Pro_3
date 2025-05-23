@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10d884f021bb42e8aecf7ff7eda63c09, type: 3}
+  m_Name: SkeletonAudio
+  m_EditorClassIdentifier: 
+  moveClip: {fileID: 8300000, guid: b3844a231306dcb44b2ffaec06bb440a, type: 3}
+  hitClip: {fileID: 8300000, guid: d8448a8c01e44b54ab93c3de8c2c42fb, type: 3}
+  deathClip: {fileID: 8300000, guid: 8bbe64439676c2b408f763802b86a0f7, type: 3}
+  jumpClip: {fileID: 8300000, guid: 97349dbf84d392749bc4261c1e43769f, type: 3}
+  meleeAttackClip: {fileID: 8300000, guid: d9c949a543b544f4890b50bc53cc4460, type: 3}
+  rangedAttackClip: {fileID: 0}

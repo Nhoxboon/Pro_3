@@ -15,18 +15,18 @@ public class PigChaseState : ChaseState
 
         if (performCloseRangeAction)
         {
-            stateMachine.ChangeState(pig.PigMeleeAttackState);
+            stateMachine.ChangeState(pig.MeleeAttackState);
         }
         else if (!isDetectingCliff || isDetectingWall)
         {
-            stateMachine.ChangeState(pig.PigLookForPlayerState);
+            stateMachine.ChangeState(pig.LookForPlayerState);
         }
         else if (isChargeTimeOver)
         {
             if (isPlayerInMinAgroRange)
-                stateMachine.ChangeState(pig.PigDetectedPlayerState);
+                stateMachine.ChangeState(pig.DetectedPlayerState);
             else
-                stateMachine.ChangeState(pig.PigLookForPlayerState);
+                stateMachine.ChangeState(pig.LookForPlayerState);
         }
     }
 }

@@ -19,7 +19,6 @@ public class DeadState : State
     {
         base.Enter();
 
-        core.Movement.SetVelocityZero();
         AudioManager.Instance.PlaySFX(audioDataSO.deathClip);
         enemyStateManager.EnemyCtrl.GetAnimEvent.deadState = this;
         isAnimationFinished = false;
@@ -28,9 +27,12 @@ public class DeadState : State
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+        core.Movement.SetVelocityZero();
         if (isAnimationFinished)
         {
             enemyStateManager.gameObject.SetActive(false);
+            core.Death.Die();
         }
     }
     

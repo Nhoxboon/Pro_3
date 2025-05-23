@@ -129,11 +129,17 @@ public abstract class EnemyStateManager : NhoxBehaviour
         Debug.Log(transform.name + " LoadMeleeAttackPosition", gameObject);
     }
 
-    protected abstract void HandleParry();
+    protected virtual void HandleParry()
+    {
+
+    }
     
     protected abstract void HandleDeath();
 
-    protected abstract void HandlePoiseZero();
+    protected virtual void HandlePoiseZero()
+    {
+
+    }
 
     protected abstract void HandleHealthDecrease();
 

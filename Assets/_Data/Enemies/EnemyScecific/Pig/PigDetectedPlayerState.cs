@@ -24,20 +24,20 @@ public class PigDetectedPlayerState : DetectedPlayerState
 
         if (performCloseRangeAction)
         {
-            stateMachine.ChangeState(pig.PigMeleeAttackState);
+            stateMachine.ChangeState(pig.MeleeAttackState);
         }
         else if (performLongRangeAction)
         {
-            stateMachine.ChangeState(pig.PigChaseState);
+            stateMachine.ChangeState(pig.ChaseState);
         }
         else if (!isPlayerInMaxAgroRange)
         {
-            stateMachine.ChangeState(pig.PigLookForPlayerState);
+            stateMachine.ChangeState(pig.LookForPlayerState);
         }
         else if (!isDetectingCliff)
         {
             core.Movement.Flip();
-            stateMachine.ChangeState(pig.PigMoveState);
+            stateMachine.ChangeState(pig.MoveState);
         }
     }
 

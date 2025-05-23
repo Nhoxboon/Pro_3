@@ -27,11 +27,11 @@ public class PigMeleeAttackState : MeleeAttackState
         {
             if(isPlayerInMinAgroRange)
             {
-                stateMachine.ChangeState(pig.PigDetectedPlayerState);
+                stateMachine.ChangeState(pig.DetectedPlayerState);
             }
             else
             {
-                stateMachine.ChangeState(pig.PigLookForPlayerState);
+                stateMachine.ChangeState(pig.LookForPlayerState);
             }
         }
     }

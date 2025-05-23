@@ -19,11 +19,11 @@ public class PigIdleState : IdleState
 
         if (isPlayerInMinAgroRange)
         {
-            stateMachine.ChangeState(pig.PigDetectedPlayerState);
+            stateMachine.ChangeState(pig.DetectedPlayerState);
         }
         else if (isIdleTimeOver)
         {
-            stateMachine.ChangeState(pig.PigMoveState);
+            stateMachine.ChangeState(pig.MoveState);
         }
     }
 }

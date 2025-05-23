@@ -19,12 +19,12 @@ public class PigMoveState : MoveState
 
         if(isPlayerInMinAgroRange)
         {
-            stateMachine.ChangeState(pig.PigDetectedPlayerState);
+            stateMachine.ChangeState(pig.DetectedPlayerState);
         }
         else if (isDetectingWall || !isDetectingCliff)
         {
-            pig.PigIdleState.SetFlipAfterIdle(true);
-            stateMachine.ChangeState(pig.PigIdleState);
+            pig.IdleState.SetFlipAfterIdle(true);
+            stateMachine.ChangeState(pig.IdleState);
         }
     }
 }

@@ -62,6 +62,12 @@ public class BossRoomTrigger : NhoxBehaviour
     {
         col.isTrigger = false;
         OnPlayerEnter?.Invoke();
+        InputManager.Instance.Unpause();
+    }
+
+    public void DisableControls()
+    {
+        InputManager.Instance.Pause();
     }
     
     protected void HandleBossDeath()

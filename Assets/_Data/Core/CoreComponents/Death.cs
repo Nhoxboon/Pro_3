@@ -6,16 +6,6 @@ public class Death : CoreComponent
 {
     [SerializeField] protected string[] deathParticles = { "DeathBloodParticles", "DeathChunkParticles" };
 
-    private void OnEnable()
-    {
-        core.Stats.Health.OnCurrentValueZero += Die;
-    }
-
-    private void OnDisable()
-    {
-        core.Stats.Health.OnCurrentValueZero -= Die;
-    }
-
     public void Die()
     {
         foreach(string particle in deathParticles)
