@@ -1,8 +1,38 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class GameManager : NhoxBehaviour
 {
+    private static GameManager instance;
+    public static GameManager Instance => instance;
+    
+    [SerializeField] protected Checkpoint[] checkpoints;
+    
+    protected override void Awake()
+    {
+        base.Awake();
+        if (instance != null)
+        {
+            Debug.LogError("Only 1 GameManager allow to exist");
+            return;
+        }
+        instance = this;
+    }
+    
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        LoadCheckpoints();
+    }
+    
+private void LoadCheckpoints()
+    {
+        checkpoints = FindObjectsOfType<Checkpoint>();
+        Debug.Log(transform.name + " LoadCheckpoints", gameObject);
+    }
+    
     public enum GameState
     {
         UI,
@@ -41,5 +71,11 @@ public class GameManager : NhoxBehaviour
     private void EnterGameplayState()
     {
         Time.timeScale = 1f;
+    }
+    
+    public void RestartGame()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
     }
 }

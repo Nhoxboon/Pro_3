@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OptionBtn : BtnMenuAbstract
+public class OptionBtn : BtnBaseAbstract
 {
     [SerializeField] protected Transform menuBtn;
     [SerializeField] protected Image audioPanel;

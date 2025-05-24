@@ -17,7 +17,7 @@ MonoBehaviour:
     <Direction>k__BackingField: {x: 1, y: 0}
     <ProjectilePrefabName>k__BackingField: EnemyArrow
     <DamageData>k__BackingField:
-      <Amount>k__BackingField: 10
+      <Amount>k__BackingField: 50
     <KnockBackData>k__BackingField:
       Strength: 10
       Angle: {x: 1, y: 1}

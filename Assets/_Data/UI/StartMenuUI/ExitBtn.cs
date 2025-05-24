@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ExitBtn : BtnMenuAbstract
+public class ExitBtn : BtnBaseAbstract
 {
     protected override void OnClick()
     {

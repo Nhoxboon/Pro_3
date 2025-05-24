@@ -7,7 +7,6 @@ public class WeaponSwapUI : NhoxBehaviour
     [SerializeField] protected WeaponSwap weaponSwap;
     [SerializeField] protected WeaponInfoUI newWeaponInfo;
     [SerializeField] protected WeaponSwapChoiceUI[] weaponSwapChoiceUIs;
-    [SerializeField] protected GameManager gameManager;
             
     [SerializeField] protected CanvasGroup canvasGroup;
         
@@ -41,7 +40,6 @@ public class WeaponSwapUI : NhoxBehaviour
         LoadWeaponSwap();
         LoadNewWeaponInfo();
         LoadWeaponSwapChoiceUIs();
-        LoadGameManager();
     }
     
     protected void LoadWeaponSwap()
@@ -65,13 +63,6 @@ public class WeaponSwapUI : NhoxBehaviour
         Debug.Log(transform.name + " :LoadWeaponSwapChoiceUIs", gameObject);
     }
     
-    protected void LoadGameManager()
-    {
-        if (gameManager != null) return;
-        gameManager = FindFirstObjectByType<GameManager>();
-        Debug.Log(transform.name + " :LoadGameManager", gameObject);
-    }
-    
     protected void LoadCanvasGroup()
     {
         if (canvasGroup != null) return;
@@ -83,7 +74,7 @@ public class WeaponSwapUI : NhoxBehaviour
 
     protected void HandleChoiceRequested(WeaponSwapChoiceRequest choiceRequest)
     {
-        gameManager.ChangeState(GameManager.GameState.UI);
+        GameManager.Instance.ChangeState(GameManager.GameState.UI);
             
         choiceSelectedCallback = choiceRequest.Callback;
             
@@ -100,7 +91,7 @@ public class WeaponSwapUI : NhoxBehaviour
 
     protected void HandleChoiceSelected(WeaponSwapChoice choice)
     {
-        gameManager.ChangeState(GameManager.GameState.Gameplay);
+        GameManager.Instance.ChangeState(GameManager.GameState.Gameplay);
             
         choiceSelectedCallback?.Invoke(choice);
         canvasGroup.alpha = 0f;
