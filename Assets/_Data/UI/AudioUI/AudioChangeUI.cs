@@ -8,6 +8,7 @@ public class AudioChangeUI : NhoxBehaviour
 {
     [SerializeField] protected Image panel;
     [SerializeField] protected Button audioBtn;
+    [SerializeField] protected Button backToMenuBtn;
     [SerializeField] protected bool isUI;
 
     protected void OnEnable()
@@ -24,6 +25,7 @@ public class AudioChangeUI : NhoxBehaviour
     {
         isUI = !panel.gameObject.activeSelf;
         panel.gameObject.SetActive(isUI);
+        backToMenuBtn?.gameObject.SetActive(isUI);
 
         GameManager.Instance.ChangeState(isUI ? GameManager.GameState.UI : GameManager.GameState.Gameplay);
         

@@ -7,32 +7,18 @@ public class GameManager : NhoxBehaviour
 {
     private static GameManager instance;
     public static GameManager Instance => instance;
-    
-    [SerializeField] protected Checkpoint[] checkpoints;
-    
+        
     protected override void Awake()
     {
         base.Awake();
         if (instance != null)
         {
-            Debug.LogError("Only 1 GameManager allow to exist");
-            return;
+            Destroy(gameObject);
         }
         instance = this;
+        DontDestroyOnLoad(gameObject);
     }
-    
-    protected override void LoadComponents()
-    {
-        base.LoadComponents();
-        LoadCheckpoints();
-    }
-    
-private void LoadCheckpoints()
-    {
-        checkpoints = FindObjectsOfType<Checkpoint>();
-        Debug.Log(transform.name + " LoadCheckpoints", gameObject);
-    }
-    
+  
     public enum GameState
     {
         UI,

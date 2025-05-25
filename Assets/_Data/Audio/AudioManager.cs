@@ -16,8 +16,7 @@ public class AudioManager : NhoxBehaviour
         base.Awake();
         if (instance != null)
         {
-            Debug.LogError("Only 1 AudioManager allow to exist");
-            return;
+            Destroy(gameObject);
         }
         instance = this;
         DontDestroyOnLoad(gameObject);

@@ -204,6 +204,7 @@ public class Boss_1 : EnemyStateManager
         bossHealthBarUI.SetCore(core);
         bossHealthBarUI.gameObject.SetActive(true);
         isPlayerInRoom = true;
+        core.Movement.SetFacingDirection(-1);
     }
 
     public bool CheckPlayerInRoom()

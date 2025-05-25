@@ -52,15 +52,16 @@ public class InteractableDetector : CoreComponent
 
     protected void OnTriggerEnter2D(Collider2D other)
     {
+        
         if (other.IsInteractable(out var interactable))
         {
+            interactableSprite.gameObject.SetActive(true);
             interactables.Add(interactable);
         }
 
         else if (other.TryGetComponent(out IInteractable interactableInRange) && interactableInRange.CanInteract())
         {
             interactableSprite.gameObject.SetActive(true);
-            ;
             this.interactableInRange = interactableInRange;
         }
     }
@@ -69,6 +70,8 @@ public class InteractableDetector : CoreComponent
     {
         if (other.IsInteractable(out var interactable))
         {
+            interactableSprite.gameObject.SetActive(false);
+            
             interactables.Remove(interactable);
 
             if (interactable == closestInteractable)
@@ -81,8 +84,8 @@ public class InteractableDetector : CoreComponent
         else if (other.TryGetComponent(out IInteractable interactableInRange) &&
                  interactableInRange == this.interactableInRange)
         {
-            this.interactableInRange = null;
             interactableSprite.gameObject.SetActive(false);
+            this.interactableInRange = null;
         }
     }
 

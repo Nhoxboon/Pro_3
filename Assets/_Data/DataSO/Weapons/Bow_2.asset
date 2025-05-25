@@ -70,12 +70,12 @@ MonoBehaviour:
             <Direction>k__BackingField: {x: 1, y: 0}
             <ProjectilePrefabName>k__BackingField: Arrow_1
             <DamageData>k__BackingField:
-              <Amount>k__BackingField: 50
+              <Amount>k__BackingField: 10
             <KnockBackData>k__BackingField:
               Strength: 10
               Angle: {x: 1, y: 1}
             <PoiseDamageData>k__BackingField:
-              <Amount>k__BackingField: 30
+              <Amount>k__BackingField: 10
             <ProjectileAudioData>k__BackingField:
               projectileClip: {fileID: 8300000, guid: d8448a8c01e44b54ab93c3de8c2c42fb, type: 3}
     - rid: 2154769359367569415

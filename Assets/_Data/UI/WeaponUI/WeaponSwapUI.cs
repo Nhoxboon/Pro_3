@@ -74,6 +74,12 @@ public class WeaponSwapUI : NhoxBehaviour
 
     protected void HandleChoiceRequested(WeaponSwapChoiceRequest choiceRequest)
     {
+        newWeaponInfo.gameObject.SetActive(true);
+        foreach (var weaponSwapChoiceUi in weaponSwapChoiceUIs)
+        {
+            weaponSwapChoiceUi.gameObject.SetActive(true);
+        }
+        
         GameManager.Instance.ChangeState(GameManager.GameState.UI);
             
         choiceSelectedCallback = choiceRequest.Callback;
@@ -85,8 +91,8 @@ public class WeaponSwapUI : NhoxBehaviour
             weaponSwapChoiceUi.TakeRelevantChoice(choiceRequest.Choices);
         }
             
-        canvasGroup.alpha = 1f;
-        canvasGroup.interactable = true;
+        // canvasGroup.alpha = 1f;
+        // canvasGroup.interactable = true;
     }
 
     protected void HandleChoiceSelected(WeaponSwapChoice choice)
@@ -94,7 +100,12 @@ public class WeaponSwapUI : NhoxBehaviour
         GameManager.Instance.ChangeState(GameManager.GameState.Gameplay);
             
         choiceSelectedCallback?.Invoke(choice);
-        canvasGroup.alpha = 0f;
-        canvasGroup.interactable = false;
+        // canvasGroup.alpha = 0f;
+        // canvasGroup.interactable = false;
+        newWeaponInfo.gameObject.SetActive(false);
+        foreach (var weaponSwapChoiceUi in weaponSwapChoiceUIs)
+        {
+            weaponSwapChoiceUi.gameObject.SetActive(false);
+        }
     }
 }

@@ -8,6 +8,7 @@ public class BossRoomTrigger : NhoxBehaviour
     [SerializeField] protected EnemyCtrl enemyCtrl;
     [SerializeField] protected Collider2D col;
     [SerializeField] protected PlayableDirector bossIntroTimeline;
+    [SerializeField] protected Animator anim;
     
     public event Action OnPlayerEnter;
 
@@ -27,6 +28,7 @@ public class BossRoomTrigger : NhoxBehaviour
         LoadEnemyCtrl();
         LoadBoxCollider2D();
         LoadBossIntroTimeline();
+        LoadAnimator();
     }
     
     protected void LoadEnemyCtrl()
@@ -50,6 +52,13 @@ public class BossRoomTrigger : NhoxBehaviour
         Debug.Log(transform.name + " :LoadBossIntroTimeline", gameObject);
     }
 
+    protected void LoadAnimator()
+    {
+        if(anim != null) return;
+        anim = GetComponentInChildren<Animator>();
+        Debug.Log(transform.name + " :LoadAnimator", gameObject);
+    }
+
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -61,6 +70,7 @@ public class BossRoomTrigger : NhoxBehaviour
     public void EnableControls()
     {
         col.isTrigger = false;
+        anim.SetTrigger("active");
         OnPlayerEnter?.Invoke();
         InputManager.Instance.Unpause();
     }
@@ -73,5 +83,6 @@ public class BossRoomTrigger : NhoxBehaviour
     protected void HandleBossDeath()
     {
         col.enabled = false;
+        anim.SetTrigger("inactive");
     }
 }

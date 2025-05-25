@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817a8ab1a91e48342af0a2bc95011c7b, type: 3}
   m_Name: NightBorne
   m_EditorClassIdentifier: 
-  damageHopSpeed: 10
   minIdleTime: 1
   maxIdleTime: 2
+  closeRangeActionDistance: 0.3
   movementSpeed: 3
   longRangeActionTime: 1
   minAgroDistance: 5
@@ -22,21 +22,9 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 256
-  closeRangeActionDistance: 1
-  attackRadius: 0.75
-  attackDamage: 10
-  knockbackAngle: {x: 1, y: 1}
-  knockbackStrength: 10
-  projectileDamage: 10
-  projectileSpeed: 12
-  projectileTravelDistance: 5
-  chargeSpeed: 6
-  chargeTime: 1
   amountOfTurns: 2
   timeBetweenTurns: 0.75
+  stunResistance: 3
+  stunRecoveryTime: 2
   stunTime: 3
   stunKnockBackTime: 0.2
-  dodgeSpeed: 0
-  dodgeTime: 0
-  dodgeCooldown: 0
-  dodgeAngle: {x: 0, y: 0}

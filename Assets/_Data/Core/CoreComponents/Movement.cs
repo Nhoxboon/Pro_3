@@ -94,6 +94,11 @@ public class Movement : CoreComponent
         OnFlip?.Invoke();
     }
 
+    public void SetFacingDirection(int dir)
+    {
+        facingDirection = dir;
+    }
+
     public Vector2 FindRelativePoint(Vector2 offset)
     {
         offset.x *= facingDirection;
