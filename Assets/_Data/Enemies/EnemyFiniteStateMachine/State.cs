@@ -5,8 +5,9 @@ using UnityEngine;
 public class State
 {
     protected FiniteStateMachine stateMachine;
-    protected Enemy enemy;
+    protected EnemyStateManager enemyStateManager;
     protected EnemyDataSO enemyDataSO;
+    protected EnemyAudioDataSO audioDataSO;
     protected Core core;
 
     protected float startTime;
@@ -14,13 +15,14 @@ public class State
 
     protected string animBoolName;
 
-    public State(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO)
+    public State(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSo)
     {
-        this.enemy = enemy;
+        this.enemyStateManager = enemyStateManager;
         this.stateMachine = stateMachine;
         this.animBoolName = animBoolName;
         this.enemyDataSO = enemyDataSO;
-        this.core = enemy.Core;
+        this.audioDataSO = audioDataSo;
+        this.core = enemyStateManager.Core;
     }
 
     public virtual void DoChecks()
@@ -30,13 +32,13 @@ public class State
     public virtual void Enter()
     {
         startTime = Time.time;
-        enemy.EnemyCtrl.EnemyAnimation.AnimationState(animBoolName, true);
+        enemyStateManager.EnemyCtrl.EnemyAnimation.AnimationState(animBoolName, true);
         DoChecks();
     }
 
     public virtual void Exit()
     {
-        enemy.EnemyCtrl.EnemyAnimation.AnimationState(animBoolName, false);
+        enemyStateManager.EnemyCtrl.EnemyAnimation.AnimationState(animBoolName, false);
     }
 
     public virtual void LogicUpdate()

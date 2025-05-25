@@ -9,7 +9,9 @@ public class AttackState : State
     protected bool isAnimationFinished;
     protected bool isPlayerInMinAgroRange;
 
-    public AttackState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Transform attackPosition) : base(enemy, stateMachine, animBoolName, enemyDataSO)
+    public AttackState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, Transform attackPosition) : base(enemyStateManager,
+        stateMachine, animBoolName, enemyDataSO, audioDataSO)
     {
         this.attackPosition = attackPosition;
     }
@@ -18,14 +20,14 @@ public class AttackState : State
     {
         base.DoChecks();
 
-        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
+        isPlayerInMinAgroRange = enemyStateManager.CheckPlayerInMinAgroRange();
     }
 
     public override void Enter()
     {
         base.Enter();
 
-        enemy.GetAnimEvent.attackState = this;
+        enemyStateManager.EnemyCtrl.GetAnimEvent.attackState = this;
         isAnimationFinished = false;
         core.Movement.SetVelocityX(0f);
     }

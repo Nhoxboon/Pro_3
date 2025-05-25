@@ -6,7 +6,9 @@ public class PlayerWallJumpState : PlayerAbilityState
 {
     protected int wallJumpDirection;
 
-    public PlayerWallJumpState(Player playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
+    public PlayerWallJumpState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine,
+        PlayerDataSO playerDataSO, PlayerAudioDataSO playerAudioDataSO, string animBoolName) : base(
+        playerStateManagerMovement, stateMachine, playerDataSO, playerAudioDataSO, animBoolName)
     {
     }
 
@@ -15,10 +17,12 @@ public class PlayerWallJumpState : PlayerAbilityState
         base.Enter();
 
         InputManager.Instance.UseJumpInput();
-        player.PlayerJumpState.ResetAmountOfJumpsLeft();
+        AudioManager.Instance.PlaySFX(playerAudioDataSO.jumpAudio);
+        
+        playerStateManager.PlayerJumpState.ResetAmountOfJumpsLeft();
         core.Movement.SetVelocity(playerDataSO.wallJumpVelocity, playerDataSO.wallJumpAngle, wallJumpDirection);
         core.Movement.CheckIfShouldFlip(wallJumpDirection);
-        player.PlayerJumpState.DecreaseAmountOfJumpsLeft();
+        playerStateManager.PlayerJumpState.DecreaseAmountOfJumpsLeft();
     }
 
     public override void LogicUpdate()

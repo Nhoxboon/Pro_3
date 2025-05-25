@@ -27,6 +27,7 @@ MonoBehaviour:
   - rid: 2154769166144897025
   - rid: 2154769201534861312
   - rid: 2154769201534861313
+  - rid: 2154769539791323139
   references:
     version: 2
     RefIds:
@@ -57,6 +58,7 @@ MonoBehaviour:
         repeatData: 0
         attackData:
         - name: Attack 1
+          chargeSound: {fileID: 8300000, guid: 65f8fd5cc1713d1438bf9c17c7d9f580, type: 3}
           chargeTime: 1
           initialChargeAmount: 1
           numberOfCharges: 3
@@ -71,6 +73,14 @@ MonoBehaviour:
         attackData:
         - name: Attack 1
           angleVariation: 15
+    - rid: 2154769539791323139
+      type: {class: AudioData, ns: , asm: Assembly-CSharp}
+      data:
+        name: AudioData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          audioClip: {fileID: 8300000, guid: 3054daca93447744b8504f6e13b2a696, type: 3}
     - rid: 3991057996206833664
       type: {class: AttackMovementData, ns: , asm: Assembly-CSharp}
       data:
@@ -92,6 +102,7 @@ MonoBehaviour:
         attackData:
         - name: Attack 1
           isChargeable: 1
+          spawnSound: {fileID: 8300000, guid: a93a58f8391158e469f9ba345d5bc75e, type: 3}
           <SpawnInfos>k__BackingField:
           - <Offset>k__BackingField: {x: 0.81, y: 0.42}
             <Direction>k__BackingField: {x: 1, y: 0.25}
@@ -103,6 +114,8 @@ MonoBehaviour:
               Angle: {x: 0, y: 0}
             <PoiseDamageData>k__BackingField:
               <Amount>k__BackingField: 0
+            <ProjectileAudioData>k__BackingField:
+              projectileClip: {fileID: 8300000, guid: 70e79d28331e27646be20b1eebbf539d, type: 3}
     - rid: 3991057996206833670
       type: {class: WeaponSpriteData, ns: , asm: Assembly-CSharp}
       data:

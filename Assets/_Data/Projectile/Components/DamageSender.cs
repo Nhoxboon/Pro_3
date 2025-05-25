@@ -25,11 +25,9 @@ public class DamageSender : ProjectileComponent
 
     private void HandleRaycastHit2D(RaycastHit2D[] hits)
     {
-        if (!Active)
-            return;
+        if (!Active) return;
 
-        if (Time.time < lastDamageTime + cooldown)
-            return;
+        if (Time.time < lastDamageTime + cooldown) return;
 
         foreach (var hit in hits)
         {

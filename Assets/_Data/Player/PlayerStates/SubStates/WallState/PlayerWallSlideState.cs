@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class PlayerWallSlideState : PlayerTouchingWallState
 {
-    public PlayerWallSlideState(Player playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
+    public PlayerWallSlideState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine,
+        PlayerDataSO playerDataSO, PlayerAudioDataSO playerAudioDataSO, string animBoolName) : base(
+        playerStateManagerMovement, stateMachine, playerDataSO, playerAudioDataSO, animBoolName)
     {
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
+        AudioManager.Instance.PlaySFXLoop(playerStateManager.PlayerAudioDataSO.wallSlideAudio);
     }
 
     public override void LogicUpdate()
@@ -18,9 +26,14 @@ public class PlayerWallSlideState : PlayerTouchingWallState
 
             if (yInput == 0 && grabInput)
             {
-                stateMachine.ChangeState(player.PlayerWallGrabState);
+                stateMachine.ChangeState(playerStateManager.PlayerWallGrabState);
             }
         }  
-        
+    }
+    
+    public override void Exit()
+    {
+        base.Exit();
+        AudioManager.Instance.StopSFXLoop();
     }
 }

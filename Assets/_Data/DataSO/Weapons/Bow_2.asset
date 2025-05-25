@@ -27,6 +27,7 @@ MonoBehaviour:
   - rid: 2154769359367569418
   - rid: 2154769359367569419
   - rid: 2154769359367569420
+  - rid: 2154769539791323142
   references:
     version: 2
     RefIds:
@@ -63,17 +64,20 @@ MonoBehaviour:
         attackData:
         - name: Attack 1
           isChargeable: 1
+          spawnSound: {fileID: 8300000, guid: a93a58f8391158e469f9ba345d5bc75e, type: 3}
           <SpawnInfos>k__BackingField:
           - <Offset>k__BackingField: {x: 1.24, y: 0.2}
             <Direction>k__BackingField: {x: 1, y: 0}
             <ProjectilePrefabName>k__BackingField: Arrow_1
             <DamageData>k__BackingField:
-              <Amount>k__BackingField: 15
+              <Amount>k__BackingField: 10
             <KnockBackData>k__BackingField:
               Strength: 10
               Angle: {x: 1, y: 1}
             <PoiseDamageData>k__BackingField:
-              <Amount>k__BackingField: 30
+              <Amount>k__BackingField: 10
+            <ProjectileAudioData>k__BackingField:
+              projectileClip: {fileID: 8300000, guid: d8448a8c01e44b54ab93c3de8c2c42fb, type: 3}
     - rid: 2154769359367569415
       type: {class: AttackMovementData, ns: , asm: Assembly-CSharp}
       data:
@@ -135,6 +139,7 @@ MonoBehaviour:
         repeatData: 0
         attackData:
         - name: Attack 1
+          chargeSound: {fileID: 8300000, guid: 65f8fd5cc1713d1438bf9c17c7d9f580, type: 3}
           chargeTime: 1
           initialChargeAmount: 1
           numberOfCharges: 2
@@ -149,3 +154,11 @@ MonoBehaviour:
         attackData:
         - name: Attack 1
           angleVariation: 3
+    - rid: 2154769539791323142
+      type: {class: AudioData, ns: , asm: Assembly-CSharp}
+      data:
+        name: AudioData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          audioClip: {fileID: 8300000, guid: 3054daca93447744b8504f6e13b2a696, type: 3}

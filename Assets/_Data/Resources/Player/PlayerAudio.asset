@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90a750d4b60b471883b521bf8fad9657, type: 3}
+  m_Name: PlayerAudio
+  m_EditorClassIdentifier: 
+  moveClip: {fileID: 8300000, guid: b3844a231306dcb44b2ffaec06bb440a, type: 3}
+  hitClip: {fileID: 8300000, guid: d8448a8c01e44b54ab93c3de8c2c42fb, type: 3}
+  deathClip: {fileID: 8300000, guid: 8bbe64439676c2b408f763802b86a0f7, type: 3}
+  climbAudio: {fileID: 8300000, guid: 82b4a8a6c7973e54891f644b3095f0d6, type: 3}
+  wallSlideAudio: {fileID: 8300000, guid: 32f4845dd3c2bc94dbedc86fc8fbd029, type: 3}
+  jumpAudio: {fileID: 8300000, guid: 97349dbf84d392749bc4261c1e43769f, type: 3}
+  landAudio: {fileID: 8300000, guid: 5eaba20fe91382c4d99a7be792e760dd, type: 3}
+  dashAudio: {fileID: 8300000, guid: 947d2095da83dfa4bbe698084b526171, type: 3}

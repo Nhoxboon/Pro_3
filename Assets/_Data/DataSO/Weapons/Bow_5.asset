@@ -1,0 +1,149 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70a795254499b3e4c925c0083b7ef4ab, type: 3}
+  m_Name: Bow_5
+  m_EditorClassIdentifier: 
+  icon: {fileID: -1667357087, guid: 7698f902a8e73cb4b88c4738f7fb0ff5, type: 3}
+  nameWeapon: Shield Bow
+  description: Block while shooting arrows.
+  animatorController: {fileID: 9100000, guid: 07e81c3a272f1dc48941fa31d89ba18e, type: 2}
+  numberOfAttacks: 1
+  componentData:
+  - rid: 4263011667426672654
+  - rid: 4263011667426672655
+  - rid: 4263011667426672656
+  - rid: 4263011667426672657
+  - rid: 4263011667426672658
+  - rid: 4263011667426672659
+  - rid: 4263011667426672660
+  references:
+    version: 2
+    RefIds:
+    - rid: 4263011667426672654
+      type: {class: WeaponSpriteData, ns: , asm: Assembly-CSharp}
+      data:
+        name: WeaponSpriteData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          <PhaseSprites>k__BackingField:
+          - <Phase>k__BackingField: 0
+            <Sprites>k__BackingField:
+            - {fileID: 1904782885, guid: 1f44f6f7b04466747a93ea138f1eee3c, type: 3}
+            - {fileID: -1001839250, guid: 1f44f6f7b04466747a93ea138f1eee3c, type: 3}
+          - <Phase>k__BackingField: 1
+            <Sprites>k__BackingField:
+            - {fileID: -1001839250, guid: 1f44f6f7b04466747a93ea138f1eee3c, type: 3}
+          - <Phase>k__BackingField: 2
+            <Sprites>k__BackingField:
+            - {fileID: 1649032308, guid: 1f44f6f7b04466747a93ea138f1eee3c, type: 3}
+            - {fileID: -980661963, guid: 1f44f6f7b04466747a93ea138f1eee3c, type: 3}
+            - {fileID: 1461174323, guid: 1f44f6f7b04466747a93ea138f1eee3c, type: 3}
+            - {fileID: -1854533371, guid: 1f44f6f7b04466747a93ea138f1eee3c, type: 3}
+    - rid: 4263011667426672655
+      type: {class: InputHoldData, ns: , asm: Assembly-CSharp}
+      data:
+        name: InputHoldData
+    - rid: 4263011667426672656
+      type: {class: ProjectileSpawnerData, ns: , asm: Assembly-CSharp}
+      data:
+        name: ProjectileSpawnerData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          isChargeable: 0
+          spawnSound: {fileID: 8300000, guid: a93a58f8391158e469f9ba345d5bc75e, type: 3}
+          <SpawnInfos>k__BackingField:
+          - <Offset>k__BackingField: {x: 1.24, y: 0.2}
+            <Direction>k__BackingField: {x: 1, y: 0}
+            <ProjectilePrefabName>k__BackingField: Arrow
+            <DamageData>k__BackingField:
+              <Amount>k__BackingField: 5
+            <KnockBackData>k__BackingField:
+              Strength: 10
+              Angle: {x: 1, y: 1}
+            <PoiseDamageData>k__BackingField:
+              <Amount>k__BackingField: 10
+            <ProjectileAudioData>k__BackingField:
+              projectileClip: {fileID: 8300000, guid: d8448a8c01e44b54ab93c3de8c2c42fb, type: 3}
+    - rid: 4263011667426672657
+      type: {class: AttackMovementData, ns: , asm: Assembly-CSharp}
+      data:
+        name: AttackMovementData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          direction: {x: 0, y: 0}
+          velocity: 0
+    - rid: 4263011667426672658
+      type: {class: OptionalSpriteData, ns: , asm: Assembly-CSharp}
+      data:
+        name: OptionalSpriteData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          <UseOptionalSprite>k__BackingField: 1
+          sprite: {fileID: -89418386, guid: 8159ae2d61b463342bf787b21154ec57, type: 3}
+    - rid: 4263011667426672659
+      type: {class: DrawData, ns: , asm: Assembly-CSharp}
+      data:
+        name: DrawData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          <DrawCurve>k__BackingField:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 2
+              outSlope: 2
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          <DrawTime>k__BackingField: 0.2666667
+    - rid: 4263011667426672660
+      type: {class: BlockData, ns: , asm: Assembly-CSharp}
+      data:
+        name: BlockData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          blockSound: {fileID: 8300000, guid: 3510d052e6b724542b474d551cf1b8d8, type: 3}
+          blockDirectionInformation:
+          - minAngle: -90
+            maxAngle: 90
+            damageAbsorption: 0.75
+            knockbackAbsorption: 0.5
+            poiseAbsorption: 0.75
+          blockWindowStart:
+            duration: 0.2666667
+            phase: 0
+          blockWindowEnd:
+            duration: 0
+            phase: 3
+          particles: HitParticles
+          particlesOffset: {x: 0.5, y: 0}

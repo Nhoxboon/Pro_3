@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DodgeState : State
 {
+    protected float dodgeSpeed;
+    
     protected bool performCloseRangeAction;
     protected bool isPlayerInMaxAgroRange;
     protected bool isGrounded;
@@ -11,7 +13,9 @@ public class DodgeState : State
     
     protected EnemyDodgeStateSO stateData;
 
-    public DodgeState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, EnemyDodgeStateSO stateData) : base(enemy, stateMachine, animBoolName, enemyDataSO)
+    public DodgeState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, EnemyDodgeStateSO stateData) : base(enemyStateManager,
+        stateMachine, animBoolName, enemyDataSO, audioDataSO)
     {
         this.stateData = stateData;
     }
@@ -20,17 +24,19 @@ public class DodgeState : State
     {
         base.DoChecks();
 
-        performCloseRangeAction = enemy.CheckPlayerInCloseRangeAction();
-        isPlayerInMaxAgroRange = enemy.CheckPlayerInMaxAgroRange();
+        performCloseRangeAction = enemyStateManager.CheckPlayerInCloseRangeAction();
+        isPlayerInMaxAgroRange = enemyStateManager.CheckPlayerInMaxAgroRange();
         isGrounded = core.TouchingDirection.IsGrounded;
     }
 
     public override void Enter()
     {
         base.Enter();
+        
+        dodgeSpeed = stateData.dodgeSpeed;
 
         isDodgeOver = false;
-        core.Movement.SetVelocity(stateData.dodgeSpeed, stateData.dodgeAngle, -core.Movement.FacingDirection);
+        core.Movement.SetVelocity(dodgeSpeed, stateData.dodgeAngle, -core.Movement.FacingDirection);
     }
 
     public override void Exit()

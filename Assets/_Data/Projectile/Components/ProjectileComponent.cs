@@ -18,9 +18,7 @@ public class ProjectileComponent : NhoxBehaviour
     protected virtual void ResetProjectile()
     {
     }
-
-    /* Handles receiving specific data from the weapon. Implemented in any component that needs to use it. Automatically subscribed for all projectile
-    components by this base class (see Awake and OnDestroy) */
+    
     protected virtual void HandleReceiveDataPackage(ProjectileDataPackage dataPackage)
     {
     }

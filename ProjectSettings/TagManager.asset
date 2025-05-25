@@ -5,7 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
-  - WeaponHolder
+  - BossHealthBarUI
   layers:
   - Default
   - TransparentFX
@@ -20,7 +20,7 @@ TagManager:
   - Weapon
   - Interactable
   - WorldItem
-  - 
+  - Enemy
   - 
   - 
   - 
@@ -57,6 +57,9 @@ TagManager:
     locked: 0
   - name: Platforms
     uniqueID: 2722087687
+    locked: 0
+  - name: NPC
+    uniqueID: 2374263327
     locked: 0
   - name: Enemy
     uniqueID: 2518032555

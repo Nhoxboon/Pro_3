@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class PlayerLandState : PlayerGroundedState
 {
-    public PlayerLandState(Player playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
+    public PlayerLandState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine,
+        PlayerDataSO playerDataSO, PlayerAudioDataSO playerAudioDataSO, string animBoolName) : base(
+        playerStateManagerMovement, stateMachine, playerDataSO, playerAudioDataSO, animBoolName)
     {
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
+        AudioManager.Instance.PlaySFX(playerAudioDataSO.landAudio);
     }
 
     public override void LogicUpdate()
@@ -16,11 +24,11 @@ public class PlayerLandState : PlayerGroundedState
         {
             if (xInput != 0)
             {
-                stateMachine.ChangeState(player.PlayerMoveState);
+                stateMachine.ChangeState(playerStateManager.PlayerMoveState);
             }
             else if (isAnimationFinished)
             {
-                stateMachine.ChangeState(player.PlayerIdleState);
+                stateMachine.ChangeState(playerStateManager.PlayerIdleState);
             }
         }
         

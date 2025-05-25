@@ -1,17 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerCtrl : NhoxBehaviour
 {
     private static PlayerCtrl instance;
     public static PlayerCtrl Instance => instance;
+    
+    [SerializeField] protected SpriteRenderer sr;
+    public SpriteRenderer Sr => sr;
 
-    [SerializeField] protected Player player;
-    public Player Player => player;
+    [SerializeField] protected PlayerStateManager playerStateManager;
+    public PlayerStateManager PlayerStateManager => playerStateManager;
 
     [SerializeField] protected PlayAnimation playerAnimation;
     public PlayAnimation PlayerAnimation => playerAnimation;
+    
+    [SerializeField] protected Transform dashDirectionIndicator;
+    public Transform DashDirectionIndicator => dashDirectionIndicator;
 
     protected override void Awake()
     {
@@ -27,22 +34,38 @@ public class PlayerCtrl : NhoxBehaviour
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadPlayerMovement();
-        this.LoadPlayAnimation();
+        LoadSpriteRenderer();
+        LoadPlayerStateMachine();
+        LoadPlayAnimation();
+        LoadDashDirectionIndicator();
+    }
+    
+    protected void LoadSpriteRenderer()
+    {
+        if (sr != null) return;
+        sr = GetComponentInChildren<SpriteRenderer>();
+        Debug.Log(transform.name + " LoadSpriteRenderer", gameObject);
     }
 
-    protected void LoadPlayerMovement()
+    protected void LoadPlayerStateMachine()
     {
-        if (this.player != null) return;
-        this.player = this.GetComponentInChildren<Player>();
+        if (playerStateManager != null) return;
+        playerStateManager = this.GetComponent<PlayerStateManager>();
         Debug.Log(transform.name + " LoadPlayerMovement", gameObject);
     }
 
 
     protected void LoadPlayAnimation()
     {
-        if (this.playerAnimation != null) return;
-        this.playerAnimation = this.GetComponentInChildren<PlayAnimation>();
+        if (playerAnimation != null) return;
+        playerAnimation = GetComponentInChildren<PlayAnimation>();
         Debug.Log(transform.name + " LoadPlayAnimation", gameObject);
+    }
+    
+    protected void LoadDashDirectionIndicator()
+    {
+        if(dashDirectionIndicator != null) return;
+        dashDirectionIndicator = transform.Find("DashDirectionIndicator");
+        Debug.Log(transform.name + " LoadDashDirectionIndicator", gameObject);
     }
 }

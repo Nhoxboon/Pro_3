@@ -6,19 +6,11 @@ public class PigMoveState : MoveState
 {
     private Pig pig;
 
-    public PigMoveState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Pig pig) : base(enemy, stateMachine, animBoolName, enemyDataSO)
+    public PigMoveState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, Pig pig) : base(enemyStateManager, stateMachine,
+        animBoolName, enemyDataSO, audioDataSO)
     {
         this.pig = pig;
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
     }
 
     public override void LogicUpdate()
@@ -27,17 +19,12 @@ public class PigMoveState : MoveState
 
         if(isPlayerInMinAgroRange)
         {
-            stateMachine.ChangeState(pig.PigDetectedPlayerState);
+            stateMachine.ChangeState(pig.DetectedPlayerState);
         }
         else if (isDetectingWall || !isDetectingCliff)
         {
-            pig.PigIdleState.SetFlipAfterIdle(true);
-            stateMachine.ChangeState(pig.PigIdleState);
+            pig.IdleState.SetFlipAfterIdle(true);
+            stateMachine.ChangeState(pig.IdleState);
         }
-    }
-
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
     }
 }

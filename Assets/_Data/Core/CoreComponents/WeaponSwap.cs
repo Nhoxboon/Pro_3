@@ -44,7 +44,7 @@ public class WeaponSwap : CoreComponent
         Debug.Log(transform.name + " :LoadWeaponInventory", gameObject);
     }
 
-    protected void HandleTryInteract(IInteractable interactable)
+    protected void HandleTryInteract(IInteractableItem interactable)
     {
         if (interactable is not WeaponPickup pickup) return;
 

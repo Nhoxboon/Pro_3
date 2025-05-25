@@ -1,75 +1,64 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class Pig : Enemy
+public class Pig : EnemyStateManager
 {
     #region State Variables
-    protected PigIdleState pigIdleState;
-    public PigIdleState PigIdleState => pigIdleState;
+    protected PigIdleState idleState;
+    public PigIdleState IdleState => idleState;
 
-    protected PigMoveState pigMoveState;
-    public PigMoveState PigMoveState => pigMoveState;
+    protected PigMoveState moveState;
+    public PigMoveState MoveState => moveState;
 
-    protected PigDetectedPlayerState pigDetectedPlayerState;
-    public PigDetectedPlayerState PigDetectedPlayerState => pigDetectedPlayerState;
+    protected PigDetectedPlayerState detectedPlayerState;
+    public PigDetectedPlayerState DetectedPlayerState => detectedPlayerState;
 
-    protected PigChargeState pigChargeState;
-    public PigChargeState PigChargeState => pigChargeState;
+    protected PigChaseState chaseState;
+    public PigChaseState ChaseState => chaseState;
 
-    protected PigLookForPlayerState pigLookForPlayerState;
-    public PigLookForPlayerState PigLookForPlayerState => pigLookForPlayerState;
+    protected PigLookForPlayerState lookForPlayerState;
+    public PigLookForPlayerState LookForPlayerState => lookForPlayerState;
 
-    protected PigMeleeAttackState pigMeleeAttackState;
-    public PigMeleeAttackState PigMeleeAttackState => pigMeleeAttackState;
+    protected PigMeleeAttackState meleeAttackState;
+    public PigMeleeAttackState MeleeAttackState => meleeAttackState;
 
-    protected PigStunState pigStunState;
-    public PigStunState PigStunState => pigStunState;
+    protected PigStunState stunState;
 
-    protected PigDeadState pigDeadState;
-    public PigDeadState PigDeadState => pigDeadState;
+    protected PigDeadState deadState;
     #endregion
 
-    [SerializeField] Transform meleeAttackPosition;
+    [Header("Pig")]
     
-    [Header("State Data")]
     [SerializeField] protected EnemyMeleeAttackStateSO meleeAttackDataSO;
-    [SerializeField] protected EnemyChargeStateSO chargeDataSO;
+    [SerializeField] protected EnemyChaseStateSO chaseDataSO;
 
     protected override void Awake()
     {
         base.Awake();
 
-        pigIdleState = new PigIdleState(this, stateMachine, "idle", enemyDataSO, this);
-        pigMoveState = new PigMoveState(this, stateMachine, "move", enemyDataSO, this);
-        pigDetectedPlayerState = new PigDetectedPlayerState(this, stateMachine, "detectedPlayer", enemyDataSO, this);
-        pigChargeState = new PigChargeState(this, stateMachine, "charge", enemyDataSO, chargeDataSO, this);
-        pigLookForPlayerState = new PigLookForPlayerState(this, stateMachine, "lookForPlayer", enemyDataSO, this);
-        pigMeleeAttackState = new PigMeleeAttackState(this, stateMachine, "meleeAttack", enemyDataSO, meleeAttackPosition, meleeAttackDataSO, this);
-        pigStunState = new PigStunState(this, stateMachine, "stun", enemyDataSO, this);
-        pigDeadState = new PigDeadState(this, stateMachine, "dead", enemyDataSO, this);
-
-        stats.Poise.OnCurrentValueZero += HandlePoiseZero;
-
+        idleState = new PigIdleState(this, stateMachine, "idle", enemyDataSO, audioDataSO, this);
+        moveState = new PigMoveState(this, stateMachine, "move", enemyDataSO, audioDataSO, this);
+        detectedPlayerState = new PigDetectedPlayerState(this, stateMachine, "detectedPlayer", enemyDataSO, audioDataSO, this);
+        chaseState = new PigChaseState(this, stateMachine, "chase", enemyDataSO, audioDataSO, chaseDataSO, this);
+        lookForPlayerState = new PigLookForPlayerState(this, stateMachine, "lookForPlayer", enemyDataSO, audioDataSO, this);
+        meleeAttackState = new PigMeleeAttackState(this, stateMachine, "meleeAttack", enemyDataSO, audioDataSO, meleeAttackPosition, meleeAttackDataSO, this);
+        stunState = new PigStunState(this, stateMachine, "stun", enemyDataSO, audioDataSO, this);
+        deadState = new PigDeadState(this, stateMachine, "dead", enemyDataSO, audioDataSO, this);
     }
 
     protected override void Start()
     {
         base.Start();
-        stateMachine.Initialize(pigMoveState);
-    }
-
-    protected void OnDestroy()
-    {
-        stats.Poise.OnCurrentValueZero -= HandlePoiseZero;
+        stateMachine.Initialize(moveState);
     }
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
         LoadMeleeAttackDataSO();
-        LoadChargeDataSO();
-        LoadMeleeAttackPosition();
+        LoadChaseDataSO();
     }
 
     protected void LoadMeleeAttackDataSO()
@@ -79,36 +68,39 @@ public class Pig : Enemy
         Debug.Log(transform.name + " LoadMeleeAttackDataSO", gameObject);
     }
     
-    protected void LoadChargeDataSO()
+    protected void LoadChaseDataSO()
     {
-        if (chargeDataSO != null) return;
-        chargeDataSO = Resources.Load<EnemyChargeStateSO>("Enemies/Pig/PigCharge");
-        Debug.Log(transform.name + " LoadChargeDataSO", gameObject);
-    }
-    
-    protected void LoadMeleeAttackPosition()
-    {
-        if (meleeAttackPosition != null) return;
-        meleeAttackPosition = transform.parent.Find("Attack/MeleeAttack");
-        Debug.Log(transform.name + " LoadMeleeAttackPosition", gameObject);
+        if (chaseDataSO != null) return;
+        chaseDataSO = Resources.Load<EnemyChaseStateSO>("Enemies/Pig/PigChase");
+        Debug.Log(transform.name + " LoadChaseDataSO", gameObject);
     }
 
-    protected void HandlePoiseZero()
+    protected override void HandlePoiseZero()
     {
-        stateMachine.ChangeState(pigStunState);
+        if(core.Stats.Health.CurrentValue > 0)
+            stateMachine.ChangeState(stunState);
+    }
+    
+    protected override void HandleDeath()
+    {
+        stateMachine.ChangeState(deadState);
+    }
+    
+    protected override void HandleHealthDecrease()
+    {
+        AudioManager.Instance.PlaySFX(audioDataSO.hitClip);
+        if(stateMachine.CurrentState == stunState) return;
+        Flash();
     }
     
     protected override void HandleParry()
     {
-        base.HandleParry();
-        
-        stateMachine.ChangeState(pigStunState);
+        stateMachine.ChangeState(stunState);
     }
 
     public override void OnDrawGizmos()
     {
         base.OnDrawGizmos();
-
         Gizmos.DrawWireSphere(meleeAttackPosition.position, meleeAttackDataSO.attackRadius);
     }
 }

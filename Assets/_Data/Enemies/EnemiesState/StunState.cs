@@ -10,7 +10,9 @@ public class StunState : State
     protected bool performCloseRangeAction;
     protected bool isPlayerInMinAgroRange;
 
-    public StunState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO) : base(enemy, stateMachine, animBoolName, enemyDataSO)
+    public StunState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO) : base(enemyStateManager, stateMachine, animBoolName,
+        enemyDataSO, audioDataSO)
     {
     }
 
@@ -19,8 +21,8 @@ public class StunState : State
         base.DoChecks();
 
         isGrounded = core.TouchingDirection.IsGrounded;
-        performCloseRangeAction = enemy.CheckPlayerInCloseRangeAction();
-        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
+        performCloseRangeAction = enemyStateManager.CheckPlayerInCloseRangeAction();
+        isPlayerInMinAgroRange = enemyStateManager.CheckPlayerInMinAgroRange();
     }
 
     public override void Enter()
@@ -35,7 +37,7 @@ public class StunState : State
     {
         base.Exit();
 
-        enemy.ResetStunResistance();
+        enemyStateManager.ResetStunResistance();
     }
 
     public override void LogicUpdate()
@@ -52,10 +54,5 @@ public class StunState : State
             isMovementStop = true;
             core.Movement.SetVelocityX(0f);
         }
-    }
-
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
     }
 }

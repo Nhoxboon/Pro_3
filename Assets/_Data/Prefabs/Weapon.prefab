@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28a9c5051d41101468dd41201073f74d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponDataSO: {fileID: 11400000, guid: 37ecec62c056d2e48950b0b11354eeed, type: 2}
+  weaponDataSO: {fileID: 0}
   attackResetCooldown: 3
   anim: {fileID: 7475308349179960004}
   baseGameObj: {fileID: 6929759519129462860}
@@ -140,6 +140,7 @@ MonoBehaviour:
   attackStartTime: 0
   currentAttack: 0
   currentInput: 0
+  canEnterAttack: 0
   core: {fileID: 0}
 --- !u!114 &4575427714179502923
 MonoBehaviour:
@@ -154,8 +155,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 3911354748022348048}
-  weaponDataSO: {fileID: 11400000, guid: 37ecec62c056d2e48950b0b11354eeed, type: 2}
+  combatInput: 0
   anim: {fileID: 7475308349179960004}
+  weaponInventory: {fileID: 0}
 --- !u!1 &6929759519129462860
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +255,7 @@ Animator:
   m_GameObject: {fileID: 6929759519129462860}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 68ac596f21eddd74facce663237e74e4, type: 2}
+  m_Controller: {fileID: 9100000, guid: ff955959dc379b34cb969c83216179a8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -350,7 +352,7 @@ SpriteRenderer:
   m_SortingLayerID: 91381681
   m_SortingLayer: 3
   m_SortingOrder: 1
-  m_Sprite: {fileID: 205951617, guid: 886dd9f8efa4fa14dac76d520879e537, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -358,7 +360,7 @@ SpriteRenderer:
   m_Size: {x: 4, y: 4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &6196119162817685812

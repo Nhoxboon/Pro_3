@@ -9,6 +9,8 @@ public class Knockbackable : CoreComponent
     [SerializeField] protected bool isKnockbackActive;
     [SerializeField] protected float knockbackStartTime;
     [SerializeField] protected float maxKnockbackTime = 0.2f;
+    
+    [SerializeField] protected bool canKnockback = true;
 
     public override void LogicUpdate()
     {
@@ -18,6 +20,7 @@ public class Knockbackable : CoreComponent
 
     public virtual void Knockback(CombatKnockbackData data)
     {
+        if (!canKnockback) return;
         data = Modifiers.ApplyAllModifiers(data);
         
         core.Movement.SetVelocity(data.Strength, data.Angle, data.Direction);

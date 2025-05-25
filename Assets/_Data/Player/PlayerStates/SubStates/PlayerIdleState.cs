@@ -4,25 +4,19 @@ using UnityEngine;
 
 public class PlayerIdleState : PlayerGroundedState
 {
-    public PlayerIdleState(Player playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
+    public PlayerIdleState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine,
+        PlayerDataSO playerDataSO, PlayerAudioDataSO playerAudioDataSO, string animBoolName) : base(
+        playerStateManagerMovement, stateMachine, playerDataSO, playerAudioDataSO, animBoolName)
     {
     }
-
-    public override void DoChecks()
-    {
-        base.DoChecks();
-    }
+    
 
     public override void Enter()
     {
         base.Enter();
         core.Movement.SetVelocityX(0f);
     }
-
-    public override void Exit()
-    {
-        base.Exit();
-    }
+    
 
     public override void LogicUpdate()
     {
@@ -34,11 +28,11 @@ public class PlayerIdleState : PlayerGroundedState
         {
             if (xInput != 0f)
             {
-                stateMachine.ChangeState(player.PlayerMoveState);
+                stateMachine.ChangeState(playerStateManager.PlayerMoveState);
             }
             else if (yInput == -1)
             {
-                stateMachine.ChangeState(player.PlayerCrouchIdleState);
+                stateMachine.ChangeState(playerStateManager.PlayerCrouchIdleState);
             }
         }
     }

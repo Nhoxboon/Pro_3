@@ -12,7 +12,9 @@ public class PlayerTouchingWallState : PlayerState
     protected bool grabInput;
     protected bool isTouchingLedge;
 
-    public PlayerTouchingWallState(Player playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
+    public PlayerTouchingWallState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine,
+        PlayerDataSO playerDataSO, PlayerAudioDataSO playerAudioDataSO, string animBoolName) : base(
+        playerStateManagerMovement, stateMachine, playerDataSO, playerAudioDataSO, animBoolName)
     {
     }
 
@@ -26,7 +28,7 @@ public class PlayerTouchingWallState : PlayerState
 
         if (isTouchingWall && !isTouchingLedge)
         {
-            player.PlayerLedgeClimbState.SetDetectedPosition(player.transform.parent.position);
+            playerStateManager.PlayerLedgeClimbState.SetDetectedPosition(playerStateManager.transform.position);
         }
     }
 
@@ -51,20 +53,20 @@ public class PlayerTouchingWallState : PlayerState
 
         if (jumpInput)
         {
-            player.PlayerWallJumpState.DetermineWallJumpDirection(isTouchingWall);
-            stateMachine.ChangeState(player.PlayerWallJumpState);
+            playerStateManager.PlayerWallJumpState.DetermineWallJumpDirection(isTouchingWall);
+            stateMachine.ChangeState(playerStateManager.PlayerWallJumpState);
         }
         else if (isGrounded && !grabInput)
         {
-            stateMachine.ChangeState(player.PlayerIdleState);
+            stateMachine.ChangeState(playerStateManager.PlayerIdleState);
         }
         else if (!isTouchingWall || (xInput != core.Movement.FacingDirection && !grabInput))
         {
-            stateMachine.ChangeState(player.PlayerInAirState);
+            stateMachine.ChangeState(playerStateManager.PlayerInAirState);
         }
         else if(isTouchingWall && !isTouchingLedge && !isGrounded)
         {
-            stateMachine.ChangeState(player.PlayerLedgeClimbState);
+            stateMachine.ChangeState(playerStateManager.PlayerLedgeClimbState);
         }
     }
 

@@ -6,7 +6,9 @@ public class PlayerWallGrabState : PlayerTouchingWallState
 {
     protected Vector2 holdPosition;
 
-    public PlayerWallGrabState(Player playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
+    public PlayerWallGrabState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine,
+        PlayerDataSO playerDataSO, PlayerAudioDataSO playerAudioDataSO, string animBoolName) : base(
+        playerStateManagerMovement, stateMachine, playerDataSO, playerAudioDataSO, animBoolName)
     {
     }
 
@@ -19,13 +21,8 @@ public class PlayerWallGrabState : PlayerTouchingWallState
     {
         base.Enter();
 
-        holdPosition = player.transform.parent.position;
+        holdPosition = playerStateManager.transform.position;
         HoldPosition();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
     }
 
     public override void LogicUpdate()
@@ -38,11 +35,11 @@ public class PlayerWallGrabState : PlayerTouchingWallState
 
             if (yInput > 0)
             {
-                stateMachine.ChangeState(player.PlayerWallClimbState);
+                stateMachine.ChangeState(playerStateManager.PlayerWallClimbState);
             }
             else if (yInput < 0 || !grabInput)
             {
-                stateMachine.ChangeState(player.PlayerWallSlideState);
+                stateMachine.ChangeState(playerStateManager.PlayerWallSlideState);
             }
         }
     }
@@ -54,7 +51,7 @@ public class PlayerWallGrabState : PlayerTouchingWallState
 
     protected void HoldPosition()
     {
-        player.transform.parent.position = holdPosition;
+        playerStateManager.transform.position = holdPosition;
 
         core.Movement.SetVelocityX(0f);
         core.Movement.SetVelocityY(0f);

@@ -1,29 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class ArcherIdleState : IdleState
 {
-    private Archer archer;
+    private readonly Archer archer;
 
-    public ArcherIdleState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Archer archer) : base(enemy, stateMachine, animBoolName, enemyDataSO)
+    public ArcherIdleState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, Archer archer) : base(enemyStateManager, stateMachine,
+        animBoolName, enemyDataSO, audioDataSO)
     {
         this.archer = archer;
-    }
-
-    public override void DoChecks()
-    {
-        base.DoChecks();
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
     }
 
     public override void LogicUpdate()
@@ -31,13 +14,8 @@ public class ArcherIdleState : IdleState
         base.LogicUpdate();
 
         if (isPlayerInMinAgroRange)
-        {
             stateMachine.ChangeState(archer.ArcherDetectedPlayerState);
-        }
-        else if (isIdleTimeOver)
-        {
-            stateMachine.ChangeState(archer.ArcherMoveState);
-        }
+        else if (isIdleTimeOver) stateMachine.ChangeState(archer.ArcherMoveState);
     }
 
     public override void PhysicsUpdate()

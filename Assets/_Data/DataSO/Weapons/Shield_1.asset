@@ -26,6 +26,7 @@ MonoBehaviour:
   - rid: 2154769252116856834
   - rid: 2154769344399147008
   - rid: 2154769344399147009
+  - rid: 2154769539791323143
   references:
     version: 2
     RefIds:
@@ -91,6 +92,7 @@ MonoBehaviour:
         repeatData: 0
         attackData:
         - name: Attack 1
+          blockSound: {fileID: 8300000, guid: 3510d052e6b724542b474d551cf1b8d8, type: 3}
           blockDirectionInformation:
           - minAngle: -90
             maxAngle: 90
@@ -151,3 +153,11 @@ MonoBehaviour:
         - name: Attack 1
           angle: {x: 1, y: 1}
           strength: 10
+    - rid: 2154769539791323143
+      type: {class: AudioData, ns: , asm: Assembly-CSharp}
+      data:
+        name: AudioData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          audioClip: {fileID: 8300000, guid: 3510d052e6b724542b474d551cf1b8d8, type: 3}

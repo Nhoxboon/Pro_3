@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class PlayerStunState : PlayerState
 {
-    public PlayerStunState(Player player, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(player, stateMachine, playerDataSO, animBoolName)
+    public PlayerStunState(PlayerStateManager playerStateManager, PlayerStateMachine stateMachine,
+        PlayerDataSO playerDataSO, PlayerAudioDataSO playerAudioDataSO, string animBoolName) : base(playerStateManager,
+        stateMachine, playerDataSO, playerAudioDataSO, animBoolName)
     {
     }
     
@@ -14,7 +16,7 @@ public class PlayerStunState : PlayerState
 
         if (Time.time >= startTime + playerDataSO.stunTime)
         {
-            stateMachine.ChangeState(player.PlayerIdleState);
+            stateMachine.ChangeState(playerStateManager.PlayerIdleState);
         }
     }
 }

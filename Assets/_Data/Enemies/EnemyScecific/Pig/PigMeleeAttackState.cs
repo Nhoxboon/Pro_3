@@ -6,24 +6,12 @@ public class PigMeleeAttackState : MeleeAttackState
 {
     private Pig pig;
 
-    public PigMeleeAttackState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Transform attackPosition, EnemyMeleeAttackStateSO stateData, Pig pig) : base(enemy, stateMachine, animBoolName, enemyDataSO, attackPosition, stateData)
+    public PigMeleeAttackState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine,
+        string animBoolName, EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, Transform attackPosition,
+        EnemyMeleeAttackStateSO stateData, Pig pig) : base(enemyStateManager, stateMachine, animBoolName, enemyDataSO,
+        audioDataSO, attackPosition, stateData)
     {
         this.pig = pig;
-    }
-
-    public override void DoChecks()
-    {
-        base.DoChecks();
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
     }
 
     public override void FinishAttack()
@@ -39,18 +27,13 @@ public class PigMeleeAttackState : MeleeAttackState
         {
             if(isPlayerInMinAgroRange)
             {
-                stateMachine.ChangeState(pig.PigDetectedPlayerState);
+                stateMachine.ChangeState(pig.DetectedPlayerState);
             }
             else
             {
-                stateMachine.ChangeState(pig.PigLookForPlayerState);
+                stateMachine.ChangeState(pig.LookForPlayerState);
             }
         }
-    }
-
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
     }
 
     public override void TriggerAttack()

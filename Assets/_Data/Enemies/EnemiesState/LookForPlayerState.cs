@@ -14,7 +14,9 @@ public class LookForPlayerState : State
     protected float lastTurnTime;
     protected int amountOfTurnsDone;
 
-    public LookForPlayerState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO) : base(enemy, stateMachine, animBoolName, enemyDataSO)
+    public LookForPlayerState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO) : base(enemyStateManager, stateMachine, animBoolName,
+        enemyDataSO, audioDataSO)
     {
     }
 
@@ -22,7 +24,7 @@ public class LookForPlayerState : State
     {
         base.DoChecks();
 
-        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
+        isPlayerInMinAgroRange = enemyStateManager.CheckPlayerInMinAgroRange();
     }
 
     public override void Enter()

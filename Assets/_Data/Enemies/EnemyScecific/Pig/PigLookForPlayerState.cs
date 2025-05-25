@@ -6,24 +6,11 @@ public class PigLookForPlayerState : LookForPlayerState
 {
     private Pig pig;
 
-    public PigLookForPlayerState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Pig pig) : base(enemy, stateMachine, animBoolName, enemyDataSO)
+    public PigLookForPlayerState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine,
+        string animBoolName, EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, Pig pig) : base(enemyStateManager,
+        stateMachine, animBoolName, enemyDataSO, audioDataSO)
     {
         this.pig = pig;
-    }
-
-    public override void DoChecks()
-    {
-        base.DoChecks();
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
     }
 
     public override void LogicUpdate()
@@ -32,16 +19,11 @@ public class PigLookForPlayerState : LookForPlayerState
 
         if(isPlayerInMinAgroRange)
         {
-            stateMachine.ChangeState(pig.PigDetectedPlayerState);
+            stateMachine.ChangeState(pig.DetectedPlayerState);
         }
         else if (isAllTurnsTimeDone)
         {
-            stateMachine.ChangeState(pig.PigMoveState);
+            stateMachine.ChangeState(pig.MoveState);
         }
-    }
-
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
     }
 }

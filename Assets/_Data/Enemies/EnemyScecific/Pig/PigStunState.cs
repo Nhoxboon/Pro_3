@@ -5,24 +5,12 @@ using UnityEngine;
 public class PigStunState : StunState
 {
     private Pig pig;
-    public PigStunState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Pig pig) : base(enemy, stateMachine, animBoolName, enemyDataSO)
+
+    public PigStunState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, Pig pig) : base(enemyStateManager, stateMachine,
+        animBoolName, enemyDataSO, audioDataSO)
     {
         this.pig = pig;
-    }
-
-    public override void DoChecks()
-    {
-        base.DoChecks();
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
     }
 
     public override void LogicUpdate()
@@ -33,22 +21,17 @@ public class PigStunState : StunState
         {
             if(performCloseRangeAction)
             {
-                stateMachine.ChangeState(pig.PigMeleeAttackState);
+                stateMachine.ChangeState(pig.MeleeAttackState);
             }
             else if(isPlayerInMinAgroRange)
             {
-                stateMachine.ChangeState(pig.PigChargeState);
+                stateMachine.ChangeState(pig.ChaseState);
             }
             else
             {
-                pig.PigLookForPlayerState.SetTurnImmediately(true);
-                stateMachine.ChangeState(pig.PigLookForPlayerState);
+                pig.LookForPlayerState.SetTurnImmediately(true);
+                stateMachine.ChangeState(pig.LookForPlayerState);
             }
         }
-    }
-
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
     }
 }

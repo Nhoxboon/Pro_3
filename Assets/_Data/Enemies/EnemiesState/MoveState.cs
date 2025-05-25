@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class MoveState : State
 {
+    protected float moveSpeed;
+    
     protected bool isDetectingWall;
     protected bool isDetectingCliff;
     protected bool isPlayerInMinAgroRange;
+    protected bool performCloseRangeAction;
 
-    public MoveState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO) : base(enemy, stateMachine, animBoolName, enemyDataSO)
+    public MoveState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO) : base(enemyStateManager, stateMachine, animBoolName,
+        enemyDataSO, audioDataSO)
     {
     }
 
@@ -17,14 +22,16 @@ public class MoveState : State
         base.DoChecks();
         isDetectingWall = core.TouchingDirection.IsTouchingWall;
         isDetectingCliff = core.TouchingDirection.IsTouchingCliff;
-        isPlayerInMinAgroRange = enemy.CheckPlayerInMinAgroRange();
+        isPlayerInMinAgroRange = enemyStateManager.CheckPlayerInMinAgroRange();
+        performCloseRangeAction = enemyStateManager.CheckPlayerInCloseRangeAction();
     }
 
     public override void Enter()
     {
         base.Enter();
 
-        core.Movement.SetVelocityX(enemyDataSO.movementSpeed * core.Movement.FacingDirection);
+        moveSpeed = enemyDataSO.movementSpeed;
+        core.Movement.SetVelocityX(moveSpeed * core.Movement.FacingDirection);
     }
 
     public override void Exit()
@@ -36,7 +43,7 @@ public class MoveState : State
     {
         base.LogicUpdate();
 
-        core.Movement.SetVelocityX(enemyDataSO.movementSpeed * core.Movement.FacingDirection);
+        core.Movement.SetVelocityX(moveSpeed * core.Movement.FacingDirection);
     }
 
     public override void PhysicsUpdate()

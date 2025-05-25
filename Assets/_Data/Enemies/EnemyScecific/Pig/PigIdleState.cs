@@ -6,19 +6,11 @@ public class PigIdleState : IdleState
 {
     private Pig pig;
 
-    public PigIdleState(Enemy enemy, FiniteStateMachine stateMachine, string animBoolName, EnemyDataSO enemyDataSO, Pig pig) : base(enemy, stateMachine, animBoolName, enemyDataSO)
+    public PigIdleState(EnemyStateManager enemyStateManager, FiniteStateMachine stateMachine, string animBoolName,
+        EnemyDataSO enemyDataSO, EnemyAudioDataSO audioDataSO, Pig pig) : base(enemyStateManager, stateMachine,
+        animBoolName, enemyDataSO, audioDataSO)
     {
         this.pig = pig;
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
     }
 
     public override void LogicUpdate()
@@ -27,16 +19,11 @@ public class PigIdleState : IdleState
 
         if (isPlayerInMinAgroRange)
         {
-            stateMachine.ChangeState(pig.PigDetectedPlayerState);
+            stateMachine.ChangeState(pig.DetectedPlayerState);
         }
         else if (isIdleTimeOver)
         {
-            stateMachine.ChangeState(pig.PigMoveState);
+            stateMachine.ChangeState(pig.MoveState);
         }
-    }
-
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
     }
 }

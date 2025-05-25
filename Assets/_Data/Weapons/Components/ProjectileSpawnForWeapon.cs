@@ -21,18 +21,23 @@ public class ProjectileSpawnForWeapon : WeaponComponent<ProjectileSpawnerData, A
     protected void NormalAttack()
     {
         foreach (var projectileSpawnInfo in currentAttackData.SpawnInfos)
-            ProjectileSpawner.Instance.SpawnProjectileStrategy(
+        {
+            AudioManager.Instance.PlaySFX(currentAttackData.spawnSound);
+            ProjectileSpawner.Instance.SpawnSingleProjectile(
                 projectileSpawnInfo,
                 transform.position,
                 Core.Movement.FacingDirection,
                 OnSpawnProjectile
             );
+        }
     }
 
     protected void ChargeAttack()
     {
         foreach (var projectileSpawnInfo in currentAttackData.SpawnInfos)
-            ProjectileSpawner.Instance.SpawnWithChargeStrategy(
+        {
+            AudioManager.Instance.PlaySFX(currentAttackData.spawnSound);
+            ProjectileSpawner.Instance.SpawnChargedProjectiles(
                 projectileSpawnInfo,
                 transform.position,
                 Core.Movement.FacingDirection,
@@ -40,6 +45,7 @@ public class ProjectileSpawnForWeapon : WeaponComponent<ProjectileSpawnerData, A
                 angleVariation,
                 OnSpawnProjectile
             );
+        }
     }
 
     #region Plumbing

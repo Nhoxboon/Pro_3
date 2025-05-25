@@ -51,6 +51,7 @@ public class Block : WeaponComponent<BlockData, AttackBlock>
 
     protected void HandleBlock(GameObject source)
     {
+        AudioManager.Instance.PlaySFX(currentAttackData.blockSound);
         Core.ParticleManager.StartWithRandomRotation(currentAttackData.particles, currentAttackData.particlesOffset);
         
         OnBlock?.Invoke(source);

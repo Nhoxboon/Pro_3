@@ -18,7 +18,9 @@ public class PlayerLedgeClimbState : PlayerState
     protected int yInput;
     protected bool jumpInput;
 
-    public PlayerLedgeClimbState(Player playerMovement, PlayerStateMachine stateMachine, PlayerDataSO playerDataSO, string animBoolName) : base(playerMovement, stateMachine, playerDataSO, animBoolName)
+    public PlayerLedgeClimbState(PlayerStateManager playerStateManagerMovement, PlayerStateMachine stateMachine,
+        PlayerDataSO playerDataSO, PlayerAudioDataSO playerAudioDataSO, string animBoolName) : base(
+        playerStateManagerMovement, stateMachine, playerDataSO, playerAudioDataSO, animBoolName)
     {
     }
 
@@ -39,15 +41,16 @@ public class PlayerLedgeClimbState : PlayerState
     public override void Enter()
     {
         base.Enter();
-
+        AudioManager.Instance.PlaySFX(playerAudioDataSO.climbAudio);
+        
         core.Movement.SetVelocityZero();
-        player.transform.parent.position = detectedPos;
+        playerStateManager.transform.position = detectedPos;
         cornerPos = DetermineCorner();
 
         startPos.Set(cornerPos.x - (core.Movement.FacingDirection * playerDataSO.startOffset.x), cornerPos.y - playerDataSO.startOffset.y);
         stopPos.Set(cornerPos.x + (core.Movement.FacingDirection * playerDataSO.stopOffset.x), cornerPos.y + playerDataSO.stopOffset.y);
 
-        player.transform.parent.position = startPos;
+        playerStateManager.transform.position = startPos;
     }
 
     public override void Exit()
@@ -57,7 +60,7 @@ public class PlayerLedgeClimbState : PlayerState
         isHanging = false;
         if(isClimbing)
         {
-            player.transform.parent.position = stopPos;
+            playerStateManager.transform.position = stopPos;
             isClimbing = false;
         }
     }
@@ -71,11 +74,11 @@ public class PlayerLedgeClimbState : PlayerState
         {
             if (isTouchingCeiling)
             {
-                stateMachine.ChangeState(player.PlayerCrouchIdleState);
+                stateMachine.ChangeState(playerStateManager.PlayerCrouchIdleState);
             }
             else
             {
-                stateMachine.ChangeState(player.PlayerIdleState);
+                stateMachine.ChangeState(playerStateManager.PlayerIdleState);
             }
         }
         else
@@ -85,7 +88,7 @@ public class PlayerLedgeClimbState : PlayerState
             jumpInput = InputManager.Instance.JumpInput;
 
             core.Movement.SetVelocityZero();
-            player.transform.parent.position = startPos;
+            playerStateManager.transform.position = startPos;
 
             if (xInput == core.Movement.FacingDirection && isHanging && !isClimbing)
             {
@@ -95,12 +98,12 @@ public class PlayerLedgeClimbState : PlayerState
             }
             else if (yInput == -1 && isHanging && !isClimbing)
             {
-                stateMachine.ChangeState(player.PlayerInAirState);
+                stateMachine.ChangeState(playerStateManager.PlayerInAirState);
             }
             else if (jumpInput && !isClimbing)
             {
-                player.PlayerWallJumpState.DetermineWallJumpDirection(true);
-                stateMachine.ChangeState(player.PlayerWallJumpState);
+                playerStateManager.PlayerWallJumpState.DetermineWallJumpDirection(true);
+                stateMachine.ChangeState(playerStateManager.PlayerWallJumpState);
             }
         } 
     }

@@ -7,7 +7,6 @@ public class DiscardedWeaponPickupSpawner : CoreComponent
     [SerializeField] protected WeaponPickup weaponPickupPrefab;
     [SerializeField] protected Vector2 spawnOffset;
 
-    [SerializeField] protected Transform weaponPool;
 
     [SerializeField] protected WeaponSwap weaponSwap;
 
@@ -26,7 +25,6 @@ public class DiscardedWeaponPickupSpawner : CoreComponent
         base.LoadComponents();
         LoadWeaponSwap();
         LoadWeaponPickupPrefab();
-        LoadWeaponPool();
     }
 
     protected void LoadWeaponSwap()
@@ -42,28 +40,24 @@ public class DiscardedWeaponPickupSpawner : CoreComponent
         weaponPickupPrefab = Resources.Load<WeaponPickup>("Weapons/WeaponPickup");
         Debug.Log(transform.name + " :LoadWeaponPickupPrefab", gameObject);
     }
-    
-    protected void LoadWeaponPool()
-    {
-        if (weaponPool != null) return;
-        weaponPool = GameObject.FindGameObjectWithTag("WeaponHolder").transform;
-        Debug.Log(transform.name + " :LoadWeaponPool", gameObject);
-    }
+
 
     //Note: Consider changing this to a obj pooling system
     protected void HandleWeaponDiscarded(WeaponDataSO discardedWeaponData)
     {
         var spawnPoint = core.Movement.FindRelativePoint(spawnOffset);
 
-        var weaponPickup = Instantiate(weaponPickupPrefab, spawnPoint, Quaternion.identity);
-        
-        weaponPickup.transform.SetParent(weaponPool);
+        var prefabName = discardedWeaponData.name;
+
+        var spawnedTransform = WeaponSpawner.Instance.Spawn(prefabName, spawnPoint, Quaternion.identity);
+
+        var weaponPickup = spawnedTransform.GetComponent<WeaponPickup>();
+
         weaponPickup.transform.name = discardedWeaponData.name;
+        // weaponPickup.SetContext(discardedWeaponData);
 
-        weaponPickup.SetContext(discardedWeaponData);
-
+        weaponPickup.gameObject.SetActive(true);
         var adjustedSpawnDirection = new Vector2(spawnDirection.x * core.Movement.FacingDirection, spawnDirection.y);
-
         weaponPickup.Rb.velocity = adjustedSpawnDirection.normalized * spawnVelocity;
     }
 }

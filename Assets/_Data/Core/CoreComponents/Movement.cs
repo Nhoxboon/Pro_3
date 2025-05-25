@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class Movement : CoreComponent
 {
+    public event Action OnFlip;
+    
     [SerializeField] protected Rigidbody2D rb;
 
     [SerializeField] protected int facingDirection;
@@ -88,6 +91,12 @@ public class Movement : CoreComponent
     {
         facingDirection *= -1;
         transform.parent.parent.Rotate(0, 180, 0);
+        OnFlip?.Invoke();
+    }
+
+    public void SetFacingDirection(int dir)
+    {
+        facingDirection = dir;
     }
 
     public Vector2 FindRelativePoint(Vector2 offset)
