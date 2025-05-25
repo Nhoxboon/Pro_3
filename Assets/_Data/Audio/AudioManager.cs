@@ -17,6 +17,7 @@ public class AudioManager : NhoxBehaviour
         if (instance != null)
         {
             Destroy(gameObject);
+            return;
         }
         instance = this;
         DontDestroyOnLoad(gameObject);

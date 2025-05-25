@@ -12,6 +12,6 @@ public class PlayerDeadState : PlayerState
         AudioManager.Instance.PlaySFX(playerAudioDataSO.deathClip);
         core.Death.Die();
         playerStateManager.gameObject.SetActive(false);
-        GameObject.Find("UI").GetComponent<UI>().SwitchToEndScreen();
+        GameObject.Find("UI").GetComponent<UI>().SwitchToDeadScreen();
     }
 }

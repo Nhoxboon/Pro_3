@@ -17,6 +17,7 @@ public class Boss_1DeadState : DeadState
         {
             boss.BossHealthBarUI.gameObject.SetActive(false);
             OnDead?.Invoke();
+            GameObject.Find("UI").GetComponent<UI>().SwitchToEndGame();
         }
     }
 }

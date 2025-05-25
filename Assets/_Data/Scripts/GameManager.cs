@@ -14,6 +14,7 @@ public class GameManager : NhoxBehaviour
         if (instance != null)
         {
             Destroy(gameObject);
+            return;
         }
         instance = this;
         DontDestroyOnLoad(gameObject);
@@ -26,6 +27,7 @@ public class GameManager : NhoxBehaviour
     }
 
     private GameState currentGameState = GameState.Gameplay;
+    public GameState CurrentGameState => currentGameState;
     public event Action<GameState> OnGameStateChanged;
 
     public void ChangeState(GameState state)

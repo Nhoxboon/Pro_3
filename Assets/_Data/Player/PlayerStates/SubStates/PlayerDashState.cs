@@ -78,7 +78,7 @@ public class PlayerDashState : PlayerAbilityState
                     core.Movement.SetVelocity(playerDataSO.dashVelocity, dashDirection);
                     PlayerCtrl.Instance.DashDirectionIndicator.gameObject.SetActive(false);
                     PlayAfterImage();
-                    AudioManager.Instance.PlaySFX(playerAudioDataSO.dashAudio);
+                    AudioManager.Instance.PlaySFX(playerAudioDataSO.dashAudio, 0.5f);
                 }
             }
             else
