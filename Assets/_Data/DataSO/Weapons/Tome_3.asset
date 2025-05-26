@@ -1,0 +1,104 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70a795254499b3e4c925c0083b7ef4ab, type: 3}
+  m_Name: Tome_3
+  m_EditorClassIdentifier: 
+  icon: {fileID: 1215207457, guid: 7698f902a8e73cb4b88c4738f7fb0ff5, type: 3}
+  nameWeapon: Book Shield
+  description: Can cast shied
+  animatorController: {fileID: 9100000, guid: ff955959dc379b34cb969c83216179a8, type: 2}
+  numberOfAttacks: 1
+  componentData:
+  - rid: 4263011682979938304
+  - rid: 4263011682979938305
+  - rid: 4263011682979938306
+  - rid: 4263011682979938307
+  references:
+    version: 2
+    RefIds:
+    - rid: 4263011682979938304
+      type: {class: WeaponSpriteData, ns: , asm: Assembly-CSharp}
+      data:
+        name: WeaponSpriteData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          <PhaseSprites>k__BackingField:
+          - <Phase>k__BackingField: 0
+            <Sprites>k__BackingField:
+            - {fileID: 1048424175, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+            - {fileID: -1745488334, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+            - {fileID: 1713274869, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+            - {fileID: -1408380706, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+            - {fileID: 1114447534, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+            - {fileID: 178098588, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+            - {fileID: 502420219, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+            - {fileID: -2028683729, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+            - {fileID: -1694863730, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+            - {fileID: -1357842521, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+            - {fileID: 945732222, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+          - <Phase>k__BackingField: 1
+            <Sprites>k__BackingField:
+            - {fileID: 1322157882, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+            - {fileID: -1283617826, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+            - {fileID: 1073788548, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+            - {fileID: -1593656070, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+            - {fileID: -255260705, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+          - <Phase>k__BackingField: 2
+            <Sprites>k__BackingField:
+            - {fileID: -625687348, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+            - {fileID: 1035982005, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+            - {fileID: -830432988, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+            - {fileID: 779439650, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+            - {fileID: -838781213, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+          - <Phase>k__BackingField: 3
+            <Sprites>k__BackingField:
+            - {fileID: -625687348, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+            - {fileID: 1035982005, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+            - {fileID: -830432988, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+            - {fileID: 779439650, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+            - {fileID: -838781213, guid: 1eaf1e4e0a26b504588f0c2629554789, type: 3}
+    - rid: 4263011682979938305
+      type: {class: InputHoldData, ns: , asm: Assembly-CSharp}
+      data:
+        name: InputHoldData
+    - rid: 4263011682979938306
+      type: {class: BlockData, ns: , asm: Assembly-CSharp}
+      data:
+        name: BlockData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          blockSound: {fileID: 8300000, guid: 3510d052e6b724542b474d551cf1b8d8, type: 3}
+          blockDirectionInformation:
+          - minAngle: -180
+            maxAngle: 180
+            damageAbsorption: 0.75
+            knockbackAbsorption: 0.5
+            poiseAbsorption: 0.75
+          blockWindowStart:
+            duration: 0.2666667
+            phase: 0
+          blockWindowEnd:
+            duration: 0
+            phase: 3
+          particles: HitParticles
+          particlesOffset: {x: 0.75, y: -0.25}
+    - rid: 4263011682979938307
+      type: {class: AttackMovementData, ns: , asm: Assembly-CSharp}
+      data:
+        name: AttackMovementData
+        repeatData: 0
+        attackData:
+        - name: Attack 1
+          direction: {x: 0, y: 0}
+          velocity: 0
