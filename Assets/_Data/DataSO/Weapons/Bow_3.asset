@@ -51,6 +51,36 @@ MonoBehaviour:
             - {fileID: 1008453939145656331, guid: 7590a3e0175293c4889640c4eb0143fd, type: 3}
             - {fileID: 1121910671679707029, guid: 7590a3e0175293c4889640c4eb0143fd, type: 3}
             - {fileID: -5727901431455522701, guid: 7590a3e0175293c4889640c4eb0143fd, type: 3}
+        - name: Attack 1
+          <PhaseSprites>k__BackingField:
+          - <Phase>k__BackingField: 0
+            <Sprites>k__BackingField:
+            - {fileID: 9044786021765537137, guid: 7590a3e0175293c4889640c4eb0143fd, type: 3}
+            - {fileID: 3647156553916755266, guid: 7590a3e0175293c4889640c4eb0143fd, type: 3}
+          - <Phase>k__BackingField: 1
+            <Sprites>k__BackingField:
+            - {fileID: 3647156553916755266, guid: 7590a3e0175293c4889640c4eb0143fd, type: 3}
+          - <Phase>k__BackingField: 2
+            <Sprites>k__BackingField:
+            - {fileID: -7025760825990288548, guid: 7590a3e0175293c4889640c4eb0143fd, type: 3}
+            - {fileID: 1008453939145656331, guid: 7590a3e0175293c4889640c4eb0143fd, type: 3}
+            - {fileID: 1121910671679707029, guid: 7590a3e0175293c4889640c4eb0143fd, type: 3}
+            - {fileID: -5727901431455522701, guid: 7590a3e0175293c4889640c4eb0143fd, type: 3}
+        - name: Attack 1
+          <PhaseSprites>k__BackingField:
+          - <Phase>k__BackingField: 0
+            <Sprites>k__BackingField:
+            - {fileID: 9044786021765537137, guid: 7590a3e0175293c4889640c4eb0143fd, type: 3}
+            - {fileID: 3647156553916755266, guid: 7590a3e0175293c4889640c4eb0143fd, type: 3}
+          - <Phase>k__BackingField: 1
+            <Sprites>k__BackingField:
+            - {fileID: 3647156553916755266, guid: 7590a3e0175293c4889640c4eb0143fd, type: 3}
+          - <Phase>k__BackingField: 2
+            <Sprites>k__BackingField:
+            - {fileID: -7025760825990288548, guid: 7590a3e0175293c4889640c4eb0143fd, type: 3}
+            - {fileID: 1008453939145656331, guid: 7590a3e0175293c4889640c4eb0143fd, type: 3}
+            - {fileID: 1121910671679707029, guid: 7590a3e0175293c4889640c4eb0143fd, type: 3}
+            - {fileID: -5727901431455522701, guid: 7590a3e0175293c4889640c4eb0143fd, type: 3}
     - rid: 4263011667426672641
       type: {class: InputHoldData, ns: , asm: Assembly-CSharp}
       data:
@@ -130,14 +160,26 @@ MonoBehaviour:
         - name: Attack 1
           direction: {x: 0, y: 0}
           velocity: 0
+        - name: Attack 1
+          direction: {x: 0, y: 0}
+          velocity: 0
+        - name: Attack 1
+          direction: {x: 0, y: 0}
+          velocity: 0
     - rid: 4263011667426672644
       type: {class: OptionalSpriteData, ns: , asm: Assembly-CSharp}
       data:
         name: OptionalSpriteData
-        repeatData: 0
+        repeatData: 1
         attackData:
         - name: Attack 1
-          <UseOptionalSprite>k__BackingField: 0
+          <UseOptionalSprite>k__BackingField: 1
+          sprite: {fileID: -89418386, guid: 8159ae2d61b463342bf787b21154ec57, type: 3}
+        - name: Attack 1
+          <UseOptionalSprite>k__BackingField: 1
+          sprite: {fileID: -89418386, guid: 8159ae2d61b463342bf787b21154ec57, type: 3}
+        - name: Attack 1
+          <UseOptionalSprite>k__BackingField: 1
           sprite: {fileID: -89418386, guid: 8159ae2d61b463342bf787b21154ec57, type: 3}
     - rid: 4263011667426672645
       type: {class: DrawData, ns: , asm: Assembly-CSharp}
@@ -145,6 +187,58 @@ MonoBehaviour:
         name: DrawData
         repeatData: 1
         attackData:
+        - name: Attack 1
+          <DrawCurve>k__BackingField:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 2
+              outSlope: 2
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          <DrawTime>k__BackingField: 0.2666667
+        - name: Attack 1
+          <DrawCurve>k__BackingField:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 2
+              outSlope: 2
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          <DrawTime>k__BackingField: 0.2666667
         - name: Attack 1
           <DrawCurve>k__BackingField:
             serializedVersion: 2
