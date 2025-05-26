@@ -75,7 +75,7 @@ public abstract class WeaponComponent<T1, T2> : WeaponComponent
     protected override void HandleEnter()
     {
         base.HandleEnter();
-        currentAttackData = data.AttackData[weapon.CurrentAttack];
+        currentAttackData = data.GetAttackData(weapon.CurrentAttack);
     }
 
     protected void GetData()

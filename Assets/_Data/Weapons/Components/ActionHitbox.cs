@@ -40,7 +40,7 @@ public class ActionHitbox : WeaponComponent<ActionHitboxData, AttackActionHitbox
     {
         if (data == null) return;
 
-        foreach (var item in data.AttackData)
+        foreach (var item in data.GetAllAttackData())
         {
             if (!item.Debug) continue;
             Gizmos.DrawWireCube(transform.position + (Vector3) item.Hitbox.center, item.Hitbox.size);
