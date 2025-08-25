@@ -53,6 +53,7 @@ public class AudioManager : NhoxBehaviour
     protected void PlayMusic()
     {
         musicSource.clip = musicClip;
+        musicSource.loop = true;
         musicSource.Play();
     }
     
